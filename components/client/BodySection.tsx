@@ -52,7 +52,7 @@ export default function BodySection() {
                   className="w-3 h-3 rounded-full shadow-sm"
                   style={{ backgroundColor: color.hex }}
                 ></div>
-                <p className="text-md font-semibold text-semibold">
+                <p className="text-md max-sm:text-sm font-semibold text-semibold">
                   {color.name}
                 </p>
               </div>
@@ -65,18 +65,18 @@ export default function BodySection() {
   };
 
   return (
-    <div className="w-full py-13 px-4">
-      <p className="text-sm font-bold text-orange-500 bg-orange-50 border border-orange-200 rounded-full px-3.5 py-1.5 w-max mx-auto">
+    <div className="w-full py-13 max-sm:py-8 px-4">
+      <p className="text-sm max-sm:text-xs font-bold text-orange-500 bg-orange-50 border border-orange-200 rounded-full px-3.5 py-1.5 w-max mx-auto">
         A Unified platform for all your color needs.
       </p>
-      <h1 className="text-6xl font-black text-gray-900 text-center mt-8">
+      <h1 className="text-6xl font-black text-gray-900 text-center mt-8 max-sm:text-5xl max-sm:mt-6">
         <span className="text-indigo-500">Deep Selection</span> & Detailed
         Palettes.
       </h1>
-      <h1 className="text-7xl font-black text-gray-900 text-center mt-8">
+      <h1 className="text-6xl font-black text-gray-900 text-center mt-8 max-sm:text-5xl max-sm:mt-0">
         For Digital Products.
       </h1>
-      <h3 className="max-w-148 text-lg font-semibold text-gray-800 mt-8 mx-auto text-center">
+      <h3 className="max-w-148 text-lg max-md:text-base font-semibold text-gray-800 mt-8 mx-auto text-center max-sm:mt-5">
         Take control of your colors with a simple property-based system. Easily
         pick segments, build custom palettes, and speed up your design process
         with everything in one place.
