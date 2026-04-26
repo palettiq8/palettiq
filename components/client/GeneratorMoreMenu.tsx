@@ -11,9 +11,12 @@ import {
   useBrowseStore,
   useGeneratorStore,
   useGradientStore,
+  useOtherStore,
   useVisualizerStore,
 } from "@/libs/stores/dataStore";
 import { FlashMessage } from "@/utils/utils";
+import useModelStore from "@/libs/stores/modelStore";
+import useUiStore from "@/libs/stores/uiStore";
 
 export default function GeneratorMoreMenu() {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -28,8 +31,32 @@ export default function GeneratorMoreMenu() {
   const setGeneratedVisualizerPalette = useVisualizerStore(
     (state) => state.setGeneratedVisualizerPalette,
   );
+  const togglePaletteHistoryModel = useModelStore(
+    (state) => state.togglePaletteHistoryModel,
+  );
+  const toggleQuickViewModel = useModelStore(
+    (state) => state.toggleQuickViewModel,
+  );
+  const setQuickViewActiveTab = useOtherStore(
+    (state) => state.setQuickViewActiveTab,
+  );
+  const setQuickViewPalette = useOtherStore(
+    (state) => state.setQuickViewPalette,
+  );
+  const setQuickViewActiveColor = useOtherStore(
+    (state) => state.setQuickViewActiveColor,
+  );
+  const toggleGeneratorMaximize = useUiStore(
+    (state) => state.toggleGeneratorMaximize,
+  );
   const setViewModePalette = useBrowseStore(
     (state) => state.setViewModePalette,
+  );
+  const toggleExportModel = useModelStore((state) => state.toggleExportModel);
+  const setExportPalette = useOtherStore((state) => state.setExportPalette);
+  const setExportFrom = useOtherStore((state) => state.setExportFrom);
+    const toggleAddToCommunityModel = useModelStore(
+    (state) => state.toggleAddToCommunityModel,
   );
   [
     "#da9180",
@@ -41,6 +68,7 @@ export default function GeneratorMoreMenu() {
     "#b8a4af",
     "#d36a3a",
   ];
+  const data = generatedPalette.map((palette) => palette.color);
   const handler = async (title: string) => {
     toggleGeneratorMoreMenu();
     if (title === "Copy") {
@@ -48,8 +76,20 @@ export default function GeneratorMoreMenu() {
         `[${generatedPalette.map((color) => `"${color.color}"`)}]`,
       );
       FlashMessage("success", "Copied to the clipboard!");
+    } else if (title === "History") {
+      togglePaletteHistoryModel();
+    } else if (title === "Harmonies") {
+      toggleQuickViewModel();
+      setQuickViewActiveTab("Harmonies");
+      setQuickViewPalette(data);
+      setQuickViewActiveColor(data[0]);
     } else if (title === "View mode") {
       setViewModePalette(generatedPalette);
+    } else if (title === "Quick view") {
+      toggleQuickViewModel();
+      setQuickViewActiveTab("Formats");
+      setQuickViewPalette(data);
+      setQuickViewActiveColor(data[0]);
     } else if (title === "Make gradient") {
       const stops: StopType[] = generatedPalette.map((palette, i) => {
         const n = generatedPalette.length;
@@ -62,9 +102,17 @@ export default function GeneratorMoreMenu() {
       });
       addGradientStop(stops);
       window.open("/studio/gradient", "_blank");
+    } else if (title === "Open on screen") {
+      toggleGeneratorMaximize();
+    } else if (title === "Add to community") {
+toggleAddToCommunityModel();
     } else if (title === "Visualize the palette") {
       setGeneratedVisualizerPalette(generatedPalette);
       window.open("/studio/visualizer", "_blank");
+    } else if (title === "Export") {
+      toggleExportModel();
+      setExportFrom("Palette");
+      setExportPalette(generatedPalette.map((palette) => palette.color));
     }
   };
 
@@ -130,7 +178,7 @@ export default function GeneratorMoreMenu() {
                 return (
                   <div
                     key={id}
-                    className={`w-full ${["Quick view", "Open on screen", "Harmonies", "History", "Export", "Add to community", "Undo", "Redo"].includes(title) && "hidden max-lg:block"}`}
+                    className={`w-full ${["Quick view", "Open on screen", "Harmonies", "History", "Export", "Add to community"].includes(title) && "hidden max-lg:block"}`}
                   >
                     <button
                       onClick={() => handler(title)}

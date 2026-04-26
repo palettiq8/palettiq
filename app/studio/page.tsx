@@ -216,7 +216,7 @@ function StudioPage() {
             strategy={rectSortingStrategy}
           >
             <div
-              className={`w-full bg-white h-full max-lg:h-70 max-md:h-50 max-sm:h-35 flex ${isHorizontalPalette && "flex-col"} relative`}
+              className={`w-full bg-white h-full ${!generatorMaximize && "max-lg:h-70 max-md:h-50 max-sm:h-35"} flex ${isHorizontalPalette && "flex-col"} relative`}
             >
               {generatedPalette.map(({ id, color, isLocked }, index) => (
                 <SortablePaletteItem
@@ -237,7 +237,7 @@ function StudioPage() {
           <ColorCountMenu from="Generator" />
         </div>
         <div className="max-lg:w-full flex items-center gap-2">
-          <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full max-lg:hidden">
+          <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
             <Button
               disabled={!(historyIndex > 0)}
               onClick={undoHandler}

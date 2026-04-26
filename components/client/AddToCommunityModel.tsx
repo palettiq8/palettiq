@@ -191,7 +191,7 @@ export default function AddToCommunityModel() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handler}
-          className="fixed inset-0 w-full h-screen bg-black/50 grid place-content-center z-50 parent"
+          className="fixed inset-0 w-full h-screen bg-black/50 grid place-content-center z-50 max-sm:block max-sm:px-4 parent"
         >
           <motion.div
             ref={dataContentRef}
@@ -199,7 +199,7 @@ export default function AddToCommunityModel() {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-125 h-165 bg-white rounded-xl shadow-2xl overflow-y-scroll noscrollbar"
+            className="w-125 h-165 bg-white rounded-xl shadow-2xl max-sm:w-full overflow-y-scroll noscrollbar"
           >
             <div className="w-full sticky top-0 px-3 border-b border-gray-200 z-40">
               <div className="w-full flex items-center justify-between py-3 bg-white">

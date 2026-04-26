@@ -126,8 +126,16 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
 
   return (
     <div className="relative max-lg:w-full">
-      <div ref={buttonRef} onClick={() => toggleColorPreferencesMenu()} className="max-lg:w-full">
-        <Button variant={"outline"} size={"md"} className="max-lg:w-full">
+      <div
+        ref={buttonRef}
+        onClick={() => toggleColorPreferencesMenu()}
+        className="max-lg:w-full"
+      >
+        <Button
+          variant={"outline"}
+          size={"md"}
+          className="max-lg:w-full max-lg:justify-between"
+        >
           <span>Auto Color Preferences</span>
           <LuChevronDown
             className={`${colorPreferencesMenu ? "rotate-0" : "rotate-180"} transition-all`}

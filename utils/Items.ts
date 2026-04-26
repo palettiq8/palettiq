@@ -207,17 +207,15 @@ export const gradientMoreItems = [
 ];
 export const generatorContentHeaderMoreItems = [
   { id: 1, title: "Copy", icon: LuCopy },
-  { id: 2, title: "Undo", icon: LuUndo2 },
-  { id: 3, title: "Redo", icon: LuRedo2 },
-  { id: 4, title: "History", icon: LuHistory },
-  { id: 5, title: "Harmonies", icon: LuBlend },
-  { id: 6, title: "View mode", icon: LuShrink },
-  { id: 7, title: "Quick view", icon: LuEye },
-  { id: 8, title: "Make gradient", icon: LuCircleDot },
-  { id: 9, title: "Open on screen", icon: LuMaximize2 },
-  { id: 10, title: "Add to community", icon: LuPlus },
-  { id: 11, title: "Visualize the palette", icon: LuActivity },
-  { id: 12, title: "Export", icon: BiExport },
+  { id: 2, title: "History", icon: LuHistory },
+  { id: 3, title: "Harmonies", icon: LuBlend },
+  { id: 4, title: "View mode", icon: LuShrink },
+  { id: 5, title: "Quick view", icon: LuEye },
+  { id: 6, title: "Make gradient", icon: LuCircleDot },
+  { id: 7, title: "Open on screen", icon: LuMaximize2 },
+  { id: 8, title: "Add to community", icon: LuPlus },
+  { id: 9, title: "Visualize the palette", icon: LuActivity },
+  { id: 10, title: "Export", icon: BiExport },
 ];
 export const colorFamilies: Record<string, ColorFamily> = {
   Black: { hue: [0, 360], sat: [0, 50], light: [0, 30] },

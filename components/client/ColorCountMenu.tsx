@@ -44,8 +44,16 @@ export default function ColorCountMenu({ from }: { from: string }) {
 
   return (
     <div className="relative max-lg:w-full">
-      <div ref={buttonRef} onClick={() => toggleColorCountMenu()} className="max-lg:w-full">
-        <Button variant={"outline"} size={"md"} className="max-lg:w-full">
+      <div
+        ref={buttonRef}
+        onClick={() => toggleColorCountMenu()}
+        className="max-lg:w-full"
+      >
+        <Button
+          variant={"outline"}
+          size={"md"}
+          className="max-lg:w-full max-lg:justify-between"
+        >
           <span>Color Count</span>
           <LuChevronDown
             className={`${colorCountMenu ? "rotate-0" : "rotate-180"} transition-all`}
