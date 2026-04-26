@@ -110,14 +110,14 @@ export default function ResetPreferencesModel() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handler}
-          className="fixed inset-0 w-full h-screen bg-black/50 grid place-content-center z-50 parent"
+          className="fixed inset-0 w-full h-screen bg-black/50 grid place-content-center z-50 max-sm:block max-sm:px-4 parent"
         >
           <motion.div
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-100 bg-white rounded-xl shadow-2xl flex flex-col items-center justify-center gap-1 p-4"
+            className="w-100 bg-white rounded-xl max-sm:w-full shadow-2xl flex flex-col items-center justify-center gap-1 p-4"
           >
             <h2 className="text-2xl font-semibold text-gray-900 mt-4">
               Reset All Preferences

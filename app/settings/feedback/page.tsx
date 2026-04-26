@@ -79,7 +79,7 @@ export default function page() {
       <div className="w-full mt-8 border border-gray-200 rounded-xl p-4">
         <div className="flex items-center justify-between w-full">
           <h3 className="text-lg max-sm:text-base font-semibold text-gray-900">
-            Share your feedback
+            Feedback
           </h3>
           <div className="flex items-center gap-3 max-sm:flex-col-reverse max-sm:items-end">
             <div className="flex items-center gap-2">
