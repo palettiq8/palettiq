@@ -21,6 +21,7 @@ import GradientCustomizedItem from "@/components/client/GradientCustomizedItem";
 import ColorPreferencesMenu from "@/components/client/ColorPreferencesMenu";
 import OpenMoreMenu from "@/components/client/OpenMoreMenu";
 import useUiStore from "@/libs/stores/uiStore";
+import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 
 export default function page() {
   const barRef = useRef<HTMLDivElement | null>(null);
@@ -196,7 +197,12 @@ export default function page() {
   return (
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-gray-900">Gradient</h2>
+        <div className="flex items-center gap-3">
+          <div className="hidden max-xl:block">
+            <StudioResponsiveMenuIcon />
+          </div>
+          <h2 className="text-2xl font-semibold text-gray-900">Gradient</h2>
+        </div>
         <div className="flex items-center gap-3">
           <Button
             onClick={() => toggleGradientHistoryModel()}

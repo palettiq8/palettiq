@@ -1,0 +1,18 @@
+"use client";
+
+import useModelStore from "@/libs/stores/modelStore";
+import { LuMenu } from "react-icons/lu";
+
+export default function StudioResponsiveMenuIcon() {
+  const toggleStudioLeftMenuModel = useModelStore(
+    (state) => state.toggleStudioLeftMenuModel,
+  );
+  return (
+    <button
+      onClick={() => toggleStudioLeftMenuModel()}
+      className="w-10 h-10 rounded-lg border border-gray-200 bg-gray-100 grid place-content-center cursor-pointer active:scale-95 transition-all"
+    >
+      <LuMenu size={18} />
+    </button>
+  );
+}

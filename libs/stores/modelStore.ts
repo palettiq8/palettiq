@@ -29,6 +29,8 @@ interface MenuStateType {
   togglePaletteViewDetailsModel: () => void;
   resetPreferencesModel: boolean;
   toggleResetPreferencesModel: () => void;
+  studioLeftMenuModel: boolean;
+  toggleStudioLeftMenuModel: () => void;
 }
 
 const useModelStore = create<MenuStateType>((set) => ({
@@ -79,6 +81,11 @@ const useModelStore = create<MenuStateType>((set) => ({
   toggleResetPreferencesModel: () =>
     set((state) => ({
       resetPreferencesModel: !state.resetPreferencesModel,
+    })),
+  studioLeftMenuModel: false,
+  toggleStudioLeftMenuModel: () =>
+    set((state) => ({
+      studioLeftMenuModel: !state.studioLeftMenuModel,
     })),
 }));
 

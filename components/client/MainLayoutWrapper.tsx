@@ -22,6 +22,7 @@ import PaletteViewDetailsModel from "./PaletteViewDetailsModel";
 import OpenOnScreenPaletteModel from "./OpenOnScreenPaletteModel";
 import ViewModePaletteModel from "./ViewModePaletteModel";
 import ResetPreferencesModel from "./ResetPreferencesModel";
+import StudioLeftMenuModel from "./StudioLeftMenuModel";
 
 export default function MainLayoutWrapper({
   children,
@@ -64,6 +65,9 @@ export default function MainLayoutWrapper({
   const resetPreferencesModel = useModelStore(
     (state) => state.resetPreferencesModel,
   );
+  const studioLeftMenuModel = useModelStore(
+    (state) => state.studioLeftMenuModel,
+  );
 
   useEffect(() => {
     if (!exportModel) {
@@ -90,6 +94,7 @@ export default function MainLayoutWrapper({
       {openOnScreenPalette !== null && <OpenOnScreenPaletteModel />}
       {viewModePalette !== null && <ViewModePaletteModel />}
       {resetPreferencesModel !== null && <ResetPreferencesModel />}
+      {studioLeftMenuModel !== null && <StudioLeftMenuModel />}
       <Toaster position="top-center" reverseOrder={false} />
     </Provider>
   );

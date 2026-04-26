@@ -21,6 +21,7 @@ import OpenMoreMenu from "@/components/client/OpenMoreMenu";
 import useUiStore from "@/libs/stores/uiStore";
 import { useSearchParams } from "next/navigation";
 import CircleLoader from "@/components/server/CircleLoader";
+import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 
 const ColorManipulator = ({ items }: { items: Colord[] }) => {
   return (
@@ -271,7 +272,12 @@ function PickerPage() {
   return (
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-gray-900">Picker</h2>
+        <div className="flex items-center gap-3">
+          <div className="hidden max-xl:block">
+            <StudioResponsiveMenuIcon />
+          </div>
+          <h2 className="text-2xl font-semibold text-gray-900">Picker</h2>
+        </div>
         <div className="flex items-center gap-3">
           <Button
             onClick={() => toggleColorHistoryModel()}

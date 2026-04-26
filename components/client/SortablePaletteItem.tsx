@@ -66,7 +66,7 @@ export default function SortablePaletteItem({
       }}
     >
           <div
-            className={`flex ${isHorizontalPalette ? "flex" : "flex-col"} items-start gap-2`}
+            className={`flex ${isHorizontalPalette ? "flex" : "flex-col"} items-start gap-2 max-lg:hidden`}
           >
             <div
               className={`invisible ${isLocked ? "visible" : "group-hover:visible"}`}

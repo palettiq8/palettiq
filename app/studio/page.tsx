@@ -23,6 +23,7 @@ import { restrictToParentElement } from "@dnd-kit/modifiers";
 import { PaletteColor } from "@/utils/Types";
 import { useSearchParams } from "next/navigation";
 import CircleLoader from "@/components/server/CircleLoader";
+import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 
 function StudioPage() {
   const generatorMaximize = useUiStore((state) => state.generatorMaximize);
@@ -159,17 +160,22 @@ function StudioPage() {
 
   return (
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
-      <div className="w-full h-16 border-b border-gray-200 flex items-center justify-between px-4">
-        <h2 className="text-2xl font-semibold text-gray-900">
-          Generator ~{" "}
-          <span className="text-sm font-medium text-gray-800">
-            Press enter!
-          </span>
-        </h2>
-        <div className="bg-gray-50 border border-gray-200 px-4 h-10 rounded-full flex items-center gap-6.5">
+      <div className="w-full h-16 border-b border-gray-200 flex items-center justify-between px-4 max-lg:pr-0">
+        <div className="flex items-center gap-3">
+          <div className="hidden max-xl:block">
+            <StudioResponsiveMenuIcon />
+          </div>
+          <h2 className="text-2xl font-semibold text-gray-900">
+            Generator <span className="max-xl:hidden">~ </span>
+            <span className="text-sm font-medium text-gray-800 max-xl:hidden">
+              Press enter!
+            </span>
+          </h2>
+        </div>
+        <div className="bg-gray-50 border border-gray-200 max-lg:bg-white max-lg:border-white px-4 h-10 rounded-full flex items-center gap-6.5">
           <GeneratorContentHeaderIconItems />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 max-lg:hidden">
           <Button
             onClick={() => {
               toggleExportModel();
@@ -194,8 +200,11 @@ function StudioPage() {
         </div>
       </div>
       <div
-        className={`w-full ${generatorMaximize && "absolute top-0 left-0 w-full h-screen z-50"}`}
-        style={{ height: generatorMaximize ? "100vh" : "calc(100% - 128px)" }}
+        className={`w-full ${
+          generatorMaximize
+            ? "absolute top-0 left-0 w-full h-screen z-50"
+            : "h-[calc(100%-128px)] max-lg:h-[calc(100%-224px)]"
+        }`}
       >
         <DndContext
           onDragEnd={handleDragEnd}
@@ -207,7 +216,7 @@ function StudioPage() {
             strategy={rectSortingStrategy}
           >
             <div
-              className={`w-full bg-white h-full flex ${isHorizontalPalette && "flex-col"} relative`}
+              className={`w-full bg-white h-full max-lg:h-70 max-md:h-50 max-sm:h-35 flex ${isHorizontalPalette && "flex-col"} relative`}
             >
               {generatedPalette.map(({ id, color, isLocked }, index) => (
                 <SortablePaletteItem
@@ -222,13 +231,13 @@ function StudioPage() {
         </DndContext>
       </div>
 
-      <div className="w-full px-4 bg-white rounded-b-xl h-16 border-t border-gray-200 flex items-center justify-between">
-        <div className="flex items-center gap-2">
+      <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-40 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
+        <div className="max-lg:w-full flex items-center gap-2 max-lg:flex-col">
           <ColorPreferencesMenu from="Studio" />
           <ColorCountMenu from="Generator" />
         </div>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
+        <div className="max-lg:w-full flex items-center gap-2">
+          <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full max-lg:hidden">
             <Button
               disabled={!(historyIndex > 0)}
               onClick={undoHandler}
@@ -253,6 +262,7 @@ function StudioPage() {
             onClick={paletteGeneratorHandler}
             variant={"primary"}
             size={"md"}
+            className="max-lg:w-full"
           >
             Generate Palette
           </Button>

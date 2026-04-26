@@ -4,6 +4,7 @@ import AiConfigureMenu from "@/components/client/AiConfigureMenu";
 import AiModelMenu from "@/components/client/AiModelMenu";
 import CopyTooltip from "@/components/client/CopyTooltip";
 import PaletteMoreMenu from "@/components/client/PaletteMoreMenu";
+import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import ToggleButton from "@/components/server/ToggleButton";
 import { useAiStore } from "@/libs/stores/dataStore";
 import useUiStore from "@/libs/stores/uiStore";
@@ -122,7 +123,10 @@ export default function page() {
       const parsed = JSON.parse(safeJson);
       setAiGeneratedPalettes(parsed);
     } catch (err: any) {
-      FlashMessage("error", "Something went wrong while generating...");
+      FlashMessage(
+        "error",
+        "Something went wrong while generating! Try again leter.",
+      );
       console.log(err);
     } finally {
       setIsLoading(false);
@@ -132,7 +136,12 @@ export default function page() {
   return (
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 border-b border-gray-200 p-4 flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-gray-900">Ai Generator</h2>
+        <div className="flex items-center gap-3">
+          <div className="hidden max-xl:block">
+            <StudioResponsiveMenuIcon />
+          </div>
+          <h2 className="text-2xl font-semibold text-gray-900">Ai Generator</h2>
+        </div>
         <div className="flex items-center gap-3">
           <AiModelMenu />
           <button

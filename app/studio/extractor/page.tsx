@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/Button";
 import OpenMoreMenu from "@/components/client/OpenMoreMenu";
+import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import { useExtractorStore, useOtherStore } from "@/libs/stores/dataStore";
 import useModelStore from "@/libs/stores/modelStore";
 import useUiStore from "@/libs/stores/uiStore";
@@ -361,7 +362,12 @@ export default function page() {
   return (
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-gray-900">Extractor</h2>
+        <div className="flex items-center gap-3">
+          <div className="hidden max-xl:block">
+            <StudioResponsiveMenuIcon />
+          </div>
+          <h2 className="text-2xl font-semibold text-gray-900">Extractor</h2>
+        </div>
         <div className="flex items-center gap-3">
           <Button
             onClick={() => toggleExtractorHistoryModel()}
@@ -465,7 +471,16 @@ export default function page() {
               })}
             </div>
           </div>
-          <span className="text-xs font-semibold text-gray-500 absolute bottom-4 left-4 select-none">@Image from <Link href={"https://unsplash.com/"} target="_blank" className="hover:underline">Unsplash</Link></span>
+          <span className="text-xs font-semibold text-gray-500 absolute bottom-4 left-4 select-none">
+            @Image from{" "}
+            <Link
+              href={"https://unsplash.com/"}
+              target="_blank"
+              className="hover:underline"
+            >
+              Unsplash
+            </Link>
+          </span>
         </div>
         <div className="w-1/3 h-full overflow-y-scroll noscrollbar">
           <div className="w-full p-4 h-50 border-b border-gray-200">

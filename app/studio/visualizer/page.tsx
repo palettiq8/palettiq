@@ -4,6 +4,7 @@ import { Button } from "@/components/Button";
 import ColorCountMenu from "@/components/client/ColorCountMenu";
 import ColorPreferencesMenu from "@/components/client/ColorPreferencesMenu";
 import OpenMoreMenu from "@/components/client/OpenMoreMenu";
+import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import VisualizerColorPickerMenu from "@/components/client/VisualizerColorPickerMenu";
 import Visualize1 from "@/components/visualizers/Visualize1";
 import Visualize2 from "@/components/visualizers/Visualize2";
@@ -184,13 +185,16 @@ export default function page() {
   return (
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 border-b border-gray-200 px-4 bg-white rounded-t-xl flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <div className="hidden max-xl:block">
+            <StudioResponsiveMenuIcon />
+          </div>
           <h2 className="text-2xl font-semibold text-gray-900">
             Visualizer ~{" "}
+            <span className="text-sm font-medium text-gray-800">
+              Right-click on templates to open!
+            </span>
           </h2>
-          <span className="text-sm font-medium text-gray-800">
-            Right-click on templates to open!
-          </span>
         </div>
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-3">

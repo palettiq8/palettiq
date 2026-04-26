@@ -123,19 +123,23 @@ export default function GeneratorMoreMenu() {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
             className="bg-white shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] rounded-xl flex flex-col p-2.5 z-40 absolute 
-            top-8 left-0 w-max"
+            top-8 lg:left-0 w-max max-lg:right-0"
           >
             {generatorContentHeaderMoreItems.map(
               ({ id, title, icon: Icon }) => {
                 return (
-                  <button
+                  <div
                     key={id}
-                    onClick={() => handler(title)}
-                    className="flex items-center gap-4 p-2 text-gray-900 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all"
+                    className={`w-full ${["Quick view", "Open on screen", "Harmonies", "History", "Export", "Add to community", "Undo", "Redo"].includes(title) && "hidden max-lg:block"}`}
                   >
-                    <Icon size={16} />
-                    <p className="text-sm font-semibold">{title}</p>
-                  </button>
+                    <button
+                      onClick={() => handler(title)}
+                      className={`w-full flex items-center gap-4 p-2 text-gray-900 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all`}
+                    >
+                      <Icon size={16} />
+                      <p className="text-sm font-semibold">{title}</p>
+                    </button>
+                  </div>
                 );
               },
             )}

@@ -52,24 +52,24 @@ export default function GeneratorContentHeaderIconItems() {
           setQuickViewActiveColor(data[0]);
         }}
         size={17}
-        className={generatorContentHeaderItemsStyle}
+        className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
       />
       <LuMaximize2
         onClick={() => toggleGeneratorMaximize()}
         size={17}
-        className={generatorContentHeaderItemsStyle}
+        className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
       />
       {isHorizontalPalette ? (
         <LuColumns3
           onClick={handler}
           size={17}
-          className={generatorContentHeaderItemsStyle}
+          className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
         />
       ) : (
         <LuRows3
           onClick={handler}
           size={17}
-          className={generatorContentHeaderItemsStyle}
+          className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
         />
       )}
       <LuBlend
@@ -80,14 +80,14 @@ export default function GeneratorContentHeaderIconItems() {
           setQuickViewActiveColor(data[0]);
         }}
         size={17}
-        className={generatorContentHeaderItemsStyle}
+        className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
       />
       <LuHistory
         onClick={() => {
           togglePaletteHistoryModel();
         }}
         size={17}
-        className={generatorContentHeaderItemsStyle}
+        className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
       />
       <GeneratorMoreMenu />
     </>

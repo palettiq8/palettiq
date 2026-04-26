@@ -5,6 +5,7 @@ import OpenMoreMenu from "@/components/client/OpenMoreMenu";
 import ShadowAddLayerContainer from "@/components/client/ShadowAddLayerContainer";
 import ShadowColorPickerMenu from "@/components/client/ShadowColorPickerMenu";
 import ShadowProgressBar from "@/components/client/ShadowProgressBar";
+import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import ToggleButton from "@/components/server/ToggleButton";
 import ShadowOutputComponent from "@/components/svgs/ShadowOutputComponent";
 import { useOtherStore, useShadowStore } from "@/libs/stores/dataStore";
@@ -153,7 +154,12 @@ export default function page() {
   return (
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
-        <h2 className="text-2xl font-semibold text-gray-900">Shadow</h2>
+        <div className="flex items-center gap-3">
+          <div className="hidden max-xl:block">
+            <StudioResponsiveMenuIcon />
+          </div>
+          <h2 className="text-2xl font-semibold text-gray-900">Shadow</h2>
+        </div>
         <Button
           onClick={() => {
             toggleExportShadowModel();
