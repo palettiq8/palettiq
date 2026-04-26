@@ -9,9 +9,9 @@ export default function layout({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   return (
     <CommonHeaderFooterSection>
-      <div className="w-full min-h-120 h-max max-w-230 mx-auto py-20                  ">
+      <div className="w-full min-h-120 h-max max-w-230 mx-auto py-20 max-sm:py-10">
         <h1 className="text-4xl font-bold text-gray-900 text-center">Settings</h1>
-        <div className="w-full flex gap-6 mt-12 border-b border-gray-200">
+        <div className="w-full flex gap-6 mt-12 border-b border-gray-200 max-sm:px-4">
           {settingsMenuItems.map(({ id, title, url }) => {
             return (
               <Link
@@ -24,7 +24,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
             );
           })}
         </div>
-        <div className="w-full h-max rounded-xl mt-10">{children}</div>
+        <div className="w-full h-max rounded-xl mt-10 max-sm:px-4">{children}</div>
       </div>
     </CommonHeaderFooterSection>
   );

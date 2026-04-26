@@ -3,11 +3,11 @@ import CommonHeaderFooterSection from "@/components/server/CommonHeaderFooterSec
 export default function page() {
   return (
     <CommonHeaderFooterSection>
-      <div className="w-full h-max max-w-300 mx-auto py-20 max-xl:px-4">
+      <div className="w-full h-max max-w-300 mx-auto py-20 max-xl:px-4 max-sm:py-10">
         <h1 className="text-4xl font-bold text-gray-900 text-center">
           Privacy Policy
         </h1>
-        <div className="max-w-300 mx-auto mt-20 p-10 max-xl:p-6 border border-gray-200 rounded-xl">
+        <div className="max-w-300 mx-auto mt-20 max-sm:mt-10 p-10 max-xl:p-6 border border-gray-200 rounded-xl">
           <h2 className="text-2xl font-bold text-gray-900">
             📊 Information We Collect
           </h2>

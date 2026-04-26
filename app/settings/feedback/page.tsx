@@ -78,10 +78,10 @@ export default function page() {
       </p>
       <div className="w-full mt-8 border border-gray-200 rounded-xl p-4">
         <div className="flex items-center justify-between w-full">
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-lg max-sm:text-base font-semibold text-gray-900">
             Share your feedback
           </h3>
-          <div className="flex items-center gap-3 max-sm:flex-col-reverse max-sm:items-start">
+          <div className="flex items-center gap-3 max-sm:flex-col-reverse max-sm:items-end">
             <div className="flex items-center gap-2">
               {[1, 2, 3, 4, 5].map((star) => {
                 const isFilled = star <= (hover || rating);
@@ -95,9 +95,9 @@ export default function page() {
                     className="cursor-pointer transition"
                   >
                     {isFilled ? (
-                      <FaStar size={20} className="text-orange-500" />
+                      <FaStar className="text-orange-500 size-5 max-sm:size-4" />
                     ) : (
-                      <LuStar size={20} className="text-orange-500" />
+                      <LuStar className="text-orange-500 size-5 max-sm:size-4" />
                     )}
                   </span>
                 );
@@ -129,7 +129,7 @@ export default function page() {
           onChange={(e) => setFeedback(e.target.value)}
         />
         <div className="flex items-center justify-between w-full mt-3">
-          <h3 className="text-lg font-semibold text-gray-900">Report a bug/issue</h3>
+          <h3 className="text-lg max-sm:text-base font-semibold text-gray-900">Report a bug/issue</h3>
           <Button
             onClick={handleBugSubmit}
             disabled={!bug}
@@ -147,7 +147,7 @@ export default function page() {
           onChange={(e) => setBug(e.target.value)}
         />
         <div className="flex items-center justify-between w-full mt-3">
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-lg max-sm:text-base font-semibold text-gray-900">
             Request a feature
           </h3>
           <Button

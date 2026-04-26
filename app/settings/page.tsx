@@ -162,7 +162,7 @@ export default function page() {
             </Button>
           </div>
         </div>
-        <div className="w-full flex items-center justify-between gap-5 mt-8">
+        <div className="w-full flex items-center justify-between gap-5 mt-8 max-sm:flex-col max-sm:items-start">
           <div className="flex flex-col gap-1">
             <h3 className="text-lg font-semibold text-gray-900">
               Explore palette view.
@@ -176,7 +176,7 @@ export default function page() {
             <ExplorePaletteViewMenu />
           </div>
         </div>
-        <div className="w-full mt-8 p-4 border border-gray-200 rounded-xl flex items-center justify-between gap-5">
+        <div className="w-full mt-8 p-4 border border-gray-200 rounded-xl flex items-center justify-between gap-5 max-sm:flex-col max-sm:items-start">
           <div className="flex flex-col gap-1">
             <h3 className="text-lg font-semibold text-gray-900">Reset</h3>
             <p className="text-sm font-semibold text-gray-500">
