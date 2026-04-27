@@ -87,7 +87,7 @@ export default function GradientHistoryModel() {
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
                   {gradientHistory.map((stops, index) => {
                     const isActiveGradient = gradientStops.every(
                       (stop, i) =>

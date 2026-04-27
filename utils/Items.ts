@@ -221,7 +221,12 @@ export const pickerResponsiveMoreMenuItems = [
   { id: 1, title: "History", icon: LuHistory },
   { id: 2, title: "Open on screen", icon: LuMaximize2 },
   { id: 3, title: "Export", icon: BiExport },
-]
+];
+export const gradientResponsiveMoreMenuItems = [
+  { id: 1, title: "History", icon: LuHistory },
+  { id: 2, title: "Open on screen", icon: LuMaximize2 },
+  { id: 3, title: "Export", icon: BiExport },
+];
 export const colorFamilies: Record<string, ColorFamily> = {
   Black: { hue: [0, 360], sat: [0, 50], light: [0, 30] },
   White: { hue: [0, 360], sat: [0, 30], light: [80, 100] },
@@ -248,132 +253,88 @@ export const quickViewTabItems = [
 ];
 export const defaultGradients = [
   [
-    { id: "1", color: "#ff4d46", isHide: false, position: 1 },
-    { id: "2", color: "#ff6f68", isHide: false, position: 100 },
+    { id: "1", color: "#FF6B6B", isHide: false, position: 0 },
+    { id: "2", color: "#FFE66D", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#ff8c00", isHide: false, position: 1 },
-    { id: "2", color: "#ffa53d", isHide: false, position: 100 },
+    { id: "1", color: "#A18CD1", isHide: false, position: 0 },
+    { id: "2", color: "#FBC2EB", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#f7b500", isHide: false, position: 1 },
-    { id: "2", color: "#ffe66d", isHide: false, position: 100 },
+    { id: "1", color: "#43E97B", isHide: false, position: 0 },
+    { id: "2", color: "#38F9D7", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#ffbe19", isHide: false, position: 1 },
-    { id: "2", color: "#ffd84c", isHide: false, position: 100 },
+    { id: "1", color: "#F7971E", isHide: false, position: 0 },
+    { id: "2", color: "#FFD200", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#8fff00", isHide: false, position: 1 },
-    { id: "2", color: "#b3ff5a", isHide: false, position: 100 },
+    { id: "1", color: "#4FACFE", isHide: false, position: 0 },
+    { id: "2", color: "#00F2FE", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#00ff7e", isHide: false, position: 1 },
-    { id: "2", color: "#61ff9f", isHide: false, position: 100 },
+    { id: "1", color: "#F953C6", isHide: false, position: 0 },
+    { id: "2", color: "#B91D73", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#00f6af", isHide: false, position: 1 },
-    { id: "2", color: "#6dfcc3", isHide: false, position: 100 },
+    { id: "1", color: "#667EEA", isHide: false, position: 0 },
+    { id: "2", color: "#764BA2", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#065f46", isHide: false, position: 1 },
-    { id: "2", color: "#34d399", isHide: false, position: 100 },
+    { id: "1", color: "#11998E", isHide: false, position: 0 },
+    { id: "2", color: "#38EF7D", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#00f0e0", isHide: false, position: 1 },
-    { id: "2", color: "#6bf6f1", isHide: false, position: 100 },
+    { id: "1", color: "#FC5C7D", isHide: false, position: 0 },
+    { id: "2", color: "#6A3093", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#00edff", isHide: false, position: 1 },
-    { id: "2", color: "#7af2ff", isHide: false, position: 100 },
+    { id: "1", color: "#F5AF19", isHide: false, position: 0 },
+    { id: "2", color: "#F12711", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#00e2ff", isHide: false, position: 1 },
-    { id: "2", color: "#66ecff", isHide: false, position: 100 },
+    { id: "1", color: "#1D976C", isHide: false, position: 0 },
+    { id: "2", color: "#93F9B9", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#00d0ff", isHide: false, position: 1 },
-    { id: "2", color: "#74e2ff", isHide: false, position: 100 },
+    { id: "1", color: "#E96443", isHide: false, position: 0 },
+    { id: "2", color: "#904E95", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#0d9488", isHide: false, position: 1 },
-    { id: "2", color: "#22d3ee", isHide: false, position: 100 },
+    { id: "1", color: "#00C6FF", isHide: false, position: 0 },
+    { id: "2", color: "#0072FF", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#7fbeff", isHide: false, position: 1 },
-    { id: "2", color: "#95d4ff", isHide: false, position: 100 },
+    { id: "1", color: "#FDC830", isHide: false, position: 0 },
+    { id: "2", color: "#F37335", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#cc9fff", isHide: false, position: 1 },
-    { id: "2", color: "#d6bcff", isHide: false, position: 100 },
+    { id: "1", color: "#C94B4B", isHide: false, position: 0 },
+    { id: "2", color: "#4B134F", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#e2b1b1", isHide: false, position: 1 },
-    { id: "2", color: "#fbcfe8", isHide: false, position: 100 },
+    { id: "1", color: "#56CCF2", isHide: false, position: 0 },
+    { id: "2", color: "#2F80ED", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#ff82ff", isHide: false, position: 1 },
-    { id: "2", color: "#ffadff", isHide: false, position: 100 },
+    { id: "1", color: "#EECDA3", isHide: false, position: 0 },
+    { id: "2", color: "#EF629F", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#ff59e9", isHide: false, position: 1 },
-    { id: "2", color: "#ff8dee", isHide: false, position: 100 },
+    { id: "1", color: "#7F7FD5", isHide: false, position: 0 },
+    { id: "2", color: "#91EAE4", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#ff608c", isHide: false, position: 1 },
-    { id: "2", color: "#ff82a3", isHide: false, position: 100 },
+    { id: "1", color: "#134E5E", isHide: false, position: 0 },
+    { id: "2", color: "#71B280", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#ff5469", isHide: false, position: 1 },
-    { id: "2", color: "#ff7b88", isHide: false, position: 100 },
+    { id: "1", color: "#FF0099", isHide: false, position: 0 },
+    { id: "2", color: "#493240", isHide: false, position: 100 },
   ],
   [
-    { id: "1", color: "#6b3fa0", isHide: false, position: 1 },
-    { id: "2", color: "#ff7b88", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#7486a4", isHide: false, position: 1 },
-    { id: "2", color: "#a0a9c0", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#7b839b", isHide: false, position: 1 },
-    { id: "2", color: "#a5a9b8", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#848191", isHide: false, position: 1 },
-    { id: "2", color: "#a9a7b1", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#848484", isHide: false, position: 1 },
-    { id: "2", color: "#aaaaaa", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#888278", isHide: false, position: 1 },
-    { id: "2", color: "#aba8a1", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#8c817b", isHide: false, position: 1 },
-    { id: "2", color: "#ada8a4", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#8c808d", isHide: false, position: 1 },
-    { id: "2", color: "#ada8af", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#7e8691", isHide: false, position: 1 },
-    { id: "2", color: "#a7adb4", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#858673", isHide: false, position: 1 },
-    { id: "2", color: "#aaab9b", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#4f46e5", isHide: false, position: 1 },
-    { id: "2", color: "#9333ea", isHide: false, position: 100 },
-  ],
-  [
-    { id: "1", color: "#1e293b", isHide: false, position: 1 },
-    { id: "2", color: "#475569", isHide: false, position: 100 },
+    { id: "1", color: "#5C258D", isHide: false, position: 0 },
+    { id: "2", color: "#4389A2", isHide: false, position: 100 },
   ],
 ];
 export const gradientContainerSizes = [

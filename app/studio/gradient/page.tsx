@@ -22,6 +22,7 @@ import ColorPreferencesMenu from "@/components/client/ColorPreferencesMenu";
 import OpenMoreMenu from "@/components/client/OpenMoreMenu";
 import useUiStore from "@/libs/stores/uiStore";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
+import GradientResponsiveMoreMenu from "@/components/client/GradientResponsiveMoreMenu";
 
 export default function page() {
   const barRef = useRef<HTMLDivElement | null>(null);
@@ -203,7 +204,7 @@ export default function page() {
           </div>
           <h2 className="text-2xl font-semibold text-gray-900">Gradient</h2>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 max-lg:hidden">
           <Button
             onClick={() => toggleGradientHistoryModel()}
             variant={"outline"}
@@ -266,11 +267,15 @@ export default function page() {
             Generate Random Gradient
           </Button>
         </div>
+        <div className="hidden max-lg:block">
+          <GradientResponsiveMoreMenu />
+        </div>
       </div>
-      <div className="w-full flex" style={{ height: "calc(100% - 64px)" }}>
-        <div
-          className={`w-2/3 h-full p-4 border-r border-gray-200 rounded-bl-xl bg-gray-100 flex items-center justify-center`}
-        >
+      <div
+        className="w-full flex max-lg:flex-col"
+        style={{ height: "calc(100% - 64px)" }}
+      >
+        <div className="w-full max-lg:h-35 max-lg:flex-none border-r bg-gray-100 rounded-bl-xl max-lg:rounded-none max-lg:border-r-0 max-lg:border-b border-gray-200 p-4">
           <div
             style={{
               width: gradientContainerSize.width,
@@ -291,12 +296,9 @@ export default function page() {
             }`}
           ></div>
         </div>
-        <div className="w-1/3 h-full">
-          <div
-            className="w-full overflow-y-scroll noscrollbar"
-            style={{ height: "calc(100% - 64px)" }}
-          >
-            <div className="p-4 grid grid-cols-8 gap-2 border-b border-gray-200">
+        <div className="w-120 h-full shrink-0 max-lg:w-full max-lg:h-[calc(100%-140px)]">
+          <div className="w-full overflow-y-scroll noscrollbar h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)]">
+            <div className="p-4 grid grid-cols-7 gap-2 border-b border-gray-200">
               {defaultGradients.map((stop, index) => {
                 return (
                   <div
@@ -421,9 +423,50 @@ export default function page() {
               <GradientCustomizedItem />
             </div>
           </div>
-          <div className="w-full h-16 border-t bg-white rounded-br-xl border-gray-200 flex items-center justify-between p-4">
-            <OpenMoreMenu from="Gradient" />
+          <div className="w-full h-16 max-lg:h-28 border-t bg-white rounded-br-xl max-lg:rounded-bl-xl border-gray-200 flex items-center justify-between max-lg:flex-col max-lg:items-start max-lg:justify-center max-lg:gap-2 p-4">
+            <div className="max-lg:hidden">
+              <OpenMoreMenu from="Gradient" />
+            </div>
             <ColorPreferencesMenu from="Gradient" />
+            <div className="w-full hidden max-lg:block">
+              <div className="w-full flex items-center gap-2">
+                <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
+                  <Button
+                    disabled={!(gradientHistoryIndex > 0)}
+                    onClick={() => {
+                      undoHandler();
+                    }}
+                    className={REDOUNDOCOMMONSTYLE}
+                    variant={"text"}
+                    size={"p0"}
+                  >
+                    <LuUndo2 size={16} />
+                  </Button>
+                  <span className="w-px h-4 bg-gray-200"></span>
+                  <Button
+                    disabled={
+                      !(gradientHistoryIndex < gradientHistory.length - 1)
+                    }
+                    onClick={() => {
+                      redoHandler();
+                    }}
+                    className={REDOUNDOCOMMONSTYLE}
+                    variant={"text"}
+                    size={"p0"}
+                  >
+                    <LuRedo2 size={16} />
+                  </Button>
+                </div>
+                <Button
+                  onClick={generateRandomGradientHandler}
+                  variant={"primary"}
+                  size={"md"}
+                  className="w-full"
+                >
+                  Generate Gradient
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

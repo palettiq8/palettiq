@@ -341,7 +341,7 @@ function PickerPage() {
         className="w-full flex max-lg:flex-col"
         style={{ height: "calc(100% - 64px)" }}
       >
-        <div className="w-full max-lg:h-35 max-lg:flex-none border-r max-lg:border-r-0 max-lg:border-b border-gray-200 p-4">
+        <div className="w-full max-lg:h-35 max-lg:flex-none border-r bg-gray-100 rounded-bl-xl max-lg:rounded-none max-lg:border-r-0 max-lg:border-b border-gray-200 p-4">
           <div
             className={`w-full h-full p-4 ${isMaximizeColorPicker ? "absolute top-0 left-0 rounded-none z-50" : "rounded-xl"}`}
             style={{ backgroundColor: colorPickerColor }}
