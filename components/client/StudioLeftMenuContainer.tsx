@@ -22,7 +22,11 @@ export default function StudioLeftMenuContainer() {
             <Link
               href={url}
               key={id}
-              onClick={() => toggleStudioLeftMenuModel()}
+              onClick={() => {
+                if (!(window.innerWidth >= 1280)) {
+                  toggleStudioLeftMenuModel();
+                }
+              }}
               className={`w-full flex items-center gap-4 p-1 rounded-xl hover:bg-gray-50 group border active:scale-95 transition-all hover:border-gray-200 ${isPath ? "bg-gray-50 border-gray-200" : "bg-white border-white"}`}
             >
               <div
