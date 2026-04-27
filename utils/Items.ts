@@ -217,6 +217,11 @@ export const generatorContentHeaderMoreItems = [
   { id: 9, title: "Visualize the palette", icon: LuActivity },
   { id: 10, title: "Export", icon: BiExport },
 ];
+export const pickerResponsiveMoreMenuItems = [
+  { id: 1, title: "History", icon: LuHistory },
+  { id: 2, title: "Open on screen", icon: LuMaximize2 },
+  { id: 3, title: "Export", icon: BiExport },
+]
 export const colorFamilies: Record<string, ColorFamily> = {
   Black: { hue: [0, 360], sat: [0, 50], light: [0, 30] },
   White: { hue: [0, 360], sat: [0, 30], light: [80, 100] },

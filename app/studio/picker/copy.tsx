@@ -2,8 +2,16 @@
 
 import { Button } from "@/components/Button";
 import { BiExport } from "react-icons/bi";
-import { REDOUNDOCOMMONSTYLE } from "@/utils/styles/Classes";
-import { LuHistory, LuRedo2, LuUndo2 } from "react-icons/lu";
+import {
+  generatorContentHeaderItemsStyle,
+  REDOUNDOCOMMONSTYLE,
+} from "@/utils/styles/Classes";
+import {
+  LuEllipsisVertical,
+  LuHistory,
+  LuRedo2,
+  LuUndo2,
+} from "react-icons/lu";
 import { Suspense, useCallback, useEffect } from "react";
 import { Colord, colord } from "colord";
 import FormatCard from "@/components/server/FormatCard";
@@ -26,7 +34,7 @@ import PickerResponsiveMoreMenu from "@/components/client/PickerResponsiveMoreMe
 
 const ColorManipulator = ({ items }: { items: Colord[] }) => {
   return (
-    <div className="w-full flex h-35 max-lg:h-20 mt-3">
+    <div className="w-full flex h-35 mt-3">
       {items.map((col, index) => {
         const color = col.toHex();
         return (
@@ -89,7 +97,7 @@ function PickerPage() {
 
   const mainColor = colord(colorPickerColor);
 
-  const randomColorGenerateHandler = useCallback(() => {
+  const randomColorGenerateHandler = () => {
     const randomColor = generateRandomColor();
     const preferredColor = generateColorForFamily(preferredColorItems);
     if (
@@ -98,12 +106,11 @@ function PickerPage() {
       !defaultColorPreference
     ) {
       setColorPickerColor(preferredColor);
-      setColorHistory(preferredColor);
     } else {
       setColorPickerColor(randomColor);
-      setColorHistory(randomColor);
     }
-  }, [preferredColorItems, defaultColorPreference]);
+    setColorHistory(randomColor);
+  };
 
   const undoHandler = useCallback(() => {
     colorPickerUndoHandler();
@@ -246,7 +253,7 @@ function PickerPage() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [randomColorGenerateHandler]);
+  }, []);
 
   useEffect(() => {
     const currentColor = usePickerStore.getState().colorPickerColor;
@@ -357,7 +364,7 @@ function PickerPage() {
                   setColor={setColorPickerColor}
                 />
               </div>
-              <div className="grid grid-cols-2 gap-3 mt-3 max-sm:grid-cols-1">
+              <div className="grid grid-cols-2 gap-3 mt-3">
                 {allFormatsItems.map(({ id, name, value }) => (
                   <FormatCard key={id} name={name} value={value} />
                 ))}
@@ -378,7 +385,7 @@ function PickerPage() {
             })}
             <div className="w-full p-4">
               <h2 className="text-xl font-semibold text-gray-900">Harmonies</h2>
-              <div className="grid grid-cols-2 gap-3 mt-3 max-lg:grid-cols-1">
+              <div className="grid grid-cols-2 gap-3 mt-3">
                 {harmonies.map(({ id, title, colors, desc }) => {
                   return (
                     <div key={id} className="w-full flex-col gap-2">
@@ -391,7 +398,7 @@ function PickerPage() {
                           return (
                             <div
                               key={index}
-                              className="w-full h-30 max-lg:h-25 first:rounded-l-lg last:rounded-r-lg relative cursor-pointer group transition-transform"
+                              className="w-full h-30 first:rounded-l-lg last:rounded-r-lg relative cursor-pointer group transition-transform"
                               style={{ backgroundColor: hex }}
                               onClick={async () => {
                                 await navigator.clipboard.writeText(

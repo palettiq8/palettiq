@@ -84,7 +84,7 @@ export default function ColorHistoryModel() {
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
                   {colorHistory.map((_, index) => {
                     return (
                       <div className="w-full" key={index}>
@@ -96,11 +96,11 @@ export default function ColorHistoryModel() {
                           className="w-full border-2 border-white rounded-lg shadow-sm h-30 relative cursor-pointer active:scale-95 transition-all"
                           style={{ backgroundColor: _ }}
                         >
-                          <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-black/40 grid place-content-center">
-                            {colorPickerColor === _ && (
+                          {colorPickerColor === _ && (
+                            <div className="absolute top-0 left-0 w-full h-full rounded-lg bg-black/40 grid place-content-center">
                               <LuCheck className="text-gray-50" size={20} />
-                            )}
-                          </div>
+                            </div>
+                          )}
                         </div>
                         <div className="w-full flex items-center justify-between mt-2 px-2">
                           <p

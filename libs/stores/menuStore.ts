@@ -25,6 +25,8 @@ interface MenuStateType {
   toggleFontBestForMenu: () => void;
   studioLeftFooterMenu: boolean;
   toggleStudioLeftFooterMenu: () => void;
+  pickerResponsiveMoreMenu: boolean;
+  togglePickerResponsiveMoreMenu: () => void;
 }
 
 const useMenuStore = create<MenuStateType>((set) => ({
@@ -41,6 +43,7 @@ const useMenuStore = create<MenuStateType>((set) => ({
   shadowColorPickerMenu: false,
   fontBestForMenu: false,
   studioLeftFooterMenu: false,
+  pickerResponsiveMoreMenu: false,
 
   toggleColorPreferencesMenu: () =>
     set((state) => ({ colorPreferencesMenu: !state.colorPreferencesMenu })),
@@ -74,6 +77,10 @@ const useMenuStore = create<MenuStateType>((set) => ({
     set((state) => ({ fontBestForMenu: !state.fontBestForMenu })),
   toggleStudioLeftFooterMenu: () =>
     set((state) => ({ studioLeftFooterMenu: !state.studioLeftFooterMenu })),
+  togglePickerResponsiveMoreMenu: () =>
+    set((state) => ({
+      pickerResponsiveMoreMenu: !state.pickerResponsiveMoreMenu,
+    })),
 }));
 
 export default useMenuStore;

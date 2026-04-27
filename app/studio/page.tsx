@@ -200,7 +200,7 @@ function StudioPage() {
         </div>
       </div>
       <div
-        className={`w-full ${
+        className={`w-full max-lg:p-4 ${
           generatorMaximize
             ? "absolute top-0 left-0 w-full h-screen z-50"
             : "h-[calc(100%-128px)] max-lg:h-[calc(100%-224px)]"

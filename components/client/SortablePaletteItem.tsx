@@ -56,7 +56,7 @@ export default function SortablePaletteItem({
       ref={setNodeRef}
       {...attributes}
       key={index}
-      className={`w-full h-full p-4 flex group hover:cursor-pointer group flex-col justify-end`}
+      className={`w-full h-full p-4 flex group hover:cursor-pointer group flex-col justify-end max-lg:first:rounded-l-lg max-lg:last:rounded-r-lg`}
       style={style}
       onClick={() => {
         toggleQuickViewModel();

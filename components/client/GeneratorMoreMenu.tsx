@@ -55,7 +55,7 @@ export default function GeneratorMoreMenu() {
   const toggleExportModel = useModelStore((state) => state.toggleExportModel);
   const setExportPalette = useOtherStore((state) => state.setExportPalette);
   const setExportFrom = useOtherStore((state) => state.setExportFrom);
-    const toggleAddToCommunityModel = useModelStore(
+  const toggleAddToCommunityModel = useModelStore(
     (state) => state.toggleAddToCommunityModel,
   );
   [
@@ -105,7 +105,7 @@ export default function GeneratorMoreMenu() {
     } else if (title === "Open on screen") {
       toggleGeneratorMaximize();
     } else if (title === "Add to community") {
-toggleAddToCommunityModel();
+      toggleAddToCommunityModel();
     } else if (title === "Visualize the palette") {
       setGeneratedVisualizerPalette(generatedPalette);
       window.open("/studio/visualizer", "_blank");
