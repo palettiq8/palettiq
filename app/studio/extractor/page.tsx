@@ -371,6 +371,35 @@ export default function page() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [randomShuffleHandler]);
 
+  const UploadButton = () => {
+    return (
+      <>
+        <input
+          type="file"
+          id="imageUpload"
+          accept="image/*"
+          className="hidden"
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+            if (!file) return;
+
+            const url = URL.createObjectURL(file);
+            setImgSrc(url);
+          }}
+        />
+        <Button variant={"primary"} size={"md"} className="max-lg:w-full">
+          <label
+            htmlFor="imageUpload"
+            className="flex h-10 items-center gap-3 cursor-pointer"
+          >
+            <LuCloudUpload size={16} />
+            <span>Upload Image</span>
+          </label>
+        </Button>
+      </>
+    );
+  };
+
   return (
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
@@ -422,37 +451,14 @@ export default function page() {
             <BiExport size={16} />
             <span>Export</span>
           </Button>
-          <>
-            <input
-              type="file"
-              id="imageUpload"
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (!file) return;
-
-                const url = URL.createObjectURL(file);
-                setImgSrc(url);
-              }}
-            />
-            <Button variant={"primary"} size={"md"}>
-              <label
-                htmlFor="imageUpload"
-                className="flex items-center gap-3 cursor-pointer"
-              >
-                <LuCloudUpload size={16} />
-                <span>Upload Image</span>
-              </label>
-            </Button>
-          </>
+          <UploadButton />
         </div>
         <div className="hidden max-lg:block">
           <ExtractorResponsiveMoreMenu />
         </div>
       </div>
       <div className="w-full flex max-lg:flex-col h-[calc(100%-64px)]">
-        <div className="w-full h-full border-r border-gray-200 p-4 bg-gray-100 rounded-bl-xl flex items-center justify-center relative">
+        <div className="w-full h-full border-r border-gray-200 p-4 bg-gray-100 rounded-bl-xl max-lg:rounded-none flex items-center justify-center relative max-lg:h-35 max-lg:border-r-0 max-lg:border-b">
           <div className="relative w-full h-full" ref={containerRef}>
             <canvas ref={canvasRef} />
             <div
@@ -486,7 +492,7 @@ export default function page() {
               })}
             </div>
           </div>
-          <span className="text-xs font-semibold text-gray-500 absolute bottom-4 left-4 select-none">
+          <span className="text-xs font-semibold text-gray-500 absolute bottom-4 left-4 select-none max-lg:hidden">
             @Image from{" "}
             <Link
               href={"https://unsplash.com/"}
@@ -497,14 +503,16 @@ export default function page() {
             </Link>
           </span>
         </div>
-        <div className="w-120 h-full shrink-0">
-          <div className="w-full h-[calc(100%-64px)] overflow-y-scroll noscrollbar">
+        <div className="w-120 max-lg:w-full h-full shrink-0 max-lg:h-[calc(100%-140px)]">
+          <div className="w-full h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)] overflow-y-scroll noscrollbar">
             <div className="w-full p-4 h-50 border-b border-gray-200">
               <div className="w-full flex items-center justify-between">
-                <h3 className="text-md font-semibold text-gray-900">
-                  Shuffled Palette{" "}
-                  <span className="text-indigo-600 text-sm">{`(${extractorPickerCount} Colors)`}</span>
-                </h3>
+                <div className="flex items-center max-sm:flex-col max-sm:items-start gap-1">
+                  <h3 className="text-md font-semibold text-gray-900">
+                    Shuffled Palette{" "}
+                  </h3>
+                  <span className="text-indigo-600 text-sm font-semibold">{`(${extractorPickerCount} Colors)`}</span>
+                </div>
                 <div className="flex items-center gap-6">
                   <LuEye
                     onClick={() => {
@@ -515,7 +523,7 @@ export default function page() {
                       setQuickViewActiveColor(data[0]);
                     }}
                     size={17}
-                    className={generatorContentHeaderItemsStyle}
+                    className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
                   />
                   <div className="flex items-center justify-between gap-4 px-3 border border-gray-200 h-9 rounded-full">
                     <Button
@@ -573,7 +581,7 @@ export default function page() {
               <p className="text-md font-semibold text-gray-900">
                 Picked Palettes
               </p>
-              <div className="w-full grid grid-cols-3 gap-3 mt-3">
+              <div className="w-full grid grid-cols-3 gap-3 mt-3 max-md:grid-cols-2 max-sm:grid-cols-1">
                 {extractorRecommendedPalettes.map((palettes, index) => {
                   return (
                     <div
@@ -612,16 +620,47 @@ export default function page() {
               </div>
             </div>
           </div>
-          <div className="w-full px-4 h-16 border-t bg-white border-gray-200 flex items-center justify-between">
-            <OpenMoreMenu from="Extractor" />
-            <Button
-              onClick={randomShuffleHandler}
-              variant={"outline"}
-              size={"md"}
-            >
-              <LuShuffle size={18} />
-              <span>Random Shuffle</span>
-            </Button>
+          <div className="w-full h-16 max-lg:h-28 border-t bg-white rounded-br-xl max-lg:rounded-bl-xl border-gray-200 flex items-center justify-between max-lg:flex-col max-lg:items-start max-lg:justify-center max-lg:gap-2 p-4">
+            <div className="max-lg:hidden">
+              <OpenMoreMenu from="Extractor" />
+            </div>
+            <UploadButton />
+            <div className="w-full hidden max-lg:block">
+              <div className="w-full flex items-center gap-2">
+                <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
+                  <Button
+                    disabled={!(extractorHistoryIndex > 0)}
+                    onClick={undoHandler}
+                    className={REDOUNDOCOMMONSTYLE}
+                    variant={"text"}
+                    size={"p0"}
+                  >
+                    <LuUndo2 size={16} />
+                  </Button>
+                  <span className="w-px h-4 bg-gray-200"></span>
+                  <Button
+                    disabled={
+                      !(extractorHistoryIndex < extractorHistory.length - 1)
+                    }
+                    onClick={redoHandler}
+                    className={REDOUNDOCOMMONSTYLE}
+                    variant={"text"}
+                    size={"p0"}
+                  >
+                    <LuRedo2 size={16} />
+                  </Button>
+                </div>
+                <Button
+                  onClick={randomShuffleHandler}
+                  variant={"outline"}
+                  size={"md"}
+                  className="max-lg:w-full"
+                >
+                  <LuShuffle size={18} />
+                  <span>Random Shuffle</span>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

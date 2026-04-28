@@ -229,9 +229,10 @@ export const gradientResponsiveMoreMenuItems = [
 ];
 export const extractorResponsiveMoreMenuItems = [
   { id: 1, title: "History", icon: LuHistory },
-  { id: 2, title: "Open on screen", icon: LuMaximize2 },
-  { id: 3, title: "Edit on generator", icon: LuPencilLine },
-  { id: 4, title: "Export", icon: BiExport },
+  { id: 2, title: "Quick view", icon: LuEye },
+  { id: 3, title: "Open on screen", icon: LuMaximize2 },
+  { id: 4, title: "Edit on generator", icon: LuPencilLine },
+  { id: 5, title: "Export", icon: BiExport },
 ];
 export const colorFamilies: Record<string, ColorFamily> = {
   Black: { hue: [0, 360], sat: [0, 50], light: [0, 30] },
