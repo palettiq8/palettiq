@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { primary } from "@/utils/Fonts";
 import "./globals.css";
 import MainLayoutWrapper from "@/components/client/MainLayoutWrapper";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "PalettIQ - Designers & Brands",
@@ -20,6 +21,7 @@ export default function RootLayout({
         className={`${primary.className} antialiased bg-white`}
         suppressHydrationWarning={true}
       >
+        <Analytics />
         <MainLayoutWrapper>{children}</MainLayoutWrapper>
       </body>
     </html>
