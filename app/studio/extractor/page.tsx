@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/Button";
+import ExtractorResponsiveMoreMenu from "@/components/client/ExtractorResponsiveMoreMenu";
 import OpenMoreMenu from "@/components/client/OpenMoreMenu";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import { useExtractorStore, useOtherStore } from "@/libs/stores/dataStore";
@@ -42,6 +43,7 @@ export default function page() {
     number | null
   >(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const toggleQuickViewModel = useModelStore(
     (state) => state.toggleQuickViewModel,
   );
@@ -176,7 +178,8 @@ export default function page() {
 
   const drawImageToCanvas = useCallback((src: string) => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
@@ -186,8 +189,8 @@ export default function page() {
     img.crossOrigin = "anonymous";
 
     img.onload = () => {
-      const canvasWidth = 900;
-      const canvasHeight = 700;
+      const canvasWidth = container.clientWidth;
+      const canvasHeight = container.clientHeight;
 
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
@@ -221,6 +224,15 @@ export default function page() {
       });
     };
   }, []);
+
+  useEffect(() => {
+    const observer = new ResizeObserver(() => {
+      drawImageToCanvas(imgSrc);
+    });
+
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [imgSrc, drawImageToCanvas]);
 
   useEffect(() => {
     drawImageToCanvas(imgSrc);
@@ -368,7 +380,7 @@ export default function page() {
           </div>
           <h2 className="text-2xl font-semibold text-gray-900">Extractor</h2>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 max-lg:hidden">
           <Button
             onClick={() => toggleExtractorHistoryModel()}
             variant={"outline"}
@@ -435,10 +447,13 @@ export default function page() {
             </Button>
           </>
         </div>
+        <div className="hidden max-lg:block">
+          <ExtractorResponsiveMoreMenu />
+        </div>
       </div>
-      <div className="w-full flex" style={{ height: "calc(100% - 64px)" }}>
-        <div className="w-2/3 h-full border-r border-gray-200 p-4 bg-gray-100 rounded-bl-xl flex items-center justify-center relative">
-          <div className="relative w-225 h-175">
+      <div className="w-full flex max-lg:flex-col h-[calc(100%-64px)]">
+        <div className="w-full h-full border-r border-gray-200 p-4 bg-gray-100 rounded-bl-xl flex items-center justify-center relative">
+          <div className="relative w-full h-full" ref={containerRef}>
             <canvas ref={canvasRef} />
             <div
               className="absolute"
@@ -482,121 +497,122 @@ export default function page() {
             </Link>
           </span>
         </div>
-        <div className="w-1/3 h-full overflow-y-scroll noscrollbar">
-          <div className="w-full p-4 h-50 border-b border-gray-200">
-            <div className="w-full flex items-center justify-between">
-              <h3 className="text-md font-semibold text-gray-900">
-                Shuffled Palette{" "}
-                <span className="text-indigo-600 text-sm">{`(${extractorPickerCount} Colors)`}</span>
-              </h3>
-              <div className="flex items-center gap-6">
-                <LuEye
-                  onClick={() => {
-                    toggleQuickViewModel();
-                    setQuickViewActiveTab("Formats");
-                    const data = pickers.map((picker) => picker.color);
-                    setQuickViewPalette(data);
-                    setQuickViewActiveColor(data[0]);
-                  }}
-                  size={17}
-                  className={generatorContentHeaderItemsStyle}
-                />
-                <div className="flex items-center justify-between gap-4 px-3 border border-gray-200 h-9 rounded-full">
-                  <Button
-                    className={REDOUNDOCOMMONSTYLE}
-                    onClick={minusHandler}
-                    disabled={isMinusDisabled}
-                    variant={"text"}
-                    size={"p0"}
-                  >
-                    <LuMinus size={16} />
-                  </Button>
-                  <span className="w-px h-4 bg-gray-200"></span>
-                  <Button
-                    className={REDOUNDOCOMMONSTYLE}
-                    onClick={plusHandler}
-                    disabled={isPlusDisabled}
-                    variant={"text"}
-                    size={"p0"}
-                  >
-                    <LuPlus size={16} />
-                  </Button>
+        <div className="w-120 h-full shrink-0">
+          <div className="w-full h-[calc(100%-64px)] overflow-y-scroll noscrollbar">
+            <div className="w-full p-4 h-50 border-b border-gray-200">
+              <div className="w-full flex items-center justify-between">
+                <h3 className="text-md font-semibold text-gray-900">
+                  Shuffled Palette{" "}
+                  <span className="text-indigo-600 text-sm">{`(${extractorPickerCount} Colors)`}</span>
+                </h3>
+                <div className="flex items-center gap-6">
+                  <LuEye
+                    onClick={() => {
+                      toggleQuickViewModel();
+                      setQuickViewActiveTab("Formats");
+                      const data = pickers.map((picker) => picker.color);
+                      setQuickViewPalette(data);
+                      setQuickViewActiveColor(data[0]);
+                    }}
+                    size={17}
+                    className={generatorContentHeaderItemsStyle}
+                  />
+                  <div className="flex items-center justify-between gap-4 px-3 border border-gray-200 h-9 rounded-full">
+                    <Button
+                      className={REDOUNDOCOMMONSTYLE}
+                      onClick={minusHandler}
+                      disabled={isMinusDisabled}
+                      variant={"text"}
+                      size={"p0"}
+                    >
+                      <LuMinus size={16} />
+                    </Button>
+                    <span className="w-px h-4 bg-gray-200"></span>
+                    <Button
+                      className={REDOUNDOCOMMONSTYLE}
+                      onClick={plusHandler}
+                      disabled={isPlusDisabled}
+                      variant={"text"}
+                      size={"p0"}
+                    >
+                      <LuPlus size={16} />
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              className={`w-full flex items-center ${isMaximizeExtractor ? "absolute top-0 left-0 h-screen z-50" : "mt-3"}`}
-            >
-              {pickers.map((p, i) => {
-                return (
-                  <div
-                    key={i}
-                    className={`w-full ${isMaximizeExtractor ? "h-full" : "h-30 first:rounded-l-lg last:rounded-r-lg"} grid place-content-center hover:cursor-pointer`}
-                    style={{ backgroundColor: p.color }}
-                    onClick={() =>
-                      !isMaximizeExtractor &&
-                      setActivePickerIndex(activePickerIndex === i ? null : i)
-                    }
-                  >
-                    {activePickerIndex === i && !isMaximizeExtractor && (
-                      <LuCheck
-                        size={22}
-                        className={`${
-                          checkIsLight(p.color)
-                            ? "text-gray-900"
-                            : "text-gray-50"
-                        }`}
-                      />
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div
-            className="w-full p-4 overflow-y-auto noscrollbar"
-            style={{ height: "calc(100% - 264px)" }}
-          >
-            <p className="text-md font-semibold text-gray-900">
-              Picked Palettes
-            </p>
-            <div className="w-full grid grid-cols-3 gap-3 mt-3">
-              {extractorRecommendedPalettes.map((palettes, index) => {
-                return (
-                  <div
-                    onClick={() => {
-                      setPickers(palettes);
-                      setSelectedPaletteIndex(index);
-                    }}
-                    className="relative group"
-                    key={index}
-                  >
-                    <div className="flex w-full">
-                      {palettes.map((palette, index) => {
-                        return (
-                          <div
-                            key={index}
-                            className={`w-full h-14 first:rounded-l-lg last:rounded-r-lg`}
-                            style={{ backgroundColor: palette.color }}
-                          ></div>
-                        );
-                      })}
-                    </div>
+              <div
+                className={`w-full flex items-center ${isMaximizeExtractor ? "absolute top-0 left-0 h-screen z-50" : "mt-3"}`}
+              >
+                {pickers.map((p, i) => {
+                  return (
                     <div
-                      className={`w-full h-full rounded-lg bg-gray-900/40 absolute top-0 left-0 grid place-content-center ${
-                        selectedPaletteIndex === index ? "visible" : "invisible"
-                      } invisible group-hover:visible hover:cursor-pointer`}
+                      key={i}
+                      className={`w-full ${isMaximizeExtractor ? "h-full" : "h-30 first:rounded-l-lg last:rounded-r-lg"} grid place-content-center hover:cursor-pointer`}
+                      style={{ backgroundColor: p.color }}
+                      onClick={() =>
+                        !isMaximizeExtractor &&
+                        setActivePickerIndex(activePickerIndex === i ? null : i)
+                      }
                     >
-                      {selectedPaletteIndex === index && (
-                        <LuCheck className="text-gray-50" size={20} />
+                      {activePickerIndex === i && !isMaximizeExtractor && (
+                        <LuCheck
+                          size={22}
+                          className={`${
+                            checkIsLight(p.color)
+                              ? "text-gray-900"
+                              : "text-gray-50"
+                          }`}
+                        />
                       )}
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
+            </div>
+            <div className="w-full p-4">
+              <p className="text-md font-semibold text-gray-900">
+                Picked Palettes
+              </p>
+              <div className="w-full grid grid-cols-3 gap-3 mt-3">
+                {extractorRecommendedPalettes.map((palettes, index) => {
+                  return (
+                    <div
+                      onClick={() => {
+                        setPickers(palettes);
+                        setSelectedPaletteIndex(index);
+                      }}
+                      className="relative group"
+                      key={index}
+                    >
+                      <div className="flex w-full">
+                        {palettes.map((palette, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className={`w-full h-14 first:rounded-l-lg last:rounded-r-lg`}
+                              style={{ backgroundColor: palette.color }}
+                            ></div>
+                          );
+                        })}
+                      </div>
+                      <div
+                        className={`w-full h-full rounded-lg bg-gray-900/40 absolute top-0 left-0 grid place-content-center ${
+                          selectedPaletteIndex === index
+                            ? "visible"
+                            : "invisible"
+                        } invisible group-hover:visible hover:cursor-pointer`}
+                      >
+                        {selectedPaletteIndex === index && (
+                          <LuCheck className="text-gray-50" size={20} />
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
-          <div className="w-full px-4 h-16 border-t border-gray-200 flex items-center justify-between">
+          <div className="w-full px-4 h-16 border-t bg-white border-gray-200 flex items-center justify-between">
             <OpenMoreMenu from="Extractor" />
             <Button
               onClick={randomShuffleHandler}
