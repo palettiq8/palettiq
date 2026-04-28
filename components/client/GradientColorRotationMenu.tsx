@@ -83,7 +83,7 @@ export default function GradientColorRotationMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className={`bg-white shadow-lg grid grid-cols-3 gap-1 rounded-xl p-2.5 z-40 absolute ${openUp ? "bottom-11" : "top-11"} right-0 w-max border border-gray-200`}
+            className={`bg-white shadow-lg grid grid-cols-3 gap-1 rounded-xl p-2.5 z-40 absolute ${openUp ? "bottom-11" : "top-11"} right-0 max-sm:left-0 w-max border border-gray-200`}
           >
             {degrees.map(({ title, value }, index) => {
               const isRotation = gradientRotationValue === value;

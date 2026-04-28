@@ -22,7 +22,7 @@ const RadialObjectPosition = ({
   setValue: (radial: RadialType) => void;
 }) => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center max-sm:w-full">
       <p
         className={`${ICONBUTTONCOMMONSTYLE} text-sm font-semibold text-gray-900 rounded-l-full`}
       >
@@ -37,7 +37,7 @@ const RadialObjectPosition = ({
           const value = Number(e.target.value);
           setValue({ ...activeRadial, [position]: value });
         }}
-        className={`${INPUTCOMMONSTYLE} w-18`}
+        className={`${INPUTCOMMONSTYLE} w-18 max-sm:w-full`}
       />
       <p
         className={`${ICONBUTTONCOMMONSTYLE} text-sm font-semibold text-gray-900 rounded-r-full`}
@@ -60,7 +60,7 @@ const ConicCenter = ({
   setValue: (radial: ConicType) => void;
 }) => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center max-sm:w-full">
       <p
         className={`${ICONBUTTONCOMMONSTYLE} text-sm font-semibold text-gray-900 rounded-l-full`}
       >
@@ -75,7 +75,7 @@ const ConicCenter = ({
           const value = Number(e.target.value);
           setValue({ ...activeConic, [position]: value });
         }}
-        className={`${INPUTCOMMONSTYLE} w-18`}
+        className={`${INPUTCOMMONSTYLE} w-18 max-sm:w-full`}
       />
       <p
         className={`${ICONBUTTONCOMMONSTYLE} text-sm font-semibold text-gray-900 rounded-r-full`}
@@ -136,7 +136,7 @@ export default function GradientCustomizedItem() {
     <>
       <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
         <p className={`text-md font-semibold text-gray-900`}>Position</p>
-        <div className="flex items-center">
+        <div className="flex items-center max-sm:w-full">
           <input
             type="number"
             value={modifyActiveColor.position}
@@ -147,7 +147,7 @@ export default function GradientCustomizedItem() {
               const value = e.target.value;
               updateGradientStop(modifyActiveColor.id, value, "position");
             }}
-            className={`${INPUTCOMMONSTYLE} border-l rounded-l-full w-20`}
+            className={`${INPUTCOMMONSTYLE} border-l rounded-l-full w-20 max-sm:w-full`}
           />
           <GradientColorPositionMenu />
         </div>
@@ -171,7 +171,7 @@ export default function GradientCustomizedItem() {
       </div>
       <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
         <p className={`text-md font-semibold text-gray-900`}>Corner Radius</p>
-        <div className="flex items-center">
+        <div className="flex items-center max-sm:w-full">
           <input
             type="number"
             value={gradientCornerRadius}
@@ -181,7 +181,7 @@ export default function GradientCustomizedItem() {
               const value = Number(e.target.value);
               setGradientCornerRadius(value);
             }}
-            className={`${INPUTCOMMONSTYLE} border-l rounded-l-full w-25`}
+            className={`${INPUTCOMMONSTYLE} border-l rounded-l-full w-25 max-sm:w-full`}
           />
           <p
             className={`${ICONBUTTONCOMMONSTYLE} text-sm font-semibold text-gray-900 rounded-r-full`}
@@ -192,13 +192,13 @@ export default function GradientCustomizedItem() {
       </div>
       <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
         <p className={`text-md font-semibold text-gray-900`}>Gradient Type</p>
-        <div className="flex items-center border border-gray-200 rounded-full p-1">
+        <div className="flex items-center border border-gray-200 rounded-full p-1 max-sm:w-full">
           {gradientsTypes.map((_, index) => {
             return (
               <button
                 key={index}
                 onClick={() => setActiveGradientType(_)}
-                className={`h-10 px-4 text-sm font-semibold border rounded-full ${activeGradientType === _ ? "bg-gray-100 border-gray-200 text-gray900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all`}
+                className={`h-10 px-4 max-sm:w-full text-sm font-semibold border rounded-full ${activeGradientType === _ ? "bg-gray-100 border-gray-200 text-gray900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all`}
               >
                 {_}
               </button>
@@ -212,7 +212,7 @@ export default function GradientCustomizedItem() {
             <p className={`text-sm font-semibold text-gray-900`}>
               Radial Shape
             </p>
-            <div className="flex items-center border border-gray-200 rounded-full p-1">
+            <div className="flex items-center border border-gray-200 rounded-full p-1 max-sm:w-full">
               {radialShapes.map((_, index) => {
                 return (
                   <button
@@ -224,7 +224,7 @@ export default function GradientCustomizedItem() {
                         y: 50,
                       })
                     }
-                    className={`h-10 px-4 text-sm font-semibold border rounded-full ${activeRadial.shape === _ ? "bg-gray-100 border-gray-200 text-gray900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all capitalize`}
+                    className={`h-10 px-4 max-sm:w-full text-sm font-semibold border rounded-full ${activeRadial.shape === _ ? "bg-gray-100 border-gray-200 text-gray900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all capitalize`}
                   >
                     {_}
                   </button>
@@ -236,7 +236,7 @@ export default function GradientCustomizedItem() {
             <p className={`text-sm font-semibold text-gray-900`}>
               Object Position
             </p>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 max-sm:flex-col max-sm:w-full">
               {radialObjectPositions.map(({ position, value }, index) => (
                 <RadialObjectPosition
                   key={index}
@@ -253,7 +253,7 @@ export default function GradientCustomizedItem() {
       {activeGradientType === "Conic" && (
         <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
           <p className={`text-sm font-semibold text-gray-900`}>Conic Center</p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 max-sm:flex-col max-sm:w-full">
             {conicCenters.map(({ position, value }, index) => (
               <ConicCenter
                 key={index}
@@ -268,7 +268,7 @@ export default function GradientCustomizedItem() {
       )}
       <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
         <p className={`text-md font-semibold text-gray-900`}>Rotation</p>
-        <div className="flex items-center">
+        <div className="flex items-center max-sm:w-full">
           <input
             type="number"
             value={gradientRotationValue}
@@ -279,7 +279,7 @@ export default function GradientCustomizedItem() {
               const value = e.target.value;
               setGradientRotationValue(value);
             }}
-            className={`${INPUTCOMMONSTYLE} border-l rounded-l-full w-20`}
+            className={`${INPUTCOMMONSTYLE} border-l rounded-l-full w-20 max-sm:w-full`}
           />
           <GradientColorRotationMenu />
         </div>
