@@ -2,6 +2,7 @@ import {
   LuActivity,
   LuALargeSmall,
   LuAlignLeft,
+  LuArrowLeftRight,
   LuArrowUpRight,
   LuBlend,
   LuBolt,
@@ -18,6 +19,7 @@ import {
   LuHistory,
   LuLink,
   LuMaximize2,
+  LuMessageSquare,
   LuPalette,
   LuPencil,
   LuPencilLine,
@@ -233,6 +235,12 @@ export const extractorResponsiveMoreMenuItems = [
   { id: 3, title: "Open on screen", icon: LuMaximize2 },
   { id: 4, title: "Edit on generator", icon: LuPencilLine },
   { id: 5, title: "Export", icon: BiExport },
+];
+export const contrastResponsiveMoreMenuItems = [
+  { id: 1, title: "History", icon: LuHistory },
+  { id: 2, title: "Alter color", icon: LuArrowLeftRight },
+  { id: 3, title: "Open on screen", icon: LuMaximize2 },
+  { id: 4, title: "Export", icon: BiExport },
 ];
 export const colorFamilies: Record<string, ColorFamily> = {
   Black: { hue: [0, 360], sat: [0, 50], light: [0, 30] },
@@ -825,6 +833,12 @@ export const studioLeftFooterMenuItems = [
     url: "/explore/fonts",
   },
   { id: 5, title: "Settings", icon: LuBolt, url: "/settings" },
+  {
+    id: 6,
+    title: "Feedback",
+    icon: LuMessageSquare,
+    url: "/settings/feedback",
+  },
 ];
 export const settingsMenuItems = [
   { id: 1, title: "General", url: "/settings" },

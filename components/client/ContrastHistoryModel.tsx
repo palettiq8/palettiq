@@ -84,7 +84,7 @@ export default function ContrastHistoryModel() {
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 gap-3 max-md:grid-cols-2 max-sm:grid-cols-1">
                   {contrastHistory.map((contrast, index) => {
                     const isActiveContrast =
                       activeContrast?.bgColor === contrast.bgColor &&

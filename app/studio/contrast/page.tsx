@@ -3,6 +3,7 @@
 import { Button } from "@/components/Button";
 import ColorPreferencesMenu from "@/components/client/ColorPreferencesMenu";
 import ContrastColorsWithPickerMenu from "@/components/client/ContrastColorsWithPickerMenu";
+import ContrastResponsiveMoreMenu from "@/components/client/ContrastResponsiveMoreMenu";
 import OpenMoreMenu from "@/components/client/OpenMoreMenu";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import ToggleButton from "@/components/server/ToggleButton";
@@ -263,7 +264,7 @@ export default function page() {
           </div>
           <h2 className="text-2xl font-semibold text-gray-900">Contrast</h2>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 max-lg:hidden">
           <Button
             onClick={() => toggleContrastHistoryModel()}
             variant={"outline"}
@@ -321,16 +322,19 @@ export default function page() {
             Generate Random Contrast
           </Button>
         </div>
+        <div className="hidden max-lg:block">
+          <ContrastResponsiveMoreMenu />
+        </div>
       </div>
-      <div className="w-full flex" style={{ height: "calc(100% - 64px)" }}>
+      <div className="w-full flex max-lg:flex-col h-[calc(100%-64px)]">
         <div
-          className={`w-2/3 h-full border-r rounded-bl-xl border-gray-200 flex items-center justify-center p-4`}
+          className={`w-full border-r border-gray-200 flex items-center justify-center p-4 max-lg:h-35 bg-gray-100 rounded-bl-xl max-lg:rounded-none max-lg:border-r-0 max-lg:border-b`}
         >
           <div
-            className={`w-full h-full ${isMaximizeContrast ? "absolute top-0 left-0 rounded-none z-50" : "rounded-xl"} flex items-center justify-center`}
+            className={`w-full h-full max-lg:overflow-y-auto noscrollbar ${isMaximizeContrast ? "absolute top-0 left-0 rounded-none z-50" : "rounded-xl"} flex items-center justify-center p-4`}
             style={{ backgroundColor: bgColor }}
           >
-            <div className="w-full h-max flex items-center flex-col gap-6 justify-center">
+            <div className="w-full h-max max-lg:h-full flex items-center flex-col gap-6 justify-center max-lg:hidden">
               <h1
                 className="font-black select-none"
                 style={{
@@ -352,14 +356,15 @@ export default function page() {
                 {contrastDescription}
               </p>
             </div>
+            <p className="text-sm font-semibold hidden max-lg:block" style={{ color: textColor }}>
+              The quick brown fox jumps over the lazy dog. Pack my box with five
+              dozen liquor jugs. How vividly dazzling colors bring quiet joy.
+            </p>
           </div>
         </div>
-        <div className="w-1/3 h-full">
-          <div
-            className="w-full overflow-y-scroll noscrollbar pb-4"
-            style={{ height: "calc(100% - 64px)" }}
-          >
-            <div className="w-full p-4 flex gap-3">
+        <div className="w-120 h-full shrink-0 max-lg:w-full max-lg:h-[calc(100%-140px)]">
+          <div className="w-full overflow-y-scroll noscrollbar pb-4 h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)]">
+            <div className="w-full p-4 grid grid-cols-2 gap-3 max-sm:grid-cols-1">
               {colors.map(({ id, title, color }) => (
                 <ContrastColorsWithPickerMenu
                   key={id}
@@ -368,7 +373,7 @@ export default function page() {
                 />
               ))}
             </div>
-            <div className="w-full px-4 flex items-center gap-3">
+            <div className="w-full px-4 grid grid-cols-2 gap-3 max-sm:grid-cols-1">
               <div className="w-full flex items-center justify-between gap-2.5 border border-gray-200 rounded-lg px-2 h-12">
                 <p className="text-sm font-semibold text-gray-900">
                   Contrast Ratio
@@ -425,9 +430,9 @@ export default function page() {
                   />
                 </button>
                 <div
-                  className={`overflow-hidden transition-all rounded-b-lg bg-white duration-300 ease-in-out border-t border-gray-200 ${isAdvancedSettings ? "h-87" : "h-0 border-t-0"}`}
+                  className={`overflow-hidden transition-all rounded-b-lg bg-white duration-300 ease-in-out border-t border-gray-200 ${isAdvancedSettings ? "h-87 max-lg:h-15 max-sm:h-20" : "h-0 border-t-0"}`}
                 >
-                  <div className="w-full p-3">
+                  <div className="w-full p-3 max-lg:hidden">
                     <div className="w-full flex items-center justify-between">
                       <p className="text-sm font-semibold text-gray-900">
                         Font Size
@@ -468,7 +473,7 @@ export default function page() {
                       )}
                     </div>
                   </div>
-                  <div className="w-full p-3">
+                  <div className="w-full p-3 max-lg:hidden">
                     <p className="text-sm font-semibold text-gray-900">
                       Font Weight
                     </p>
@@ -478,7 +483,7 @@ export default function page() {
                           return (
                             <button
                               key={index}
-                              className={`px-4 py-2 rounded-full text-sm font-semibold ${_ === fontWeight ? "bg-gray-900 text-gray-50" : "bg-gray-100 text-gray-900 hover:bg-gray-200"} transition-all cursor-pointer`}
+                              className={`px-3 py-2 rounded-full text-sm font-semibold ${_ === fontWeight ? "bg-gray-900 text-gray-50" : "bg-gray-100 text-gray-900 hover:bg-gray-200"} transition-all cursor-pointer`}
                               onClick={() => setFontWeight(_)}
                             >
                               {_}
@@ -488,7 +493,7 @@ export default function page() {
                       )}
                     </div>
                   </div>
-                  <div className="w-full p-4 flex items-center justify-between">
+                  <div className="w-full p-4 flex items-center justify-between gap-4">
                     <div className="flex flex-col gap-1">
                       <p className="text-md font-semibold">
                         Complementary Mode{" "}
@@ -496,7 +501,7 @@ export default function page() {
                           (Default Red)
                         </span>
                       </p>
-                      <p className="text-sm font-medium text-gray-600 max-w-95">
+                      <p className="text-sm font-medium text-gray-600 max-w-95 max-lg:hidden">
                         Automatically generates complementary high-contrast
                         color pairs.
                       </p>
@@ -510,9 +515,54 @@ export default function page() {
               </div>
             </div>
           </div>
-          <div className="w-full h-16 border-t bg-white rounded-br-xl border-gray-200 flex items-center justify-between p-4">
-            <OpenMoreMenu from="Contrast" />
+          <div className="w-full h-16 max-lg:h-28 border-t bg-white rounded-br-xl max-lg:rounded-bl-xl border-gray-200 flex items-center justify-between max-lg:flex-col max-lg:items-start max-lg:justify-center max-lg:gap-2 p-4">
+            <div className="max-lg:hidden">
+              <OpenMoreMenu from="Contrast" />
+            </div>
             <ColorPreferencesMenu from="Contrast" />
+            <div className="w-full hidden max-lg:block">
+              <div className="w-full flex items-center gap-2">
+                <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
+                  <Button
+                    disabled={!(contrastHistoryIndex > 0)}
+                    onClick={() => {
+                      undoHandler();
+                    }}
+                    className={REDOUNDOCOMMONSTYLE}
+                    variant={"text"}
+                    size={"p0"}
+                  >
+                    <LuUndo2 size={16} />
+                  </Button>
+                  <span className="w-px h-4 bg-gray-200"></span>
+                  <Button
+                    disabled={
+                      !(contrastHistoryIndex < contrastHistory.length - 1)
+                    }
+                    onClick={() => {
+                      redoHandler();
+                    }}
+                    className={REDOUNDOCOMMONSTYLE}
+                    variant={"text"}
+                    size={"p0"}
+                  >
+                    <LuRedo2 size={16} />
+                  </Button>
+                </div>
+                <Button
+                  onClick={() =>
+                    complementaryMode
+                      ? generateComplementaryContrastHandler()
+                      : generateRandomContrastHandler()
+                  }
+                  variant={"primary"}
+                  size={"md"}
+                  className="w-full"
+                >
+                  Generate Contrast
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { LuChevronDown, LuMessageSquare } from "react-icons/lu";
 import useMenuStore from "@/libs/stores/menuStore";
 import { studioLeftFooterMenuItems } from "@/utils/Items";
 import Link from "next/link";
+import useModelStore from "@/libs/stores/modelStore";
 
 const COMMONSTYLE =
   "flex items-center p-2 gap-3 rounded-lg transition-all hover:bg-gray-100 border border-white hover:border-gray-200 hover:cursor-pointer select-none text-gray-900";
@@ -19,6 +20,9 @@ export default function StudioLeftFooterMenu() {
   );
   const toggleStudioLeftFooterMenu = useMenuStore(
     (state) => state.toggleStudioLeftFooterMenu,
+  );
+  const toggleStudioLeftMenuModel = useModelStore(
+    (state) => state.toggleStudioLeftMenuModel,
   );
 
   useEffect(() => {
@@ -44,7 +48,9 @@ export default function StudioLeftFooterMenu() {
       <div
         className="w-full"
         ref={buttonRef}
-        onClick={() => toggleStudioLeftFooterMenu()}
+        onClick={() => {
+          toggleStudioLeftFooterMenu();
+        }}
       >
         <button className="w-full flex items-center justify-between text-sm font-semibold text-gray-900 h-10 px-4 border border-gray-200 rounded-full bg-gray-100 cursor-pointer transition-all active:scale-95">
           <span>More Options</span>
@@ -67,16 +73,17 @@ export default function StudioLeftFooterMenu() {
           >
             {studioLeftFooterMenuItems.map(({ id, title, icon: Icon, url }) => {
               return (
-                <Link key={id} href={url} className={COMMONSTYLE}>
+                <Link
+                  key={id}
+                  onClick={() => toggleStudioLeftMenuModel()}
+                  href={url}
+                  className={COMMONSTYLE}
+                >
                   <Icon size={16} />
                   <p className="text-sm font-semibold">{title}</p>
                 </Link>
               );
             })}
-            <button className={COMMONSTYLE}>
-              <LuMessageSquare size={16} />
-              <p className="text-sm font-semibold">Feedback</p>
-            </button>
           </motion.div>
         )}
       </AnimatePresence>

@@ -8,7 +8,7 @@ export default function ToggleButton({
   return (
     <div
       onClick={setIsTrue}
-      className={`w-10 hover:cursor-pointer p-1.5 transition-all ${
+      className={`w-10 hover:cursor-pointer shrink-0 p-1.5 transition-all ${
         isTrue ? "bg-indigo-500" : "bg-gray-300"
       } rounded-full`}
     >
