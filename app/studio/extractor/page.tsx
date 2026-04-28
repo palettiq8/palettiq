@@ -371,7 +371,7 @@ export default function page() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [randomShuffleHandler]);
 
-  const UploadButton = () => {
+  function UploadButton({ onUpload }: { onUpload: (src: string) => void }) {
     return (
       <>
         <input
@@ -382,9 +382,8 @@ export default function page() {
           onChange={(e) => {
             const file = e.target.files?.[0];
             if (!file) return;
-
             const url = URL.createObjectURL(file);
-            setImgSrc(url);
+            onUpload(url);
           }}
         />
         <Button variant={"primary"} size={"md"} className="max-lg:w-full">
@@ -398,7 +397,7 @@ export default function page() {
         </Button>
       </>
     );
-  };
+  }
 
   return (
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
@@ -451,7 +450,7 @@ export default function page() {
             <BiExport size={16} />
             <span>Export</span>
           </Button>
-          <UploadButton />
+          <UploadButton onUpload={setImgSrc} />
         </div>
         <div className="hidden max-lg:block">
           <ExtractorResponsiveMoreMenu />
@@ -624,7 +623,7 @@ export default function page() {
             <div className="max-lg:hidden">
               <OpenMoreMenu from="Extractor" />
             </div>
-            <UploadButton />
+            <UploadButton onUpload={setImgSrc} />
             <div className="w-full hidden max-lg:block">
               <div className="w-full flex items-center gap-2">
                 <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
