@@ -134,7 +134,7 @@ export default function GradientCustomizedItem() {
 
   return (
     <>
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
         <p className={`text-md font-semibold text-gray-900`}>Position</p>
         <div className="flex items-center">
           <input
@@ -154,7 +154,7 @@ export default function GradientCustomizedItem() {
       </div>
       <div className="w-full flex flex-col items-start gap-3">
         <p className={`text-md font-semibold text-gray-900`}>Container Size</p>
-        <div className="w-full flex items-center gap-2">
+        <div className="w-full grid grid-cols-7 max-sm:grid-cols-4 gap-2">
           {gradientContainerSizes.map((item, index) => {
             const isMatch = gradientContainerSize.content === item.content;
             return (
@@ -169,7 +169,7 @@ export default function GradientCustomizedItem() {
           })}
         </div>
       </div>
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
         <p className={`text-md font-semibold text-gray-900`}>Corner Radius</p>
         <div className="flex items-center">
           <input
@@ -190,7 +190,7 @@ export default function GradientCustomizedItem() {
           </p>
         </div>
       </div>
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
         <p className={`text-md font-semibold text-gray-900`}>Gradient Type</p>
         <div className="flex items-center border border-gray-200 rounded-full p-1">
           {gradientsTypes.map((_, index) => {
@@ -208,8 +208,8 @@ export default function GradientCustomizedItem() {
       </div>
       {activeGradientType === "Radial" && (
         <>
-          <div className="w-full flex items-center justify-between">
-            <p className={`text-md font-semibold text-gray-900`}>
+          <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
+            <p className={`text-sm font-semibold text-gray-900`}>
               Radial Shape
             </p>
             <div className="flex items-center border border-gray-200 rounded-full p-1">
@@ -232,8 +232,8 @@ export default function GradientCustomizedItem() {
               })}
             </div>
           </div>
-          <div className="w-full flex items-center justify-between">
-            <p className={`text-md font-semibold text-gray-900`}>
+          <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
+            <p className={`text-sm font-semibold text-gray-900`}>
               Object Position
             </p>
             <div className="flex items-center gap-2">
@@ -251,8 +251,8 @@ export default function GradientCustomizedItem() {
         </>
       )}
       {activeGradientType === "Conic" && (
-        <div className="w-full flex items-center justify-between">
-          <p className={`text-md font-semibold text-gray-900`}>Conic Center</p>
+        <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
+          <p className={`text-sm font-semibold text-gray-900`}>Conic Center</p>
           <div className="flex items-center gap-2">
             {conicCenters.map(({ position, value }, index) => (
               <ConicCenter
@@ -266,7 +266,7 @@ export default function GradientCustomizedItem() {
           </div>
         </div>
       )}
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
         <p className={`text-md font-semibold text-gray-900`}>Rotation</p>
         <div className="flex items-center">
           <input

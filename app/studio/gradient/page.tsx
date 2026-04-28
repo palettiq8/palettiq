@@ -298,7 +298,7 @@ export default function page() {
         </div>
         <div className="w-120 h-full shrink-0 max-lg:w-full max-lg:h-[calc(100%-140px)]">
           <div className="w-full overflow-y-scroll noscrollbar h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)]">
-            <div className="p-4 grid grid-cols-7 gap-2 border-b border-gray-200">
+            <div className="p-4 grid grid-cols-7 max-sm:grid-cols-4 gap-2 border-b border-gray-200">
               {defaultGradients.map((stop, index) => {
                 return (
                   <div
@@ -405,7 +405,7 @@ export default function page() {
                     })}
                 </div>
               </div>
-              <div className="w-full mt-4 grid grid-cols-2 gap-3">
+              <div className="w-full mt-4 grid grid-cols-2 max-sm:grid-cols-1 gap-3">
                 {gradientStops
                   .sort((a, b) => a.position - b.position)
                   .map(({ id, color, isHide, position }) => (
