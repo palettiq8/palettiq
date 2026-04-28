@@ -6,6 +6,13 @@ import { LuEllipsisVertical } from "react-icons/lu";
 import useMenuStore from "@/libs/stores/menuStore";
 import { generatorContentHeaderItemsStyle } from "@/utils/styles/Classes";
 import { extractorResponsiveMoreMenuItems } from "@/utils/Items";
+import useModelStore from "@/libs/stores/modelStore";
+import {
+  useExtractorStore,
+  useGeneratorStore,
+  useOtherStore,
+} from "@/libs/stores/dataStore";
+import useUiStore from "@/libs/stores/uiStore";
 
 export default function ExtractorResponsiveMoreMenu() {
   const menuRef = useRef<HTMLDivElement>(null);
@@ -17,6 +24,31 @@ export default function ExtractorResponsiveMoreMenu() {
   const toggleExtractorResponsiveMoreMenu = useMenuStore(
     (state) => state.toggleExtractorResponsiveMoreMenu,
   );
+  const toggleExtractorHistoryModel = useModelStore(
+    (state) => state.toggleExtractorHistoryModel,
+  );
+  const toggleQuickViewModel = useModelStore(
+    (state) => state.toggleQuickViewModel,
+  );
+  const setQuickViewPalette = useOtherStore(
+    (state) => state.setQuickViewPalette,
+  );
+  const setQuickViewActiveTab = useOtherStore(
+    (state) => state.setQuickViewActiveTab,
+  );
+  const pickers = useExtractorStore((state) => state.pickers);
+  const setQuickViewActiveColor = useOtherStore(
+    (state) => state.setQuickViewActiveColor,
+  );
+  const setIsMaximizeExtractor = useUiStore(
+    (state) => state.setIsMaximizeExtractor,
+  );
+  const setGeneratedPalette = useGeneratorStore(
+    (state) => state.setGeneratedPalette,
+  );
+  const toggleExportModel = useModelStore((state) => state.toggleExportModel);
+  const setExportPalette = useOtherStore((state) => state.setExportPalette);
+  const setExportFrom = useOtherStore((state) => state.setExportFrom);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -35,6 +67,33 @@ export default function ExtractorResponsiveMoreMenu() {
     }
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [extractorResponsiveMoreMenu]);
+
+  const handler = (title: string) => {
+    toggleExtractorResponsiveMoreMenu();
+    if (title === "History") {
+      toggleExtractorHistoryModel();
+    } else if (title === "Quick view") {
+      toggleQuickViewModel();
+      setQuickViewActiveTab("Formats");
+      const data = pickers.map((picker) => picker.color);
+      setQuickViewPalette(data);
+      setQuickViewActiveColor(data[0]);
+    } else if (title === "Open on screen") {
+      setIsMaximizeExtractor();
+    } else if (title === "Edit on generator") {
+      const data = pickers.map((picker, index) => ({
+        id: `${index + 1}`,
+        color: picker.color,
+        isLocked: false,
+      }));
+      setGeneratedPalette(data);
+      window.open("/studio", "_blank");
+    } else if (title === "Export") {
+      toggleExportModel();
+      setExportFrom("Palette");
+      setExportPalette(pickers.map((p) => p.color));
+    }
+  };
 
   return (
     <div className="relative">
@@ -62,6 +121,7 @@ export default function ExtractorResponsiveMoreMenu() {
                   <button
                     key={id}
                     className={`w-full flex items-center gap-4 p-2 text-gray-900 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all`}
+                    onClick={() => handler(title)}
                   >
                     <Icon size={16} />
                     <p className="text-sm font-semibold">{title}</p>

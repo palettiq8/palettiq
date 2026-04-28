@@ -474,7 +474,7 @@ export default function page() {
                 return (
                   <div
                     key={i}
-                    className={`absolute w-7 h-7 rounded-full border-3 border-gray-50 hover:cursor-pointer hover:scale-150 transition-all ${
+                    className={`absolute w-7 h-7 max-lg:w-4 max-lg:h-4 max-lg:border-2 rounded-full border-3 border-gray-50 hover:cursor-pointer hover:scale-150 transition-all ${
                       activePickerIndex === i && "scale-150 transition-none"
                     }`}
                     style={{
@@ -581,7 +581,7 @@ export default function page() {
               <p className="text-md font-semibold text-gray-900">
                 Picked Palettes
               </p>
-              <div className="w-full grid grid-cols-3 gap-3 mt-3 max-md:grid-cols-2 max-sm:grid-cols-1">
+              <div className="w-full grid grid-cols-3 gap-3 mt-3 max-md:grid-cols-2">
                 {extractorRecommendedPalettes.map((palettes, index) => {
                   return (
                     <div
@@ -597,7 +597,7 @@ export default function page() {
                           return (
                             <div
                               key={index}
-                              className={`w-full h-14 first:rounded-l-lg last:rounded-r-lg`}
+                              className={`w-full h-14 max-sm:h-10 first:rounded-l-lg last:rounded-r-lg`}
                               style={{ backgroundColor: palette.color }}
                             ></div>
                           );
