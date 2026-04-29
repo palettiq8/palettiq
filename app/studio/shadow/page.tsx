@@ -203,7 +203,7 @@ export default function page() {
         >
           <div
             ref={containerRef}
-            className={`w-full ${isMaximizeShadow ? 'h-full' : 'h-50'} lg:h-full flex items-center justify-center relative`}
+            className={`w-full ${isMaximizeShadow ? "h-full" : "h-50"} lg:h-full flex items-center justify-center relative`}
           >
             {activeShadowTab === "Box Shadow" ? (
               <>
