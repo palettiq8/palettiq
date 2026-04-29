@@ -17,7 +17,7 @@ export default function Visualize5({ palette }: { palette: PaletteColor[] }) {
   return (
     <svg
       viewBox="0 0 633 439"
-      className="w-full h-auto"
+      className="w-full h-full"
       preserveAspectRatio="xMidYMid meet"
     >
       <rect x="0.5" y="0.5" width="632" height="438" rx="11.5" fill="white" />

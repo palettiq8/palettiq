@@ -22,7 +22,7 @@ export default function Visualize3({ palette }: { palette: PaletteColor[] }) {
   return (
     <svg
       viewBox="0 0 359 371"
-      className="w-full h-auto"
+      className="w-full h-full"
       preserveAspectRatio="xMidYMid meet"
     >
       <circle

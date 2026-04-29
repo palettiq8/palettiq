@@ -19,7 +19,7 @@ export default function Visualize1({ palette }: { palette: PaletteColor[] }) {
   return (
     <svg
       viewBox="0 0 418 444"
-      className="w-full h-auto"
+      className="w-full h-full"
       preserveAspectRatio="xMidYMid meet"
     >
       <ellipse

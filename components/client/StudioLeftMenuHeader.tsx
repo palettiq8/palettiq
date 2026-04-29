@@ -20,6 +20,7 @@ export default function StudioLeftMenuHeader() {
           width={81}
           height={24}
           alt="studio logo"
+          loading="eager"
         />
       </Link>
       <Button

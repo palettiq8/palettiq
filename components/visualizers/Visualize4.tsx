@@ -20,7 +20,7 @@ export default function Visualize4({ palette }: { palette: PaletteColor[] }) {
   return (
     <svg
       viewBox="0 0 382 363"
-      className="w-full h-auto"
+      className="w-full h-full"
       preserveAspectRatio="xMidYMid meet"
     >
       <path

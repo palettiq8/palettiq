@@ -21,7 +21,7 @@ export default function Visualize6({ palette }: { palette: PaletteColor[] }) {
   return (
     <svg
       viewBox="0 0 1440 1024"
-      className="w-full h-auto"
+      className="w-full h-full"
       preserveAspectRatio="xMidYMid meet"
     >
       <rect width="1440" height="1024" rx="24" fill="#262626" />

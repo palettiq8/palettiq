@@ -1089,6 +1089,11 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
         set({ visualizerActiveColor: color }),
       currentTemplateId: 0,
       setCurrentTemplateId: (id: number) => set({ currentTemplateId: id }),
+      activeVisualizerMaximize: false,
+      setActiveVisualizerMaximize: () =>
+        set((state) => ({
+          activeVisualizerMaximize: !state.activeVisualizerMaximize,
+        })),
     }),
     {
       name: "_visualizer_storage",

@@ -33,6 +33,8 @@ interface MenuStateType {
   toggleExtractorResponsiveMoreMenu: () => void;
   contrastResponsiveMoreMenu: boolean;
   toggleContrastResponsiveMoreMenu: () => void;
+  visualizerResponsiveMoreMenu: boolean;
+  toggleVisualizerResponsiveMoreMenu: () => void;
 }
 
 const useMenuStore = create<MenuStateType>((set) => ({
@@ -53,6 +55,7 @@ const useMenuStore = create<MenuStateType>((set) => ({
   gradientResponsiveMoreMenu: false,
   extractorResponsiveMoreMenu: false,
   contrastResponsiveMoreMenu: false,
+  visualizerResponsiveMoreMenu: false,
 
   toggleColorPreferencesMenu: () =>
     set((state) => ({ colorPreferencesMenu: !state.colorPreferencesMenu })),
@@ -101,6 +104,10 @@ const useMenuStore = create<MenuStateType>((set) => ({
   toggleContrastResponsiveMoreMenu: () =>
     set((state) => ({
       contrastResponsiveMoreMenu: !state.contrastResponsiveMoreMenu,
+    })),
+  toggleVisualizerResponsiveMoreMenu: () =>
+    set((state) => ({
+      visualizerResponsiveMoreMenu: !state.visualizerResponsiveMoreMenu,
     })),
 }));
 

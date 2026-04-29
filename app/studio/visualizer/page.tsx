@@ -6,14 +6,10 @@ import ColorPreferencesMenu from "@/components/client/ColorPreferencesMenu";
 import OpenMoreMenu from "@/components/client/OpenMoreMenu";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import VisualizerColorPickerMenu from "@/components/client/VisualizerColorPickerMenu";
-import Visualize1 from "@/components/visualizers/Visualize1";
-import Visualize2 from "@/components/visualizers/Visualize2";
-import Visualize3 from "@/components/visualizers/Visualize3";
-import Visualize4 from "@/components/visualizers/Visualize4";
-import Visualize5 from "@/components/visualizers/Visualize5";
-import Visualize6 from "@/components/visualizers/Visualize6";
+import VisualizerResponsiveMoreMenu from "@/components/client/VisualizerResponsiveMoreMenu";
 import { useOtherStore, useVisualizerStore } from "@/libs/stores/dataStore";
 import useModelStore from "@/libs/stores/modelStore";
+import { visualizers } from "@/utils/Items";
 import { REDOUNDOCOMMONSTYLE, CIRCLEBUTTONSTYLE } from "@/utils/styles/Classes";
 import { checkIsLight } from "@/utils/utils";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -33,12 +29,16 @@ import {
 
 export default function page() {
   const [lockPanel, setLockPanel] = useState<boolean>(false);
-  const [activeVisualizerMaximize, setActiveVisualizerMaximize] =
-    useState(false);
   const [activeTemplateMaximize, setActiveTemplateMaximize] =
     useState<boolean>(false);
   const updateSource = useRef<"generate" | "lock/unlock" | "redo/undo" | null>(
     null,
+  );
+  const activeVisualizerMaximize = useVisualizerStore(
+    (state) => state.activeVisualizerMaximize,
+  );
+  const setActiveVisualizerMaximize = useVisualizerStore(
+    (state) => state.setActiveVisualizerMaximize,
   );
   const generatedVisualizerPalette = useVisualizerStore(
     (state) => state.generatedVisualizerPalette,
@@ -149,7 +149,7 @@ export default function page() {
       const key = e.key.toLowerCase();
       if (key === "escape") {
         e.preventDefault();
-        setActiveVisualizerMaximize(false);
+        setActiveVisualizerMaximize();
       }
       if (key === "h") {
         e.preventDefault();
@@ -172,14 +172,6 @@ export default function page() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [toggleVisualizerPaletteHistoryModel, paletteGeneratorHandler]);
 
-  const visualizers = [
-    Visualize6,
-    Visualize4,
-    Visualize1,
-    Visualize2,
-    Visualize5,
-    Visualize3,
-  ];
   const ActiveVisualizer = visualizers[currentTemplateId];
 
   return (
@@ -190,49 +182,49 @@ export default function page() {
             <StudioResponsiveMenuIcon />
           </div>
           <h2 className="text-2xl font-semibold text-gray-900">
-            Visualizer ~{" "}
-            <span className="text-sm font-medium text-gray-800">
+            Visualizer <span className="max-xl:hidden"> ~ </span>
+            <span className="text-sm font-medium text-gray-800 max-xl:hidden">
               Right-click on templates to open!
             </span>
           </h2>
         </div>
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-3">
-            <Button
-              onClick={() => {
-                toggleExportModel();
-                setExportFrom("Palette");
-                setExportPalette(
-                  generatedVisualizerPalette.map((palette) => palette.color),
-                );
-              }}
-              variant={"outline"}
-              size={"md"}
-            >
-              <BiExport size={16} />
-              <span>Export</span>
-            </Button>
-            <Button
-              variant={"primary"}
-              size={"md"}
-              onClick={paletteGeneratorHandler}
-            >
-              Random Palette
-            </Button>
+        <div className="flex items-center gap-3">
+          <Button
+            onClick={() => {
+              toggleExportModel();
+              setExportFrom("Palette");
+              setExportPalette(
+                generatedVisualizerPalette.map((palette) => palette.color),
+              );
+            }}
+            variant={"outline"}
+            size={"md"}
+            className="max-[1450px]:hidden"
+          >
+            <BiExport size={16} />
+            <span>Export</span>
+          </Button>
+          <Button
+            variant={"primary"}
+            size={"md"}
+            onClick={paletteGeneratorHandler}
+            className="max-lg:hidden"
+          >
+            Random Palette
+          </Button>
+          <div className="hidden max-[1450px]:block">
+            <VisualizerResponsiveMoreMenu />
           </div>
         </div>
       </div>
       <div
-        className={`w-full h-full bg-white flex`}
-        style={{ height: "calc(100% - 128px)" }}
+        className={`w-full bg-white flex h-[calc(100%-128px)] max-lg:h-[calc(100%-280px)]`}
       >
         <div
-          className={`w-3/4 h-full bg-white z-30 ${activeVisualizerMaximize && "w-full h-screen absolute top-0 left-0"} ${activeTemplateMaximize && "hidden"}`}
+          className={`w-3/4 h-full bg-gray-100 z-30 ${activeVisualizerMaximize && "w-full h-screen absolute top-0 left-0"} ${activeTemplateMaximize && "hidden"} max-lg:w-full`}
         >
           <div className="w-full h-full flex items-center justify-center relative">
-            <div
-              className={`w-171 max-lg:w-100 h-max flex items-center justify-center ${activeVisualizerMaximize && "w-210"}`}
-            >
+            <div className="relative h-full w-full p-4">
               {ActiveVisualizer && (
                 <ActiveVisualizer palette={generatedVisualizerPalette} />
               )}
@@ -241,11 +233,11 @@ export default function page() {
               <Button
                 onClick={(e) => {
                   e.preventDefault();
-                  setActiveVisualizerMaximize((prev) => !prev);
+                  setActiveVisualizerMaximize();
                 }}
                 variant={"outline"}
                 size={"circle"}
-                className="absolute top-4 left-4"
+                className="absolute top-4 left-4 max-[1450px]:hidden"
               >
                 <LuMaximize2 size={16} />
               </Button>
@@ -253,7 +245,7 @@ export default function page() {
           </div>
         </div>
         <div
-          className={`w-1/4 h-full border-l border-gray-200 p-4 overflow-y-auto noscrollbar ${activeTemplateMaximize && "w-full border-none"}`}
+          className={`w-1/4 h-full border-l border-gray-200 p-4 overflow-y-auto noscrollbar ${activeTemplateMaximize && "w-full border-none"} max-lg:hidden`}
         >
           <div className="w-full flex items-center justify-between">
             <h3 className="text-md font-semibold text-gray-900">Templetes</h3>
@@ -292,12 +284,14 @@ export default function page() {
           </div>
         </div>
       </div>
-      <div className="w-full h-16 border-t border-gray-200 px-4 bg-white rounded-b-xl flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
+      <div className="w-full h-16 max-lg:h-54 border-t border-gray-200 px-4 bg-white rounded-b-xl flex items-center justify-between gap-3 max-lg:flex-col max-lg:justify-center">
+        <div className="max-lg:w-full flex items-center gap-3">
           <ColorPreferencesMenu from="Visualizer" />
-          <OpenMoreMenu from="Visualizer" />
+          <div className="max-[1450px]:hidden">
+            <OpenMoreMenu from="Visualizer" />
+          </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
           <button
             onClick={() => {
               toggleQuickViewModel();
@@ -308,48 +302,58 @@ export default function page() {
               setQuickViewPalette(data);
               setQuickViewActiveColor(data[0]);
             }}
-            className={`${CIRCLEBUTTONSTYLE}`}
+            className={`${CIRCLEBUTTONSTYLE} max-[1450px]:hidden`}
           >
             <LuEye size={16} />
           </button>
           <button
             onClick={() => visualizerPaletteColorShuffler()}
-            className={`${CIRCLEBUTTONSTYLE}`}
+            className={`${CIRCLEBUTTONSTYLE} max-[1450px]:hidden`}
           >
             <LuShuffle size={16} />
           </button>
-          <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
-            <Button
-              disabled={!(visualizerHistoryIndex > 0)}
-              onClick={undoHandler}
-              className={REDOUNDOCOMMONSTYLE}
-              variant={"text"}
-              size={"p0"}
-            >
-              <LuUndo2 size={16} />
-            </Button>
-            <span className="w-px h-4 bg-gray-200"></span>
-            <Button
-              disabled={
-                !(visualizerHistoryIndex < visualizerPaletteHistory.length - 1)
-              }
-              onClick={redoHandler}
-              className={REDOUNDOCOMMONSTYLE}
-              variant={"text"}
-              size={"p0"}
-            >
-              <LuRedo2 size={16} />
-            </Button>
+          <div className="max-lg:w-full flex items-center gap-3">
+            <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
+              <Button
+                disabled={!(visualizerHistoryIndex > 0)}
+                onClick={undoHandler}
+                className={REDOUNDOCOMMONSTYLE}
+                variant={"text"}
+                size={"p0"}
+              >
+                <LuUndo2 size={16} />
+              </Button>
+              <span className="w-px h-4 bg-gray-200"></span>
+              <Button
+                disabled={
+                  !(
+                    visualizerHistoryIndex <
+                    visualizerPaletteHistory.length - 1
+                  )
+                }
+                onClick={redoHandler}
+                className={REDOUNDOCOMMONSTYLE}
+                variant={"text"}
+                size={"p0"}
+              >
+                <LuRedo2 size={16} />
+              </Button>
+            </div>
+            <ColorCountMenu from="Visualizer" />
           </div>
-          <ColorCountMenu from="Visualizer" />
-          <div className="relative flex items-center gap-1">
-            <div className="w-72 flex">
+          <div className="max-lg:w-full flex items-center gap-3">
+            <div className="w-72 max-lg:w-full flex relative">
               {generatedVisualizerPalette.map((_, index) => {
                 const isLight = checkIsLight(_.color);
+                const isFirst = index === 0;
+                const isLast = index === generatedVisualizerPalette.length - 1;
                 return (
                   <div
                     key={index}
-                    className="w-full h-10 cursor-pointer relative grid place-content-center first:rounded-l-lg last:rounded-r-lg"
+                    className={`w-full h-10 cursor-pointer relative grid place-content-center
+                      ${isFirst ? "rounded-l-lg" : ""}
+                      ${isLast ? "rounded-r-lg" : ""}
+                    `}
                     style={{ backgroundColor: _.color }}
                   >
                     <div className="w-full h-full absolute top-0 left-0">
@@ -367,48 +371,56 @@ export default function page() {
                   </div>
                 );
               })}
-            </div>
-            <div
-              className={`w-72 h-10 flex absolute bottom-11 left-0 
-              transition-all duration-300 ease-in-out
+              <div
+                className={`w-full h-10 flex absolute bottom-11 left-0 
+              transition-all duration-300 ease-in-out z-50
               ${
                 lockPanel
                   ? "opacity-100 translate-y-0"
                   : "opacity-0 translate-y-3 pointer-events-none"
               }
               `}
-            >
-              {generatedVisualizerPalette.map((_, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="w-full group cursor-pointer relative grid place-content-center h-10 first:rounded-l-lg last:rounded-r-lg overflow-hidden"
-                    onClick={() => lockUnlockHandler(index)}
-                  >
+              >
+                {generatedVisualizerPalette.map((_, index) => {
+                  return (
                     <div
-                      className="absolute inset-0"
-                      style={{ backgroundColor: _.color, opacity: 0.7 }}
-                    />
-                    <button
-                      className={`relative z-10 text-xs text-gray-900 cursor-pointer invisible ${_.isLocked ? "visible" : "group-hover:visible"}`}
+                      key={index}
+                      className="w-full group cursor-pointer relative grid place-content-center h-10 first:rounded-l-lg last:rounded-r-lg overflow-hidden"
+                      onClick={() => lockUnlockHandler(index)}
                     >
-                      {_.isLocked ? (
-                        <LuLock size={13} />
-                      ) : (
-                        <LuLockOpen size={13} />
-                      )}
-                    </button>
-                  </div>
-                );
-              })}
+                      <div
+                        className="absolute inset-0"
+                        style={{ backgroundColor: _.color, opacity: 0.7 }}
+                      />
+                      <button
+                        className={`relative z-10 text-xs text-gray-900 cursor-pointer lg:invisible ${_.isLocked ? "visible" : "group-hover:visible"}`}
+                      >
+                        {_.isLocked ? (
+                          <LuLock size={13} />
+                        ) : (
+                          <LuLockOpen size={13} />
+                        )}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <button
               onClick={() => setLockPanel((prev) => !prev)}
-              className={`${CIRCLEBUTTONSTYLE}`}
+              className={`${CIRCLEBUTTONSTYLE} shrink-0`}
             >
               <LuLockKeyhole size={16} />
             </button>
           </div>
+          <Button
+            variant={"primary"}
+            size={"md"}
+            className="hidden max-lg:block w-full"
+            onClick={paletteGeneratorHandler}
+          >
+            Random Palette
+          </Button>
         </div>
       </div>
     </div>

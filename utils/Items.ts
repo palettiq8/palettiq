@@ -1,7 +1,6 @@
 import {
   LuActivity,
   LuALargeSmall,
-  LuAlignLeft,
   LuArrowLeftRight,
   LuArrowUpRight,
   LuBlend,
@@ -21,6 +20,7 @@ import {
   LuMaximize2,
   LuMessageSquare,
   LuPalette,
+  LuPanelRight,
   LuPencil,
   LuPencilLine,
   LuPickaxe,
@@ -28,6 +28,7 @@ import {
   LuRedo2,
   LuScissors,
   LuShrink,
+  LuShuffle,
   LuSparkles,
   LuTrash2,
   LuUndo2,
@@ -53,9 +54,13 @@ import {
   BsFiletypeScss,
   BsFiletypeSvg,
 } from "react-icons/bs";
-import { VscJson } from "react-icons/vsc";
-import { MdDataArray, MdFormatShapes } from "react-icons/md";
-import { AccordionDataType } from "@/app/help-center/page";
+import { MdDataArray } from "react-icons/md";
+import Visualize1 from "@/components/visualizers/Visualize1";
+import Visualize2 from "@/components/visualizers/Visualize2";
+import Visualize3 from "@/components/visualizers/Visualize3";
+import Visualize4 from "@/components/visualizers/Visualize4";
+import Visualize5 from "@/components/visualizers/Visualize5";
+import Visualize6 from "@/components/visualizers/Visualize6";
 
 export const headerLinkItems = [
   { id: 1, title: "Palettes", url: "/explore/palettes" },
@@ -241,6 +246,16 @@ export const contrastResponsiveMoreMenuItems = [
   { id: 2, title: "Alter color", icon: LuArrowLeftRight },
   { id: 3, title: "Open on screen", icon: LuMaximize2 },
   { id: 4, title: "Export", icon: BiExport },
+];
+export const visualizerResponsiveMoreMenuItems = [
+  { id: 1, title: "History", icon: LuHistory },
+  { id: 2, title: "Quick view", icon: LuEye },
+  { id: 3, title: "Shuffle palette", icon: LuShuffle },
+  { id: 4, title: "Edit on generator", icon: LuPencilLine },
+  { id: 5, title: "Open on screen", icon: LuMaximize2 },
+  { id: 6, title: "Make gradient", icon: LuCircleDot },
+  { id: 7, title: "Templetes", icon: LuPanelRight },
+  { id: 8, title: "Export", icon: BiExport },
 ];
 export const colorFamilies: Record<string, ColorFamily> = {
   Black: { hue: [0, 360], sat: [0, 50], light: [0, 30] },
@@ -1097,4 +1112,12 @@ export const updateAndAccountsQuestions = [
     content:
       "Palettiq is designed to prioritize fast and powerful palette generation and exploration over account-based management. Instead of focusing on saving or organizing content behind accounts, it focuses on delivering the best possible creative output with minimal friction. Users can always request an account system or other features through the feedback section.",
   },
+];
+export const visualizers = [
+  Visualize6,
+  Visualize4,
+  Visualize1,
+  Visualize2,
+  Visualize5,
+  Visualize3,
 ];

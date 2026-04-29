@@ -327,6 +327,8 @@ export interface VisualizerStateTypes {
   setVisualizerActiveColor: (color: string) => void;
   currentTemplateId: number;
   setCurrentTemplateId: (id: number) => void;
+  activeVisualizerMaximize: boolean;
+  setActiveVisualizerMaximize: () => void;
 }
 export interface ShadowStateTypes {
   activeShadowTab: string;
@@ -400,7 +402,7 @@ export interface BrowseStateTypes {
   viewModePalette: PaletteColor[] | null;
   setViewModePalette: (paletteColor: PaletteColor[] | null) => void;
   fontActiveCategory: string;
-  setFontActiveCategory: (category: string) => void; 
+  setFontActiveCategory: (category: string) => void;
 }
 export interface OtherTypes {
   quickViewActiveTab: string;

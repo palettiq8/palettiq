@@ -31,6 +31,8 @@ interface MenuStateType {
   toggleResetPreferencesModel: () => void;
   studioLeftMenuModel: boolean;
   toggleStudioLeftMenuModel: () => void;
+  visualizerResponsiveTempletesModel: boolean;
+  toggleVisualizerResponsiveTempletesModel: () => void;
 }
 
 const useModelStore = create<MenuStateType>((set) => ({
@@ -86,6 +88,12 @@ const useModelStore = create<MenuStateType>((set) => ({
   toggleStudioLeftMenuModel: () =>
     set((state) => ({
       studioLeftMenuModel: !state.studioLeftMenuModel,
+    })),
+  visualizerResponsiveTempletesModel: false,
+  toggleVisualizerResponsiveTempletesModel: () =>
+    set((state) => ({
+      visualizerResponsiveTempletesModel:
+        !state.visualizerResponsiveTempletesModel,
     })),
 }));
 
