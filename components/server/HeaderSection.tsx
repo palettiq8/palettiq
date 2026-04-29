@@ -15,6 +15,7 @@ export default function HeaderSection() {
             height={35}
             width={35}
             alt="header logo"
+            priority
           />
         </Link>
         <span className="text-2xl font-semibold text-gray-500">~</span>
@@ -24,7 +25,7 @@ export default function HeaderSection() {
               <Link
                 href={url}
                 key={id}
-                className={`${["Fonts", "Gradients"].includes(title) && 'max-md:hidden'} ${["Palettes", "Colors"].includes(title) && 'max-sm:hidden'}`}
+                className={`${["Fonts", "Gradients"].includes(title) && "max-md:hidden"} ${["Palettes", "Colors"].includes(title) && "max-sm:hidden"}`}
               >
                 <Button variant={"text"} size={"p0"}>
                   {title}

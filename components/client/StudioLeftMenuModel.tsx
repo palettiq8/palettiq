@@ -36,7 +36,7 @@ export default function StudioLeftMenuModel() {
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
             className="w-62 h-full bg-white rounded-xl shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)]"
           >
-            <StudioLeftMenuContent />
+            <StudioLeftMenuContent from="Responsive" />
           </motion.div>
         </motion.div>
       )}
