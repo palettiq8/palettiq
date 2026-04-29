@@ -20,6 +20,7 @@ dayjs.extend(relativeTime);
 
 export default function page() {
   const [fontSizes, setFontSizes] = useState<Record<string, number>>({});
+  const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const fontBestForSelectedItems = useBrowseStore(
     (state) => state.fontBestForSelectedItems,
@@ -56,6 +57,14 @@ export default function page() {
     });
   }, [data]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchQuery(inputValue);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [inputValue]);
+
   return (
     <div className="w-full h-max">
       <header className="w-full h-15 border-b border-gray-200 sticky top-0 z-30 bg-white/70 backdrop-blur-md">
@@ -90,10 +99,10 @@ export default function page() {
             <div className="w-70 relative">
               <input
                 type="text"
-                value={searchQuery}
+                value={inputValue}
                 placeholder={"Search by name..."}
                 className="w-full h-10 rounded-full outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => setInputValue(e.target.value)}
               />
 
               <LuSearch

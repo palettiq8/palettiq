@@ -11,13 +11,14 @@ import { LuSearch, LuSettings2 } from "react-icons/lu";
 import { VirtuosoGrid } from "react-virtuoso";
 import PaletteCard from "@/components/client/PaletteCard";
 import PaletteSkeleton from "@/components/server/PaletteSkeleton";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function page() {
   const paletteSearchQuery = useOtherStore((state) => state.paletteSearchQuery);
   const setPaletteSearchQuery = useOtherStore(
     (state) => state.setPaletteSearchQuery,
   );
+  const [inputValue, setInputValue] = useState(paletteSearchQuery);
   const filterIndustries = useBrowseStore((state) => state.filterIndustries);
   const filterPreferredColors = useBrowseStore(
     (state) => state.filterPreferredColors,
@@ -76,6 +77,14 @@ export default function page() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPaletteSearchQuery(inputValue);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [inputValue]);
+
   return (
     <div className="w-full h-max">
       <header className="w-full h-15 border-b border-gray-200 sticky top-0 z-30 bg-white/70 backdrop-blur-md">
@@ -113,10 +122,10 @@ export default function page() {
             <div className="w-70 relative max-lg:w-60">
               <input
                 type="text"
-                value={paletteSearchQuery}
+                value={inputValue}
                 placeholder={"Search by name..."}
                 className="w-full h-10 rounded-full outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
-                onChange={(e) => setPaletteSearchQuery(e.target.value)}
+                onChange={(e) => setInputValue(e.target.value)}
               />
 
               <LuSearch

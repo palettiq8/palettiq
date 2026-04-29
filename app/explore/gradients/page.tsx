@@ -12,12 +12,13 @@ import dayjs from "dayjs";
 import { LuBookmark, LuSearch } from "react-icons/lu";
 import { VirtuosoGrid } from "react-virtuoso";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GradientMoreMenu from "@/components/client/GradientMoreMenu";
 
 dayjs.extend(relativeTime);
 
 export default function page() {
+  const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const filterPreferredColors = useBrowseStore(
     (state) => state.filterPreferredColors,
@@ -36,6 +37,14 @@ export default function page() {
     searchQuery: searchQuery,
   });
   const gradientsTypes = ["Linear", "Radial", "Conic"];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchQuery(inputValue);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [inputValue]);
 
   return (
     <div className="w-full h-max">
@@ -90,10 +99,10 @@ export default function page() {
           <div className="w-70 relative">
             <input
               type="text"
-              value={searchQuery}
+              value={inputValue}
               placeholder={"Search by name..."}
               className="w-full h-10 rounded-full outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setInputValue(e.target.value)}
             />
 
             <LuSearch

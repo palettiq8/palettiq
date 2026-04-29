@@ -8,16 +8,25 @@ import dayjs from "dayjs";
 import { LuSearch } from "react-icons/lu";
 import { VirtuosoGrid } from "react-virtuoso";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { checkIsLight, FlashMessage } from "@/utils/utils";
 
 dayjs.extend(relativeTime);
 
 export default function page() {
+  const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const { data, isLoading, isFetching } = useFetchColorsQuery({
     searchQuery: searchQuery,
   });
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchQuery(inputValue);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [inputValue]);
 
   return (
     <div className="w-full h-max">
@@ -37,10 +46,10 @@ export default function page() {
         <div className="w-70 relative shrink-0 max-lg:w-full">
           <input
             type="text"
-            value={searchQuery}
+            value={inputValue}
             placeholder={"Search by name..."}
             className="w-full h-10 rounded-full outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => setInputValue(e.target.value)}
           />
 
           <LuSearch size={18} className="text-gray-900 absolute top-3 left-4" />
@@ -68,7 +77,10 @@ export default function page() {
                 listClassName="grid grid-cols-1 gap-1 px-4 max-lg:gap-4"
                 itemContent={(index, color) => {
                   return (
-                    <div key={index} className="flex items-center gap-3 max-lg:flex-col max-lg:items-start">
+                    <div
+                      key={index}
+                      className="flex items-center gap-3 max-lg:flex-col max-lg:items-start"
+                    >
                       <p className="text-sm font-semibold text-gray-900 w-25 max-lg:w-max">
                         {color.name}
                       </p>
