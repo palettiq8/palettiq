@@ -3,6 +3,7 @@ import { primary } from "@/utils/Fonts";
 import "./globals.css";
 import MainLayoutWrapper from "@/components/client/MainLayoutWrapper";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: "PalettIQ - Designers & Brands",
@@ -22,6 +23,7 @@ export default function RootLayout({
         suppressHydrationWarning={true}
       >
         <Analytics />
+        <SpeedInsights />
         <MainLayoutWrapper>{children}</MainLayoutWrapper>
       </body>
     </html>
