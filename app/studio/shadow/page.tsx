@@ -5,9 +5,11 @@ import OpenMoreMenu from "@/components/client/OpenMoreMenu";
 import ShadowAddLayerContainer from "@/components/client/ShadowAddLayerContainer";
 import ShadowColorPickerMenu from "@/components/client/ShadowColorPickerMenu";
 import ShadowProgressBar from "@/components/client/ShadowProgressBar";
+import ShadowResponsiveMoreMenu from "@/components/client/ShadowResponsiveMoreMenu";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import ToggleButton from "@/components/server/ToggleButton";
 import ShadowOutputComponent from "@/components/svgs/ShadowOutputComponent";
+import { useIsMaxLg } from "@/hooks/useIsMaxLg";
 import { useOtherStore, useShadowStore } from "@/libs/stores/dataStore";
 import useModelStore from "@/libs/stores/modelStore";
 import useUiStore from "@/libs/stores/uiStore";
@@ -15,7 +17,7 @@ import { BUTTONCOMMONSTYLE } from "@/utils/styles/Classes";
 import { ShadowPropsType } from "@/utils/Types";
 import { generateBoxShadow, generateTextShadow } from "@/utils/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BiExport } from "react-icons/bi";
 import { LuChevronDown, LuX } from "react-icons/lu";
 
@@ -151,6 +153,21 @@ export default function page() {
   const VIEWERCOMMONSTYLE =
     "w-10 h-10 flex items-center rounded-md cursor-pointer transition-all active:scale-90 select-none justify-center";
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [containerSize, setContainerSize] = useState(280);
+
+  const isMaxLg = useIsMaxLg(); // আগের hook টা
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect;
+      setContainerSize(Math.min(width, height) - 32);
+    });
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
@@ -168,19 +185,26 @@ export default function page() {
           }}
           variant={"outline"}
           size={"md"}
+          className="max-lg:hidden"
         >
           <BiExport size={16} />
           <span>Export</span>
         </Button>
+        <div className="hidden max-lg:block">
+          <ShadowResponsiveMoreMenu />
+        </div>
       </div>
       <div
-        className={`w-full h-full bg-white flex rounded-b-xl`}
+        className={`w-full h-full max-lg:flex-col bg-white flex rounded-b-xl`}
         style={{ height: "calc(100% - 64px)" }}
       >
         <div
-          className={`w-2/3 h-full rounded-bl-x ${isMaximizeShadow && "w-full h-screen absolute bg-white top-0 left-0 z-50"}`}
+          className={`w-full h-full rounded-bl-xl max-lg:rounded-none max-xl:border-b max-xl:border-gray-200 ${isMaximizeShadow && "w-full h-screen absolute bg-white top-0 left-0 z-50"}`}
         >
-          <div className="w-full h-full flex items-center justify-center relative">
+          <div
+            ref={containerRef}
+            className={`w-full ${isMaximizeShadow ? 'h-full' : 'h-50'} lg:h-full flex items-center justify-center relative`}
+          >
             {activeShadowTab === "Box Shadow" ? (
               <>
                 {activeShadowViewer === "Container View" && (
@@ -188,8 +212,8 @@ export default function page() {
                     style={{
                       boxShadow: boxShadow,
                       borderRadius: `${shadowCornerRadius}px`,
-                      width: `${shadowContainerSize}px`,
-                      height: `${shadowContainerSize}px`,
+                      width: `${isMaxLg ? containerSize : shadowContainerSize}px`,
+                      height: `${isMaxLg ? containerSize : shadowContainerSize}px`,
                     }}
                   ></div>
                 )}
@@ -197,7 +221,7 @@ export default function page() {
                   <ShadowOutputComponent
                     boxShadow={boxShadow}
                     radius={shadowCornerRadius}
-                    size={shadowContainerSize}
+                    size={isMaxLg ? containerSize : shadowContainerSize}
                   />
                 )}
               </>
@@ -207,7 +231,7 @@ export default function page() {
                   <h1
                     className="text-gray-900"
                     style={{
-                      fontSize: `${textShadowSize}px`,
+                      fontSize: `${isMaxLg ? 30 : textShadowSize}px`,
                       fontWeight: `${textShadowWeight}`,
                       textShadow: textShadow,
                     }}
@@ -219,14 +243,14 @@ export default function page() {
                   <ShadowOutputComponent
                     textShadow={textShadow}
                     radius={shadowCornerRadius}
-                    size={shadowContainerSize}
+                    size={isMaxLg ? containerSize : shadowContainerSize}
                   />
                 )}
               </>
             )}
           </div>
         </div>
-        <div className="w-1/3 h-full rounded-br-xl border-l border-gray-200">
+        <div className="w-120 max-lg:w-full shrink-0 h-full rounded-br-xl border-l max-lg:border-none border-gray-200 max-lg:h-[calc(100%-200px)]">
           <div
             className="w-full overflow-y-auto pb-4"
             style={{ height: "calc(100% - 64px)" }}
@@ -240,7 +264,7 @@ export default function page() {
                       onClick={() => {
                         setActiveShadowTab(_);
                       }}
-                      className={`w-full h-10 px-4 text-sm font-semibold border rounded-full ${activeShadowTab === _ ? "bg-gray-100 border-gray-200 text-gray900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all`}
+                      className={`w-full h-10 px-4 text-sm font-semibold border rounded-full ${activeShadowTab === _ ? "bg-gray-100 border-gray-200 text-gray-900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all`}
                     >
                       {_}
                     </button>
@@ -250,7 +274,7 @@ export default function page() {
             </div>
             {activeShadowTab === "Box Shadow" && (
               <div className="w-full">
-                <div className="w-full px-4 grid grid-cols-1 gap-3">
+                <div className="w-full px-4 grid grid-cols-1 gap-3 max-lg:hidden">
                   <div className="w-full rounded-lg border border-gray-200">
                     {CPB.map((props, i) => (
                       <ShadowProgressBar key={i} {...props} />
@@ -373,7 +397,7 @@ export default function page() {
             )}
             {activeShadowTab === "Text Shadow" && (
               <div className="w-full">
-                <div className="w-full px-4 grid grid-cols-1 gap-3">
+                <div className="w-full px-4 grid grid-cols-1 gap-3 max-lg:hidden">
                   <div className="w-full rounded-lg border border-gray-200">
                     {TCI.slice(
                       0,
@@ -481,7 +505,9 @@ export default function page() {
             )}
           </div>
           <div className="w-full h-16 border-t border-gray-200 flex items-center justify-between px-4">
-            <OpenMoreMenu from="Shadow" />
+            <div className="max-lg:hidden">
+              <OpenMoreMenu from="Shadow" />
+            </div>
             <div className="flex items-center gap-3">
               {activeShadowTab === "Box Shadow" && (
                 <>
