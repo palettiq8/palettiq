@@ -257,6 +257,10 @@ export const visualizerResponsiveMoreMenuItems = [
   { id: 7, title: "Templetes", icon: LuPanelRight },
   { id: 8, title: "Export", icon: BiExport },
 ];
+export const shadowResponsiveMoreMenuItems = [
+  { id: 1, title: "Open on screen", icon: LuMaximize2 },
+  { id: 2, title: "Export", icon: BiExport },
+];
 export const colorFamilies: Record<string, ColorFamily> = {
   Black: { hue: [0, 360], sat: [0, 50], light: [0, 30] },
   White: { hue: [0, 360], sat: [0, 30], light: [80, 100] },
