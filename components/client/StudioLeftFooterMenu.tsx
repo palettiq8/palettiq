@@ -11,7 +11,7 @@ import useModelStore from "@/libs/stores/modelStore";
 const COMMONSTYLE =
   "flex items-center p-2 gap-3 rounded-lg transition-all hover:bg-gray-100 border border-white hover:border-gray-200 hover:cursor-pointer select-none text-gray-900";
 
-export default function StudioLeftFooterMenu() {
+export default function StudioLeftFooterMenu({ from }: { from: string }) {
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
 
@@ -75,7 +75,11 @@ export default function StudioLeftFooterMenu() {
               return (
                 <Link
                   key={id}
-                  onClick={() => toggleStudioLeftMenuModel()}
+                  onClick={() => {
+                    if (from === "Responsive") {
+                      toggleStudioLeftMenuModel();
+                    }
+                  }}
                   href={url}
                   className={COMMONSTYLE}
                 >

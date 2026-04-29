@@ -191,7 +191,7 @@ export default function page() {
           <span>Export</span>
         </Button>
         <div className="hidden max-lg:block">
-          <ShadowResponsiveMoreMenu />
+          <ShadowResponsiveMoreMenu />    
         </div>
       </div>
       <div
@@ -337,7 +337,7 @@ export default function page() {
                           >
                             <p className="text-sm font-semibold text-gray-900 select-none">{`Layer ${index + 1}`}</p>
                             <div className="flex items-center gap-2">
-                              <div className="hidden group-hover:block">
+                              <div className="xl:hidden group-hover:block">
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();
@@ -454,7 +454,7 @@ export default function page() {
                           >
                             <p className="text-sm font-semibold text-gray-900 select-none">{`Layer ${index + 1}`}</p>
                             <div className="flex items-center gap-2">
-                              <div className="hidden group-hover:block">
+                              <div className="xl:hidden group-hover:block">
                                 <button
                                   onClick={(e) => {
                                     e.stopPropagation();

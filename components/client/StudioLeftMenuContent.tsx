@@ -8,7 +8,7 @@ export default function StudioLeftMenuContent({from}: {from: string}) {
       <StudioLeftMenuHeader from={from} />
       <StudioLeftMenuContainer />
       <div className="w-full h-16 border-t border-gray-200 flex items-center px-4">
-        <StudioLeftFooterMenu />
+        <StudioLeftFooterMenu from={from} />
       </div>
     </>
   );
