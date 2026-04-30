@@ -14,7 +14,6 @@ import { useEffect, useState } from "react";
 import FontBestForMenu from "@/components/client/FontBestForMenu";
 import Link from "next/link";
 import { Button } from "@/components/Button";
-import FontMoreMenu from "@/components/client/FontMoreMenu";
 
 dayjs.extend(relativeTime);
 
@@ -84,7 +83,7 @@ export default function page() {
               return (
                 <button
                   key={id}
-                  className={`${title === fontActiveCategory ? "bg-gray-900 text-gray-50" : "bg-gray-100 text-gray-900 hover:bg-gray-900 hover:text-gray-50"} h-10 px-5 text-sm font-semibold rounded-full cursor-pointer transition-all flex items-center gap-1.5 border border-gray-200`}
+                  className={`${title === fontActiveCategory ? "bg-gray-900 text-gray-50" : "bg-gray-100 text-gray-900 hover:bg-gray-900 hover:text-gray-50"} h-10 px-5 text-sm font-semibold rounded-full cursor-pointer transition-all flex items-center gap-1.5 border border-gray-200 ${["Script", "Handwritten"].includes(title) && "max-xl:hidden"} ${["Display", "Slab", "Serif", "Sans", "All"].includes(title) && "max-lg:hidden"}`}
                   onClick={() => {
                     setFontActiveCategory(title);
                   }}
@@ -95,8 +94,8 @@ export default function page() {
               );
             })}
           </div>
-          <div className="flex items-center gap-2">
-            <div className="w-70 relative">
+          <div className="flex items-center gap-2 max-lg:w-full">
+            <div className="w-70 relative max-lg:w-full">
               <input
                 type="text"
                 value={inputValue}
@@ -140,29 +139,31 @@ export default function page() {
                   return (
                     <div
                       key={font?.id}
-                      className={`w-full rounded-xl p-5 h-74 bg-gray-100 flex flex-col items-start justify-between border border-gray-200`}
+                      className={`w-full rounded-xl p-5 h-74 max-lg:h-max bg-gray-100 flex flex-col items-start justify-between border border-gray-200`}
                     >
-                      <div className="w-full flex items-start justify-between">
+                      <div className="w-full flex items-start justify-between max-lg:items-center max-lg:justify-center">
                         <h2
                           style={{
                             fontFamily: font?.family,
-                            fontSize: `${fontSizes[font?.id]}px`,
+                            fontSize: `clamp(${fontSizes[font?.id] * 0.5}px, ${fontSizes[font?.id] * 0.15}vw, ${fontSizes[font?.id]}px)`,
                             lineHeight: 1.3,
                           }}
+                          className="text-center"
                         >
                           {font?.family}
                         </h2>
-                        <div className="flex items-center gap-2">
-                          <Link href={font?.download} download>
-                            <Button variant={"outline"} size={"md"}>
-                              <LuDownload size={16} />
-                              <span>Download</span>
-                            </Button>
-                          </Link>
-                          <FontMoreMenu />
-                        </div>
+                        <Link
+                          href={font?.download}
+                          download
+                          className="max-lg:hidden"
+                        >
+                          <Button variant={"outline"} size={"md"}>
+                            <LuDownload size={16} />
+                            <span>Download</span>
+                          </Button>
+                        </Link>
                       </div>
-                      <div className="mt-6 w-full flex items-center justify-between">
+                      <div className="mt-6 w-full flex items-center justify-between max-lg:hidden">
                         <div className="flex items-center gap-12">
                           <p className="text-sm font-semibold text-gray-900">
                             {font?.category?.join(", ")}
@@ -182,7 +183,7 @@ export default function page() {
                             })}
                           </div>
                         </div>
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 max-xl:hidden">
                           <input
                             type="range"
                             min={min}

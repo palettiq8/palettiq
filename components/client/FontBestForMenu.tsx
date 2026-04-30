@@ -42,7 +42,7 @@ export default function FontBestForMenu() {
   }, [fontBestForMenu]);
 
   return (
-    <div className="relative">
+    <div className="relative max-lg:hidden">
       <div ref={buttonRef} onClick={() => toggleFontBestForMenu()}>
         <Button variant={"outline"} size={"md"}>
           <span>Best For</span>
@@ -62,7 +62,7 @@ export default function FontBestForMenu() {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
             className="bg-white shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] rounded-xl z-40 absolute 
-            top-11 right-0 w-200 h-max flex flex-wrap gap-3 p-4"
+            top-11 right-0 w-200 max-lg:w-full h-max flex flex-wrap gap-3 p-4 max-lg:left-0"
           >
             {fontBestForItems.map((_, index) => {
               const isExist = fontBestForSelectedItems.includes(_);
