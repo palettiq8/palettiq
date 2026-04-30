@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ExploreGradientsPageClient from "../ExploreGradientsPageClient";
+import ExploreColorsPageClient from "../ExploreColorsPageClient";
 
 export const metadata: Metadata = {
   title: "Explore & Discover Colors Online",
@@ -14,5 +14,5 @@ export const metadata: Metadata = {
 };
 
 export default function page() {
-  return <ExploreGradientsPageClient />;
+  return <ExploreColorsPageClient />;
 }

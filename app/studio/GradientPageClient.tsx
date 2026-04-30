@@ -279,7 +279,7 @@ export default function GradientPageClient() {
         </div>
       </div>
       <div className="w-full flex max-lg:flex-col h-[calc(100%-64px)]">
-        <div className="w-full max-lg:h-35 max-lg:flex-none border-r bg-gray-100 rounded-bl-xl max-lg:rounded-none max-lg:border-r-0 max-lg:border-b border-gray-200 p-4">
+        <div className="w-full max-lg:h-35 border-r bg-gray-100 rounded-bl-xl max-lg:rounded-none max-lg:border-r-0 max-lg:border-b border-gray-200 p-4 flex items-center justify-center">
           <div
             style={{
               width: gradientContainerSize.width,
@@ -295,7 +295,7 @@ export default function GradientPageClient() {
                 activeConic,
               ),
             }}
-            className={`flex flex-col justify-between items-start ${
+            className={`${
               isMaximizeGradient && "w-full h-screen absolute top-0 left-0 z-50"
             }`}
           >

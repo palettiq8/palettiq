@@ -505,7 +505,7 @@ export default function ExtractorPageClient() {
         </div>
         <div className="w-120 max-lg:w-full h-full shrink-0 max-lg:h-[calc(100%-140px)]">
           <div className="w-full h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)] overflow-y-scroll noscrollbar">
-            <div className="w-full p-4 h-50 border-b border-gray-200">
+            <div className="w-full p-4 h-max border-b border-gray-200">
               <div className="w-full flex items-center justify-between">
                 <div className="flex items-center max-sm:flex-col max-sm:items-start gap-1">
                   <h3 className="text-md font-semibold text-gray-900">
@@ -549,7 +549,7 @@ export default function ExtractorPageClient() {
                 </div>
               </div>
               <div
-                className={`w-full h-full ${isMaximizeExtractor ? "absolute top-0 left-0 h-screen z-50" : "mt-3"}`}
+                className={`w-full h-full bg-amber-200 ${isMaximizeExtractor ? "absolute top-0 left-0 h-screen z-50" : "mt-3"}`}
               >
                 <div
                   className={`w-full h-full relative flex ${isMaximizeExtractor && "max-lg:flex-col"} items-center`}
