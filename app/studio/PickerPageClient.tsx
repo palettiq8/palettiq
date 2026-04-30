@@ -5,7 +5,7 @@ import { BiExport } from "react-icons/bi";
 import { REDOUNDOCOMMONSTYLE } from "@/utils/styles/Classes";
 import { LuArrowLeft, LuHistory, LuRedo2, LuUndo2 } from "react-icons/lu";
 import { Suspense, useCallback, useEffect } from "react";
-import { Colord, colord } from "colord";
+import { Colord, colord, extend } from "colord";
 import FormatCard from "@/components/server/FormatCard";
 import ColorPickerMenu from "@/components/client/ColorPickerMenu";
 import {
@@ -23,6 +23,24 @@ import { useSearchParams } from "next/navigation";
 import CircleLoader from "@/components/server/CircleLoader";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import PickerResponsiveMoreMenu from "@/components/client/PickerResponsiveMoreMenu";
+
+import cmykPlugin from "colord/plugins/cmyk";
+import hwbPlugin from "colord/plugins/hwb";
+import labPlugin from "colord/plugins/lab";
+import lchPlugin from "colord/plugins/lch";
+import xyzPlugin from "colord/plugins/xyz";
+import harmoniesPlugin from "colord/plugins/harmonies";
+import mixPlugin from "colord/plugins/mix";
+
+extend([
+  cmykPlugin,
+  hwbPlugin,
+  labPlugin,
+  lchPlugin,
+  xyzPlugin,
+  harmoniesPlugin,
+  mixPlugin,
+]);
 
 const ColorManipulator = ({ items }: { items: Colord[] }) => {
   return (
