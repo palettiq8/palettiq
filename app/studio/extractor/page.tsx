@@ -551,7 +551,9 @@ export default function page() {
               <div
                 className={`w-full h-full ${isMaximizeExtractor ? "absolute top-0 left-0 h-screen z-50" : "mt-3"}`}
               >
-                <div className="w-full h-full relative flex max-lg:flex-col items-center">
+                <div
+                  className={`w-full h-full relative flex ${isMaximizeExtractor && "max-lg:flex-col"} items-center`}
+                >
                   {pickers.map((p, i) => {
                     return (
                       <div
