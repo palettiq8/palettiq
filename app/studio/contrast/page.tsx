@@ -21,7 +21,13 @@ import {
   useState,
 } from "react";
 import { BiExport } from "react-icons/bi";
-import { LuChevronDown, LuHistory, LuRedo2, LuUndo2 } from "react-icons/lu";
+import {
+  LuArrowLeft,
+  LuChevronDown,
+  LuHistory,
+  LuRedo2,
+  LuUndo2,
+} from "react-icons/lu";
 
 extend([a11yPlugin]);
 
@@ -331,35 +337,51 @@ export default function page() {
           className={`w-full border-r border-gray-200 flex items-center justify-center p-4 max-lg:h-35 bg-gray-100 rounded-bl-xl max-lg:rounded-none max-lg:border-r-0 max-lg:border-b`}
         >
           <div
-            className={`w-full h-full max-lg:overflow-y-auto noscrollbar ${isMaximizeContrast ? "absolute top-0 left-0 rounded-none z-50" : "rounded-xl"} flex items-center justify-center p-4`}
+            className={`w-full h-full ${isMaximizeContrast ? "absolute top-0 left-0 rounded-none z-50" : "rounded-xl"}`}
             style={{ backgroundColor: bgColor }}
           >
-            <div className="w-full h-max max-lg:h-full flex items-center flex-col gap-6 justify-center max-lg:hidden">
-              <h1
-                className="font-black select-none"
-                style={{
-                  color: textColor,
-                  fontSize: fontSize + 20,
-                  fontWeight: fontWeight,
-                }}
-              >
-                {contrastTitle}
-              </h1>
+            <div className="w-full h-full relative max-lg:overflow-y-auto noscrollbar flex items-center justify-center p-4">
+              <div className="w-full h-max max-lg:h-full flex items-center flex-col gap-6 justify-center max-lg:hidden">
+                <h1
+                  className="font-black select-none"
+                  style={{
+                    color: textColor,
+                    fontSize: fontSize + 20,
+                    fontWeight: fontWeight,
+                  }}
+                >
+                  {contrastTitle}
+                </h1>
+                <p
+                  className="max-w-200 text-center select-none"
+                  style={{
+                    color: textColor,
+                    fontSize: fontSize,
+                    fontWeight: fontWeight,
+                  }}
+                >
+                  {contrastDescription}
+                </p>
+              </div>
               <p
-                className="max-w-200 text-center select-none"
-                style={{
-                  color: textColor,
-                  fontSize: fontSize,
-                  fontWeight: fontWeight,
-                }}
+                className="text-sm font-semibold hidden max-lg:block"
+                style={{ color: textColor }}
               >
-                {contrastDescription}
+                The quick brown fox jumps over the lazy dog. Pack my box with
+                five dozen liquor jugs. How vividly dazzling colors bring quiet
+                joy.
               </p>
+              {isMaximizeContrast && (
+                <Button
+                  onClick={() => setIsMaximizeContrast()}
+                  variant={"outline"}
+                  size={"circle"}
+                  className="absolute top-4 left-4"
+                >
+                  <LuArrowLeft size={16} />
+                </Button>
+              )}
             </div>
-            <p className="text-sm font-semibold hidden max-lg:block" style={{ color: textColor }}>
-              The quick brown fox jumps over the lazy dog. Pack my box with five
-              dozen liquor jugs. How vividly dazzling colors bring quiet joy.
-            </p>
           </div>
         </div>
         <div className="w-120 h-full shrink-0 max-lg:w-full max-lg:h-[calc(100%-140px)]">

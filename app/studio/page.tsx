@@ -4,7 +4,7 @@ import { Button } from "@/components/Button";
 import ColorCountMenu from "@/components/client/ColorCountMenu";
 import ColorPreferencesMenu from "@/components/client/ColorPreferencesMenu";
 import { BiExport } from "react-icons/bi";
-import { LuRedo2, LuUndo2 } from "react-icons/lu";
+import { LuArrowLeft, LuRedo2, LuUndo2 } from "react-icons/lu";
 import GeneratorContentHeaderIconItems from "@/components/client/GeneratorContentHeaderIconItems";
 import { Suspense, useCallback, useEffect } from "react";
 import useUiStore from "@/libs/stores/uiStore";
@@ -200,10 +200,10 @@ function StudioPage() {
         </div>
       </div>
       <div
-        className={`w-full max-lg:p-4 ${
+        className={`w-full ${
           generatorMaximize
             ? "absolute top-0 left-0 w-full h-screen z-50"
-            : "h-[calc(100%-128px)] max-lg:h-[calc(100%-224px)]"
+            : "h-[calc(100%-128px)] max-lg:h-[calc(100%-224px)] max-lg:p-4"
         }`}
       >
         <DndContext
@@ -216,7 +216,7 @@ function StudioPage() {
             strategy={rectSortingStrategy}
           >
             <div
-              className={`w-full bg-white h-full ${!generatorMaximize && "max-lg:h-70 max-md:h-50 max-sm:h-35"} flex ${isHorizontalPalette && "flex-col"} relative`}
+              className={`w-full bg-white h-full ${!generatorMaximize && "max-lg:h-70 max-md:h-50 max-sm:h-35"} flex ${isHorizontalPalette && "flex-col"} ${generatorMaximize && "max-lg:flex-col"} relative`}
             >
               {generatedPalette.map(({ id, color, isLocked }, index) => (
                 <SortablePaletteItem
@@ -224,8 +224,20 @@ function StudioPage() {
                   index={index}
                   color={color}
                   isLocked={isLocked}
+                  isFirst={index === 0}
+                  isLast={index === generatedPalette.length - 1}
                 />
               ))}
+              {generatorMaximize && (
+                <Button
+                  onClick={() => toggleGeneratorMaximize()}
+                  variant={"outline"}
+                  size={"circle"}
+                  className="absolute top-4 left-4"
+                >
+                  <LuArrowLeft size={16} />
+                </Button>
+              )}
             </div>
           </SortableContext>
         </DndContext>

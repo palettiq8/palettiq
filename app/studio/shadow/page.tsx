@@ -19,7 +19,7 @@ import { generateBoxShadow, generateTextShadow } from "@/utils/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { BiExport } from "react-icons/bi";
-import { LuChevronDown, LuX } from "react-icons/lu";
+import { LuArrowLeft, LuChevronDown, LuX } from "react-icons/lu";
 
 export default function page() {
   const activeShadowTab = useShadowStore((state) => state.activeShadowTab);
@@ -191,7 +191,7 @@ export default function page() {
           <span>Export</span>
         </Button>
         <div className="hidden max-lg:block">
-          <ShadowResponsiveMoreMenu />    
+          <ShadowResponsiveMoreMenu />
         </div>
       </div>
       <div
@@ -247,6 +247,16 @@ export default function page() {
                   />
                 )}
               </>
+            )}
+            {isMaximizeShadow && (
+              <Button
+                onClick={() => setIsMaximizeShadow()}
+                variant={"outline"}
+                size={"circle"}
+                className="absolute top-4 left-4"
+              >
+                <LuArrowLeft size={16} />
+              </Button>
             )}
           </div>
         </div>

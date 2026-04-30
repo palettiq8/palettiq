@@ -6,7 +6,14 @@ import {
   REDOUNDOCOMMONSTYLE,
 } from "@/utils/styles/Classes";
 import { BiExport } from "react-icons/bi";
-import { LuEye, LuHistory, LuPlus, LuRedo2, LuUndo2 } from "react-icons/lu";
+import {
+  LuArrowLeft,
+  LuEye,
+  LuHistory,
+  LuPlus,
+  LuRedo2,
+  LuUndo2,
+} from "react-icons/lu";
 import { defaultGradients } from "@/utils/Items";
 import { useCallback, useEffect, useRef } from "react";
 import { useGradientStore, useOtherStore } from "@/libs/stores/dataStore";
@@ -288,10 +295,23 @@ export default function page() {
                 activeConic,
               ),
             }}
-            className={`flex p-4 flex-col justify-between items-start ${
+            className={`flex flex-col justify-between items-start ${
               isMaximizeGradient && "w-full h-screen absolute top-0 left-0 z-50"
             }`}
-          ></div>
+          >
+            <div className="w-full h-full relative">
+              {isMaximizeGradient && (
+                <Button
+                  onClick={() => setIsMaximizeGradient()}
+                  variant={"outline"}
+                  size={"circle"}
+                  className="absolute top-4 left-4"
+                >
+                  <LuArrowLeft size={16} />
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
         <div className="w-120 h-full shrink-0 max-lg:w-full max-lg:h-[calc(100%-140px)]">
           <div className="w-full overflow-y-scroll noscrollbar h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)]">

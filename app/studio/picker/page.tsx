@@ -3,7 +3,7 @@
 import { Button } from "@/components/Button";
 import { BiExport } from "react-icons/bi";
 import { REDOUNDOCOMMONSTYLE } from "@/utils/styles/Classes";
-import { LuHistory, LuRedo2, LuUndo2 } from "react-icons/lu";
+import { LuArrowLeft, LuHistory, LuRedo2, LuUndo2 } from "react-icons/lu";
 import { Suspense, useCallback, useEffect } from "react";
 import { Colord, colord } from "colord";
 import FormatCard from "@/components/server/FormatCard";
@@ -343,9 +343,22 @@ function PickerPage() {
       >
         <div className="w-full max-lg:h-35 max-lg:flex-none border-r bg-gray-100 rounded-bl-xl max-lg:rounded-none max-lg:border-r-0 max-lg:border-b border-gray-200 p-4">
           <div
-            className={`w-full h-full p-4 ${isMaximizeColorPicker ? "absolute top-0 left-0 rounded-none z-50" : "rounded-xl"}`}
+            className={`w-full h-full ${isMaximizeColorPicker ? "absolute top-0 left-0 rounded-none z-50" : "rounded-xl"}`}
             style={{ backgroundColor: colorPickerColor }}
-          ></div>
+          >
+            <div className="w-full h-full relative">
+              {isMaximizeColorPicker && (
+                <Button
+                  onClick={() => setIsMaximizeColorPicker()}
+                  variant={"outline"}
+                  size={"circle"}
+                  className="absolute top-4 left-4"
+                >
+                  <LuArrowLeft size={16} />
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
         <div className="w-full h-full max-lg:h-[calc(100%-140px)]">
           <div className="w-full overflow-y-scroll noscrollbar h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)]">

@@ -229,19 +229,21 @@ export default function page() {
                 <ActiveVisualizer palette={generatedVisualizerPalette} />
               )}
             </div>
-            {!activeVisualizerMaximize && (
-              <Button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveVisualizerMaximize();
-                }}
-                variant={"outline"}
-                size={"circle"}
-                className="absolute top-4 left-4 max-[1450px]:hidden"
-              >
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveVisualizerMaximize();
+              }}
+              variant={"outline"}
+              size={"circle"}
+              className="absolute top-4 left-4"
+            >
+              {activeVisualizerMaximize ? (
+                <LuMinimize2 size={16} />
+              ) : (
                 <LuMaximize2 size={16} />
-              </Button>
-            )}
+              )}
+            </Button>
           </div>
         </div>
         <div
