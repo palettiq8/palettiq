@@ -88,12 +88,6 @@ export default function ResetPreferencesModel() {
   const setDownloadPngWithoutHexTrue = useOtherStore(
     (state) => state.setDownloadPngWithoutHexTrue,
   );
-  const clearFontBestForSelectedItems = useBrowseStore(
-    (state) => state.clearFontBestForSelectedItems,
-  );
-  const setFontActiveCategory = useBrowseStore(
-    (state) => state.setFontActiveCategory,
-  );
 
   const handler = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -163,8 +157,6 @@ export default function ResetPreferencesModel() {
                   setSearchFontsQuery("");
                   setExplorePaletteView("Vertical");
                   setDownloadPngWithoutHexTrue();
-                  clearFontBestForSelectedItems();
-                  setFontActiveCategory("All");
 
                   toggleResetPreferencesModel();
                   FlashMessage("success", "Reset to default successfully.");

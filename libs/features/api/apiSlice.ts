@@ -2,7 +2,6 @@ import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { supabase } from "@/supabase/supabase";
 import {
   ColorType,
-  FontType,
   GradientType,
   PaletteColor,
   PublishedPaletteType,
@@ -169,41 +168,6 @@ export const Api = createApi({
       },
       providesTags: ["Gradients"],
     }),
-    fetchFonts: builder.query<
-      FontType[],
-      {
-        category: string;
-        keywords: string[];
-        searchQuery: string;
-      }
-    >({
-      queryFn: async ({ category, keywords, searchQuery }) => {
-        try {
-          let query = supabase.from("fonts").select("*");
-
-          if (category !== "All") {
-            query = query.contains("category", JSON.stringify([category]));
-          }
-
-          if (keywords.length > 0) {
-            query = query.contains("keywords", JSON.stringify(keywords));
-          }
-
-          if (searchQuery && searchQuery.trim() !== "") {
-            query = query.or(`family.ilike.%${searchQuery}%`);
-          }
-
-          const { data, error } = await query;
-
-          if (error) return { error };
-
-          return { data: data as FontType[] };
-        } catch (error: any) {
-          return { error: error };
-        }
-      },
-      providesTags: ["Fonts"],
-    }),
     publishPalette: builder.mutation<{ success: boolean }, PaletteItem>({
       queryFn: async (palette) => {
         try {
@@ -281,7 +245,6 @@ export const {
   useFetchPalettesQuery,
   useFetchColorsQuery,
   useFetchGradientsQuery,
-  useFetchFontsQuery,
   usePublishPaletteMutation,
   useAddProductUpdateEmailMutation,
   useAddFeedbackMutation,

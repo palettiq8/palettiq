@@ -25,7 +25,7 @@ export default function HeaderSection() {
               <Link
                 href={url}
                 key={id}
-                className={`${["Fonts", "Gradients"].includes(title) && "max-md:hidden"} ${["Palettes", "Colors"].includes(title) && "max-sm:hidden"}`}
+                className={`${["Gradients"].includes(title) && "max-md:hidden"} ${["Palettes", "Colors"].includes(title) && "max-sm:hidden"}`}
               >
                 <Button variant={"text"} size={"p0"}>
                   {title}

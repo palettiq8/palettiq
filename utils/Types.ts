@@ -139,17 +139,6 @@ export interface GradientType {
   created_at: Date;
   updated_at: Date;
 }
-export interface FontType {
-  id: string;
-  family: string;
-  category: string[];
-  website: string;
-  file: string;
-  keywords: string[];
-  download: string;
-  created_at: Date;
-  updated_at: Date;
-}
 export type Position = {
   title: string;
   value: number;
@@ -392,17 +381,12 @@ export interface BrowseStateTypes {
   setSearchGradientsQuery: (query: string) => void;
   searchFontsQuery: string;
   setSearchFontsQuery: (query: string) => void;
-  fontBestForSelectedItems: string[];
-  setFontBestForSelectedItems: (item: string) => void;
-  clearFontBestForSelectedItems: () => void;
   paletteViewDetailsItem: PublishedPaletteType | null;
   setPaletteViewDetailsItem: (palette: PublishedPaletteType | null) => void;
   openOnScreenPalette: PaletteColor[] | null;
   setOpenOnScreenPalette: (paletteColor: PaletteColor[] | null) => void;
   viewModePalette: PaletteColor[] | null;
   setViewModePalette: (paletteColor: PaletteColor[] | null) => void;
-  fontActiveCategory: string;
-  setFontActiveCategory: (category: string) => void;
 }
 export interface OtherTypes {
   quickViewActiveTab: string;

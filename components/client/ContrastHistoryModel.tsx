@@ -3,9 +3,8 @@
 import useModelStore from "@/libs/stores/modelStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../Button";
-import { LuBookmark, LuCheck, LuStar, LuX } from "react-icons/lu";
+import { LuCheck, LuX } from "react-icons/lu";
 import { useEffect, useRef } from "react";
-import { generatorContentHeaderItemsStyle } from "@/utils/styles/Classes";
 import { useContrastStore } from "@/libs/stores/dataStore";
 
 export default function ContrastHistoryModel() {

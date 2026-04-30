@@ -57,7 +57,7 @@ export default function HeaderMenu() {
                 <Link
                   key={index}
                   href={item.url}
-                  className={`hidden ${["Fonts", "Gradients"].includes(item.title) && "max-md:block"} ${["Palettes", "Colors"].includes(item.title) && "max-sm:block"}`}
+                  className={`hidden ${["Gradients"].includes(item.title) && "max-md:block"} ${["Palettes", "Colors"].includes(item.title) && "max-sm:block"}`}
                 >
                   <button className="w-full flex items-center justify-between p-2 gap-3 rounded-lg transition-all hover:bg-gray-100 border border-white hover:border-gray-200 hover:cursor-pointer select-none text-gray-900">
                     <p className="text-sm font-semibold">{item.title}</p>

@@ -21,8 +21,6 @@ interface MenuStateType {
   toggleOpenMoreMenu: () => void;
   shadowColorPickerMenu: boolean;
   toggleShadowColorPickerMenu: () => void;
-  fontBestForMenu: boolean;
-  toggleFontBestForMenu: () => void;
   studioLeftFooterMenu: boolean;
   toggleStudioLeftFooterMenu: () => void;
   pickerResponsiveMoreMenu: boolean;
@@ -51,7 +49,6 @@ const useMenuStore = create<MenuStateType>((set) => ({
   gradientColorRotationMenu: false,
   openMoreMenu: false,
   shadowColorPickerMenu: false,
-  fontBestForMenu: false,
   studioLeftFooterMenu: false,
   pickerResponsiveMoreMenu: false,
   gradientResponsiveMoreMenu: false,
@@ -88,8 +85,6 @@ const useMenuStore = create<MenuStateType>((set) => ({
     })),
   toggleShadowColorPickerMenu: () =>
     set((state) => ({ shadowColorPickerMenu: !state.shadowColorPickerMenu })),
-  toggleFontBestForMenu: () =>
-    set((state) => ({ fontBestForMenu: !state.fontBestForMenu })),
   toggleStudioLeftFooterMenu: () =>
     set((state) => ({ studioLeftFooterMenu: !state.studioLeftFooterMenu })),
   togglePickerResponsiveMoreMenu: () =>

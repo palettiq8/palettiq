@@ -1252,23 +1252,6 @@ const useBrowseStore = create<BrowseStateTypes>()(
         set({ searchGradientsQuery: query }),
       searchFontsQuery: "",
       setSearchFontsQuery: (query: string) => set({ searchFontsQuery: query }),
-      fontBestForSelectedItems: [],
-      setFontBestForSelectedItems: (item: string) => {
-        set((state) => {
-          const isExist = state.fontBestForSelectedItems.includes(item);
-          let updated;
-          if (isExist) {
-            updated = state.fontBestForSelectedItems.filter((i) => i !== item);
-          } else {
-            updated = [...state.fontBestForSelectedItems, item];
-          }
-          return {
-            fontBestForSelectedItems: updated,
-          };
-        });
-      },
-      clearFontBestForSelectedItems: () =>
-        set({ fontBestForSelectedItems: [] }),
       paletteViewDetailsItem: null,
       setPaletteViewDetailsItem: (palette: PublishedPaletteType | null) =>
         set({ paletteViewDetailsItem: palette }),
@@ -1278,17 +1261,12 @@ const useBrowseStore = create<BrowseStateTypes>()(
       viewModePalette: null,
       setViewModePalette: (paletteColor: PaletteColor[] | null) =>
         set({ viewModePalette: paletteColor }),
-      fontActiveCategory: "All",
-      setFontActiveCategory: (category: string) =>
-        set({ fontActiveCategory: category }),
     }),
     {
       name: "_browse_storage",
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         browseGradientActiveType: state.browseGradientActiveType,
-        fontBestForSelectedItems: state.fontBestForSelectedItems,
-        fontActiveCategory: state.fontActiveCategory,
       }),
     },
   ),

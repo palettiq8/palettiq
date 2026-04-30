@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LuChevronDown, LuMessageSquare } from "react-icons/lu";
+import { LuChevronDown } from "react-icons/lu";
 import useMenuStore from "@/libs/stores/menuStore";
 import { studioLeftFooterMenuItems } from "@/utils/Items";
 import Link from "next/link";

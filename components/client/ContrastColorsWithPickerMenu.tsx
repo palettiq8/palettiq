@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ColorPicker from "./ColorPicker";
 import { useContrastStore } from "@/libs/stores/dataStore";
