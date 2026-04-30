@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: "PalettIQ",
     images: [
       {
-        url: "/banner.png",
+        url: "/banner.webp",
         width: 1200,
         height: 630,
         alt: "PalettIQ — Color Palette Generator",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PalettIQ — Color Palette Generator",
     description: "Generate beautiful color palettes instantly. Free forever.",
-    images: ["/banner.png"],
+    images: ["/banner.webp"],
     creator: "@palettiq",
   },
   alternates: {

@@ -1,29 +1,37 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
 import { store } from "@/libs/stores/store";
 import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
-import QuickViewModel from "./QuickViewModel";
-import useModelStore from "@/libs/stores/modelStore";
-import PaletteHistoryModel from "./PaletteHistoryModel";
-import AddToCommunityModel from "./AddToCommunityModel";
-import ColorHistoryModel from "./ColorHistoryModel";
-import VisualizerPaletteHistoryModel from "./VisualizerPaletteHistoryModel";
-import GradientHistoryModel from "./GradientHistoryModel";
-import ExtractorHistoryModel from "./ExtractorHistoryModel";
-import ContrastHistoryModel from "./ContrastHistoryModel";
-import PalettesFilterModel from "./PalettesFilterModel";
-import ExportModel from "./ExportModel";
 import { useBrowseStore, useOtherStore } from "@/libs/stores/dataStore";
-import ExportShadowModel from "./ExportShadowModel";
+const QuickViewModel = dynamic(() => import("./QuickViewModel"));
+const PaletteHistoryModel = dynamic(() => import("./PaletteHistoryModel"));
+const AddToCommunityModel = dynamic(() => import("./AddToCommunityModel"));
+const ColorHistoryModel = dynamic(() => import("./ColorHistoryModel"));
+const GradientHistoryModel = dynamic(() => import("./GradientHistoryModel"));
+const ExtractorHistoryModel = dynamic(() => import("./ExtractorHistoryModel"));
+const ContrastHistoryModel = dynamic(() => import("./ContrastHistoryModel"));
+const PalettesFilterModel = dynamic(() => import("./PalettesFilterModel"));
+const ExportModel = dynamic(() => import("./ExportModel"));
+const ExportShadowModel = dynamic(() => import("./ExportShadowModel"));
+const PaletteViewDetailsModel = dynamic(
+  () => import("./PaletteViewDetailsModel"),
+);
+const OpenOnScreenPaletteModel = dynamic(
+  () => import("./OpenOnScreenPaletteModel"),
+);
+const ViewModePaletteModel = dynamic(() => import("./ViewModePaletteModel"));
+const ResetPreferencesModel = dynamic(() => import("./ResetPreferencesModel"));
+const StudioLeftMenuModel = dynamic(() => import("./StudioLeftMenuModel"));
+const VisualizerResponsiveTempletesModel = dynamic(
+  () => import("./VisualizerResponsiveTempletesModel"),
+);
+import VisualizerPaletteHistoryModel from "./VisualizerPaletteHistoryModel";
+import useModelStore from "@/libs/stores/modelStore";
 import NextTopLoader from "nextjs-toploader";
-import PaletteViewDetailsModel from "./PaletteViewDetailsModel";
-import OpenOnScreenPaletteModel from "./OpenOnScreenPaletteModel";
-import ViewModePaletteModel from "./ViewModePaletteModel";
-import ResetPreferencesModel from "./ResetPreferencesModel";
-import StudioLeftMenuModel from "./StudioLeftMenuModel";
-import VisualizerResponsiveTempletesModel from "./VisualizerResponsiveTempletesModel";
 
 export default function MainLayoutWrapper({
   children,

@@ -178,10 +178,10 @@ export const footerItems = [
 ];
 export const footerSectionItems = [
   { id: 1, title: "Studio Services", data: footerItems.slice(0, 8) },
-  { id: 2, title: "Explore Services", data: footerItems.slice(8, 12) },
-  { id: 3, title: "Resources", data: footerItems.slice(12, 15) },
-  { id: 4, title: "Social Links", data: footerItems.slice(15, 19) },
-  { id: 5, title: "Legal", data: footerItems.slice(19, 22) },
+  { id: 2, title: "Explore Services", data: footerItems.slice(8, 11) },
+  { id: 3, title: "Resources", data: footerItems.slice(11, 14) },
+  { id: 4, title: "Social Links", data: footerItems.slice(14, 18) },
+  { id: 5, title: "Legal", data: footerItems.slice(18, 21) },
 ];
 export const paletteMoreItems = [
   { id: 1, title: "Copy", icon: LuCopy },

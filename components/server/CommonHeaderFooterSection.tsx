@@ -12,9 +12,9 @@ export default function CommonHeaderFooterSection({
         <HeaderSection />
       </header>
       <main className="w-full h-full bg-white">{children}</main>
-      <section className="w-full h-max bg-white border-t border-gray-200">
+      <footer className="w-full h-max bg-white border-t border-gray-200">
         <FooterSection />
-      </section>
+      </footer>
     </div>
   );
 }

@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us — The Developer Behind PalettIQ",
+  title: "About Us — The Story Behind PalettIQ",
   description:
-    "Meet Shuvo Kumar Pal, the solo developer behind PalettIQ. A Bangladesh-based web, mobile, and UI/UX developer building tools for designers and developers since 2020.",
+    "Learn about the solo developer behind PalettIQ. A Bangladesh-based web, mobile, and UI/UX developer building color tools for designers since 2020.",
   alternates: { canonical: "https://palettiq.net/about-us" },
   openGraph: {
     title: "About Us — The Developer Behind PalettIQ",
@@ -39,7 +39,7 @@ export default function page() {
           <div className="shrink-0">
             <Image
               src="/logo_50.svg"
-              alt="Shuvo Kumar Pal — Developer of PalettIQ"
+              alt="PalettIQ Founder & Developer"
               width={160}
               height={160}
               className="rounded-2xl object-cover"
@@ -50,19 +50,19 @@ export default function page() {
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400">
               Founder & Developer
             </p>
-            <h2 className="text-2xl font-black text-gray-900 mt-2">
+            {/* <h2 className="text-2xl font-black text-gray-900 mt-2">
               Shuvo Kumar Pal
-            </h2>
-            <p className="text-sm font-semibold text-indigo-500 mt-1">
+            </h2> */}
+            <p className="text-sm font-semibold text-indigo-500 mt-2">
               Bangladesh 🇧🇩
             </p>
 
             <p className="text-base font-medium text-gray-700 mt-5 leading-relaxed">
-              Shuvo Kumar Pal is a multidisciplinary software developer based in
-              Bangladesh, specializing in web development, mobile application
-              development, and UI/UX design. With hands-on industry experience
-              since 2020, he has built a deep understanding of what modern
-              designers and developers need in their daily workflow.
+              A multidisciplinary software developer based in Bangladesh,
+              specializing in web development, mobile application development,
+              and UI/UX design. With hands-on industry experience since 2020, he
+              has built a deep understanding of what modern designers and
+              developers need in their daily workflow.
             </p>
 
             <p className="text-base font-medium text-gray-700 mt-4 leading-relaxed">
@@ -74,7 +74,7 @@ export default function page() {
             </p>
 
             <p className="text-base font-medium text-gray-700 mt-4 leading-relaxed">
-              As a solo developer, Shuvo is responsible for every aspect of
+              As a solo developer, he is responsible for every aspect of
               PalettIQ — from architecture and engineering to design and product
               decisions. This focused ownership ensures that PalettIQ remains
               fast, reliable, and continuously improving based on real user

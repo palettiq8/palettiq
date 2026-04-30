@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/Button";
 import AiConfigureMenu from "@/components/client/AiConfigureMenu";
 import AiModelMenu from "@/components/client/AiModelMenu";
@@ -22,13 +23,8 @@ import {
 } from "@/utils/Items";
 import { AiPaletteType, PublishedPaletteType } from "@/utils/Types";
 import { FlashMessage } from "@/utils/utils";
-import { GoogleGenAI } from "@google/genai";
 import { useState } from "react";
 import { LuBookmark, LuHeart, LuSparkle, LuSparkles } from "react-icons/lu";
-
-const ai = new GoogleGenAI({
-  apiKey: "AIzaSyDemmjruSp_KyzcgTDgN3wiMEO4gkv9NJg",
-});
 
 export default function AiGeneratorPageClient() {
   const [aiDesc, setAiDesc] = useState("");
@@ -100,34 +96,48 @@ export default function AiGeneratorPageClient() {
   const generateAiPalettes = async () => {
     setIsLoading(true);
     try {
-      const response = await ai.models.generateContent({
-        model: activeAiModel,
-        contents: prompt,
+      const response = await fetch("/api/generate-palette", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt, model: activeAiModel }),
       });
-      const text = response?.text;
+
+      if (!response.ok) {
+        const err = await response.json();
+        FlashMessage("error", err?.error || "AI generation failed.");
+        return;
+      }
+
+      const data = await response.json();
+      const text = data?.result;
+
       if (!text) {
         FlashMessage("error", "No response received from AI.");
         return;
       }
+
       const cleaned = text
         .replace(/```json/g, "")
         .replace(/```/g, "")
         .trim();
+
       const jsonStart = cleaned.indexOf("[");
       const jsonEnd = cleaned.lastIndexOf("]");
+
       if (jsonStart === -1 || jsonEnd === -1) {
-        FlashMessage("error", "Opps! Something is wrong! Try again.");
+        FlashMessage("error", "Oops! Something is wrong! Try again.");
         return;
       }
+
       const safeJson = cleaned.slice(jsonStart, jsonEnd + 1);
       const parsed = JSON.parse(safeJson);
       setAiGeneratedPalettes(parsed);
     } catch (err: any) {
       FlashMessage(
         "error",
-        "Something went wrong while generating! Try again leter.",
+        "Something went wrong while generating! Try again later.",
       );
-      console.log(err);
+      if (process.env.NODE_ENV === "development") console.log(err);
     } finally {
       setIsLoading(false);
     }
@@ -146,7 +156,8 @@ export default function AiGeneratorPageClient() {
           <AiModelMenu />
           <button
             onClick={() => generateAiPalettes()}
-            className="h-10 px-4 rounded-full flex items-center gap-3 bg-linear-65 from-orange-500 to-pink-500 text-gray-50 active:scale-95 transition-all cursor-pointer"
+            disabled={isLoading}
+            className="h-10 px-4 rounded-full flex items-center gap-3 bg-linear-65 from-orange-500 to-pink-500 text-gray-50 active:scale-95 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
           >
             {isLoading ? (
               <div className="w-3.5 h-3.5 rounded-full border-y-2 border-gray-50 animate-spin"></div>
@@ -261,6 +272,7 @@ export default function AiGeneratorPageClient() {
                 onChange={(e) => setAiDesc(e.target.value)}
                 className="w-full border-2 border-gray-200 rounded-xl p-4 h-35 text-sm font-semibold text-gray-900 resize-none placeholder:text-gray-500 caret-gray-500 focus:border-indigo-600 outline-none bg-white placeholder:select-none"
                 placeholder="Tell more about your selection..."
+                maxLength={500}
               ></textarea>
             </div>
           )}

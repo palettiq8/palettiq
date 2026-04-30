@@ -7,6 +7,40 @@ import { useGeneratorStore } from "@/libs/stores/dataStore";
 import { FlashMessage } from "@/utils/utils";
 import { useRouter } from "next/navigation";
 
+const ColorItems = ({
+  preferredItems,
+  setPreferredItems,
+}: {
+  preferredItems: string[];
+  setPreferredItems: (item: string) => void;
+}) => {
+  return (
+    <>
+      {preferredColors.map((color, index) => {
+        const isExist = preferredItems.includes(color.name);
+        return (
+          <div
+            key={index}
+            onClick={() => setPreferredItems(color.name)}
+            className={`w-full cursor-pointer active:scale-95 transition-all py-3 pl-3 pr-4 rounded-full bg-white border ${isExist ? "border-gray-300" : "border-gray-200"} flex items-center justify-between`}
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className="w-3 h-3 rounded-full shadow-sm"
+                style={{ backgroundColor: color.hex }}
+              ></div>
+              <p className="text-md max-sm:text-sm font-semibold text-semibold">
+                {color.name}
+              </p>
+            </div>
+            {isExist && <LuCheck size={18} />}
+          </div>
+        );
+      })}
+    </>
+  );
+};
+
 export default function BodySection() {
   const preferredItems = useGeneratorStore((state) => state.preferredItems);
   const setPreferredItems = useGeneratorStore(
@@ -34,34 +68,6 @@ export default function BodySection() {
         "Something went to wrong when generating palette from home selection!",
       );
     }
-  };
-
-  const ColorItems = () => {
-    return (
-      <>
-        {preferredColors.map((color, index) => {
-          const isExist = preferredItems.includes(color.name);
-          return (
-            <div
-              key={index}
-              onClick={() => setPreferredItems(color.name)}
-              className={`w-full cursor-pointer active:scale-95 transition-all py-3 pl-3 pr-4 rounded-full bg-white border ${isExist ? "border-gray-300" : "border-gray-200"} flex items-center justify-between`}
-            >
-              <div className="flex items-center gap-3">
-                <div
-                  className="w-3 h-3 rounded-full shadow-sm"
-                  style={{ backgroundColor: color.hex }}
-                ></div>
-                <p className="text-md max-sm:text-sm font-semibold text-semibold">
-                  {color.name}
-                </p>
-              </div>
-              {isExist && <LuCheck size={18} />}
-            </div>
-          );
-        })}
-      </>
-    );
   };
 
   return (
@@ -129,7 +135,10 @@ export default function BodySection() {
             </p>
             <div className="w-full hidden max-xl:block mt-8">
               <div className="w-full h-full grid grid-cols-3 gap-1 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2">
-                <ColorItems />
+                <ColorItems
+                  preferredItems={preferredItems}
+                  setPreferredItems={setPreferredItems}
+                />
               </div>
             </div>
             <div className="flex items-center mt-5">
@@ -165,7 +174,10 @@ export default function BodySection() {
           </div>
         </div>
         <div className="w-full h-full grid grid-cols-3 gap-1 max-xl:hidden">
-          <ColorItems />
+          <ColorItems
+            preferredItems={preferredItems}
+            setPreferredItems={setPreferredItems}
+          />
         </div>
       </div>
     </div>
