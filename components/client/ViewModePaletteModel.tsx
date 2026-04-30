@@ -17,11 +17,11 @@ export default function ViewModePaletteModel() {
   }, [viewModePalette]);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-screen flex gap-3 z-40 p-25 bg-gray-900">
+    <div className="fixed top-0 left-0 w-full h-screen flex gap-3 max-lg:flex-col max-lg:p-10 z-40 p-25 bg-gray-900">
       {viewModePalette?.map(({ id, color }) => (
         <div
           key={id}
-          className="w-full h-full rounded-full rotate-6"
+          className="w-full h-full rounded-full rotate-6 max-lg:rotate-0"
           style={{ backgroundColor: color }}
         />
       ))}

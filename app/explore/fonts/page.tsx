@@ -49,10 +49,16 @@ export default function page() {
     }
   }, [data]);
 
+  const [loadedFonts, setLoadedFonts] = useState<Set<string>>(new Set());
+
   useEffect(() => {
     data?.forEach((font) => {
+      if (loadedFonts.has(font.id)) return;
       const fontFace = new FontFace(font.family, `url(${font.file})`);
-      fontFace.load().then(() => document.fonts.add(fontFace));
+      fontFace.load().then(() => {
+        document.fonts.add(fontFace);
+        setLoadedFonts((prev) => new Set(prev).add(font.id));
+      });
     });
   }, [data]);
 
@@ -145,8 +151,10 @@ export default function page() {
                         <h2
                           style={{
                             fontFamily: font?.family,
-                            fontSize: `clamp(${fontSizes[font?.id] * 0.5}px, ${fontSizes[font?.id] * 0.15}vw, ${fontSizes[font?.id]}px)`,
+                            fontSize: fontSizes[font?.id],
                             lineHeight: 1.3,
+                            opacity: loadedFonts.has(font?.id) ? 1 : 0,
+                            transition: "opacity 0.3s ease",
                           }}
                           className="text-center"
                         >
