@@ -4,11 +4,63 @@ import "./globals.css";
 import MainLayoutWrapper from "@/components/client/MainLayoutWrapper";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import JsonLd from "@/components/server/JsonLd";
 
 export const metadata: Metadata = {
-  title: "PalettIQ - Designers & Brands",
+  metadataBase: new URL("https://palettiq.net"),
+  title: {
+    default: "PalettIQ — Color Palette Generator for Designers",
+    template: "%s | PalettIQ",
+  },
   description:
-    "PalettIQ helps designers, developers, and businesses create beautiful, accessible color palettes and brand kits. Generate, explore, and export perfect color combinations with ease. Simplify your design workflow.",
+    "Generate beautiful, accessible color palettes instantly. Explore colors, gradients, and design tools — all in one place. Free forever.",
+  keywords: [
+    "color palette generator",
+    "color scheme tool",
+    "gradient generator",
+    "color picker",
+    "design color tool",
+    "accessible color palette",
+    "brand color generator",
+  ],
+  authors: [{ name: "PalettIQ", url: "https://palettiq.net" }],
+  creator: "PalettIQ",
+  openGraph: {
+    title: "PalettIQ — Color Palette Generator for Designers",
+    description:
+      "Generate beautiful, accessible color palettes instantly. Free design color tool.",
+    url: "https://palettiq.net",
+    siteName: "PalettIQ",
+    images: [
+      {
+        url: "/banner.png",
+        width: 1200,
+        height: 630,
+        alt: "PalettIQ — Color Palette Generator",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PalettIQ — Color Palette Generator",
+    description: "Generate beautiful color palettes instantly. Free forever.",
+    images: ["/banner.png"],
+    creator: "@palettiq",
+  },
+  alternates: {
+    canonical: "https://palettiq.net",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+    },
+  },
 };
 
 export default function RootLayout({
@@ -22,6 +74,7 @@ export default function RootLayout({
         className={`${primary.className} antialiased bg-white`}
         suppressHydrationWarning={true}
       >
+        <JsonLd />
         <Analytics />
         <SpeedInsights />
         <MainLayoutWrapper>{children}</MainLayoutWrapper>

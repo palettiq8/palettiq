@@ -42,7 +42,7 @@ export default function FooterSection() {
               src={"/logo_50.svg"}
               height={50}
               width={50}
-              alt="footer image"
+              alt="PalettIQ Logo"
               priority={false}
             />
           </Link>

@@ -14,7 +14,7 @@ export default function HeaderSection() {
             src={"/logo_50.svg"}
             height={35}
             width={35}
-            alt="header logo"
+            alt="PalettIQ Logo"
             priority
           />
         </Link>
