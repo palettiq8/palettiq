@@ -49,7 +49,7 @@ const nextConfig: NextConfig = {
               "img-src 'self' https: data: blob:",
               "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
               "style-src 'self' 'unsafe-inline'",
-              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://generativelanguage.googleapis.com https://vitals.vercel-insights.com https://*.vercel-analytics.com",
+              "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://generativelanguage.googleapis.com",
             ].join("; "),
           },
         ],
