@@ -18,6 +18,7 @@ import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BiExport } from "react-icons/bi";
 import {
+  LuArrowLeft,
   LuCheck,
   LuCloudUpload,
   LuEye,
@@ -548,32 +549,46 @@ export default function page() {
                 </div>
               </div>
               <div
-                className={`w-full flex items-center ${isMaximizeExtractor ? "absolute top-0 left-0 h-screen z-50" : "mt-3"}`}
+                className={`w-full h-full ${isMaximizeExtractor ? "absolute top-0 left-0 h-screen z-50" : "mt-3"}`}
               >
-                {pickers.map((p, i) => {
-                  return (
-                    <div
-                      key={i}
-                      className={`w-full ${isMaximizeExtractor ? "h-full" : "h-30 first:rounded-l-lg last:rounded-r-lg"} grid place-content-center hover:cursor-pointer`}
-                      style={{ backgroundColor: p.color }}
-                      onClick={() =>
-                        !isMaximizeExtractor &&
-                        setActivePickerIndex(activePickerIndex === i ? null : i)
-                      }
+                <div className="w-full h-full relative flex max-lg:flex-col items-center">
+                  {pickers.map((p, i) => {
+                    return (
+                      <div
+                        key={i}
+                        className={`w-full ${isMaximizeExtractor ? "h-full" : "h-30 first:rounded-l-lg last:rounded-r-lg"} grid place-content-center hover:cursor-pointer`}
+                        style={{ backgroundColor: p.color }}
+                        onClick={() =>
+                          !isMaximizeExtractor &&
+                          setActivePickerIndex(
+                            activePickerIndex === i ? null : i,
+                          )
+                        }
+                      >
+                        {activePickerIndex === i && !isMaximizeExtractor && (
+                          <LuCheck
+                            size={22}
+                            className={`${
+                              checkIsLight(p.color)
+                                ? "text-gray-900"
+                                : "text-gray-50"
+                            }`}
+                          />
+                        )}
+                      </div>
+                    );
+                  })}
+                  {isMaximizeExtractor && (
+                    <Button
+                      onClick={() => setIsMaximizeExtractor()}
+                      variant={"outline"}
+                      size={"circle"}
+                      className="absolute top-4 left-4"
                     >
-                      {activePickerIndex === i && !isMaximizeExtractor && (
-                        <LuCheck
-                          size={22}
-                          className={`${
-                            checkIsLight(p.color)
-                              ? "text-gray-900"
-                              : "text-gray-50"
-                          }`}
-                        />
-                      )}
-                    </div>
-                  );
-                })}
+                      <LuArrowLeft size={16} />
+                    </Button>
+                  )}
+                </div>
               </div>
             </div>
             <div className="w-full p-4">
