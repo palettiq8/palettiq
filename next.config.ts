@@ -1,7 +1,5 @@
 import type { NextConfig } from "next";
 
-const isDev = process.env.NODE_ENV === "development";
-
 const nextConfig: NextConfig = {
   reactCompiler: true,
   compress: true,
@@ -49,7 +47,7 @@ const nextConfig: NextConfig = {
             value: [
               "default-src 'self'",
               "img-src 'self' https: data: blob:",
-              `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
+              "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
               "style-src 'self' 'unsafe-inline'",
               "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://generativelanguage.googleapis.com https://vitals.vercel-insights.com https://*.vercel-analytics.com",
             ].join("; "),
