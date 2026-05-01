@@ -58,6 +58,9 @@ export default function GeneratorMoreMenu() {
   const toggleAddToCommunityModel = useModelStore(
     (state) => state.toggleAddToCommunityModel,
   );
+  const setAddToCommunityPalette = useOtherStore(
+    (state) => state.setAddToCommunityPalette,
+  );
   [
     "#da9180",
     "#f5bfa5",
@@ -106,6 +109,7 @@ export default function GeneratorMoreMenu() {
       toggleGeneratorMaximize();
     } else if (title === "Add to community") {
       toggleAddToCommunityModel();
+      setAddToCommunityPalette(generatedPalette);
     } else if (title === "Visualize the palette") {
       setGeneratedVisualizerPalette(generatedPalette);
       window.open("/studio/visualizer", "_blank");

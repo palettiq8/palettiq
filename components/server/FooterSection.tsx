@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LuFacebook, LuInstagram, LuLinkedin, LuTwitter } from "react-icons/lu";
 import { Button } from "../Button";
+import SupportEmail from "../client/SupportEmail";
 
 const SOCIAL_ICON_STYLE = "size-6";
 
@@ -55,10 +56,11 @@ export default function FooterSection() {
           />
         ))}
       </div>
-      <div className="w-full border-t py-10 border-gray-200 flex items-center justify-between max-sm:flex-col max-sm:gap-10">
+      <div className="w-full border-t py-10 border-gray-200 flex items-center justify-between max-md:flex-col max-md:gap-10">
         <p className="text-sm font-medium text-gray-600">
           © {new Date().getFullYear()} PalettIQ. All rights reserved.
         </p>
+        <SupportEmail />
         <div className="flex items-center gap-7">
           <Link href="#" aria-label="Facebook">
             <LuFacebook

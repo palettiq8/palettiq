@@ -42,8 +42,7 @@ export type PaletteColor = {
 };
 export type AiPaletteType = {
   paletteName: string;
-  colors: string[] | { light: string; dark: string }[];
-  description: string;
+  colors: string[];
 };
 export interface PickerContainer {
   offsetX: number;
@@ -182,8 +181,6 @@ export interface AiStateTypes {
   clearAllAiItems: () => void;
   aiGeneratedPalettes: AiPaletteType[];
   setAiGeneratedPalettes: (palettes: AiPaletteType[]) => void;
-  activeAiModel: string;
-  setActiveAiModel: (model: string) => void;
 }
 export interface PickerStateTypes {
   defaultColorPreference: boolean;
@@ -412,4 +409,6 @@ export interface OtherTypes {
   setDownloadPngWithoutHexTrue: () => void;
   explorePaletteView: string | null;
   setExplorePaletteView: (view: string | null) => void;
+  addToCommunityPalette: PaletteColor[] | null;
+  setAddToCommunityPalette: (palette: PaletteColor[] | null) => void;
 }

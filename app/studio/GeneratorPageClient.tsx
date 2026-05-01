@@ -55,6 +55,7 @@ function StudioPage() {
   const isHorizontalPalette = useUiStore((state) => state.isHorizontalPalette);
   const setExportPalette = useOtherStore((state) => state.setExportPalette);
   const setExportFrom = useOtherStore((state) => state.setExportFrom);
+  const setAddToCommunityPalette = useOtherStore((state) => state.setAddToCommunityPalette);
 
   const paletteGeneratorHandler = useCallback(() => {
     setGeneratedPalette();
@@ -191,7 +192,10 @@ function StudioPage() {
             <span>Export</span>
           </Button>
           <Button
-            onClick={() => toggleAddToCommunityModel()}
+            onClick={() => {
+              toggleAddToCommunityModel()
+              setAddToCommunityPalette(generatedPalette)
+            }}
             variant={"outline"}
             size={"md"}
           >

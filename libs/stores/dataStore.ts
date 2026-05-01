@@ -272,8 +272,6 @@ const useAiStore = create<AiStateTypes>()(
         set({
           aiGeneratedPalettes: palettes,
         }),
-      activeAiModel: "gemini-2.5-pro",
-      setActiveAiModel: (model: string) => set({ activeAiModel: model }),
     }),
     {
       name: "_ai_storage",
@@ -290,7 +288,6 @@ const useAiStore = create<AiStateTypes>()(
         aiPaletteCount: state.aiPaletteCount,
         aiUseCase: state.aiUseCase,
         aiGeneratedPalettes: state.aiGeneratedPalettes,
-        activeAiModel: state.activeAiModel,
       }),
     },
   ),
@@ -1314,6 +1311,9 @@ const useOtherStore = create<OtherTypes>()(
       explorePaletteView: "Vertical",
       setExplorePaletteView: (view: string | null) =>
         set({ explorePaletteView: view }),
+      addToCommunityPalette: null,
+      setAddToCommunityPalette: (palette: PaletteColor[] | null) =>
+        set({ addToCommunityPalette: palette }),
     }),
     {
       name: "_other_storage",

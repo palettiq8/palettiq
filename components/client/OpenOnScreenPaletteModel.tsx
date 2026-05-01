@@ -23,6 +23,27 @@ export default function OpenOnScreenPaletteModel() {
     };
   }, [openOnScreenPalette]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement;
+      const isTyping =
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.isContentEditable;
+
+      if (isTyping) return;
+
+      const key = e.key.toLowerCase();
+      if (key === "escape") {
+        e.preventDefault();
+        setOpenOnScreenPalette(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   return (
     <div className="fixed top-0 left-0 w-full h-screen z-40">
       <div className="w-full h-screen flex relative max-lg:flex-col">

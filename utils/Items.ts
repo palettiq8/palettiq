@@ -195,6 +195,17 @@ export const paletteMoreItems = [
   { id: 9, title: "Explore similar", icon: LuArrowUpRight },
   { id: 10, title: "Export", icon: BiExport },
 ];
+export const aiPaletteMoreItems = [
+  { id: 1, title: "Copy", icon: LuCopy },
+  { id: 2, title: "Quick view", icon: LuEye },
+  { id: 3, title: "Edit on generator", icon: LuPencilLine },
+  { id: 4, title: "Make gradient", icon: LuCircleDot },
+  { id: 5, title: "Open on screen", icon: LuMaximize2 },
+  { id: 6, title: "View mode", icon: LuShrink },
+  { id: 7, title: "Add to community", icon: LuPlus },
+  { id: 8, title: "Visualize the palette", icon: LuActivity },
+  { id: 9, title: "Export", icon: BiExport },
+];
 export const gradientMoreItems = [
   { id: 1, title: "Copy", icon: LuCopy },
   { id: 2, title: "Quick view", icon: LuEye },
@@ -608,7 +619,7 @@ export const saturationLevels = [
   "Intense",
   "Neon",
 ];
-export const modes = ["Light Mode", "Dark Mode", "Light & Dark Both"];
+export const modes = ["Light Mode", "Dark Mode"];
 export const useCases = [
   "Branding",
   "Logo Design",
@@ -662,12 +673,6 @@ export const exportShadowMethods = [
   { icon: BsFiletypeScss, method: "SCSS" },
   { icon: BsFiletypeJson, method: "JSON" },
   { icon: BsFiletypeSvg, method: "SVG" },
-];
-
-export const aiModelsMenu = [
-  "gemini-2.5-pro",
-  "gemini-2.5-flash",
-  "gemini-2.5-flash-lite",
 ];
 export const positions: Position[] = [
   { title: "0%", value: 0 },
@@ -844,6 +849,11 @@ export const paletteAndColorsQuestions = [
     title: "Can I save palettes for later use?",
     content:
       "Currently, saving palettes for later use is not available. However, this feature may be added in the future.",
+  },
+  {
+    title: "How can I delete my published palettes?",
+    content:
+      "To delete a published palette, please search for the palette in the Explore section and contact our support team via email with the palette name. We will take care of the deletion for you.",
   },
   {
     title: "Can I import colors from an image or external source?",

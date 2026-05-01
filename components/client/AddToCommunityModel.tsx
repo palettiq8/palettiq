@@ -4,7 +4,7 @@ import useModelStore from "@/libs/stores/modelStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../Button";
 import ButtonLoader from "../server/ButtonLoader";
-import { useGeneratorStore } from "@/libs/stores/dataStore";
+import { useGeneratorStore, useOtherStore } from "@/libs/stores/dataStore";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import {
   industries,
@@ -20,6 +20,7 @@ import {
 import { LuCheck, LuChevronUp, LuSearch, LuX } from "react-icons/lu";
 import { usePublishPaletteMutation } from "@/libs/features/api/apiSlice";
 import { FlashMessage } from "@/utils/utils";
+import { PaletteColor } from "@/utils/Types";
 
 const INPUTCOMMONSTYLE =
   "w-full p-3 rounded-lg border-2 text-sm font-medium text-gray-900 placeholder:text-gray-500 caret-gray-500 outline-none transition-all";
@@ -126,15 +127,21 @@ export default function AddToCommunityModel() {
   const addToCommunityModel = useModelStore(
     (state) => state.addToCommunityModel,
   );
+  const setAddToCommunityPalette = useOtherStore(
+    (state) => state.setAddToCommunityPalette,
+  );
   const toggleAddToCommunityModel = useModelStore(
     (state) => state.toggleAddToCommunityModel,
   );
-  const generatedPalette = useGeneratorStore((state) => state.generatedPalette);
+  const addToCommunityPalette = useOtherStore(
+    (state) => state.addToCommunityPalette,
+  );
   const [publishPalette, { isLoading }] = usePublishPaletteMutation();
   const handler = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
     if (target.classList.contains("parent")) {
       toggleAddToCommunityModel();
+      setAddToCommunityPalette(null);
     }
   };
   const ftags = tags.filter((tag) => {
@@ -162,7 +169,7 @@ export default function AddToCommunityModel() {
       await publishPalette({
         name: paletteName,
         description: desc,
-        colors: generatedPalette,
+        colors: addToCommunityPalette as PaletteColor[],
         industries: selectedIndustries,
         preferred_colors: colorPreferred,
         moods: selectedMoods,
@@ -178,6 +185,7 @@ export default function AddToCommunityModel() {
       }).unwrap();
       FlashMessage("success", "Palette published successfully.");
       toggleAddToCommunityModel();
+      setAddToCommunityPalette(null);
     } catch (error: any) {
       FlashMessage("error", error?.message);
     }
@@ -219,7 +227,7 @@ export default function AddToCommunityModel() {
             </div>
             <div className="w-full p-3">
               <div className="flex">
-                {generatedPalette.map(({ color }, index) => {
+                {addToCommunityPalette?.map(({ color }, index) => {
                   return (
                     <div
                       key={index}

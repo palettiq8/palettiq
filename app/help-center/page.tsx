@@ -106,7 +106,7 @@ function Accordion({
                     <Link href={"/settings"} target="_blank">
                       <Button variant={"outline"} size={"md"}>
                         <span>Settings</span>
-                        <LuBolt size={16} />
+                        <LuArrowUpRight size={16} />
                       </Button>
                     </Link>
                   </div>
@@ -116,7 +116,17 @@ function Accordion({
                     <Link href={"/settings/updates"} target="_blank">
                       <Button variant={"outline"} size={"md"}>
                         <span>Go to updates</span>
-                        <LuBolt size={16} />
+                        <LuArrowUpRight size={16} />
+                      </Button>
+                    </Link>
+                  </div>
+                )}
+                {item.title === "How can I delete my published palettes?" && (
+                  <div className="w-full p-5 flex items-center justify-start">
+                    <Link href={"/explore/palettes"} target="_blank">
+                      <Button variant={"outline"} size={"md"}>
+                        <span>Explore palettes</span>
+                        <LuArrowUpRight size={16} />
                       </Button>
                     </Link>
                   </div>

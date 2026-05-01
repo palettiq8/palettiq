@@ -2,12 +2,12 @@
 
 import { Button } from "@/components/Button";
 import AiConfigureMenu from "@/components/client/AiConfigureMenu";
-import AiModelMenu from "@/components/client/AiModelMenu";
+import AiPaletteMoreMenu from "@/components/client/AiPaletteMoreMenu";
 import CopyTooltip from "@/components/client/CopyTooltip";
-import PaletteMoreMenu from "@/components/client/PaletteMoreMenu";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import ToggleButton from "@/components/server/ToggleButton";
-import { useAiStore } from "@/libs/stores/dataStore";
+import { useAiStore, useOtherStore } from "@/libs/stores/dataStore";
+import useModelStore from "@/libs/stores/modelStore";
 import useUiStore from "@/libs/stores/uiStore";
 import {
   brightnessLevels,
@@ -21,10 +21,11 @@ import {
   saturationLevels,
   useCases,
 } from "@/utils/Items";
-import { AiPaletteType, PublishedPaletteType } from "@/utils/Types";
+import { generatorContentHeaderItemsStyle } from "@/utils/styles/Classes";
+import { AiPaletteType } from "@/utils/Types";
 import { FlashMessage } from "@/utils/utils";
 import { useState } from "react";
-import { LuBookmark, LuHeart, LuSparkle, LuSparkles } from "react-icons/lu";
+import { LuEye, LuPlus, LuSparkle, LuSparkles } from "react-icons/lu";
 
 export default function AiGeneratorPageClient() {
   const [aiDesc, setAiDesc] = useState("");
@@ -46,7 +47,18 @@ export default function AiGeneratorPageClient() {
   const setAiGeneratedPalettes = useAiStore(
     (state) => state.setAiGeneratedPalettes,
   );
-  const activeAiModel = useAiStore((state) => state.activeAiModel);
+  const toggleQuickViewModel = useModelStore(
+    (state) => state.toggleQuickViewModel,
+  );
+  const setQuickViewActiveTab = useOtherStore(
+    (state) => state.setQuickViewActiveTab,
+  );
+  const setQuickViewPalette = useOtherStore(
+    (state) => state.setQuickViewPalette,
+  );
+  const setQuickViewActiveColor = useOtherStore(
+    (state) => state.setQuickViewActiveColor,
+  );
 
   const prompt = `You are a color palette generator.
     User Preferences:
@@ -67,27 +79,14 @@ export default function AiGeneratorPageClient() {
     Rules:
     - Generate exactly the requested palettes and color count.
     - Follow given preferences; ignore if "No".
-    - Ensure colors are distinct, balanced, modern, and suitable for design.
+    - Ensure the palette name(Must have).
 
     Output:
 
-    If Mode !== "Auto (Generate Both)":
     [
       {
         "paletteName": "",
-        "colors": ["#HEX", "#HEX", "#HEX", "#HEX", "#HEX"],
-        "description": ""
-      }
-    ]
-
-    If Mode === "Auto (Generate Both)":
-    [
-      {
-        "paletteName": "",
-        "colors": [
-          { "light": "#HEX", "dark": "#HEX" }
-        ],
-        "description": ""
+        "colors": ["#HEX", ...],
       }
     ]
 
@@ -99,7 +98,7 @@ export default function AiGeneratorPageClient() {
       const response = await fetch("/api/generate-palette", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt, model: activeAiModel }),
+        body: JSON.stringify({ prompt }),
       });
 
       if (!response.ok) {
@@ -153,7 +152,6 @@ export default function AiGeneratorPageClient() {
           <h2 className="text-2xl font-semibold text-gray-900">Ai Generator</h2>
         </div>
         <div className="flex items-center gap-3">
-          <AiModelMenu />
           <button
             onClick={() => generateAiPalettes()}
             disabled={isLoading}
@@ -172,10 +170,8 @@ export default function AiGeneratorPageClient() {
         className="w-full overflow-y-auto noscrollbar"
         style={{ height: "calc(100% - 64px)" }}
       >
-        <div
-          className={`w-full p-4 flex flex-col gap-4 ${addAiDescription ? "h-85" : "h-46"}`}
-        >
-          <div className="flex items-center justify-between">
+        <div className={`w-full h-max p-4 flex flex-col gap-4`}>
+          <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <LuSparkle size={16} className="text-orange-500" />
               <h3 className="text-md font-semibold bg-linear-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
@@ -183,7 +179,7 @@ export default function AiGeneratorPageClient() {
               </h3>
             </div>
             <div className="flex items-center gap-6">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 max-lg:hidden">
                 <p className="text-sm font-semibold text-gray-900">
                   Add additional description
                 </p>
@@ -197,11 +193,12 @@ export default function AiGeneratorPageClient() {
                 variant={"distrcutiveText"}
                 size={"p0"}
               >
-                Clear Selections
+                <span className="hidden max-lg:block">Clear</span>
+                <span className="max-lg:hidden">Clear Selections</span>
               </Button>
             </div>
           </div>
-          <div className="w-full grid grid-cols-5 gap-3">
+          <div className="w-full grid grid-cols-5 max-2xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-3">
             <AiConfigureMenu
               from="preferred"
               title="Color Preferrences"
@@ -263,6 +260,17 @@ export default function AiGeneratorPageClient() {
               currentItem={aiUseCase}
             />
           </div>
+          <div className="w-full hidden max-lg:block">
+            <div className="flex items-center gap-3">
+              <p className="text-sm font-semibold text-gray-900">
+                Add additional description
+              </p>
+              <ToggleButton
+                isTrue={addAiDescription}
+                setIsTrue={() => setAddAiDescription()}
+              />
+            </div>
+          </div>
           {addAiDescription && (
             <div className="w-full">
               <textarea
@@ -277,20 +285,13 @@ export default function AiGeneratorPageClient() {
             </div>
           )}
         </div>
-        <div
-          className="px-4 pb-4 w-full h-max"
-          style={{
-            height: addAiDescription
-              ? "calc(100% - 340px)"
-              : "calc(100% - 184px)",
-          }}
-        >
+        <div className="px-4 pb-4 w-full h-max">
           {isLoading ? (
-            <div className="w-full grid grid-cols-3 gap-3">
+            <div className="w-full grid grid-cols-3 max-2xl:grid-cols-2 max-md:grid-cols-1 gap-3">
               {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}
-                  className="w-full h-50 rounded-xl bg-gray-100 skeleton"
+                  className="w-full h-40 max-lg:h-30 rounded-xl bg-gray-100 skeleton"
                 ></div>
               ))}
             </div>
@@ -301,9 +302,10 @@ export default function AiGeneratorPageClient() {
                   <h1 className="text-md font-semibold text-gray-900">
                     Generated Palettes
                   </h1>
-                  <div className="w-full grid grid-cols-3 gap-3 mt-3">
+                  <div className="w-full grid grid-cols-3 max-2xl:grid-cols-2 max-lg:grid-cols-1 gap-3 mt-3">
                     {aiGeneratedPalettes?.map(
                       (_: AiPaletteType, index: number) => {
+                        const data = _?.colors?.map((_) => _);
                         return (
                           <div
                             key={index}
@@ -314,69 +316,53 @@ export default function AiGeneratorPageClient() {
                                 {_?.paletteName}
                               </p>
                               <div className="flex items-center gap-3">
-                                <Button variant={"outline"} size={"circle"}>
-                                  <LuBookmark size={16} />
-                                </Button>
-                                <Button variant={"outline"} size={"circle"}>
-                                  <LuHeart size={16} />
-                                </Button>
-                                <PaletteMoreMenu
-                                  palette={{} as PublishedPaletteType}
+                                <LuEye
+                                  size={17}
+                                  onClick={() => {
+                                    toggleQuickViewModel();
+                                    setQuickViewActiveTab("Formats");
+                                    setQuickViewPalette(data);
+                                    setQuickViewActiveColor(data[0]);
+                                  }}
+                                  className={`${generatorContentHeaderItemsStyle}`}
+                                />
+                                <AiPaletteMoreMenu
+                                  palette={_?.colors?.map((color, index) => ({
+                                    id: `${index + 1}`,
+                                    color,
+                                    isLocked: false,
+                                  }))}
                                 />
                               </div>
                             </div>
-                            <div className="flex mt-3">
+                            <div className="flex mt-3 border-2 border-white shadow-sm rounded-lg">
                               {_?.colors?.map((color, index) => {
-                                if (typeof color === "string") {
-                                  return (
-                                    <div
-                                      key={index}
-                                      className="w-full h-50 first:rounded-l-lg last:rounded-r-lg"
-                                      style={{ backgroundColor: color }}
-                                    >
-                                      <CopyTooltip color={color} />
-                                    </div>
-                                  );
-                                }
                                 return (
                                   <div
                                     key={index}
-                                    className="w-full h-50 flex flex-col"
+                                    className="w-full h-40 max-lg:h-30 group relative cursor-pointer first:rounded-l-lg last:rounded-r-lg"
+                                    style={{ backgroundColor: color }}
+                                    onClick={async () => {
+                                      await navigator.clipboard.writeText(
+                                        color.toUpperCase(),
+                                      );
+                                      FlashMessage(
+                                        "success",
+                                        "Copied to the clipboard!",
+                                      );
+                                    }}
                                   >
-                                    <div
-                                      className={`w-full h-full 
-                                    ${index === 0 ? "rounded-tl-lg" : ""} 
-                                    ${index === _?.colors.length - 1 ? "rounded-tr-lg" : ""}`}
-                                      style={{ backgroundColor: color.light }}
-                                    >
-                                      <CopyTooltip color={color.light} />
-                                    </div>
-
-                                    <div
-                                      className={`w-full h-full 
-                                    ${index === 0 ? "rounded-bl-lg" : ""} 
-                                    ${index === _?.colors.length - 1 ? "rounded-br-lg" : ""}`}
-                                      style={{ backgroundColor: color.dark }}
-                                    >
-                                      <CopyTooltip color={color.dark} />
+                                    <div className="absolute top-5 left-1/2">
+                                      <div className="relative -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-900 text-gray-50 text-xs font-medium px-2.5 py-1.5 rounded-full whitespace-nowrap z-10">
+                                        <span className="text-xs font-medium text-gray-50">
+                                          {color.toUpperCase()}
+                                        </span>
+                                        <div className="w-2 h-2 top-6 left-1/2 absolute rotate-45 bg-gray-900"></div>
+                                      </div>
                                     </div>
                                   </div>
                                 );
                               })}
-                            </div>
-                            <div className="flex items-center justify-between mt-3">
-                              <p className="text-sm font-semibold text-gray-600 max-w-75">
-                                {_?.description?.length > 120
-                                  ? `${_?.description.slice(0, 120)}...`
-                                  : _?.description}
-                              </p>
-                              <Button
-                                variant={"outline"}
-                                size={"md"}
-                                className="shrink-0"
-                              >
-                                Add to Community
-                              </Button>
                             </div>
                           </div>
                         );
@@ -386,7 +372,7 @@ export default function AiGeneratorPageClient() {
                 </div>
               ) : (
                 <div
-                  className={`w-full h-full grid place-content-center border bg-gray-50 border-gray-200 rounded-xl`}
+                  className={`w-full h-100 grid place-content-center border bg-gray-50 border-gray-200 rounded-xl`}
                 >
                   <h2 className="text-md font-semibold text-gray-500">
                     No recent generated palette.
