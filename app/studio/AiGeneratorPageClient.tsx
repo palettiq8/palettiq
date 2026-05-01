@@ -151,7 +151,7 @@ export default function AiGeneratorPageClient() {
           </div>
           <h2 className="text-2xl font-semibold text-gray-900">Ai Generator</h2>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 max-sm:hidden">
           <button
             onClick={() => generateAiPalettes()}
             disabled={isLoading}
@@ -284,6 +284,22 @@ export default function AiGeneratorPageClient() {
               ></textarea>
             </div>
           )}
+          <div className="w-full hidden max-sm:block">
+          <div className="w-full flex items-center justify-end gap-3">
+            <button
+              onClick={() => generateAiPalettes()}
+              disabled={isLoading}
+              className="h-10 px-4 rounded-full flex items-center gap-3 bg-linear-65 from-orange-500 to-pink-500 text-gray-50 active:scale-95 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
+            >
+              {isLoading ? (
+                <div className="w-3.5 h-3.5 rounded-full border-y-2 border-gray-50 animate-spin"></div>
+              ) : (
+                <LuSparkles size={16} />
+              )}
+              <span className="text-sm font-semibold">Generate</span>
+            </button>
+          </div>
+        </div>
         </div>
         <div className="px-4 pb-4 w-full h-max">
           {isLoading ? (
