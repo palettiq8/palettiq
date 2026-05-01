@@ -65,9 +65,9 @@ export default function PaletteViewDetailsModel() {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-125 h-180 bg-white rounded-xl shadow-2xl relative overflow-y-auto noscrollbar pb-3 max-sm:w-full max-sm:h-150"
+            className="w-125 h-180 max-lg:h-140 max-lg:w-100 bg-white rounded-xl shadow-2xl relative overflow-y-auto noscrollbar pb-3 max-sm:w-full max-sm:h-150"
           >
-            <div className="w-full h-40 bg-gray-100 rounded-t-lg sticky top-0 p-3 border-b border-gray-200">
+            <div className="w-full h-40 max-lg:h-35 bg-gray-100 rounded-t-lg sticky top-0 p-3 border-b border-gray-200">
               <div className="border-2 w-full h-full flex border-white rounded-lg">
                 {paletteViewDetailsItem?.colors?.map(({ id, color }) => {
                   return (
