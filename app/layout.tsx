@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "PalettIQ", url: "https://palettiq.net" }],
   creator: "PalettIQ",
+  category: "design",
   openGraph: {
     title: "PalettIQ — Color Palette Generator for Designers",
     description:
@@ -59,7 +60,12 @@ export const metadata: Metadata = {
       index: true,
       follow: true,
       "max-image-preview": "large",
+      "max-video-preview": -1,
+      "max-snippet": -1,
     },
+  },
+  verification: {
+    google: "তোমার Google Search Console verification code",
   },
 };
 
