@@ -256,15 +256,13 @@ function StudioPage() {
         <div className="max-lg:w-full flex items-center gap-2 max-lg:flex-col">
           <ColorPreferencesMenu from="Studio" />
           <ColorCountMenu from="Generator" />
-          <div className="hidden">
-            <button
-              onClick={() => toggleHslControlPanelModel()}
-              className="h-10 px-4 font-semibold text-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center select-none text-gray-50 rounded-full gap-2 bg-radial-[at_25%_25%] from-indigo-300 to-indigo-600 to-75% max-lg:hidden"
-            >
-              <LuBanknote size={16} />
-              <span>HSL Control Panel</span>
-            </button>
-          </div>
+          {/* <button
+            onClick={() => toggleHslControlPanelModel()}
+            className="h-10 px-4 font-semibold text-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center select-none text-gray-50 rounded-full gap-2 bg-radial-[at_25%_25%] from-indigo-300 to-indigo-600 to-75% max-lg:hidden"
+          >
+            <LuBanknote size={16} />
+            <span>HSL Control Panel</span>
+          </button> */}
         </div>
         <div className="max-lg:w-full flex items-center gap-2">
           <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">

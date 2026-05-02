@@ -224,7 +224,7 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
         defaultPreference: state.defaultPreference,
         preferredItems: state.preferredItems,
         generatedPalette: state.generatedPalette,
-        hslControlPanelFamilies: state.hslControlPanelFamilies,
+        // hslControlPanelFamilies: state.hslControlPanelFamilies,
       }),
     },
   ),
