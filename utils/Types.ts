@@ -167,6 +167,7 @@ export interface GeneratorStateTypes {
   generatorPaletteRedoHandler: () => void;
   hslControlPanelFamilies: Record<string, ColorFamily>;
   setHslControlPanelFamilies: (name: string, family: ColorFamily) => void;
+  addHslControlPanelFamily: (name: string, family: ColorFamily) => void;
   updateHslControlPanelFamily: (
     name: string,
     key: "hue" | "sat" | "light",

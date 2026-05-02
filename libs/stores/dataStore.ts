@@ -189,6 +189,16 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
             },
           };
         }),
+      addHslControlPanelFamily: (name, family) =>
+        set((state) => {
+          if (name in state.hslControlPanelFamilies) return state;
+          return {
+            hslControlPanelFamilies: {
+              ...state.hslControlPanelFamilies,
+              [name]: family,
+            },
+          };
+        }),
       updateHslControlPanelFamily: (
         name: string,
         key: "hue" | "sat" | "light",
@@ -224,7 +234,7 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
         defaultPreference: state.defaultPreference,
         preferredItems: state.preferredItems,
         generatedPalette: state.generatedPalette,
-        // hslControlPanelFamilies: state.hslControlPanelFamilies,
+        hslControlPanelFamilies: state.hslControlPanelFamilies,
       }),
     },
   ),

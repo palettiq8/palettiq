@@ -223,10 +223,21 @@ export default function HSLControlPanel() {
   const resetHslControlPanelFamilies = useGeneratorStore(
     (state) => state.resetHslControlPanelFamilies,
   );
+  const addHslControlPanelFamily = useGeneratorStore(
+    (state) => state.addHslControlPanelFamily,
+  );
 
   useEffect(() => {
     setActiveColor(preferredItems[0]);
   }, []);
+
+  useEffect(() => {
+    if (!hslControlPanelModel) return;
+
+    preferredItems.forEach((name) => {
+      addHslControlPanelFamily(name, colorFamilies[name]);
+    });
+  }, [hslControlPanelModel]);
 
   const handler = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
