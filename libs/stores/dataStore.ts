@@ -82,6 +82,7 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
                 prev?.isLocked ?? false,
                 prev?.color ?? "#000000",
                 state.preferredItems,
+                state.hslControlPanelFamilies,
               );
 
               return {
@@ -170,6 +171,50 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
           return state;
         });
       },
+      hslControlPanelFamilies: {},
+      setHslControlPanelFamilies: (name, family) =>
+        set((state) => {
+          const exists = name in state.hslControlPanelFamilies;
+
+          if (exists) {
+            const updated = { ...state.hslControlPanelFamilies };
+            delete updated[name];
+            return { hslControlPanelFamilies: updated };
+          }
+
+          return {
+            hslControlPanelFamilies: {
+              ...state.hslControlPanelFamilies,
+              [name]: family,
+            },
+          };
+        }),
+      updateHslControlPanelFamily: (
+        name: string,
+        key: "hue" | "sat" | "light",
+        index: 0 | 1,
+        value: number,
+      ) =>
+        set((state) => ({
+          hslControlPanelFamilies: {
+            ...state.hslControlPanelFamilies,
+            [name]: {
+              ...state.hslControlPanelFamilies[name],
+              [key]: state.hslControlPanelFamilies[name][key].map((v, i) =>
+                i === index ? value : v,
+              ),
+            },
+          },
+        })),
+      resetHslControlPanelFamilies: () =>
+        set((state) => ({
+          hslControlPanelFamilies: Object.fromEntries(
+            Object.entries(state.hslControlPanelFamilies).map(([name]) => [
+              name,
+              colorFamilies[name],
+            ]),
+          ),
+        })),
     }),
     {
       name: "_generator_storage",
@@ -179,6 +224,7 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
         defaultPreference: state.defaultPreference,
         preferredItems: state.preferredItems,
         generatedPalette: state.generatedPalette,
+        hslControlPanelFamilies: state.hslControlPanelFamilies,
       }),
     },
   ),

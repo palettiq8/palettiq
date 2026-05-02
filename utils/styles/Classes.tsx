@@ -14,7 +14,8 @@ export const buttonStyles = cva(
         text: "text-gray-900 hover:text-indigo-600 gap-3",
         textUnderline:
           "text-gray-900 hover:text-indigo-600 hover:underline gap-3",
-        distrcutiveText: "text-red-500 hover:text-red-600 gap-3",
+        distrcutiveText:
+          "text-red-500 hover:text-red-600 gap-3 disabled:text-red-300 disabled:cursor-not-allowed disabled:active:scale-100",
       },
       size: {
         sm: "h-9 px-4",

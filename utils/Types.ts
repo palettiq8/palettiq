@@ -165,6 +165,15 @@ export interface GeneratorStateTypes {
   clearAllHistory: () => void;
   generatorPaletteUndoHandler: () => void;
   generatorPaletteRedoHandler: () => void;
+  hslControlPanelFamilies: Record<string, ColorFamily>;
+  setHslControlPanelFamilies: (name: string, family: ColorFamily) => void;
+  updateHslControlPanelFamily: (
+    name: string,
+    key: "hue" | "sat" | "light",
+    index: 0 | 1,
+    value: number,
+  ) => void;
+  resetHslControlPanelFamilies: () => void;
 }
 export interface AiStateTypes {
   aiPreferredColors: string[];

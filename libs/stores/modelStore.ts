@@ -33,6 +33,8 @@ interface MenuStateType {
   toggleStudioLeftMenuModel: () => void;
   visualizerResponsiveTempletesModel: boolean;
   toggleVisualizerResponsiveTempletesModel: () => void;
+  hslControlPanelModel: boolean;
+  toggleHslControlPanelModel: () => void;
 }
 
 const useModelStore = create<MenuStateType>((set) => ({
@@ -94,6 +96,11 @@ const useModelStore = create<MenuStateType>((set) => ({
     set((state) => ({
       visualizerResponsiveTempletesModel:
         !state.visualizerResponsiveTempletesModel,
+    })),
+  hslControlPanelModel: false,
+  toggleHslControlPanelModel: () =>
+    set((state) => ({
+      hslControlPanelModel: !state.hslControlPanelModel,
     })),
 }));
 

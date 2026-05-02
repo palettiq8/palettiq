@@ -72,8 +72,46 @@ export const generateRandomColor = (): string => {
   return `#${randomColor}`.toUpperCase();
 };
 
-export const generateColorForFamily = (familyName: string): string => {
-  const family = colorFamilies[familyName];
+// export const generateColorForFamily = (familyName: string): string => {
+//   const family = colorFamilies[familyName];
+//   if (!family) return generateRandomColor();
+
+//   const [h1, h2] = family.hue;
+
+//   const hue =
+//     h1 > h2
+//       ? Math.random() < 0.5
+//         ? randomBetween(h1, 360)
+//         : randomBetween(0, h2)
+//       : randomBetween(h1, h2);
+
+//   const sat = randomBetween(family.sat[0], family.sat[1]);
+//   const light = randomBetween(family.light[0], family.light[1]);
+
+//   return hslToHex(hue, sat, light);
+// };
+
+// export const generateColor = (
+//   isLocked: boolean,
+//   currentColor: string,
+//   chosenColors: string[],
+// ): string => {
+//   if (isLocked) return currentColor;
+
+//   if (chosenColors.length === 0) {
+//     return generateRandomColor();
+//   }
+
+//   const randomFamily =
+//     chosenColors[Math.floor(Math.random() * chosenColors.length)];
+//   return generateColorForFamily(randomFamily);
+// };
+
+export const generateColorForFamily = (
+  familyName: string,
+  customFamilies?: Record<string, ColorFamily>,
+): string => {
+  const family = customFamilies?.[familyName] ?? colorFamilies[familyName];
   if (!family) return generateRandomColor();
 
   const [h1, h2] = family.hue;
@@ -95,6 +133,7 @@ export const generateColor = (
   isLocked: boolean,
   currentColor: string,
   chosenColors: string[],
+  customFamilies?: Record<string, ColorFamily>,
 ): string => {
   if (isLocked) return currentColor;
 
@@ -104,7 +143,7 @@ export const generateColor = (
 
   const randomFamily =
     chosenColors[Math.floor(Math.random() * chosenColors.length)];
-  return generateColorForFamily(randomFamily);
+  return generateColorForFamily(randomFamily, customFamilies);
 };
 
 export const copyTextHandlerOnly = async (content: string) => {

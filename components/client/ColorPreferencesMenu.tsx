@@ -6,7 +6,7 @@ import { LuCheck, LuChevronDown } from "react-icons/lu";
 import { Button } from "../Button";
 import useMenuStore from "@/libs/stores/menuStore";
 import ToggleButton from "../server/ToggleButton";
-import { preferredColors } from "@/utils/Items";
+import { colorFamilies, preferredColors } from "@/utils/Items";
 import {
   useContrastStore,
   useGeneratorStore,
@@ -82,6 +82,9 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
   );
   const setPreferredColorItems = usePickerStore(
     (state) => state.setPreferredColorItems,
+  );
+  const setHslControlPanelFamilies = useGeneratorStore(
+    (state) => state.setHslControlPanelFamilies,
   );
 
   useEffect(() => {
@@ -174,17 +177,20 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
                   <button
                     key={id}
                     className={`flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${isExist ? "text-indigo-600" : "text-gray-900"}`}
-                    onClick={() =>
-                      from === "Studio"
-                        ? setPreferredItems(name)
-                        : from === "Gradient"
-                          ? setPreferredGradientItems(name)
-                          : from === "Contrast"
-                            ? setPreferredContrastItems(name)
-                            : from === "Picker"
-                              ? setPreferredColorItems(name)
-                              : setPreferredVisualizerItems(name)
-                    }
+                    onClick={() => {
+                      if (from === "Studio") {
+                        setPreferredItems(name);
+                        setHslControlPanelFamilies(name, colorFamilies[name]);
+                      } else if (from === "Gradient") {
+                        setPreferredGradientItems(name);
+                      } else if (from === "Contrast") {
+                        setPreferredContrastItems(name);
+                      } else if (from === "Picker") {
+                        setPreferredColorItems(name);
+                      } else {
+                        setPreferredVisualizerItems(name);
+                      }
+                    }}
                   >
                     <div className="flex items-center gap-4">
                       <LuCheck

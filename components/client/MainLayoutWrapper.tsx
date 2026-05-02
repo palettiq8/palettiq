@@ -32,6 +32,7 @@ const VisualizerResponsiveTempletesModel = dynamic(
 import VisualizerPaletteHistoryModel from "./VisualizerPaletteHistoryModel";
 import useModelStore from "@/libs/stores/modelStore";
 import NextTopLoader from "nextjs-toploader";
+import HSLControlPanel from "./HSLControlPanel";
 
 export default function MainLayoutWrapper({
   children,
@@ -80,6 +81,9 @@ export default function MainLayoutWrapper({
   const visualizerResponsiveTempletesModel = useModelStore(
     (state) => state.visualizerResponsiveTempletesModel,
   );
+  const hslControlPanelModel = useModelStore(
+    (state) => state.hslControlPanelModel,
+  );
 
   useEffect(() => {
     if (!exportModel) {
@@ -110,6 +114,7 @@ export default function MainLayoutWrapper({
       {visualizerResponsiveTempletesModel !== null && (
         <VisualizerResponsiveTempletesModel />
       )}
+      {hslControlPanelModel && <HSLControlPanel />}
       <Toaster position="top-center" reverseOrder={false} />
     </Provider>
   );

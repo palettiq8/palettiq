@@ -4,7 +4,7 @@ import { Button } from "@/components/Button";
 import ColorCountMenu from "@/components/client/ColorCountMenu";
 import ColorPreferencesMenu from "@/components/client/ColorPreferencesMenu";
 import { BiExport } from "react-icons/bi";
-import { LuArrowLeft, LuRedo2, LuUndo2 } from "react-icons/lu";
+import { LuArrowLeft, LuBanknote, LuRedo2, LuUndo2 } from "react-icons/lu";
 import GeneratorContentHeaderIconItems from "@/components/client/GeneratorContentHeaderIconItems";
 import { Suspense, useCallback, useEffect } from "react";
 import useUiStore from "@/libs/stores/uiStore";
@@ -55,7 +55,12 @@ function StudioPage() {
   const isHorizontalPalette = useUiStore((state) => state.isHorizontalPalette);
   const setExportPalette = useOtherStore((state) => state.setExportPalette);
   const setExportFrom = useOtherStore((state) => state.setExportFrom);
-  const setAddToCommunityPalette = useOtherStore((state) => state.setAddToCommunityPalette);
+  const setAddToCommunityPalette = useOtherStore(
+    (state) => state.setAddToCommunityPalette,
+  );
+  const toggleHslControlPanelModel = useModelStore(
+    (state) => state.toggleHslControlPanelModel,
+  );
 
   const paletteGeneratorHandler = useCallback(() => {
     setGeneratedPalette();
@@ -193,8 +198,8 @@ function StudioPage() {
           </Button>
           <Button
             onClick={() => {
-              toggleAddToCommunityModel()
-              setAddToCommunityPalette(generatedPalette)
+              toggleAddToCommunityModel();
+              setAddToCommunityPalette(generatedPalette);
             }}
             variant={"outline"}
             size={"md"}
@@ -251,6 +256,13 @@ function StudioPage() {
         <div className="max-lg:w-full flex items-center gap-2 max-lg:flex-col">
           <ColorPreferencesMenu from="Studio" />
           <ColorCountMenu from="Generator" />
+          <button
+            onClick={() => toggleHslControlPanelModel()}
+            className="h-10 px-4 font-semibold text-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center select-none text-gray-50 rounded-full gap-2 bg-radial-[at_25%_25%] from-indigo-300 to-indigo-600 to-75% max-lg:hidden"
+          >
+            <LuBanknote size={16} />
+            <span>HSL Control Panel</span>
+          </button>
         </div>
         <div className="max-lg:w-full flex items-center gap-2">
           <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
