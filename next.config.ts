@@ -58,6 +58,16 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.palettiq.net" }],
+        destination: "https://palettiq.net/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
