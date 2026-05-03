@@ -51,6 +51,8 @@ const nextConfig: NextConfig = {
               "img-src 'self' https: data: blob:",
               `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""}`,
               "style-src 'self' 'unsafe-inline'",
+              "font-src 'self' data: https:",
+              "worker-src 'self' blob:",
               "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://generativelanguage.googleapis.com https://vitals.vercel-insights.com https://*.vercel-analytics.com",
             ].join("; "),
           },
@@ -58,16 +60,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: "/:path*",
-  //       has: [{ type: "host", value: "www.palettiq.net" }],
-  //       destination: "https://palettiq.net/:path*",
-  //       permanent: true,
-  //     },
-  //   ];
-  // },
 };
 
 export default nextConfig;
