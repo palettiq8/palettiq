@@ -26,13 +26,15 @@ extend([xyzPlugin]);
 extend([mixPlugin]);
 extend([harmoniesPlugin]);
 
-const ColorManipulator = ({ items }: { items: Colord[] }) => {
+const ColorManipulator = ({ items, tab }: { items: Colord[]; tab: string }) => {
   return (
     <div className="w-full p-3 flex h-80">
       {items.map((col, index) => {
         const color = col.toHex();
         return (
           <div
+            role="button"
+            aria-label={`Copy ${tab} color ${color.toUpperCase()}`}
             key={index}
             className="w-full h-full first:rounded-l-lg last:rounded-r-lg group relative transition-transform cursor-pointer"
             style={{ backgroundColor: color }}
@@ -123,6 +125,9 @@ export default function QuickViewModel() {
           className="fixed inset-0 w-full h-screen bg-black/50 z-50 grid place-content-center max-sm:block max-sm:px-4 parent"
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Quick view color formats and harmonies"
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
@@ -134,6 +139,8 @@ export default function QuickViewModel() {
                 return (
                   <button
                     key={index}
+                    aria-label={`Select color ${_} for quick view`}
+                    aria-pressed={quickViewActiveColor === _}
                     onClick={() => setQuickViewActiveColor(_)}
                     className={`w-full h-full hover:cursor-pointer grid place-content-center first:rounded-l-xl last:rounded-r-xl ${isLightActiveColor ? "text-gray-900" : "text-gray-50"}`}
                     style={{ backgroundColor: _ }}
@@ -152,20 +159,20 @@ export default function QuickViewModel() {
                 </div>
               )}
               {quickViewActiveTab === "Tints" && (
-                <ColorManipulator items={color.tints(10)} />
+                <ColorManipulator items={color.tints(10)} tab="Tints" />
               )}
               {quickViewActiveTab === "Shades" && (
-                <ColorManipulator items={color.shades(10)} />
+                <ColorManipulator items={color.shades(10)} tab="Shades" />
               )}
               {quickViewActiveTab === "Tones" && (
-                <ColorManipulator items={color.tones(10)} />
+                <ColorManipulator items={color.tones(10)} tab="Tones" />
               )}
               {quickViewActiveTab === "Harmonies" && (
                 <div className="w-full h-max p-3">
                   <div className="w-full flex items-center justify-between">
-                    <p className="text-sm font-semibold text-gray-900">
+                    <h3 className="text-sm font-semibold text-gray-900">
                       {harmonyTitle}
-                    </p>
+                    </h3>
                     <HarmoniesMenu
                       activeHarmony={activeHarmony}
                       setActiveHarmony={setActiveHarmony}
@@ -179,6 +186,8 @@ export default function QuickViewModel() {
                           return (
                             <div
                               key={index}
+                              role="button"
+                              aria-label={`Copy monochromatic color ${_.toUpperCase()}`}
                               className="w-full h-full first:rounded-l-lg last:rounded-r-lg cursor-pointer group relative transition-transform"
                               style={{ backgroundColor: _ }}
                               onClick={async () => {
@@ -211,6 +220,8 @@ export default function QuickViewModel() {
                             return (
                               <div
                                 key={_}
+                                role="button"
+                                aria-label={`Copy ${harmonyTitle} harmony color ${c.toHex().toUpperCase()}`}
                                 className="w-full h-full first:rounded-l-lg last:rounded-r-lg cursor-pointer group relative transition-transform"
                                 style={{ backgroundColor: c.toHex() }}
                                 onClick={async () => {
@@ -245,6 +256,8 @@ export default function QuickViewModel() {
                 return (
                   <button
                     key={id}
+                    aria-label={`Switch to ${title} tab`}
+                    aria-pressed={title === quickViewActiveTab}
                     onClick={() => setQuickViewActiveTab(title)}
                     className={`${title === quickViewActiveTab ? "bg-gray-900 text-gray-50" : "text-gray-900 hover:bg-white"} text-center w-full h-12 rounded-full hover:cursor-pointer transition-all text-sm font-semibold`}
                   >

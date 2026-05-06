@@ -24,8 +24,8 @@ export default function StudioLeftMenuHeader({ from }: { from: string }) {
       >
         <Image
           src={"/studio_logo.svg"}
-          width={81}
-          height={24}
+          width={101}
+          height={30}
           alt="studio logo"
           priority
         />

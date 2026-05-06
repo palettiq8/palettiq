@@ -67,6 +67,10 @@ export const metadata: Metadata = {
   verification: {
     google: "VzQRAgdpO9iImT7gSbOKOscjal8aBnahKHIMxbWe5DE",
   },
+  icons: {
+    icon: [{ url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
 };
 
 export default function RootLayout({

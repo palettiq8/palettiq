@@ -45,6 +45,8 @@ export default function GeneratorContentHeaderIconItems() {
   return (
     <>
       <LuEye
+        role="button"
+        aria-label="Quick view color palette formats"
         onClick={() => {
           toggleQuickViewModel();
           setQuickViewActiveTab("Formats");
@@ -55,24 +57,32 @@ export default function GeneratorContentHeaderIconItems() {
         className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
       />
       <LuMaximize2
+        role="button"
+        aria-label="Maximize color palette generator"
         onClick={() => toggleGeneratorMaximize()}
         size={17}
         className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
       />
       {isHorizontalPalette ? (
         <LuColumns3
+          role="button"
+          aria-label="Switch to vertical palette layout"
           onClick={handler}
           size={17}
           className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
         />
       ) : (
         <LuRows3
+          role="button"
+          aria-label="Switch to horizontal palette layout"
           onClick={handler}
           size={17}
           className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
         />
       )}
       <LuBlend
+        role="button"
+        aria-label="View color harmony suggestions"
         onClick={() => {
           toggleQuickViewModel();
           setQuickViewActiveTab("Harmonies");
@@ -83,6 +93,8 @@ export default function GeneratorContentHeaderIconItems() {
         className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
       />
       <LuHistory
+        role="button"
+        aria-label="View palette generation history"
         onClick={() => {
           togglePaletteHistoryModel();
         }}

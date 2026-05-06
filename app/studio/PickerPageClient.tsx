@@ -50,6 +50,8 @@ const ColorManipulator = ({ items }: { items: Colord[] }) => {
         return (
           <div
             key={index}
+            role="button"
+            aria-label={`Copy color ${color.toUpperCase()}`}
             className="w-full h-full first:rounded-l-lg last:rounded-r-lg relative cursor-pointer transition-transform group"
             style={{ backgroundColor: color }}
             onClick={async () => {
@@ -163,19 +165,19 @@ function PickerPage() {
       id: 1,
       title: "Tints",
       items: mainColor.tints(15),
-      desc: "A tint is a lighter version of a color created by mixing a pure hue with white, increasing its lightness while reducing its saturation.",
+      desc: "Color tints are lighter variations created by mixing a pure hue with white, gradually increasing lightness for softer, more pastel tones. Ideal for backgrounds, hover states, and accessible UI design.",
     },
     {
       id: 2,
       title: "Shades",
       items: mainColor.shades(15),
-      desc: "A shade is a darker version of a color created by mixing a pure hue with black, decreasing its lightness to create depth and intensity.",
+      desc: "Color shades are darker variations created by mixing a pure hue with black, adding depth and intensity. Perfect for shadows, borders, and creating visual hierarchy in UI design and branding.",
     },
     {
       id: 3,
       title: "Tones",
       items: mainColor.tones(15),
-      desc: "A tone is a muted version of a color created by mixing a pure hue with gray, reducing vibrancy to create a more neutral look.",
+      desc: "Color tones are muted variations created by mixing a pure hue with gray, reducing vibrancy for a more sophisticated and neutral look. Great for professional branding and minimal UI design.",
     },
   ];
 
@@ -184,49 +186,49 @@ function PickerPage() {
       id: 1,
       title: "Analogous",
       colors: mainColor.harmonies("analogous"),
-      desc: "Analogous colors sit next to each other on the color wheel. This harmony creates serene, comfortable designs often found in nature, offering a pleasing and cohesive visual experience.",
+      desc: "Analogous color harmony uses colors that sit adjacent on the color wheel, creating serene and cohesive designs. This palette is widely used in nature-inspired branding and UI design for a comfortable visual experience.",
     },
     {
       id: 2,
       title: "Monochromatic",
       colors: generateMonochromatic(mainColor.toHex()),
-      desc: "Monochromatic colors are derived from a single base hue and extended using its shades, tones, and tints. This harmony creates a clean, sophisticated, and unified look that is easy on the eyes, offering a sense of order and professional consistency throughout a design.",
+      desc: "Monochromatic color harmony uses a single base hue extended through its tints, shades, and tones. This creates a clean, sophisticated, and unified color palette — ideal for minimal UI design and professional branding.",
     },
     {
       id: 3,
       title: "Complementary",
       colors: mainColor.harmonies("complementary"),
-      desc: "Complementary colors are opposites on the wheel, like blue and orange. This pair creates high contrast and vibrant energy, making specific UI elements pop and stand out instantly.",
+      desc: "Complementary color harmony pairs two opposite colors on the color wheel, like blue and orange, creating high contrast and vibrant energy. Perfect for making UI elements and call-to-action buttons stand out instantly.",
     },
     {
       id: 4,
       title: "Double Split Complementary",
       colors: mainColor.harmonies("double-split-complementary"),
-      desc: "This complex harmony uses two pairs of opposites, forming a rectangle on the wheel. It offers rich, diverse color options while maintaining balance through high-contrast pairings and vibrant energy.",
+      desc: "Double Split Complementary harmony uses four colors — two pairs of opposites on the color wheel. This creates a rich, diverse color palette with high contrast and vibrant energy, ideal for complex UI design systems.",
     },
     {
       id: 5,
       title: "Rectangle",
       colors: mainColor.harmonies("rectangle"),
-      desc: "The Rectangle harmony uses four colors arranged in two complementary pairs. This creates a rich, diverse palette that works best when one color is dominant and others act as accents.",
+      desc: "Rectangle color harmony uses four colors arranged as two complementary pairs on the color wheel. This creates a rich, diverse palette for UI design and branding that works best with one dominant color and accent tones.",
     },
     {
       id: 6,
       title: "Split Complementary",
       colors: mainColor.harmonies("split-complementary"),
-      desc: "This harmony uses a base color plus the two colors adjacent to its complement. It offers high contrast like a complementary scheme but with much less visual tension.",
+      desc: "Split Complementary harmony uses a base color plus two colors adjacent to its complement on the color wheel. It delivers high contrast with less visual tension — a great choice for balanced, vibrant UI color palettes.",
     },
     {
       id: 7,
       title: "Tetradic",
       colors: mainColor.harmonies("tetradic"),
-      desc: "The Tetradic harmony uses four colors forming a square on the wheel. It balances two complementary pairs, offering a vibrant, diverse palette that works best with one dominant color.",
+      desc: "Tetradic color harmony uses four colors evenly spaced on the color wheel, balancing two complementary pairs. This creates a vibrant, diverse color palette ideal for rich UI design and dynamic branding projects.",
     },
     {
       id: 8,
       title: "Triadic",
       colors: mainColor.harmonies("triadic"),
-      desc: "The Triadic harmony uses three colors evenly spaced around the wheel, forming a triangle. This creates a high-contrast, vibrant palette that remains balanced and visually stable in designs.",
+      desc: "Triadic color harmony uses three colors evenly spaced around the color wheel, forming a triangle. This high-contrast, vibrant palette remains visually balanced — perfect for energetic branding and bold UI design.",
     },
   ];
 
@@ -293,13 +295,16 @@ function PickerPage() {
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="hidden max-xl:block">
+          <div className="hidden max-[1400px]:block">
             <StudioResponsiveMenuIcon />
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900">Picker</h2>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Online Color Picker
+          </h2>
         </div>
         <div className="flex items-center gap-3">
           <Button
+            aria-label="View color history"
             onClick={() => toggleColorHistoryModel()}
             variant={"outline"}
             size={"md"}
@@ -310,6 +315,7 @@ function PickerPage() {
           </Button>
           <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full max-lg:hidden">
             <Button
+              aria-label="Undo color change"
               disabled={!(colorHistoryIndex > 0)}
               className={REDOUNDOCOMMONSTYLE}
               onClick={undoHandler}
@@ -320,6 +326,7 @@ function PickerPage() {
             </Button>
             <span className="w-px h-4 bg-gray-200"></span>
             <Button
+              aria-label="Redo color change"
               disabled={!(colorHistoryIndex < colorHistory.length - 1)}
               className={REDOUNDOCOMMONSTYLE}
               onClick={redoHandler}
@@ -330,6 +337,7 @@ function PickerPage() {
             </Button>
           </div>
           <Button
+            aria-label="Export color as HEX, RGB, HSL, or CSS"
             onClick={() => {
               toggleExportModel();
               setExportFrom("Color");
@@ -343,6 +351,7 @@ function PickerPage() {
             <span>Export</span>
           </Button>
           <Button
+            aria-label="Generate random color"
             onClick={() => randomColorGenerateHandler()}
             variant={"primary"}
             size={"md"}
@@ -379,7 +388,7 @@ function PickerPage() {
           <div className="w-full overflow-y-scroll noscrollbar h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)]">
             <div className="w-full p-4">
               <div className="w-full flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900">Formats</h2>
+                <h3 className="text-xl font-semibold text-gray-900">Formats</h3>
                 <ColorPickerMenu
                   color={colorPickerColor}
                   setColor={setColorPickerColor}
@@ -394,9 +403,9 @@ function PickerPage() {
             {manipulatorItems.map(({ id, title, items, desc }) => {
               return (
                 <div key={id} className="w-full p-4">
-                  <h2 className="text-xl font-semibold text-gray-900">
+                  <h3 className="text-xl font-semibold text-gray-900">
                     {title}
-                  </h2>
+                  </h3>
                   <ColorManipulator items={items} />
                   <p className="text-sm font-semibold text-gray-700 mt-3 max-w-130">
                     {desc}
@@ -405,20 +414,24 @@ function PickerPage() {
               );
             })}
             <div className="w-full p-4">
-              <h2 className="text-xl font-semibold text-gray-900">Harmonies</h2>
+              <h3 className="text-xl font-semibold text-gray-900">
+                Color Harmonies
+              </h3>
               <div className="grid grid-cols-2 gap-3 mt-3 max-lg:grid-cols-1">
                 {harmonies.map(({ id, title, colors, desc }) => {
                   return (
                     <div key={id} className="w-full flex-col gap-2">
-                      <p className="text-md font-semibold text-gray-800">
+                      <h4 className="text-md font-semibold text-gray-800">
                         {title}
-                      </p>
+                      </h4>
                       <div className="flex items-center w-full mt-2">
                         {colors?.map((color, index) => {
                           const hex = colord(color).toHex();
                           return (
                             <div
                               key={index}
+                              role="button"
+                              aria-label={`Copy ${title} harmony color ${hex.toUpperCase()}`}
                               className="w-full h-30 max-lg:h-25 first:rounded-l-lg last:rounded-r-lg relative cursor-pointer group transition-transform"
                               style={{ backgroundColor: hex }}
                               onClick={async () => {

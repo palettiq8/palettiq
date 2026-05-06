@@ -118,14 +118,18 @@ export default function PalettesFilterModel() {
         <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
 
         <div
+          role="group"
+          aria-label={`Filter by ${title}`}
           className={`w-full mt-4 grid grid-cols-2 ${["Industries", "Use Cases", "Harmonies"].includes(title) && "max-sm:grid-cols-1"}`}
         >
           {items.map((item, index) => {
             const checked = selectedItems.includes(item);
-
             return (
               <div
                 key={index}
+                role="checkbox"
+                aria-checked={checked}
+                aria-label={`Filter by ${item}`}
                 onClick={() => handleToggle(item)}
                 className="w-max flex items-center gap-3 pl-2 pr-3 h-9 rounded-full 
                 hover:bg-gray-100 border border-white hover:border-gray-200 
@@ -175,6 +179,9 @@ export default function PalettesFilterModel() {
           className="fixed inset-0 w-full h-screen bg-black/50 grid place-content-center z-50 max-sm:block max-sm:px-4 parent"
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Filter color palettes"
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
@@ -182,11 +189,12 @@ export default function PalettesFilterModel() {
             className="w-150 h-190 bg-white rounded-xl shadow-2xl max-sm:w-full max-sm:h-150"
           >
             <div className="w-full h-14 px-4 rounded-t-xl bg-white border-b border-gray-200 flex items-center justify-between">
-              <p className="text-md font-semibold text-gray-900">Filter By</p>
+              <h2 className="text-md font-semibold text-gray-900">Filter By</h2>
               <Button
                 onClick={() => togglePalettesFilterModel()}
                 variant={"outline"}
                 size={"circle"}
+                aria-label="Close filter panel"
               >
                 <LuX size={18} />
               </Button>

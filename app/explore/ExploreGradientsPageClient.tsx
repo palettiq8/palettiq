@@ -55,11 +55,13 @@ export default function ExploreGradientsPageClient() {
         <div className="flex items-end justify-between">
           <div>
             <h1 className="text-5xl font-bold text-gray-900">
-              Awesome Gradients Combinations!
+              Explore CSS Gradients — Linear, Radial & Conic
             </h1>
             <p className="text-sm font-semibold text-gray-600 mt-5">
-              Handpicked gradient combinations for smooth transitions and
-              eye-catching designs.
+              Browse thousands of beautiful CSS gradients including linear,
+              radial, and conic styles. Filter by color family — copy gradient
+              code instantly for UI design, branding, and digital products. Free
+              on PalettIQ.
             </p>
           </div>
           <div className="flex items-center border border-gray-200 rounded-full p-1">
@@ -67,6 +69,7 @@ export default function ExploreGradientsPageClient() {
               return (
                 <button
                   key={index}
+                  aria-label={`Filter by ${_} gradient`}
                   onClick={() => setBrowseGradientActiveType(_)}
                   className={`h-10 px-4 text-sm font-semibold border rounded-full ${browseGradientActiveType === _ ? "bg-gray-100 border-gray-200 text-gray900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all`}
                 >
@@ -83,6 +86,7 @@ export default function ExploreGradientsPageClient() {
               return (
                 <button
                   key={id}
+                  aria-label={`Filter gradients by ${name} color`}
                   onClick={() => {
                     const updated = filterPreferredColors.includes(name)
                       ? filterPreferredColors.filter((item) => item !== name)
@@ -100,7 +104,8 @@ export default function ExploreGradientsPageClient() {
             <input
               type="text"
               value={inputValue}
-              placeholder={"Search by name..."}
+              aria-label="Search gradients by name"
+              placeholder="Search gradients by name..."
               className="w-full h-10 rounded-full outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
               onChange={(e) => setInputValue(e.target.value)}
             />
@@ -122,7 +127,7 @@ export default function ExploreGradientsPageClient() {
             <div className="w-full h-120 grid place-content-center">
               <div className="w-120 h-40 grid place-content-center rounded-xl border-2 border-dashed border-gray-200">
                 <span className="text-md font-semibold text-gray-600">
-                  No gradients found.
+                  No gradients found. Try a different search or filter.
                 </span>
               </div>
             </div>
@@ -136,13 +141,13 @@ export default function ExploreGradientsPageClient() {
                   const gradient = data?.[index];
                   const stops = gradient?.stops || [];
                   return (
-                    <div
+                    <article
                       className={`bg-gray-100 p-4 w-full border rounded-xl border-gray-200`}
                     >
                       <div className="flex items-center justify-between">
-                        <p className="text-sm font-semibold text-gray-900">
+                        <h3 className="text-sm font-semibold text-gray-900">
                           {gradient?.name}
-                        </p>
+                        </h3>
                         <div className="flex items-center">
                           <Button
                             variant={"secondary"}
@@ -174,6 +179,8 @@ export default function ExploreGradientsPageClient() {
                               return (
                                 <div
                                   key={index}
+                                  role="button"
+                                  aria-label={`Copy gradient color ${stop.color.toUpperCase()}`}
                                   className="w-full h-35 first:rounded-l-lg last:rounded-r-lg group relative transition-transform cursor-pointer"
                                   onClick={async () => {
                                     await navigator.clipboard.writeText(
@@ -199,7 +206,7 @@ export default function ExploreGradientsPageClient() {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </article>
                   );
                 }}
                 components={{

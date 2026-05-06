@@ -51,12 +51,18 @@ export default function VisualizerColorPickerMenu({
       <div
         className="w-full h-full bg-transparent"
         ref={buttonRef}
+        role="button"
+        aria-label={`Open color picker for palette color ${color.toUpperCase()}`}
+        aria-expanded={showMenu}
         onClick={() => setShowMenu((prev) => !prev)}
       ></div>
       <AnimatePresence>
         {showMenu && (
           <motion.div
             ref={menuRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Color picker for visualizer palette color ${color.toUpperCase()}`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}

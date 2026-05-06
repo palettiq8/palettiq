@@ -130,6 +130,9 @@ export default function ExportShadowModel() {
           className="fixed inset-0 w-full h-screen bg-black/50 flex justify-end z-50 parent p-4"
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Export CSS shadow code"
             initial={{ x: "10%", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: "10%", opacity: 0 }}
@@ -137,13 +140,14 @@ export default function ExportShadowModel() {
             className="w-120 h-full bg-white rounded-xl shadow-2xl"
           >
             <div className="w-full h-14 px-4 border-b border-gray-200 flex items-center justify-between">
-              <p className="text-md font-semibold text-gray-900">Export</p>
+              <h2 className="text-md font-semibold text-gray-900">Export</h2>
               <Button
+                aria-label="Close shadow export panel"
                 onClick={() => toggleExportShadowModel()}
                 variant={"outline"}
                 size={"circle"}
               >
-                <LuX size={18} />
+                <LuX size={18} aria-hidden="true" />
               </Button>
             </div>
             <div
@@ -151,7 +155,8 @@ export default function ExportShadowModel() {
               style={{ height: "calc(100% - 112px)" }}
             >
               <p className="text-sm font-medium text-gray-800">
-                Choose your preferred export format.
+                Export your CSS shadow as CSS, Tailwind CSS, SCSS, JSON, or SVG
+                — free on PalettIQ.
               </p>
               <div className="w-full grid grid-cols-2 gap-2 mt-5">
                 {exportShadowMethods.map(({ icon: Icon, method }, index) => {
@@ -159,11 +164,14 @@ export default function ExportShadowModel() {
                   return (
                     <div
                       key={index}
+                      role="button"
+                      aria-label={`Export shadow as ${method}`}
+                      aria-pressed={isActive}
                       onClick={() => setActiveMethod(method)}
                       className={`w-full rounded-full border flex items-center justify-between h-12 cursor-pointer active:scale-95 transition-all px-4 ${isActive ? "border-orange-300 text-orange-600 bg-orange-50" : "border-gray-200 text-gray-900 hover:bg-gray-50"}`}
                     >
                       <div className="flex items-center gap-2">
-                        <Icon size={18} />
+                        <Icon size={18} aria-hidden="true" />
                         <p className="text-sm font-semibold select-none">
                           {method}
                         </p>
@@ -190,9 +198,9 @@ export default function ExportShadowModel() {
                 {displayExportedItems()}
               </SyntaxHighlighter>
               <div className="flex items-center w-full justify-between mt-5">
-                <p className="text-sm font-medium text-gray-800">
+                <label className="text-sm font-medium text-gray-800">
                   Export text shadow
-                </p>
+                </label>
                 <ToggleButton
                   isTrue={isTextShadow}
                   setIsTrue={() => setIsTextShadow((prev) => !prev)}
@@ -201,6 +209,7 @@ export default function ExportShadowModel() {
             </div>
             <div className="w-full h-14 border-t border-gray-200 flex items-center justify-between px-4">
               <Button
+                aria-label={`Copy shadow as ${activeMethod}`}
                 onClick={() => copyButtonHandler()}
                 variant={"outline"}
                 size={"md"}
@@ -208,11 +217,12 @@ export default function ExportShadowModel() {
                 {copyButtonTitle()}
               </Button>
               <Button
+                aria-label={`Download shadow as ${activeMethod}`}
                 onClick={() => downloadButtonHandler()}
                 variant={"primary"}
                 size={"md"}
               >
-                <LuDownload size={16} />
+                <LuDownload size={16} aria-hidden="true" />
                 <span>{downloadButtonTitle()}</span>
               </Button>
             </div>

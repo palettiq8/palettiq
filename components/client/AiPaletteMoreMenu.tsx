@@ -138,17 +138,21 @@ export default function AiPaletteMoreMenu({
         <Button
           variant={"secondary"}
           size={"circle"}
+          aria-label="More options for AI generated palette"
+          aria-expanded={showMenu}
+          aria-haspopup="true"
           className="hover:bg-white"
         >
-          <LuEllipsisVertical size={16} />
+          <LuEllipsisVertical size={16} aria-hidden="true" />
         </Button>
       </div>
 
       <AnimatePresence>
         {showMenu && (
-          <motion.div
+          <motion.menu
             ref={menuRef}
             initial={{ opacity: 0, y: -10 }}
+            aria-label="AI palette actions"
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
@@ -158,6 +162,7 @@ export default function AiPaletteMoreMenu({
               return (
                 <button
                   key={id}
+                  aria-label={`${title} AI generated color palette`}
                   className="flex items-center p-2 gap-3 rounded-lg transition-all hover:bg-gray-100 border border-white hover:border-gray-200 hover:cursor-pointer select-none text-gray-900"
                   onClick={() => handler(title)}
                 >
@@ -166,7 +171,7 @@ export default function AiPaletteMoreMenu({
                 </button>
               );
             })}
-          </motion.div>
+          </motion.menu>
         )}
       </AnimatePresence>
     </div>

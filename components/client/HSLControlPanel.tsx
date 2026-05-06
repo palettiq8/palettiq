@@ -144,6 +144,10 @@ function DualRangeSlider({
 
       <div
         ref={trackRef}
+        role="slider"
+        aria-label={`Adjust ${label} range — min ${min}, max ${max}`}
+        aria-valuemin={hardMin}
+        aria-valuemax={hardMax}
         className="relative h-5 flex items-center cursor-pointer select-none"
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
@@ -259,6 +263,9 @@ export default function HSLControlPanel() {
           className="fixed inset-0 w-full h-screen bg-black/50 z-50 grid place-content-center max-md:block max-md:px-4 parent"
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="HSL Control Panel — Adjust hue, saturation, and lightness"
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
@@ -276,6 +283,7 @@ export default function HSLControlPanel() {
               </div>
               <div className="flex items-center gap-6">
                 <Button
+                  aria-label="Reset HSL values to default"
                   variant={"distrcutiveText"}
                   size={"p0"}
                   disabled={preferredItems.length === 0}
@@ -287,6 +295,7 @@ export default function HSLControlPanel() {
                   Reset Hsl
                 </Button>
                 <Button
+                  aria-label="Apply HSL changes and close panel"
                   onClick={() => toggleHslControlPanelModel()}
                   variant={"primary"}
                   size={"md"}
@@ -305,6 +314,8 @@ export default function HSLControlPanel() {
                     <button
                       key={id}
                       disabled={!isInclude}
+                      aria-label={`${isInclude ? "Select" : "Unavailable"} ${name} color family`}
+                      aria-pressed={isActive}
                       className={`w-full flex items-center justify-between p-2 rounded-lg border ${
                         !isInclude
                           ? "opacity-60 cursor-not-allowed border-white"
@@ -333,9 +344,9 @@ export default function HSLControlPanel() {
               <div className="w-full h-100 p-4 overflow-y-auto">
                 {preferredItems.length === 0 ? (
                   <div className="w-full h-full grid place-content-center bg-gray-100 border border-gray-200 rounded-lg">
-                    <h1 className="text-sm font-medium text-gray-500">
+                    <p className="text-sm font-medium text-gray-500">
                       Select preferred colors to continue.
-                    </h1>
+                    </p>
                   </div>
                 ) : (
                   <div className="w-full h-full flex flex-col gap-4">

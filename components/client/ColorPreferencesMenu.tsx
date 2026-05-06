@@ -137,9 +137,12 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
         <Button
           variant={"outline"}
           size={"md"}
+          aria-label="Open color preferences for palette generation"
+          aria-expanded={colorPreferencesMenu}
+          aria-haspopup="true"
           className="max-lg:w-full max-lg:justify-between"
         >
-          <span>Auto Color Preferences</span>
+          <span>Color Preferences</span>
           <LuChevronDown
             className={`${colorPreferencesMenu ? "rotate-0" : "rotate-180"} transition-all`}
             size={16}
@@ -149,8 +152,19 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
 
       <AnimatePresence>
         {colorPreferencesMenu && (
-          <motion.div
+          <motion.menu
             ref={menuRef}
+            aria-label={
+              from === "Studio"
+                ? "Color preferences for Color Palette Generator"
+                : from === "Gradient"
+                  ? "Color preferences for CSS Gradient Generator"
+                  : from === "Contrast"
+                    ? "Color preferences for Color Contrast Checker"
+                    : from === "Picker"
+                      ? "Color preferences for Color Picker"
+                      : "Color preferences for Palette Visualizer"
+            }
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -176,6 +190,18 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
                 return (
                   <button
                     key={id}
+                    aria-label={`${isExist ? "Remove" : "Add"} ${name} color ${
+                      from === "Studio"
+                        ? "from palette generator"
+                        : from === "Gradient"
+                          ? "from gradient generator"
+                          : from === "Contrast"
+                            ? "from contrast checker"
+                            : from === "Picker"
+                              ? "from color picker"
+                              : "from palette visualizer"
+                    }`}
+                    aria-pressed={isExist}
                     className={`flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${isExist ? "text-indigo-600" : "text-gray-900"}`}
                     onClick={() => {
                       if (from === "Studio") {
@@ -214,7 +240,7 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
                 </p>
               </div>
             )}
-          </motion.div>
+          </motion.menu>
         )}
       </AnimatePresence>
     </div>

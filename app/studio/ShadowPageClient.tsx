@@ -172,12 +172,15 @@ export default function ShadowPageClient() {
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="hidden max-xl:block">
+          <div className="hidden max-[1400px]:block">
             <StudioResponsiveMenuIcon />
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900">Shadow</h2>
+          <h2 className="text-xl font-semibold text-gray-900">
+            CSS Shadow Generator
+          </h2>
         </div>
         <Button
+          aria-label="Export CSS shadow code"
           onClick={() => {
             toggleExportShadowModel();
             setExportBoxShadow(shadows);
@@ -270,6 +273,8 @@ export default function ShadowPageClient() {
                 {["Box Shadow", "Text Shadow"].map((_, index) => {
                   return (
                     <button
+                      aria-label={`Switch to ${_} tab`}
+                      aria-pressed={activeShadowTab === _}
                       key={index}
                       onClick={() => {
                         setActiveShadowTab(_);
@@ -340,6 +345,9 @@ export default function ShadowPageClient() {
                           className="w-full border border-gray-200 rounded-lg"
                         >
                           <div
+                            role="button"
+                            aria-label={`Toggle shadow layer ${index + 1}`}
+                            aria-expanded={enabled}
                             onClick={() => {
                               updateShadow(index, "enabled", !enabled);
                             }}
@@ -349,13 +357,14 @@ export default function ShadowPageClient() {
                             <div className="flex items-center gap-2">
                               <div className="xl:hidden group-hover:block">
                                 <button
+                                  aria-label={`Remove box shadow layer ${index + 1}`}
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     removeShadow(index);
                                   }}
                                   className={`${BUTTONCOMMONSTYLE}`}
                                 >
-                                  <LuX size={18} />
+                                  <LuX size={18} aria-hidden="true" />
                                 </button>
                               </div>
                               <LuChevronDown
@@ -377,9 +386,9 @@ export default function ShadowPageClient() {
                                   <ShadowProgressBar key={i} {...props} />
                                 ))}
                                 <div className="w-full flex items-center justify-between p-3">
-                                  <p className="text-sm font-semibold text-gray-900">
+                                  <label className="text-sm font-semibold text-gray-900">
                                     Color
-                                  </p>
+                                  </label>
                                   <ShadowColorPickerMenu
                                     from="Box"
                                     color={color}
@@ -387,9 +396,9 @@ export default function ShadowPageClient() {
                                   />
                                 </div>
                                 <div className="flex items-center justify-between p-3">
-                                  <p className="text-sm font-semibold text-gray-900">
-                                    Enable Enset
-                                  </p>
+                                  <label className="text-sm font-semibold text-gray-900">
+                                    Enable Inset
+                                  </label>
                                   <ToggleButton
                                     isTrue={inset}
                                     setIsTrue={() => ensetHandler(index, inset)}
@@ -457,6 +466,9 @@ export default function ShadowPageClient() {
                           className="w-full border border-gray-200 rounded-lg"
                         >
                           <div
+                            role="button"
+                            aria-label={`Toggle text shadow layer ${index + 1}`}
+                            aria-expanded={enabled}
                             onClick={() => {
                               updateTextShadow(index, "enabled", !enabled);
                             }}
@@ -466,13 +478,14 @@ export default function ShadowPageClient() {
                             <div className="flex items-center gap-2">
                               <div className="xl:hidden group-hover:block">
                                 <button
+                                  aria-label={`Remove text shadow layer ${index + 1}`}
                                   onClick={(e) => {
                                     e.stopPropagation();
                                     removeTextShadow(index);
                                   }}
                                   className={`${BUTTONCOMMONSTYLE}`}
                                 >
-                                  <LuX size={18} />
+                                  <LuX size={18} aria-hidden="true" />
                                 </button>
                               </div>
                               <LuChevronDown
@@ -494,9 +507,9 @@ export default function ShadowPageClient() {
                                   <ShadowProgressBar key={i} {...props} />
                                 ))}
                                 <div className="w-full flex items-center justify-between p-3">
-                                  <p className="text-sm font-semibold text-gray-900">
+                                  <label className="text-sm font-semibold text-gray-900">
                                     Color
-                                  </p>
+                                  </label>
                                   <ShadowColorPickerMenu
                                     from="Text"
                                     color={color}
@@ -522,6 +535,9 @@ export default function ShadowPageClient() {
               {activeShadowTab === "Box Shadow" && (
                 <>
                   <div
+                    role="button"
+                    aria-label="Switch to box shadow container view"
+                    aria-pressed={activeShadowViewer === "Container View"}
                     onClick={() => setActiveShadowViewer("Container View")}
                     className={`${VIEWERCOMMONSTYLE} ${activeShadowViewer === "Container View" && "outline-2 outline-indigo-600"}`}
                   >
@@ -536,6 +552,9 @@ export default function ShadowPageClient() {
                     ></div>
                   </div>
                   <div
+                    role="button"
+                    aria-label="Switch to box shadow output view"
+                    aria-pressed={activeShadowViewer === "Output View"}
                     onClick={() => setActiveShadowViewer("Output View")}
                     className={`${VIEWERCOMMONSTYLE} ${activeShadowViewer === "Output View" && "outline-2 outline-indigo-600"}`}
                   >
@@ -567,6 +586,9 @@ export default function ShadowPageClient() {
                     </div>
                   </div>
                   <div
+                    role="button"
+                    aria-label="Switch to text shadow output view"
+                    aria-pressed={activeTextShadowViewer === "Output View"}
                     onClick={() => setActiveTextShadowViewer("Output View")}
                     className={`${VIEWERCOMMONSTYLE} ${activeTextShadowViewer === "Output View" && "outline-2 outline-indigo-600"}`}
                   >

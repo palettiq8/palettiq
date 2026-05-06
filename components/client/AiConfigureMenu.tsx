@@ -51,6 +51,9 @@ export default function AiConfigureMenu({
         <Button
           variant={"outline"}
           size={"lg"}
+          aria-label={`Select ${title} for AI palette generation`}
+          aria-expanded={showMenu}
+          aria-haspopup="true"
           className="w-full flex items-center justify-between bg-gray-50 hover:bg-white"
         >
           <span>{title}</span>
@@ -63,8 +66,9 @@ export default function AiConfigureMenu({
 
       <AnimatePresence>
         {showMenu && (
-          <motion.div
+          <motion.menu
             ref={menuRef}
+            aria-label={`${title} options`}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -78,6 +82,8 @@ export default function AiConfigureMenu({
                   return (
                     <button
                       key={id}
+                      aria-label={`${isExist ? "Remove" : "Add"} ${name} color preference`}
+                      aria-pressed={isExist}
                       className={`flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${isExist ? "text-indigo-600" : "text-gray-900"}`}
                       onClick={() => setAiItems(name, from)}
                     >
@@ -105,6 +111,8 @@ export default function AiConfigureMenu({
                   return (
                     <button
                       key={index}
+                      aria-label={`Select ${from === "harmony" ? title : _} for ${title}`}
+                      aria-pressed={currentItem === _}
                       className={`w-full flex items-center gap-4 p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${currentItem === _ ? "text-indigo-600" : "text-gray-900"}`}
                       onClick={() => setAiItems(_, from)}
                     >
@@ -120,7 +128,7 @@ export default function AiConfigureMenu({
                 })}
               </>
             )}
-          </motion.div>
+          </motion.menu>
         )}
       </AnimatePresence>
     </div>

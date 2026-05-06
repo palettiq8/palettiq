@@ -16,9 +16,9 @@ const FooterLinkItem = ({
   items: FooterItem[];
 }) => (
   <nav className="w-full" aria-label={mainTitle}>
-    <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+    <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500">
       {mainTitle}
-    </p>
+    </h3>
     <ul className="flex flex-col gap-3 mt-6">
       {items.map(({ id, title, url }) => (
         <li key={id}>
@@ -35,18 +35,22 @@ const FooterLinkItem = ({
 
 export default function FooterSection() {
   return (
-    <div className="max-w-350 px-4 mx-auto">
+    <footer className="max-w-350 px-4 mx-auto">
       <div className="w-full grid grid-cols-6 gap-10 py-12 max-lg:grid-cols-3 max-sm:grid-cols-2">
         <div className="w-full">
-          <Link href={"/"}>
+          <Link href={"/"} aria-label="PalettIQ — Free Color Palette Generator">
             <Image
-              src={"/logo_50.svg"}
+              src={"/logo.svg"}
               height={50}
               width={50}
-              alt="PalettIQ Logo"
+              alt="PalettIQ — Color Design Tool"
               priority={false}
             />
           </Link>
+          <p className="text-xs font-medium text-gray-500 mt-4">
+            A unified color design platform for designers. Generate beautiful
+            color palettes, gradients, and more — all free.
+          </p>
         </div>
         {footerSectionItems.map((section) => (
           <FooterLinkItem
@@ -62,26 +66,26 @@ export default function FooterSection() {
         </p>
         <SupportEmail />
         <div className="flex items-center gap-7">
-          <Link href="#" aria-label="Facebook">
+          <Link href="#" aria-label="Follow PalettIQ on Facebook">
             <LuFacebook
               className={`${SOCIAL_ICON_STYLE} hover:text-blue-600`}
             />
           </Link>
-          <Link href="#" aria-label="Instagram">
+          <Link href="#" aria-label="Follow PalettIQ on Instagram">
             <LuInstagram
               className={`${SOCIAL_ICON_STYLE} hover:text-rose-500`}
             />
           </Link>
-          <Link href="#" aria-label="LinkedIn">
+          <Link href="#" aria-label="Follow PalettIQ on LinkedIn">
             <LuLinkedin
               className={`${SOCIAL_ICON_STYLE} hover:text-blue-700`}
             />
           </Link>
-          <Link href="#" aria-label="Twitter">
+          <Link href="#" aria-label="Follow PalettIQ on Twitter">
             <LuTwitter className={`${SOCIAL_ICON_STYLE} hover:text-sky-400`} />
           </Link>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }

@@ -63,6 +63,7 @@ export default function GradientStopWithMenu({
   return (
     <div className="relative">
       <div
+        aria-label={`Gradient stop at ${position}% — color ${color.toUpperCase()}`}
         onClick={() => {
           setModifyActiveColor({
             id,
@@ -77,6 +78,7 @@ export default function GradientStopWithMenu({
           <button
             ref={buttonRef}
             disabled={isHide}
+            aria-label={`Open color picker for gradient stop ${color.toUpperCase()}`}
             className={`w-8 h-8 rounded-md grid place-content-center hover:cursor-pointer ${isHide && "opacity-30"} disabled:cursor-not-allowed`}
             style={{ backgroundColor: color }}
             onClick={() => {
@@ -97,6 +99,7 @@ export default function GradientStopWithMenu({
         </div>
         <div className="flex items-center">
           <button
+            aria-label={`Copy gradient stop color ${color.toUpperCase()}`}
             onClick={async (e) => {
               e.stopPropagation();
               await navigator.clipboard.writeText(color.toUpperCase());
@@ -105,7 +108,7 @@ export default function GradientStopWithMenu({
             disabled={isHide}
             className={`${BUTTONCOMMONSTYLE} ${isHide && "opacity-30"} disabled:cursor-not-allowed`}
           >
-            <LuCopy size={16} />
+            <LuCopy size={16} aria-hidden="true" />
           </button>
           {!(gradientStops.length <= 2) && (
             <GradientStopMoreMenu id={id} isHide={isHide} />
@@ -117,6 +120,9 @@ export default function GradientStopWithMenu({
         {showMenu && (
           <motion.div
             ref={menuRef}
+            role="dialog"
+            aria-label={`Color picker for gradient stop ${color.toUpperCase()}`}
+            aria-modal="true"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}

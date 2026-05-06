@@ -168,13 +168,13 @@ function StudioPage() {
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 border-b border-gray-200 flex items-center justify-between px-4 max-lg:pr-0">
         <div className="flex items-center gap-3">
-          <div className="hidden max-xl:block">
+          <div className="hidden max-[1400px]:block">
             <StudioResponsiveMenuIcon />
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900">
-            Generator <span className="max-xl:hidden">~ </span>
-            <span className="text-sm font-medium text-gray-800 max-xl:hidden">
-              Press enter!
+          <h2 className="text-xl font-semibold text-gray-900">
+            Color Palette Generator <span className="max-[1400px]:hidden">~ </span>
+            <span className="text-sm font-medium text-gray-800 max-[1400px]:hidden">
+              Press Enter to generate!
             </span>
           </h2>
         </div>
@@ -183,6 +183,7 @@ function StudioPage() {
         </div>
         <div className="flex items-center gap-2 max-lg:hidden">
           <Button
+            aria-label="Export color palette as CSS, HEX, or RGB"
             onClick={() => {
               toggleExportModel();
               setExportFrom("Palette");
@@ -197,6 +198,7 @@ function StudioPage() {
             <span>Export</span>
           </Button>
           <Button
+            aria-label="Add color palette to PalettIQ community"
             onClick={() => {
               toggleAddToCommunityModel();
               setAddToCommunityPalette(generatedPalette);
@@ -257,6 +259,7 @@ function StudioPage() {
           <ColorPreferencesMenu from="Studio" />
           <ColorCountMenu from="Generator" />
           <button
+            aria-label="Open HSL Control Panel to adjust hue, saturation, and lightness"
             onClick={() => toggleHslControlPanelModel()}
             className="h-10 px-4 font-semibold text-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center select-none text-gray-50 rounded-full gap-2 bg-radial-[at_25%_25%] from-indigo-300 to-indigo-600 to-75% max-lg:hidden"
           >
@@ -267,6 +270,7 @@ function StudioPage() {
         <div className="max-lg:w-full flex items-center gap-2">
           <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
             <Button
+              aria-label="Undo last palette change"
               disabled={!(historyIndex > 0)}
               onClick={undoHandler}
               className={REDOUNDOCOMMONSTYLE}
@@ -277,6 +281,7 @@ function StudioPage() {
             </Button>
             <span className="w-px h-4 bg-gray-200"></span>
             <Button
+              aria-label="Redo last palette change"
               disabled={!(historyIndex < paletteHistory.length - 1)}
               onClick={redoHandler}
               className={REDOUNDOCOMMONSTYLE}
@@ -287,6 +292,7 @@ function StudioPage() {
             </Button>
           </div>
           <Button
+            aria-label="Generate new color palette"
             onClick={paletteGeneratorHandler}
             variant={"primary"}
             size={"md"}

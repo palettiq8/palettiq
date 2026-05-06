@@ -159,7 +159,11 @@ export default function GeneratorMoreMenu() {
 
   return (
     <div className="relative">
-      <div ref={buttonRef} onClick={() => toggleGeneratorMoreMenu()}>
+      <div
+        ref={buttonRef}
+        onClick={() => toggleGeneratorMoreMenu()}
+        aria-label="More options for color palette"
+      >
         <LuEllipsisVertical
           size={17}
           className={generatorContentHeaderItemsStyle}
@@ -168,8 +172,9 @@ export default function GeneratorMoreMenu() {
 
       <AnimatePresence>
         {generatorMoreMenu && (
-          <motion.div
+          <motion.menu
             ref={menuRef}
+            aria-label="Color palette actions"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -186,16 +191,17 @@ export default function GeneratorMoreMenu() {
                   >
                     <button
                       onClick={() => handler(title)}
+                      aria-label={`${title} color palette`}
                       className={`w-full flex items-center gap-4 p-2 text-gray-900 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all`}
                     >
-                      <Icon size={16} />
+                      <Icon size={16} aria-hidden="true" />
                       <p className="text-sm font-semibold">{title}</p>
                     </button>
                   </div>
                 );
               },
             )}
-          </motion.div>
+          </motion.menu>
         )}
       </AnimatePresence>
     </div>

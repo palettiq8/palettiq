@@ -379,6 +379,7 @@ export default function ExtractorPageClient() {
           type="file"
           id="imageUpload"
           accept="image/*"
+          aria-label="Upload image to extract colors"
           className="hidden"
           onChange={(e) => {
             const file = e.target.files?.[0];
@@ -390,9 +391,10 @@ export default function ExtractorPageClient() {
         <Button variant={"primary"} size={"md"} className="max-lg:w-full">
           <label
             htmlFor="imageUpload"
+            aria-label="Upload image to extract colors from"
             className="flex h-10 items-center gap-3 cursor-pointer"
           >
-            <LuCloudUpload size={16} />
+            <LuCloudUpload size={16} aria-hidden="true" />
             <span>Upload Image</span>
           </label>
         </Button>
@@ -404,13 +406,16 @@ export default function ExtractorPageClient() {
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="hidden max-xl:block">
+          <div className="hidden max-[1400px]:block">
             <StudioResponsiveMenuIcon />
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900">Extractor</h2>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Color Extractor
+          </h2>
         </div>
         <div className="flex items-center gap-3 max-lg:hidden">
           <Button
+            aria-label="View color extraction history"
             onClick={() => toggleExtractorHistoryModel()}
             variant={"outline"}
             size={"md"}
@@ -420,26 +425,29 @@ export default function ExtractorPageClient() {
           </Button>
           <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
             <Button
+              aria-label="Undo color extraction"
               disabled={!(extractorHistoryIndex > 0)}
               onClick={undoHandler}
               className={REDOUNDOCOMMONSTYLE}
               variant={"text"}
               size={"p0"}
             >
-              <LuUndo2 size={16} />
+              <LuUndo2 size={16} aria-hidden="true" />
             </Button>
             <span className="w-px h-4 bg-gray-200"></span>
             <Button
+              aria-label="Redo color extraction"
               disabled={!(extractorHistoryIndex < extractorHistory.length - 1)}
               onClick={redoHandler}
               className={REDOUNDOCOMMONSTYLE}
               variant={"text"}
               size={"p0"}
             >
-              <LuRedo2 size={16} />
+              <LuRedo2 size={16} aria-hidden="true" />
             </Button>
           </div>
           <Button
+            aria-label="Export extracted color palette"
             onClick={() => {
               toggleExportModel();
               setExportFrom("Palette");
@@ -474,6 +482,7 @@ export default function ExtractorPageClient() {
                 return (
                   <div
                     key={i}
+                    aria-label={`Color picker ${i + 1} — ${p.color.toUpperCase()}`}
                     className={`absolute w-7 h-7 max-lg:w-4 max-lg:h-4 max-lg:border-2 rounded-full border-3 border-gray-50 hover:cursor-pointer hover:scale-150 transition-all ${
                       activePickerIndex === i && "scale-150 transition-none"
                     }`}
@@ -497,6 +506,7 @@ export default function ExtractorPageClient() {
             <Link
               href={"https://unsplash.com/"}
               target="_blank"
+              aria-label="Visit Unsplash for free images"
               className="hover:underline"
             >
               Unsplash
@@ -509,12 +519,14 @@ export default function ExtractorPageClient() {
               <div className="w-full flex items-center justify-between">
                 <div className="flex items-center max-sm:flex-col max-sm:items-start gap-1">
                   <h3 className="text-md font-semibold text-gray-900">
-                    Shuffled Palette{" "}
+                    Extracted Color Palette
                   </h3>
                   <span className="text-indigo-600 text-sm font-semibold">{`(${extractorPickerCount} Colors)`}</span>
                 </div>
                 <div className="flex items-center gap-6">
                   <LuEye
+                    role="button"
+                    aria-label="Quick view extracted color formats"
                     onClick={() => {
                       toggleQuickViewModel();
                       setQuickViewActiveTab("Formats");
@@ -527,23 +539,26 @@ export default function ExtractorPageClient() {
                   />
                   <div className="flex items-center justify-between gap-4 px-3 border border-gray-200 h-9 rounded-full">
                     <Button
+                      role="button"
+                      aria-label="Decrease color picker count"
                       className={REDOUNDOCOMMONSTYLE}
                       onClick={minusHandler}
                       disabled={isMinusDisabled}
                       variant={"text"}
                       size={"p0"}
                     >
-                      <LuMinus size={16} />
+                      <LuMinus size={16} aria-hidden="true" />
                     </Button>
                     <span className="w-px h-4 bg-gray-200"></span>
                     <Button
+                      aria-label="Increase color picker count"
                       className={REDOUNDOCOMMONSTYLE}
                       onClick={plusHandler}
                       disabled={isPlusDisabled}
                       variant={"text"}
                       size={"p0"}
                     >
-                      <LuPlus size={16} />
+                      <LuPlus size={16} aria-hidden="true" />
                     </Button>
                   </div>
                 </div>
@@ -558,6 +573,8 @@ export default function ExtractorPageClient() {
                     return (
                       <div
                         key={i}
+                        role="button"
+                        aria-label={`Select extracted color ${p.color.toUpperCase()}`}
                         className={`w-full ${isMaximizeExtractor ? "h-full" : "h-30 first:rounded-l-lg last:rounded-r-lg"} grid place-content-center hover:cursor-pointer`}
                         style={{ backgroundColor: p.color }}
                         onClick={() =>
@@ -594,13 +611,15 @@ export default function ExtractorPageClient() {
               </div>
             </div>
             <div className="w-full p-4">
-              <p className="text-md font-semibold text-gray-900">
-                Picked Palettes
-              </p>
+              <h3 className="text-md font-semibold text-gray-900">
+                Recommended Color Palettes from Image
+              </h3>
               <div className="w-full grid grid-cols-3 gap-3 mt-3 max-md:grid-cols-2">
                 {extractorRecommendedPalettes.map((palettes, index) => {
                   return (
                     <div
+                      role="button"
+                      aria-label={`Select recommended color palette ${index + 1}`}
                       onClick={() => {
                         setPickers(palettes);
                         setSelectedPaletteIndex(index);
@@ -647,16 +666,18 @@ export default function ExtractorPageClient() {
               <div className="w-full flex items-center gap-2">
                 <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
                   <Button
+                    aria-label="Undo color extraction"
                     disabled={!(extractorHistoryIndex > 0)}
                     onClick={undoHandler}
                     className={REDOUNDOCOMMONSTYLE}
                     variant={"text"}
                     size={"p0"}
                   >
-                    <LuUndo2 size={16} />
+                    <LuUndo2 size={16} aria-hidden="true" />
                   </Button>
                   <span className="w-px h-4 bg-gray-200"></span>
                   <Button
+                    aria-label="Redo color extraction"
                     disabled={
                       !(extractorHistoryIndex < extractorHistory.length - 1)
                     }
@@ -665,27 +686,29 @@ export default function ExtractorPageClient() {
                     variant={"text"}
                     size={"p0"}
                   >
-                    <LuRedo2 size={16} />
+                    <LuRedo2 size={16} aria-hidden="true" />
                   </Button>
                 </div>
                 <Button
+                  aria-label="Shuffle and extract new colors from image"
                   onClick={randomShuffleHandler}
                   variant={"outline"}
                   size={"md"}
                   className="max-lg:w-full"
                 >
-                  <LuShuffle size={18} />
+                  <LuShuffle size={18} aria-hidden="true" />
                   <span>Random Shuffle</span>
                 </Button>
               </div>
             </div>
             <Button
+              aria-label="Shuffle and extract new colors from image"
               onClick={randomShuffleHandler}
               variant={"outline"}
               size={"md"}
               className="max-lg:hidden"
             >
-              <LuShuffle size={18} />
+              <LuShuffle size={18} aria-hidden="true" />
               <span>Random Shuffle</span>
             </Button>
           </div>

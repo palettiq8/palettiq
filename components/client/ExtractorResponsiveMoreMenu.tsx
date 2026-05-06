@@ -97,17 +97,23 @@ export default function ExtractorResponsiveMoreMenu() {
 
   return (
     <div className="relative">
-      <div ref={buttonRef} onClick={() => toggleExtractorResponsiveMoreMenu()}>
+      <div
+        ref={buttonRef}
+        onClick={() => toggleExtractorResponsiveMoreMenu()}
+        aria-label="More options for Color Extractor"
+      >
         <LuEllipsisVertical
           size={17}
+          aria-hidden="true"
           className={`${generatorContentHeaderItemsStyle}`}
         />
       </div>
 
       <AnimatePresence>
         {extractorResponsiveMoreMenu && (
-          <motion.div
+          <motion.menu
             ref={menuRef}
+            aria-label="Color Extractor actions"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -120,16 +126,17 @@ export default function ExtractorResponsiveMoreMenu() {
                 return (
                   <button
                     key={id}
+                    aria-label={`${title} — Color Extractor`}
                     className={`w-full flex items-center gap-4 p-2 text-gray-900 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all`}
                     onClick={() => handler(title)}
                   >
-                    <Icon size={16} />
+                    <Icon size={16} aria-hidden="true" />
                     <p className="text-sm font-semibold">{title}</p>
                   </button>
                 );
               },
             )}
-          </motion.div>
+          </motion.menu>
         )}
       </AnimatePresence>
     </div>

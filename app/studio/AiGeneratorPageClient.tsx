@@ -146,13 +146,16 @@ export default function AiGeneratorPageClient() {
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 border-b border-gray-200 p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="hidden max-xl:block">
+          <div className="hidden max-[1400px]:block">
             <StudioResponsiveMenuIcon />
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900">Ai Generator</h2>
+          <h2 className="text-xl font-semibold text-gray-900">
+            AI Color Palette Generator
+          </h2>
         </div>
         <div className="flex items-center gap-3 max-sm:hidden">
           <button
+            aria-label="Generate AI color palettes"
             onClick={() => generateAiPalettes()}
             disabled={isLoading}
             className="h-10 px-4 rounded-full flex items-center gap-3 bg-linear-65 from-orange-500 to-pink-500 text-gray-50 active:scale-95 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100"
@@ -175,7 +178,7 @@ export default function AiGeneratorPageClient() {
             <div className="flex items-center gap-2">
               <LuSparkle size={16} className="text-orange-500" />
               <h3 className="text-md font-semibold bg-linear-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
-                Configure your palette
+                Configure your AI color palette
               </h3>
             </div>
             <div className="flex items-center gap-6">
@@ -189,6 +192,7 @@ export default function AiGeneratorPageClient() {
                 />
               </div>
               <Button
+                aria-label="Clear all AI palette configuration selections"
                 onClick={() => clearAllAiItems()}
                 variant={"distrcutiveText"}
                 size={"p0"}
@@ -279,7 +283,8 @@ export default function AiGeneratorPageClient() {
                 value={aiDesc}
                 onChange={(e) => setAiDesc(e.target.value)}
                 className="w-full border-2 border-gray-200 rounded-xl p-4 h-35 text-sm font-semibold text-gray-900 resize-none placeholder:text-gray-500 caret-gray-500 focus:border-indigo-600 outline-none bg-white placeholder:select-none"
-                placeholder="Tell more about your selection..."
+                aria-label="Additional description for AI color palette generation"
+                placeholder="Describe your brand, mood, or design style for better AI results..."
                 maxLength={500}
               ></textarea>
             </div>
@@ -315,22 +320,22 @@ export default function AiGeneratorPageClient() {
             <>
               {aiGeneratedPalettes.length > 0 ? (
                 <div className={`w-full`}>
-                  <h1 className="text-md font-semibold text-gray-900">
-                    Generated Palettes
-                  </h1>
+                  <h2 className="text-md font-semibold text-gray-900">
+                    AI Generated Color Palettes
+                  </h2>
                   <div className="w-full grid grid-cols-3 max-2xl:grid-cols-2 max-lg:grid-cols-1 gap-3 mt-3">
                     {aiGeneratedPalettes?.map(
                       (_: AiPaletteType, index: number) => {
                         const data = _?.colors?.map((_) => _);
                         return (
-                          <div
+                          <article
                             key={index}
                             className="w-full p-4 border border-gray-200 rounded-xl bg-gray-50"
                           >
                             <div className="w-full flex items-center justify-between">
-                              <p className="text-sm font-semibold text-gray-900">
+                              <h3 className="text-sm font-semibold text-gray-900">
                                 {_?.paletteName}
-                              </p>
+                              </h3>
                               <div className="flex items-center gap-3">
                                 <LuEye
                                   size={17}
@@ -356,6 +361,8 @@ export default function AiGeneratorPageClient() {
                                 return (
                                   <div
                                     key={index}
+                                    role="button"
+                                    aria-label={`Copy color ${color.toUpperCase()} from ${_?.paletteName} palette`}
                                     className="w-full h-40 max-lg:h-30 group relative cursor-pointer first:rounded-l-lg last:rounded-r-lg"
                                     style={{ backgroundColor: color }}
                                     onClick={async () => {
@@ -380,7 +387,7 @@ export default function AiGeneratorPageClient() {
                                 );
                               })}
                             </div>
-                          </div>
+                          </article>
                         );
                       },
                     )}
@@ -391,7 +398,7 @@ export default function AiGeneratorPageClient() {
                   className={`w-full h-100 grid place-content-center border bg-gray-50 border-gray-200 rounded-xl`}
                 >
                   <h2 className="text-md font-semibold text-gray-500">
-                    No recent generated palette.
+                    No AI generated palettes yet. Configure and generate above.
                   </h2>
                 </div>
               )}

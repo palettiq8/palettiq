@@ -4,7 +4,7 @@ import useModelStore from "@/libs/stores/modelStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../Button";
 import ButtonLoader from "../server/ButtonLoader";
-import { useGeneratorStore, useOtherStore } from "@/libs/stores/dataStore";
+import { useOtherStore } from "@/libs/stores/dataStore";
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import {
   industries,
@@ -38,6 +38,8 @@ const ItemSelector = ({
     <>
       {items.map((tag, index) => (
         <button
+          aria-label={`${state.includes(tag) ? "Remove" : "Add"} ${tag}`}
+          aria-pressed={state.includes(tag)}
           onClick={() => {
             setState((prev) =>
               prev.includes(tag)
@@ -74,7 +76,7 @@ const FlexWrapItemSelector = ({
 }) => {
   return (
     <div className="w-full mt-5">
-      <p className="text-sm font-semibold text-gray-900">{title}</p>
+      <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
       <div className="w-full mt-3 flex items-center flex-wrap gap-2">
         {items.map((_, index) => {
           const isExist = state.includes(_);
@@ -203,6 +205,9 @@ export default function AddToCommunityModel() {
         >
           <motion.div
             ref={dataContentRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Publish color palette to community"
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
@@ -211,12 +216,13 @@ export default function AddToCommunityModel() {
           >
             <div className="w-full sticky top-0 px-3 border-b border-gray-200 z-40">
               <div className="w-full flex items-center justify-between py-3 bg-white">
-                <p className="text-md font-semibold text-gray-900">
+                <h2 className="text-md font-semibold text-gray-900">
                   Publish Palette
-                </p>
+                </h2>
                 <Button
                   onClick={publishPaletteHandler}
                   disabled={isDisabledPublishedButton}
+                  aria-label="Publish color palette to PalettIQ community"
                   variant={"primary"}
                   size={"md"}
                 >
@@ -303,9 +309,9 @@ export default function AddToCommunityModel() {
                 </div>
 
                 <div className="w-full mt-4">
-                  <p className="text-sm font-semibold text-gray-900">
+                  <h3 className="text-sm font-semibold text-gray-900">
                     Industries
-                  </p>
+                  </h3>
                   {selectedIndustries.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-3">
                       {selectedIndustries.map((_, index) => {
@@ -322,6 +328,8 @@ export default function AddToCommunityModel() {
                   )}
                   <div className="w-full border-2 border-gray-200 rounded-lg mt-3 bg-white">
                     <button
+                      aria-label="Toggle industry selection"
+                      aria-expanded={showIndustry}
                       onClick={() => setShowIndustry((prev) => !prev)}
                       className={`flex items-center justify-between text-gray-900 p-3 w-full ${
                         showIndustry && "border-b-2 border-gray-200"
@@ -350,9 +358,9 @@ export default function AddToCommunityModel() {
                 </div>
 
                 <div className="w-full mt-4">
-                  <p className="text-sm font-semibold text-gray-900">
+                  <h3 className="text-sm font-semibold text-gray-900">
                     Preferred Colors
-                  </p>
+                  </h3>
                   {colorPreferred.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-3">
                       {colorPreferred.map((_, index) => {
@@ -369,6 +377,8 @@ export default function AddToCommunityModel() {
                   )}
                   <div className="w-full border-2 border-gray-200 rounded-lg mt-3 bg-white">
                     <button
+                      aria-label="Toggle color family selection"
+                      aria-expanded={showPreferredColors}
                       onClick={() => setShowPreferredColors((prev) => !prev)}
                       className={`flex items-center justify-between text-gray-900 p-3 w-full ${
                         showPreferredColors && "border-b-2 border-gray-200"
@@ -422,9 +432,9 @@ export default function AddToCommunityModel() {
                 </div>
 
                 <div className="w-full mt-4">
-                  <p className="text-sm font-semibold text-gray-900">
+                  <h3 className="text-sm font-semibold text-gray-900">
                     Moods/Emotions
-                  </p>
+                  </h3>
                   {selectedMoods.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-3">
                       {selectedMoods.map((_, index) => {
@@ -441,6 +451,8 @@ export default function AddToCommunityModel() {
                   )}
                   <div className="w-full border-2 border-gray-200 rounded-lg mt-3 bg-white">
                     <button
+                      aria-label="Toggle mood selection"
+                      aria-expanded={showSelectedMoods}
                       onClick={() => setShowSelectedMoods((prev) => !prev)}
                       className={`flex items-center justify-between text-gray-900 p-3 w-full ${
                         showSelectedMoods && "border-b-2 border-gray-200"
@@ -486,9 +498,9 @@ export default function AddToCommunityModel() {
                 />
 
                 <div className="w-full mt-4">
-                  <p className="text-sm font-semibold text-gray-900">
+                  <h3 className="text-sm font-semibold text-gray-900">
                     Use Cases
-                  </p>
+                  </h3>
                   {selectedUsecases.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-3">
                       {selectedUsecases.map((_, index) => {
@@ -505,6 +517,8 @@ export default function AddToCommunityModel() {
                   )}
                   <div className="w-full border-2 border-gray-200 rounded-lg mt-3 bg-white">
                     <button
+                      aria-label="Toggle use case selection"
+                      aria-expanded={showUsecase}
                       onClick={() => setShowUsecase((prev) => !prev)}
                       className={`flex items-center justify-between text-gray-900 p-3 w-full ${
                         showUsecase && "border-b-2 border-gray-200"
@@ -541,7 +555,9 @@ export default function AddToCommunityModel() {
 
                 <div className="w-full mt-4">
                   <div className="flex flex-col gap-1">
-                    <p className="text-sm font-semibold text-gray-900">Tags</p>
+                    <h3 className="text-sm font-semibold text-gray-900">
+                      Tags
+                    </h3>
                     <p className="text-xs font-medium text-gray-600">
                       Add tags for better discovery.
                     </p>
@@ -551,6 +567,7 @@ export default function AddToCommunityModel() {
                       {selectedTags.map((_, index) => {
                         return (
                           <button
+                            aria-label={`Remove tag ${_}`}
                             key={index}
                             className="text-xs font-semibold text-indigo-800 bg-indigo-50 border border-indigo-100 py-1 px-2 rounded-full flex items-center gap-1.5"
                           >
@@ -574,6 +591,7 @@ export default function AddToCommunityModel() {
                         <input
                           type="text"
                           value={searchBoxTags}
+                          aria-label="Search palette tags"
                           onFocus={() => setIsTagInputFocused(true)}
                           className="text-sm font-medium w-full px-8 py-1.5 focus:outline-gray-300 rounded-md focus:placeholder:text-gray-400 placeholder:text-gray-500 caret-gray-500"
                           placeholder="Search tags..."
@@ -581,13 +599,14 @@ export default function AddToCommunityModel() {
                         />
                         {isTagsShow && (
                           <button
+                            aria-label="Clear tag search"
                             onClick={() => {
                               setSearchBoxTags("");
                               setIsTagInputFocused(false);
                             }}
                             className="text-gray-600 absolute top-1 right-1 cursor-pointer w-6 h-6 rounded-md hover:bg-gray-100 grid place-content-center border border-white hover:border-gray-200"
                           >
-                            <LuX size={16} />
+                            <LuX size={16} aria-hidden="true" />
                           </button>
                         )}
                         <LuSearch

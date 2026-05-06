@@ -69,7 +69,7 @@ export default function StudioLeftFooterMenu({ from }: { from: string }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className="bg-white shadow-lg flex flex-col rounded-xl p-2.5 z-40 absolute bottom-12 left-0 w-max h-max"
+            className="bg-white shadow-lg flex flex-col rounded-xl p-2.5 z-40 absolute bottom-12 left-0 w-full h-max"
           >
             {studioLeftFooterMenuItems.map(({ id, title, icon: Icon, url }) => {
               return (

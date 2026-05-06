@@ -12,7 +12,7 @@ import { preferredColors } from "@/utils/Items";
 const ItemSection = ({ title, items }: { title: string; items: string[] }) => {
   return (
     <div className="w-full mt-4 px-3">
-      <h2 className="text-xs font-semibold text-gray-500">{title}</h2>
+      <h3 className="text-xs font-semibold text-gray-500">{title}</h3>
       <div className="flex items-center gap-2 flex-wrap mt-3">
         {items?.map((_, index) => {
           return (
@@ -61,6 +61,9 @@ export default function PaletteViewDetailsModel() {
           className="fixed inset-0 w-full h-screen bg-black/50 grid place-content-center z-50 max-sm:block max-sm:px-4 parent"
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`View details for ${paletteViewDetailsItem?.name} color palette`}
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
@@ -73,6 +76,7 @@ export default function PaletteViewDetailsModel() {
                   return (
                     <div
                       key={id}
+                      aria-label={`Palette color ${color}`}
                       className="w-full h-full first:rounded-l-lg last:rounded-r-lg"
                       style={{ backgroundColor: color }}
                     ></div>
@@ -90,6 +94,7 @@ export default function PaletteViewDetailsModel() {
                 </h2>
               </div>
               <Button
+                aria-label={`Copy all colors from ${paletteViewDetailsItem?.name} palette`}
                 onClick={async () => {
                   await navigator.clipboard.writeText(
                     `[${paletteViewDetailsItem?.colors?.map((color) => `"${color.color}"`)}]`,
@@ -101,6 +106,7 @@ export default function PaletteViewDetailsModel() {
               >
                 <LuCopy
                   size={16}
+                  aria-hidden="true"
                   className={generatorContentHeaderItemsStyle}
                 />
                 <span>Copy</span>
@@ -113,9 +119,9 @@ export default function PaletteViewDetailsModel() {
               </p>
             </div>
             <div className="w-full mt-4 px-4">
-              <h2 className="text-xs font-semibold text-gray-500">
+              <h3 className="text-xs font-semibold text-gray-500">
                 Preferred Colors
-              </h2>
+              </h3>
               <div className="flex items-center gap-2 flex-wrap mt-3">
                 {paletteViewDetailsItem?.preferred_colors
                   ?.map((color) =>

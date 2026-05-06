@@ -12,11 +12,11 @@ export default function StudioLeftMenuContainer() {
   );
   return (
     <div
-      className="w-full overflow-y-auto px-3"
+      className="w-full overflow-y-auto p-2 noscrollbar"
       style={{ height: "calc(100% - 128px)" }}
     >
-      <div className="w-full flex flex-col gap-3.5 mt-3">
-        {features.map(({ id, title, icon: Icon, url, bgColors }) => {
+      <div className="w-full flex flex-col gap-3.5">
+        {features.map(({ id, title, desc, icon: Icon, url, bgColors }) => {
           const isPath = url === path;
           return (
             <Link
@@ -27,14 +27,17 @@ export default function StudioLeftMenuContainer() {
                   toggleStudioLeftMenuModel();
                 }
               }}
-              className={`w-full flex items-center gap-4 p-1 rounded-xl hover:bg-gray-50 group border active:scale-95 transition-all hover:border-gray-200 ${isPath ? "bg-gray-50 border-gray-200" : "bg-white border-white"}`}
+              className={`w-full flex items-start flex-col gap-2 p-2 rounded-xl hover:bg-gray-100 group border active:scale-95 transition-all hover:border-gray-200 ${isPath ? "bg-gray-100 border-gray-200" : "bg-white border-white"}`}
             >
               <div
-                className={`w-9 h-9 rounded-lg grid place-content-center bg-linear-to-t ${bgColors[0]} ${bgColors[1]}`}
+                className={`w-9 h-9 rounded-lg grid place-content-center bg-linear-to-t shrink-0 ${bgColors[0]} ${bgColors[1]}`}
               >
                 <Icon size={17} className="text-gray-50" />
               </div>
               <p className="text-md font-semibold text-gray-900">{title}</p>
+              <span className="text-xs font-semibold text-gray-600">
+                {desc}
+              </span>
             </Link>
           );
         })}

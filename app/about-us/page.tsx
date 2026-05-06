@@ -38,7 +38,7 @@ export default function page() {
         <section className="w-full mt-14 flex items-start gap-10 max-md:flex-col">
           <div className="shrink-0">
             <Image
-              src="/logo_50.svg"
+              src="/logo.svg"
               alt="PalettIQ Founder & Developer"
               width={160}
               height={160}

@@ -53,6 +53,9 @@ export default function ShadowColorPickerMenu({
     <div className="relative">
       <div
         ref={buttonRef}
+        role="button"
+        aria-label={`Open color picker for ${from === "Box" ? "box" : "text"} shadow layer ${index + 1} — current color ${color.toUpperCase()}`}
+        aria-expanded={showMenu}
         onClick={() => setShowMenu((prev) => !prev)}
         className="w-8 h-8 rounded-lg hover:cursor-pointer outline-2 border-2 border-gray-50"
         style={{ backgroundColor: color, outlineColor: color }}
@@ -62,6 +65,9 @@ export default function ShadowColorPickerMenu({
         {showMenu && (
           <motion.div
             ref={menuRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Color picker for ${from === "Box" ? "box" : "text"} shadow layer ${index + 1}`}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}

@@ -23,12 +23,13 @@ const RadialObjectPosition = ({
 }) => {
   return (
     <div className="flex items-center max-sm:w-full">
-      <p
+      <label
         className={`${ICONBUTTONCOMMONSTYLE} text-sm font-semibold text-gray-900 rounded-l-full`}
       >
         {position}
-      </p>
+      </label>
       <input
+        aria-label={`Radial gradient object position ${position} axis`}
         type="number"
         value={value}
         min={0}
@@ -39,11 +40,11 @@ const RadialObjectPosition = ({
         }}
         className={`${INPUTCOMMONSTYLE} w-18 max-sm:w-full`}
       />
-      <p
+      <span
         className={`${ICONBUTTONCOMMONSTYLE} text-sm font-semibold text-gray-900 rounded-r-full`}
       >
         %
-      </p>
+      </span>
     </div>
   );
 };
@@ -61,12 +62,13 @@ const ConicCenter = ({
 }) => {
   return (
     <div className="flex items-center max-sm:w-full">
-      <p
+      <label
         className={`${ICONBUTTONCOMMONSTYLE} text-sm font-semibold text-gray-900 rounded-l-full`}
       >
         {position}
-      </p>
+      </label>
       <input
+        aria-label={`Conic gradient center ${position} axis`}
         type="number"
         value={value}
         min={0}
@@ -77,11 +79,11 @@ const ConicCenter = ({
         }}
         className={`${INPUTCOMMONSTYLE} w-18 max-sm:w-full`}
       />
-      <p
+      <span
         className={`${ICONBUTTONCOMMONSTYLE} text-sm font-semibold text-gray-900 rounded-r-full`}
       >
         %
-      </p>
+      </span>
     </div>
   );
 };
@@ -135,9 +137,10 @@ export default function GradientCustomizedItem() {
   return (
     <>
       <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
-        <p className={`text-md font-semibold text-gray-900`}>Position</p>
+        <label className="text-md font-semibold text-gray-900">Position</label>
         <div className="flex items-center max-sm:w-full">
           <input
+            aria-label="Gradient stop position percentage"
             type="number"
             value={modifyActiveColor.position}
             min={0}
@@ -153,12 +156,14 @@ export default function GradientCustomizedItem() {
         </div>
       </div>
       <div className="w-full flex flex-col items-start gap-3">
-        <p className={`text-md font-semibold text-gray-900`}>Container Size</p>
+        <h3 className="text-md font-semibold text-gray-900">Container Size</h3>
         <div className="w-full grid grid-cols-7 max-sm:grid-cols-4 gap-2">
           {gradientContainerSizes.map((item, index) => {
             const isMatch = gradientContainerSize.content === item.content;
             return (
               <button
+                aria-label={`Set gradient container size to ${item.content}`}
+                aria-pressed={isMatch}
                 onClick={() => setGradientContainerSize(item)}
                 key={index}
                 className={`w-full shadow-inner text-center border text-sm font-semibold py-3 rounded-lg cursor-pointer transition-all active:scale-90 ${isMatch ? "border-gray-200 text-gray-900 bg-gray-100" : "border-gray-200 bg-white text-gray-900 hover:bg-gray-50"}`}
@@ -170,9 +175,12 @@ export default function GradientCustomizedItem() {
         </div>
       </div>
       <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
-        <p className={`text-md font-semibold text-gray-900`}>Corner Radius</p>
+        <label className="text-md font-semibold text-gray-900">
+          Corner Radius
+        </label>
         <div className="flex items-center max-sm:w-full">
           <input
+            aria-label="Gradient corner radius in pixels"
             type="number"
             value={gradientCornerRadius}
             min={0}
@@ -191,12 +199,14 @@ export default function GradientCustomizedItem() {
         </div>
       </div>
       <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
-        <p className={`text-md font-semibold text-gray-900`}>Gradient Type</p>
+        <h3 className="text-md font-semibold text-gray-900">Gradient Type</h3>
         <div className="flex items-center border border-gray-200 rounded-full p-1 max-sm:w-full">
           {gradientsTypes.map((_, index) => {
             return (
               <button
                 key={index}
+                aria-label={`Set gradient type to ${_}`}
+                aria-pressed={activeGradientType === _}
                 onClick={() => setActiveGradientType(_)}
                 className={`h-10 px-4 max-sm:w-full text-sm font-semibold border rounded-full ${activeGradientType === _ ? "bg-gray-100 border-gray-200 text-gray900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all`}
               >
@@ -209,14 +219,16 @@ export default function GradientCustomizedItem() {
       {activeGradientType === "Radial" && (
         <>
           <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
-            <p className={`text-sm font-semibold text-gray-900`}>
+            <label className="text-sm font-semibold text-gray-900">
               Radial Shape
-            </p>
+            </label>
             <div className="flex items-center border border-gray-200 rounded-full p-1 max-sm:w-full">
               {radialShapes.map((_, index) => {
                 return (
                   <button
                     key={index}
+                    aria-label={`Set radial gradient shape to ${_}`}
+                    aria-pressed={activeRadial.shape === _}
                     onClick={() =>
                       setActiveRadial({
                         shape: _,
@@ -267,9 +279,10 @@ export default function GradientCustomizedItem() {
         </div>
       )}
       <div className="w-full flex items-center justify-between max-sm:flex-col gap-3 max-sm:items-start">
-        <p className={`text-md font-semibold text-gray-900`}>Rotation</p>
+        <label className="text-md font-semibold text-gray-900">Rotation</label>
         <div className="flex items-center max-sm:w-full">
           <input
+            aria-label="Gradient rotation angle in degrees"
             type="number"
             value={gradientRotationValue}
             min={0}

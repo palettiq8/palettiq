@@ -178,18 +178,20 @@ export default function VisualizerPageClient() {
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 border-b border-gray-200 px-4 bg-white rounded-t-xl flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="hidden max-xl:block">
+          <div className="hidden max-[1400px]:block">
             <StudioResponsiveMenuIcon />
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900">
-            Visualizer <span className="max-xl:hidden"> ~ </span>
-            <span className="text-sm font-medium text-gray-800 max-xl:hidden">
+          <h2 className="text-xl font-semibold text-gray-900">
+            Color Palette Visualizer{" "}
+            <span className="max-[1400px]:hidden"> ~ </span>
+            <span className="text-sm font-medium text-gray-800 max-[1400px]:hidden">
               Right-click on templates to open!
             </span>
           </h2>
         </div>
         <div className="flex items-center gap-3">
           <Button
+            aria-label="Export visualizer color palette"
             onClick={() => {
               toggleExportModel();
               setExportFrom("Palette");
@@ -205,6 +207,7 @@ export default function VisualizerPageClient() {
             <span>Export</span>
           </Button>
           <Button
+            aria-label="Generate random color palette for visualizer"
             variant={"primary"}
             size={"md"}
             onClick={paletteGeneratorHandler}
@@ -230,6 +233,7 @@ export default function VisualizerPageClient() {
               )}
             </div>
             <Button
+              aria-label={`${activeVisualizerMaximize ? "Minimize" : "Maximize"} palette visualizer`}
               onClick={(e) => {
                 e.preventDefault();
                 setActiveVisualizerMaximize();
@@ -239,9 +243,9 @@ export default function VisualizerPageClient() {
               className="absolute top-4 left-4"
             >
               {activeVisualizerMaximize ? (
-                <LuMinimize2 size={16} />
+                <LuMinimize2 size={16} aria-hidden="true" />
               ) : (
-                <LuMaximize2 size={16} />
+                <LuMaximize2 size={16} aria-hidden="true" />
               )}
             </Button>
           </div>
@@ -250,8 +254,11 @@ export default function VisualizerPageClient() {
           className={`w-1/4 h-full border-l border-gray-200 p-4 overflow-y-auto noscrollbar ${activeTemplateMaximize && "w-full border-none"} max-lg:hidden`}
         >
           <div className="w-full flex items-center justify-between">
-            <h3 className="text-md font-semibold text-gray-900">Templetes</h3>
+            <h3 className="text-md font-semibold text-gray-900">
+              UI Templates
+            </h3>
             <Button
+              aria-label={`${activeTemplateMaximize ? "Minimize" : "Maximize"} template panel`}
               onClick={(e) => {
                 e.preventDefault();
                 setActiveTemplateMaximize((prev) => !prev);
@@ -272,6 +279,8 @@ export default function VisualizerPageClient() {
             {visualizers.map((Component, index) => {
               return (
                 <div
+                  role="button"
+                  aria-label={`Select UI template ${index + 1} for color palette preview`}
                   key={index}
                   onContextMenu={(e) => {
                     e.preventDefault();
@@ -295,6 +304,7 @@ export default function VisualizerPageClient() {
         </div>
         <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
           <button
+            aria-label="Quick view color palette formats"
             onClick={() => {
               toggleQuickViewModel();
               setQuickViewActiveTab("Formats");
@@ -306,27 +316,30 @@ export default function VisualizerPageClient() {
             }}
             className={`${CIRCLEBUTTONSTYLE} max-[1450px]:hidden`}
           >
-            <LuEye size={16} />
+            <LuEye size={16} aria-hidden="true" />
           </button>
           <button
+            aria-label="Shuffle visualizer palette colors"
             onClick={() => visualizerPaletteColorShuffler()}
             className={`${CIRCLEBUTTONSTYLE} max-[1450px]:hidden`}
           >
-            <LuShuffle size={16} />
+            <LuShuffle size={16} aria-hidden="true" />
           </button>
           <div className="max-lg:w-full flex items-center gap-3">
             <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
               <Button
+                aria-label="Undo palette change"
                 disabled={!(visualizerHistoryIndex > 0)}
                 onClick={undoHandler}
                 className={REDOUNDOCOMMONSTYLE}
                 variant={"text"}
                 size={"p0"}
               >
-                <LuUndo2 size={16} />
+                <LuUndo2 size={16} aria-hidden="true" />
               </Button>
               <span className="w-px h-4 bg-gray-200"></span>
               <Button
+                aria-label="Redo palette change"
                 disabled={
                   !(
                     visualizerHistoryIndex <
@@ -338,7 +351,7 @@ export default function VisualizerPageClient() {
                 variant={"text"}
                 size={"p0"}
               >
-                <LuRedo2 size={16} />
+                <LuRedo2 size={16} aria-hidden="true" />
               </Button>
             </div>
             <ColorCountMenu from="Visualizer" />
@@ -352,6 +365,8 @@ export default function VisualizerPageClient() {
                 return (
                   <div
                     key={index}
+                    role="button"
+                    aria-label={`Select color ${_.color.toUpperCase()} in visualizer palette`}
                     className={`w-full h-10 cursor-pointer relative grid place-content-center
                       ${isFirst ? "rounded-l-lg" : ""}
                       ${isLast ? "rounded-r-lg" : ""}
@@ -395,12 +410,13 @@ export default function VisualizerPageClient() {
                         style={{ backgroundColor: _.color, opacity: 0.7 }}
                       />
                       <button
+                        aria-label={`${_.isLocked ? "Unlock" : "Lock"} color ${_.color.toUpperCase()} in palette`}
                         className={`relative z-10 text-xs text-gray-900 cursor-pointer lg:invisible ${_.isLocked ? "visible" : "group-hover:visible"}`}
                       >
                         {_.isLocked ? (
-                          <LuLock size={13} />
+                          <LuLock size={13} aria-hidden="true" />
                         ) : (
-                          <LuLockOpen size={13} />
+                          <LuLockOpen size={13} aria-hidden="true" />
                         )}
                       </button>
                     </div>
@@ -409,16 +425,18 @@ export default function VisualizerPageClient() {
               </div>
             </div>
             <button
+              aria-label={`${lockPanel ? "Hide" : "Show"} color lock panel`}
               onClick={() => setLockPanel((prev) => !prev)}
               className={`${CIRCLEBUTTONSTYLE} shrink-0`}
             >
-              <LuLockKeyhole size={16} />
+              <LuLockKeyhole size={16} aria-hidden="true" />
             </button>
           </div>
           <Button
             variant={"primary"}
             size={"md"}
             className="hidden max-lg:block w-full"
+            aria-label="Generate random color palette for visualizer"
             onClick={paletteGeneratorHandler}
           >
             Random Palette

@@ -90,11 +90,14 @@ export default function PaletteMoreMenu({
         onClick={() => {
           setShowMenu((prev) => !prev);
         }}
+        aria-label={`More options for ${palette?.name} palette`}
       >
         <Button
           variant={"secondary"}
           size={"circle"}
           className="hover:bg-white"
+          aria-expanded={showMenu}
+          aria-haspopup="true"
         >
           <LuEllipsisVertical size={16} />
         </Button>
@@ -102,8 +105,9 @@ export default function PaletteMoreMenu({
 
       <AnimatePresence>
         {showMenu && (
-          <motion.div
+          <motion.menu
             ref={menuRef}
+            aria-label={`Actions for ${palette?.name} palette`}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -114,6 +118,7 @@ export default function PaletteMoreMenu({
               return (
                 <button
                   key={id}
+                  aria-label={`${title} ${palette?.name} color palette`}
                   className="flex items-center p-2 gap-3 rounded-lg transition-all hover:bg-gray-100 border border-white hover:border-gray-200 hover:cursor-pointer select-none text-gray-900"
                   onClick={async () => {
                     setShowMenu(false);
@@ -163,12 +168,12 @@ export default function PaletteMoreMenu({
                     }
                   }}
                 >
-                  <Icon size={16} />
+                  <Icon size={16} aria-hidden="true" />
                   <p className="text-sm font-semibold">{title}</p>
                 </button>
               );
             })}
-          </motion.div>
+          </motion.menu>
         )}
       </AnimatePresence>
     </div>

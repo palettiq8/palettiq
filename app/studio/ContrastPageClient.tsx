@@ -64,6 +64,8 @@ const FontSizeComponent = ({
 
   return (
     <button
+      aria-label={`Set font size to ${title}`}
+      aria-pressed={title === activeSizeTitle}
       className={`px-4 py-2 rounded-full text-sm font-semibold ${title === activeSizeTitle ? "bg-gray-900 text-gray-50" : "bg-gray-100 text-gray-900 hover:bg-gray-200"} transition-all cursor-pointer`}
       onClick={handler}
     >
@@ -265,13 +267,16 @@ export default function ContrastPageClient() {
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="hidden max-xl:block">
+          <div className="hidden max-[1400px]:block">
             <StudioResponsiveMenuIcon />
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900">Contrast</h2>
+          <h2 className="text-xl font-semibold text-gray-900">
+            Color Contrast Checker
+          </h2>
         </div>
         <div className="flex items-center gap-3 max-lg:hidden">
           <Button
+            aria-label="View contrast history"
             onClick={() => toggleContrastHistoryModel()}
             variant={"outline"}
             size={"md"}
@@ -281,6 +286,7 @@ export default function ContrastPageClient() {
           </Button>
           <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
             <Button
+              aria-label="Undo contrast change"
               disabled={!(contrastHistoryIndex > 0)}
               onClick={() => {
                 undoHandler();
@@ -289,10 +295,11 @@ export default function ContrastPageClient() {
               variant={"text"}
               size={"p0"}
             >
-              <LuUndo2 size={16} />
+              <LuUndo2 size={16} aria-hidden="true" />
             </Button>
             <span className="w-px h-4 bg-gray-200"></span>
             <Button
+              aria-label="Redo contrast change"
               disabled={!(contrastHistoryIndex < contrastHistory.length - 1)}
               onClick={() => {
                 redoHandler();
@@ -301,10 +308,11 @@ export default function ContrastPageClient() {
               variant={"text"}
               size={"p0"}
             >
-              <LuRedo2 size={16} />
+              <LuRedo2 size={16} aria-hidden="true" />
             </Button>
           </div>
           <Button
+            aria-label="Export contrast color palette"
             onClick={() => {
               toggleExportModel();
               setExportFrom("Palette");
@@ -317,6 +325,7 @@ export default function ContrastPageClient() {
             <span>Export</span>
           </Button>
           <Button
+            aria-label="Generate random color contrast pair"
             onClick={() =>
               complementaryMode
                 ? generateComplementaryContrastHandler()
@@ -397,13 +406,13 @@ export default function ContrastPageClient() {
             </div>
             <div className="w-full px-4 grid grid-cols-2 gap-3 max-sm:grid-cols-1">
               <div className="w-full flex items-center justify-between gap-2.5 border border-gray-200 rounded-lg px-2 h-12">
-                <p className="text-sm font-semibold text-gray-900">
+                <h3 className="text-sm font-semibold text-gray-900">
                   Contrast Ratio
-                </p>
-                <h1 className="text-md font-bold text-gray-900">{ratio}</h1>
+                </h3>
+                <p className="text-md font-bold text-gray-900">{ratio}</p>
               </div>
               <div className="w-full flex items-center justify-between gap-2.5 border border-gray-200 rounded-lg px-2 h-12">
-                <p className="text-sm font-semibold text-gray-900">Status</p>
+                <h3 className="text-sm font-semibold text-gray-900">Status</h3>
                 <span
                   className={`text-sm font-semibold px-2 py-0.5 rounded-full ${getLabel === "Excellent" && "text-gray-50 bg-green-500"} ${getLabel === "Good" && "text-gray-50 bg-indigo-500"} ${getLabel === "Fair" && "text-gray-50 bg-amber-500"} ${getLabel === "Poor" && "text-gray-50 bg-red-500"}`}
                 >
@@ -416,12 +425,14 @@ export default function ContrastPageClient() {
                 return (
                   <div
                     key={id}
+                    role="status"
+                    aria-label={`WCAG ${title} ${textSize} — ${isPass ? "Pass" : "Fail"}`}
                     className={`w-full p-3 rounded-lg border-2 ${isPass ? "border-green-400 bg-green-50" : "border-red-400 bg-red-50"} flex items-center justify-between`}
                   >
                     <div className="flex flex-col items-start gap-3">
-                      <p className="text-sm font-semibold text-gray-500">
+                      <h4 className="text-sm font-semibold text-gray-500">
                         {title}
-                      </p>
+                      </h4>
                       <p className="text-sm font-semibold text-gray-900">
                         {textSize}
                       </p>
@@ -438,14 +449,17 @@ export default function ContrastPageClient() {
             <div className="w-full px-4">
               <div className="w-full rounded-lg border border-gray-200 bg-gray-50">
                 <button
+                  aria-label={`${isAdvancedSettings ? "Close" : "Open"} advanced contrast settings`}
+                  aria-expanded={isAdvancedSettings}
                   onClick={() => setIsAdvancedSettings((prev) => !prev)}
                   className={`p-3 w-full rounded-t-lg flex items-center justify-between cursor-pointer`}
                 >
-                  <p className="text-sm font-semibold text-gray-900">
+                  <h3 className="text-sm font-semibold text-gray-900">
                     Advanced Settings
-                  </p>
+                  </h3>
                   <LuChevronDown
                     size={18}
+                    aria-hidden="true"
                     className={`transition-transform duration-300 ${
                       isAdvancedSettings ? "rotate-180" : "rotate-0"
                     }`}
@@ -468,6 +482,7 @@ export default function ContrastPageClient() {
                       min={8}
                       max={34}
                       value={fontSize}
+                      aria-label="Adjust font size for contrast preview"
                       onChange={(e) => setFontSize(Number(e.target.value))}
                       className="w-full h-2 rounded-full appearance-none cursor-pointer"
                       style={{
@@ -504,6 +519,8 @@ export default function ContrastPageClient() {
                         (_, index) => {
                           return (
                             <button
+                              aria-label={`Set font weight to ${_}`}
+                              aria-pressed={_ === fontWeight}
                               key={index}
                               className={`px-3 py-2 rounded-full text-sm font-semibold ${_ === fontWeight ? "bg-gray-900 text-gray-50" : "bg-gray-100 text-gray-900 hover:bg-gray-200"} transition-all cursor-pointer`}
                               onClick={() => setFontWeight(_)}
@@ -517,12 +534,12 @@ export default function ContrastPageClient() {
                   </div>
                   <div className="w-full p-4 flex items-center justify-between gap-4">
                     <div className="flex flex-col gap-1">
-                      <p className="text-md font-semibold">
+                      <h3 className="text-md font-semibold">
                         Complementary Mode{" "}
                         <span className="text-xs font-medium text-gray-500">
                           (Default Red)
                         </span>
-                      </p>
+                      </h3>
                       <p className="text-sm font-medium text-gray-600 max-w-95 max-lg:hidden">
                         Automatically generates complementary high-contrast
                         color pairs.
@@ -546,6 +563,7 @@ export default function ContrastPageClient() {
               <div className="w-full flex items-center gap-2">
                 <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
                   <Button
+                    aria-label="Undo contrast change"
                     disabled={!(contrastHistoryIndex > 0)}
                     onClick={() => {
                       undoHandler();
@@ -554,10 +572,11 @@ export default function ContrastPageClient() {
                     variant={"text"}
                     size={"p0"}
                   >
-                    <LuUndo2 size={16} />
+                    <LuUndo2 size={16} aria-hidden="true" />
                   </Button>
                   <span className="w-px h-4 bg-gray-200"></span>
                   <Button
+                    aria-label="Redo contrast change"
                     disabled={
                       !(contrastHistoryIndex < contrastHistory.length - 1)
                     }
@@ -568,10 +587,11 @@ export default function ContrastPageClient() {
                     variant={"text"}
                     size={"p0"}
                   >
-                    <LuRedo2 size={16} />
+                    <LuRedo2 size={16} aria-hidden="true" />
                   </Button>
                 </div>
                 <Button
+                  aria-label="Generate random color contrast pair"
                   onClick={() =>
                     complementaryMode
                       ? generateComplementaryContrastHandler()

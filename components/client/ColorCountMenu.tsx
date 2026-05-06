@@ -52,6 +52,9 @@ export default function ColorCountMenu({ from }: { from: string }) {
         <Button
           variant={"outline"}
           size={"md"}
+          aria-label={`Select number of colors for ${from === "Generator" ? "Color Palette Generator" : "Palette Visualizer"}`}
+          aria-expanded={colorCountMenu}
+          aria-haspopup="true"
           className="max-lg:w-full max-lg:justify-between"
         >
           <span>Color Count</span>
@@ -64,8 +67,9 @@ export default function ColorCountMenu({ from }: { from: string }) {
 
       <AnimatePresence>
         {colorCountMenu && (
-          <motion.div
+          <motion.menu
             ref={menuRef}
+            aria-label="Color count options"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -80,6 +84,8 @@ export default function ColorCountMenu({ from }: { from: string }) {
               return (
                 <button
                   key={index}
+                  aria-label={`Generate palette with ${count} colors`}
+                  aria-pressed={isCount}
                   className={`flex items-center gap-4 p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${isCount ? "text-indigo-600" : "text-gray-900"}`}
                   onClick={() => {
                     from === "Generator"
@@ -89,13 +95,14 @@ export default function ColorCountMenu({ from }: { from: string }) {
                 >
                   <LuCheck
                     size={16}
+                    aria-hidden="true"
                     className={`invisible ${isCount && "visible"}`}
                   />
                   <p className="text-sm font-semibold">{`${count} Colors`}</p>
                 </button>
               );
             })}
-          </motion.div>
+          </motion.menu>
         )}
       </AnimatePresence>
     </div>

@@ -46,6 +46,7 @@ export default function ColorPickerMenu({
     <div className="relative">
       <div ref={buttonRef} onClick={() => togglePickerColorPickerMenu()}>
         <button
+          aria-label={`Current color ${color} — Click to open color picker`}
           className={`bg-gray-50 border border-gray-200 text-gray-900 text-sm font-semibold uppercase px-4 h-10 rounded-full cursor-pointer select-none active:scale-90 transition-all`}
         >
           {color}
@@ -55,6 +56,9 @@ export default function ColorPickerMenu({
         {pickerColorPickerMenu && (
           <motion.div
             ref={menuRef}
+            role="dialog"
+            aria-label="Color picker — Select a custom color"
+            aria-modal="true"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -62,14 +66,15 @@ export default function ColorPickerMenu({
             className="bg-white shadow-lg w-max rounded-xl p-4 pb-4 z-40 absolute top-11 right-0 generalColorPicker border border-gray-200"
           >
             <div className="w-full flex items-center justify-between mb-4">
-              <p className="text-md font-semibold text-gray-900">
+              <h3 className="text-md font-semibold text-gray-900">
                 Color Picker
-              </p>
+              </h3>
               <button
                 onClick={() => togglePickerColorPickerMenu()}
+                aria-label="Close color picker"
                 className="w-7 h-7 rounded-md grid place-content-center bg-gray-100 transition-all border border-gray-200 cursor-pointer hover:bg-white"
               >
-                <LuX size={16} />
+                <LuX size={16} aria-hidden="true" />
               </button>
             </div>
             <ColorPicker color={color} setColor={setColor} />

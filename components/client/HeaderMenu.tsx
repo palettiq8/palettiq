@@ -32,7 +32,11 @@ export default function HeaderMenu() {
 
   return (
     <div className="relative">
-      <div ref={buttonRef} onClick={() => setShowMenu((prev) => !prev)}>
+      <div
+        ref={buttonRef}
+        onClick={() => setShowMenu((prev) => !prev)}
+        aria-label="Toggle navigation menu"
+      >
         <Button variant={"outline"} size={"md"}>
           <span>Menu</span>
           <LuChevronDown
@@ -44,20 +48,22 @@ export default function HeaderMenu() {
 
       <AnimatePresence>
         {showMenu && (
-          <motion.div
+          <motion.nav
             ref={menuRef}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className="bg-white shadow-lg flex flex-col rounded-xl p-2.5 z-40 absolute top-12 left-0 w-40"
+            aria-label="Mobile navigation"
+            className="bg-white shadow-lg flex flex-col rounded-xl p-2.5 z-40 absolute top-12 left-0 w-50"
           >
             {headerLinkItems.map((item, index) => {
               return (
                 <Link
                   key={index}
                   href={item.url}
-                  className={`hidden ${["Gradients"].includes(item.title) && "max-md:block"} ${["Palettes", "Colors"].includes(item.title) && "max-sm:block"}`}
+                  aria-label={`Navigate to ${item.title}`}
+                  className={`hidden ${["Explore Gradients", "Color Palettes", "Color Shades Explorer"].includes(item.title) && "max-md:block"}`}
                 >
                   <button className="w-full flex items-center justify-between p-2 gap-3 rounded-lg transition-all hover:bg-gray-100 border border-white hover:border-gray-200 hover:cursor-pointer select-none text-gray-900">
                     <p className="text-sm font-semibold">{item.title}</p>
@@ -66,7 +72,7 @@ export default function HeaderMenu() {
                 </Link>
               );
             })}
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
     </div>

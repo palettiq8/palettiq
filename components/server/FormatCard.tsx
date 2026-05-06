@@ -10,12 +10,15 @@ export default function FormatCard({
   value: string;
 }) {
   return (
-    <div className="w-full p-3 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-between">
+    <article className="w-full p-3 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-between">
       <div className="flex flex-col gap-3">
-        <p className="text-sm font-semibold uppercase text-gray-500">{name}</p>
+        <h4 className="text-sm font-semibold uppercase text-gray-500">
+          {name}
+        </h4>
         <p className="text-sm font-semibold text-gray-900">{value}</p>
       </div>
       <Button
+        aria-label={`Copy ${name} color value ${value}`}
         onClick={async () => {
           await navigator.clipboard.writeText(value);
           FlashMessage("success", "Copied to the clipboard!");
@@ -24,8 +27,8 @@ export default function FormatCard({
         size={"circle"}
         className="w-10 h-10"
       >
-        <LuCopy size={16} />
+        <LuCopy size={16} aria-hidden="true" />
       </Button>
-    </div>
+    </article>
   );
 }

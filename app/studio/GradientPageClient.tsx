@@ -206,13 +206,16 @@ export default function GradientPageClient() {
     <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
       <div className="w-full h-16 px-4 border-b border-gray-200 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="hidden max-xl:block">
+          <div className="hidden max-[1400px]:block">
             <StudioResponsiveMenuIcon />
           </div>
-          <h2 className="text-2xl font-semibold text-gray-900">Gradient</h2>
+          <h2 className="text-xl font-semibold text-gray-900">
+            CSS Gradient Generator
+          </h2>
         </div>
         <div className="flex items-center gap-3 max-lg:hidden">
           <Button
+            aria-label="View gradient history"
             onClick={() => toggleGradientHistoryModel()}
             variant={"outline"}
             size={"md"}
@@ -222,6 +225,7 @@ export default function GradientPageClient() {
           </Button>
           <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
             <Button
+              aria-label="Undo gradient change"
               disabled={!(gradientHistoryIndex > 0)}
               onClick={() => {
                 undoHandler();
@@ -230,10 +234,11 @@ export default function GradientPageClient() {
               variant={"text"}
               size={"p0"}
             >
-              <LuUndo2 size={16} />
+              <LuUndo2 size={16} aria-hidden="true" />
             </Button>
             <span className="w-px h-4 bg-gray-200"></span>
             <Button
+              aria-label="Redo gradient change"
               disabled={!(gradientHistoryIndex < gradientHistory.length - 1)}
               onClick={() => {
                 redoHandler();
@@ -242,10 +247,11 @@ export default function GradientPageClient() {
               variant={"text"}
               size={"p0"}
             >
-              <LuRedo2 size={16} />
+              <LuRedo2 size={16} aria-hidden="true" />
             </Button>
           </div>
           <Button
+            aria-label="Export CSS gradient code"
             onClick={() => {
               toggleExportModel();
               setExportFrom("Gradient");
@@ -267,6 +273,7 @@ export default function GradientPageClient() {
             <span>Export</span>
           </Button>
           <Button
+            aria-label="Generate random CSS gradient"
             onClick={generateRandomGradientHandler}
             variant={"primary"}
             size={"md"}
@@ -320,6 +327,8 @@ export default function GradientPageClient() {
                 return (
                   <div
                     key={index}
+                    role="button"
+                    aria-label={`Apply gradient preset ${index + 1}`}
                     className={`w-full h-14 hover:cursor-pointer rounded-lg active:scale-90 transition-all`}
                     onClick={() => addGradientStop(stop)}
                     style={{
@@ -337,9 +346,13 @@ export default function GradientPageClient() {
             </div>
             <div className="w-full p-4">
               <div className="flex items-center w-full justify-between">
-                <h2 className="text-md font-semibold text-gray-900">Stops</h2>
+                <h3 className="text-md font-semibold text-gray-900">
+                  Gradient Color Stops
+                </h3>
                 <div className="flex items-center gap-3">
                   <LuEye
+                    role="button"
+                    aria-label="Quick view gradient color formats"
                     onClick={() => {
                       toggleQuickViewModel();
                       setQuickViewActiveTab("Formats");
@@ -350,9 +363,10 @@ export default function GradientPageClient() {
                       setQuickViewActiveColor(data[0]);
                     }}
                     size={17}
-                    className={generatorContentHeaderItemsStyle}
+                    className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
                   />
                   <Button
+                    aria-label="Add new gradient color stop"
                     onClick={addStopHandler}
                     disabled={!(gradientStops.length < 10)}
                     variant={"outline"}
@@ -383,6 +397,8 @@ export default function GradientPageClient() {
                       return (
                         <div
                           key={id}
+                          role="button"
+                          aria-label={`Gradient stop at ${position}% — color ${color}`}
                           className="w-7 h-7 bg-gray-50 rounded-full border border-gray-200 grid place-content-center absolute top-1/2 -translate-y-1/2 -translate-x-1/2 cursor-pointer"
                           style={{
                             left: `${position}%`,
@@ -449,6 +465,7 @@ export default function GradientPageClient() {
               <div className="w-full flex items-center gap-2">
                 <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
                   <Button
+                    aria-label="Undo gradient change"
                     disabled={!(gradientHistoryIndex > 0)}
                     onClick={() => {
                       undoHandler();
@@ -457,10 +474,11 @@ export default function GradientPageClient() {
                     variant={"text"}
                     size={"p0"}
                   >
-                    <LuUndo2 size={16} />
+                    <LuUndo2 size={16} aria-hidden="true" />
                   </Button>
                   <span className="w-px h-4 bg-gray-200"></span>
                   <Button
+                    aria-label="Redo gradient change"
                     disabled={
                       !(gradientHistoryIndex < gradientHistory.length - 1)
                     }
@@ -471,10 +489,11 @@ export default function GradientPageClient() {
                     variant={"text"}
                     size={"p0"}
                   >
-                    <LuRedo2 size={16} />
+                    <LuRedo2 size={16} aria-hidden="true" />
                   </Button>
                 </div>
                 <Button
+                  aria-label="Generate random CSS gradient"
                   onClick={generateRandomGradientHandler}
                   variant={"primary"}
                   size={"md"}

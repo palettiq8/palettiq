@@ -28,7 +28,9 @@ export default function ShadowProgressBar({
   return (
     <div className="w-full p-3">
       <div className="w-full flex items-center justify-between gap-4">
-        <p className="text-sm font-semibold text-gray-900 shrink-0">{title}</p>
+        <label className="text-sm font-semibold text-gray-900 shrink-0">
+          {title}
+        </label>
         <div className="flex items-center w-full gap-4">
           <input
             type="range"
@@ -36,6 +38,7 @@ export default function ShadowProgressBar({
             min={min}
             max={max}
             step={step}
+            aria-label={`Adjust ${title} — current value ${value}`}
             className="w-full h-2 rounded-full appearance-none cursor-pointer"
             onChange={(e) => {
               const val = parseInt(e.target.value, 10);
@@ -61,7 +64,9 @@ export default function ShadowProgressBar({
               background: `linear-gradient(to right, #6366f1 0%, #6366f1 ${((value - min) / (max - min)) * 100}%, #e5e7eb ${((value - min) / (max - min)) * 100}%, #e5e7eb 100%)`,
             }}
           />
-          <p className="text-sm font-semibold text-gray-900 shrink-0 w-max text-end">{`${value}px`}</p>
+          <span className="text-sm font-semibold text-gray-900 shrink-0 w-max text-end">
+            {`${value}px`}
+          </span>
         </div>
       </div>
     </div>

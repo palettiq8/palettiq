@@ -36,18 +36,20 @@ export default function ExploreColorsPageClient() {
       <div className="w-full px-4 pt-10 pb-5 flex items-end justify-between gap-5 max-lg:flex-col">
         <div className="w-full">
           <h1 className="text-5xl font-bold text-gray-900">
-            Awesome Color Combinations!
+            Explore Color Shades & Scales Online
           </h1>
           <p className="text-sm font-semibold text-gray-600 mt-5">
-            Explore professional-grade colors and high-impact hues refined for
-            sophisticated design systems and seamless digital integration.
+            Browse 32 curated color scales with complete shade systems from 100
+            to 900. Copy HEX codes instantly for UI design, branding, and
+            digital products — all free on PalettIQ.
           </p>
         </div>
         <div className="w-70 relative shrink-0 max-lg:w-full">
           <input
             type="text"
             value={inputValue}
-            placeholder={"Search by name..."}
+            aria-label="Search colors by name"
+            placeholder="Search colors by name..."
             className="w-full h-10 rounded-full outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
             onChange={(e) => setInputValue(e.target.value)}
           />
@@ -65,7 +67,7 @@ export default function ExploreColorsPageClient() {
             <div className="w-full h-120 grid place-content-center">
               <div className="w-120 h-40 grid place-content-center rounded-xl border-2 border-dashed border-gray-200">
                 <span className="text-md font-semibold text-gray-600">
-                  No colors found.
+                  No colors found. Try a different search term.
                 </span>
               </div>
             </div>
@@ -77,19 +79,21 @@ export default function ExploreColorsPageClient() {
                 listClassName="grid grid-cols-1 gap-1 px-4 max-lg:gap-4"
                 itemContent={(index, color) => {
                   return (
-                    <div
+                    <article
                       key={index}
                       className="flex items-center gap-3 max-lg:flex-col max-lg:items-start"
                     >
-                      <p className="text-sm font-semibold text-gray-900 w-25 max-lg:w-max">
+                      <h3 className="text-sm font-semibold text-gray-900 w-25 max-lg:w-max">
                         {color.name}
-                      </p>
+                      </h3>
                       <div key={index} className="w-full flex">
                         {color.shades.map((hex, index) => {
                           const isLight = checkIsLight(hex);
                           return (
                             <div
                               key={index}
+                              role="button"
+                              aria-label={`Copy ${hex.toUpperCase()} — ${color.name} shade ${(index + 1) * 100}`}
                               className="w-full cursor-pointer h-30 first:rounded-l-xl last:rounded-r-xl text-gray-50 flex items-center justify-center pl-4 group relative transition-transform"
                               style={{ backgroundColor: hex }}
                               onClick={async () => {
@@ -119,7 +123,7 @@ export default function ExploreColorsPageClient() {
                           );
                         })}
                       </div>
-                    </div>
+                    </article>
                   );
                 }}
                 components={{

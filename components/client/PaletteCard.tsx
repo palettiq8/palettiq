@@ -34,9 +34,11 @@ export default function PaletteCard({
     palette?.colors?.map(({ color }: any) => color) || [];
 
   return (
-    <div className={`bg-gray-100 p-4 w-full border border-gray-200 rounded-xl`}>
+    <article
+      className={`bg-gray-100 p-4 w-full border border-gray-200 rounded-xl`}
+    >
       <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold text-gray-900">{palette?.name}</p>
+        <h3 className="text-sm font-semibold text-gray-900">{palette?.name}</h3>
         <div className="flex items-center gap-3">
           <LuEye
             onClick={() => {
@@ -46,6 +48,7 @@ export default function PaletteCard({
               setQuickViewActiveColor(colorsFromPalettes[0]);
             }}
             size={17}
+            aria-label={`Quick view ${palette?.name} color palette`}
             className={generatorContentHeaderItemsStyle}
           />
           <PaletteMoreMenu palette={palette} />
@@ -58,8 +61,10 @@ export default function PaletteCard({
           return (
             <div
               key={index}
+              role="button"
               className={`w-full ${explorePaletteView === "Vertical" ? "first:rounded-t-lg last:rounded-b-lg h-20" : "h-35 first:rounded-l-lg last:rounded-r-lg"} group relative transition-transform cursor-pointer`}
               style={{ backgroundColor: color }}
+              aria-label={`Copy color ${color.toUpperCase()} from ${palette?.name} palette`}
               onClick={async () => {
                 await navigator.clipboard.writeText(color.toUpperCase());
                 FlashMessage("success", "Copied to the clipboard!");
@@ -78,9 +83,12 @@ export default function PaletteCard({
         })}
       </div>
       <div className="flex items-center justify-between mt-3">
-        <p className="text-sm font-semibold text-gray-900">
+        <time
+          dateTime={palette?.created_at?.toString()}
+          className="text-sm font-semibold text-gray-900"
+        >
           {dayjs(palette?.created_at).fromNow()}
-        </p>
+        </time>
         <Button
           onClick={async () => {
             await navigator.clipboard.writeText(
@@ -88,6 +96,7 @@ export default function PaletteCard({
             );
             FlashMessage("success", "Copied to the clipboard!");
           }}
+          aria-label={`Copy all colors from ${palette?.name} palette`}
           variant={"outline"}
           size={"md"}
         >
@@ -95,6 +104,6 @@ export default function PaletteCard({
           <span>Copy</span>
         </Button>
       </div>
-    </div>
+    </article>
   );
 }

@@ -21,7 +21,9 @@ export default function ContrastColorsWithPickerMenu({
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const activeContrast = useContrastStore((state) => state.activeContrast);
-  const setActiveContrast = useContrastStore((state) => state.setActiveContrast);
+  const setActiveContrast = useContrastStore(
+    (state) => state.setActiveContrast,
+  );
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -54,11 +56,12 @@ export default function ContrastColorsWithPickerMenu({
   return (
     <div className="relative w-full">
       <div className="w-full flex flex-col items-start gap-3">
-        <h2 className="text-sm font-semibold text-gray-900">{title}</h2>
+        <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
         <div className="w-full flex items-center justify-between border border-gray-200 p-1 rounded-lg">
           <div className="flex items-center gap-3">
             <button
               ref={buttonRef}
+              aria-label={`Open color picker for ${title} — ${color.toUpperCase()}`}
               className="h-8 w-8 rounded-md cursor-pointer"
               style={{ backgroundColor: color }}
               onClick={() => setShowMenu((prev) => !prev)}
@@ -68,6 +71,7 @@ export default function ContrastColorsWithPickerMenu({
             </p>
           </div>
           <button
+            aria-label={`Copy ${title} color ${color.toUpperCase()}`}
             onClick={async (e) => {
               e.stopPropagation();
               await navigator.clipboard.writeText(color?.toUpperCase());
@@ -77,7 +81,7 @@ export default function ContrastColorsWithPickerMenu({
               "text-gray-900 cursor-pointer h-8 w-8 rounded-md border border-white hover:border-gray-200 hover:bg-gray-100 grid place-content-center active:scale-90 transition-all"
             }
           >
-            <LuCopy size={16} />
+            <LuCopy size={16} aria-hidden="true" />
           </button>
         </div>
       </div>
@@ -86,6 +90,9 @@ export default function ContrastColorsWithPickerMenu({
         {showMenu && (
           <motion.div
             ref={menuRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Color picker for ${title}`}
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}

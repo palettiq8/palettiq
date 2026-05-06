@@ -92,11 +92,13 @@ export default function ExplorePalettesPageClient() {
       </header>
       <div className="w-full px-4 pt-10">
         <h1 className="text-5xl font-bold text-gray-900">
-          Awesome Color Palettes!
+          Explore Free Color Palettes for Designers
         </h1>
         <p className="text-sm font-semibold text-gray-600 mt-5">
-          Explore a curated collection of professional color palettes designed
-          for visual harmony and seamless design integration.
+          Browse thousands of curated color palettes for branding, UI design,
+          and digital products. Filter by mood, industry, color family, and
+          style — then copy HEX, RGB, and HSL codes instantly. All free on
+          PalettIQ.
         </p>
         <div className="w-full pt-8 pb-5 flex items-center justify-between">
           <div className="w-max flex items-center gap-2 max-lg:hidden">
@@ -105,6 +107,7 @@ export default function ExplorePalettesPageClient() {
               return (
                 <button
                   key={id}
+                  aria-label={`Filter palettes by ${name} color`}
                   onClick={() => {
                     const updated = filterPreferredColors.includes(name)
                       ? filterPreferredColors.filter((item) => item !== name)
@@ -123,7 +126,8 @@ export default function ExplorePalettesPageClient() {
               <input
                 type="text"
                 value={inputValue}
-                placeholder={"Search by name..."}
+                aria-label="Search color palettes by name"
+                placeholder="Search color palettes by name..."
                 className="w-full h-10 rounded-full outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
                 onChange={(e) => setInputValue(e.target.value)}
               />
@@ -134,6 +138,7 @@ export default function ExplorePalettesPageClient() {
               />
             </div>
             <Button
+              aria-label="Filter color palettes by mood, industry, and style"
               onClick={() => togglePalettesFilterModel()}
               variant={"outline"}
               size={"md"}
@@ -154,7 +159,7 @@ export default function ExplorePalettesPageClient() {
             <div className="w-full h-120 grid place-content-center">
               <div className="w-120 h-40 grid place-content-center rounded-xl border-2 border-dashed border-gray-200">
                 <span className="text-md font-semibold text-gray-600">
-                  No palettes found.
+                  No color palettes found. Try a different search or filter.
                 </span>
               </div>
             </div>

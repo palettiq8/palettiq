@@ -40,11 +40,31 @@ export default function GradientResponsiveMoreMenu() {
   );
   const activeRadial = useGradientStore((state) => state.activeRadial);
   const activeConic = useGradientStore((state) => state.activeConic);
+  const toggleQuickViewModel = useModelStore(
+    (state) => state.toggleQuickViewModel,
+  );
+  const setQuickViewActiveTab = useOtherStore(
+    (state) => state.setQuickViewActiveTab,
+  );
+  const setQuickViewPalette = useOtherStore(
+    (state) => state.setQuickViewPalette,
+  );
+  const setQuickViewActiveColor = useOtherStore(
+    (state) => state.setQuickViewActiveColor,
+  );
 
   const handler = (title: string) => {
     toggleGradientResponsiveMoreMenu();
     if (title === "History") {
       toggleGradientHistoryModel();
+    } else if (title === "Quick view") {
+      toggleQuickViewModel();
+      setQuickViewActiveTab("Formats");
+      const data = gradientStops
+        .sort((a, b) => a.position - b.position)
+        .map((stop) => stop.color);
+      setQuickViewPalette(data);
+      setQuickViewActiveColor(data[0]);
     } else if (title === "Open on screen") {
       setIsMaximizeGradient();
     } else if (title === "Export") {
@@ -83,17 +103,23 @@ export default function GradientResponsiveMoreMenu() {
 
   return (
     <div className="relative">
-      <div ref={buttonRef} onClick={() => toggleGradientResponsiveMoreMenu()}>
+      <div
+        ref={buttonRef}
+        onClick={() => toggleGradientResponsiveMoreMenu()}
+        aria-label="More options for CSS Gradient Generator"
+      >
         <LuEllipsisVertical
           size={17}
+          aria-hidden="true"
           className={`${generatorContentHeaderItemsStyle}`}
         />
       </div>
 
       <AnimatePresence>
         {gradientResponsiveMoreMenu && (
-          <motion.div
+          <motion.menu
             ref={menuRef}
+            aria-label="CSS Gradient Generator actions"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -106,6 +132,8 @@ export default function GradientResponsiveMoreMenu() {
                 return (
                   <button
                     key={id}
+                    aria-hidden="true"
+                    aria-label={`${title} — CSS Gradient Generator`}
                     className={`w-full flex items-center gap-4 p-2 text-gray-900 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all`}
                     onClick={() => handler(title)}
                   >
@@ -115,7 +143,7 @@ export default function GradientResponsiveMoreMenu() {
                 );
               },
             )}
-          </motion.div>
+          </motion.menu>
         )}
       </AnimatePresence>
     </div>

@@ -255,6 +255,9 @@ export default function ExportModel() {
           className="fixed inset-0 w-full h-screen bg-black/50 flex justify-end z-50 parent p-4"
         >
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Export color palette"
             initial={{ x: "10%", opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: "10%", opacity: 0 }}
@@ -262,18 +265,20 @@ export default function ExportModel() {
             className="w-120 h-full bg-white rounded-xl shadow-2xl"
           >
             <div className="w-full h-14 px-4 border-b border-gray-200 flex items-center justify-between">
-              <p className="text-md font-semibold text-gray-900">Export</p>
+              <h2 className="text-md font-semibold text-gray-900">Export</h2>
               <Button
                 onClick={() => toggleExportModel()}
                 variant={"outline"}
                 size={"circle"}
+                aria-label="Close export panel"
               >
                 <LuX size={18} />
               </Button>
             </div>
             <div className="w-full p-4 overflow-y-auto noscrollbar h-[calc(100%-112px)] max-sm:h-[calc(100%-168px)]">
               <p className="text-sm font-medium text-gray-800">
-                Choose your preferred export format.
+                Export your color palette as CSS, Tailwind CSS, SCSS, JSON, SVG,
+                or PNG — free on PalettIQ.
               </p>
               <div className="w-full grid grid-cols-2 gap-2 mt-5 max-sm:grid-cols-1">
                 {exportMethods
@@ -287,6 +292,9 @@ export default function ExportModel() {
                     return (
                       <div
                         key={index}
+                        role="button"
+                        aria-label={`Export as ${method}`}
+                        aria-pressed={isActive}
                         onClick={() => {
                           if (method === "PNG Image") {
                             exportFrom === "Gradient"
@@ -341,6 +349,7 @@ export default function ExportModel() {
                 variant={"outline"}
                 size={"md"}
                 className="max-sm:w-full"
+                aria-label={`Copy palette as ${activeMethod}`}
               >
                 {copyButtonTitle()}
               </Button>
@@ -349,6 +358,7 @@ export default function ExportModel() {
                 variant={"primary"}
                 size={"md"}
                 className="max-sm:w-full"
+                aria-label={`Download palette as ${activeMethod}`}
               >
                 <LuDownload size={16} />
                 <span>{downloadButtonTitle()}</span>
