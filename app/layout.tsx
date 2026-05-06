@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   description:
     "Generate beautiful, accessible color palettes instantly. Explore colors, gradients, and design tools — all in one place. Free forever.",
   keywords: [
+    "PalettIQ",
     "color palette generator",
     "color scheme tool",
     "gradient generator",
