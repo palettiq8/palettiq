@@ -2,9 +2,11 @@ import { footerSectionItems } from "@/utils/Items";
 import { FooterItem } from "@/utils/Types";
 import Image from "next/image";
 import Link from "next/link";
-import { LuFacebook, LuInstagram, LuLinkedin, LuTwitter } from "react-icons/lu";
+import { LuFacebook, LuTwitter } from "react-icons/lu";
+import { IoLogoReddit } from "react-icons/io";
 import { Button } from "../Button";
 import SupportEmail from "../client/SupportEmail";
+import { SiPinterest, SiReddit } from "react-icons/si";
 
 const SOCIAL_ICON_STYLE = "size-6";
 
@@ -66,23 +68,35 @@ export default function FooterSection() {
         </p>
         <SupportEmail />
         <div className="flex items-center gap-7">
-          <Link href="#" aria-label="Follow PalettIQ on Facebook">
+          <Link
+            href="https://www.pinterest.com/palettiq8/_created/"
+            aria-label="Follow PalettIQ on Pinterest"
+          >
+            <SiPinterest
+              className={`${SOCIAL_ICON_STYLE} hover:text-red-500`}
+            />
+          </Link>
+          <Link
+            href="https://www.reddit.com/user/Positive_Gear_8755/"
+            aria-label="Follow PalettIQ on Reddit"
+          >
+            <SiReddit
+              className={`${SOCIAL_ICON_STYLE} hover:text-orange-600`}
+            />
+          </Link>
+          <Link
+            href="https://x.com/palettiq"
+            aria-label="Follow PalettIQ on Twitter"
+          >
+            <LuTwitter className={`${SOCIAL_ICON_STYLE} hover:text-sky-400`} />
+          </Link>
+          <Link
+            href="https://www.facebook.com/profile.php?id=61589009866760"
+            aria-label="Follow PalettIQ on Facebook"
+          >
             <LuFacebook
               className={`${SOCIAL_ICON_STYLE} hover:text-blue-600`}
             />
-          </Link>
-          <Link href="#" aria-label="Follow PalettIQ on Instagram">
-            <LuInstagram
-              className={`${SOCIAL_ICON_STYLE} hover:text-rose-500`}
-            />
-          </Link>
-          <Link href="#" aria-label="Follow PalettIQ on LinkedIn">
-            <LuLinkedin
-              className={`${SOCIAL_ICON_STYLE} hover:text-blue-700`}
-            />
-          </Link>
-          <Link href="#" aria-label="Follow PalettIQ on Twitter">
-            <LuTwitter className={`${SOCIAL_ICON_STYLE} hover:text-sky-400`} />
           </Link>
         </div>
       </div>
