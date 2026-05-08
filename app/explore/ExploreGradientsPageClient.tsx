@@ -117,21 +117,21 @@ export default function ExploreGradientsPageClient() {
           </div>
         </div>
       </div>
-      {/* {isLoading || isFetching ? (
+      {isLoading || isFetching ? (
         <div className="w-full h-120 grid place-content-center">
           <CircleLoader content="Loading..." />
         </div>
       ) : (
         <>
-          {data?.length === 0 ? ( */}
-      <div className="w-full h-120 grid place-content-center">
-        <div className="w-120 h-40 grid place-content-center rounded-xl border-2 border-dashed border-gray-200">
-          <span className="text-md font-semibold text-gray-600">
-            No gradients found. Try a different search or filter.
-          </span>
-        </div>
-      </div>
-      {/* ) : (
+          {data?.length === 0 ? (
+            <div className="w-full h-120 grid place-content-center">
+              <div className="w-120 h-40 grid place-content-center rounded-xl border-2 border-dashed border-gray-200">
+                <span className="text-md font-semibold text-gray-600">
+                  No gradients found. Try a different search or filter.
+                </span>
+              </div>
+            </div>
+          ) : (
             <div className="w-full">
               <VirtuosoGrid
                 useWindowScroll
@@ -222,7 +222,7 @@ export default function ExploreGradientsPageClient() {
             </div>
           )}
         </>
-      )} */}
+      )}
     </div>
   );
 }
