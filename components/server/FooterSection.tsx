@@ -3,7 +3,6 @@ import { FooterItem } from "@/utils/Types";
 import Image from "next/image";
 import Link from "next/link";
 import { LuFacebook, LuTwitter } from "react-icons/lu";
-import { IoLogoReddit } from "react-icons/io";
 import { Button } from "../Button";
 import SupportEmail from "../client/SupportEmail";
 import { SiPinterest, SiReddit } from "react-icons/si";
@@ -24,7 +23,7 @@ const FooterLinkItem = ({
     <ul className="flex flex-col gap-3 mt-6">
       {items.map(({ id, title, url }) => (
         <li key={id}>
-          <Link href={url} className="transition-colors">
+          <Link href={url} className="transition-colors" target={["Pinterest", "Reddit", "Twitter / X", "Facebook"].includes(title) ? "_blank" : "_self"}>
             <Button variant={"textUnderline"} size={"p0"}>
               {title}
             </Button>
@@ -70,6 +69,7 @@ export default function FooterSection() {
         <div className="flex items-center gap-7">
           <Link
             href="https://www.pinterest.com/palettiq8/_created/"
+            target="_blank"
             aria-label="Follow PalettIQ on Pinterest"
           >
             <SiPinterest
@@ -78,20 +78,23 @@ export default function FooterSection() {
           </Link>
           <Link
             href="https://www.reddit.com/user/Positive_Gear_8755/"
+            target="_blank"
             aria-label="Follow PalettIQ on Reddit"
           >
             <SiReddit
               className={`${SOCIAL_ICON_STYLE} hover:text-orange-600`}
-            />
+            />``
           </Link>
           <Link
             href="https://x.com/palettiq"
+            target="_blank"
             aria-label="Follow PalettIQ on Twitter"
           >
             <LuTwitter className={`${SOCIAL_ICON_STYLE} hover:text-sky-400`} />
           </Link>
           <Link
             href="https://www.facebook.com/profile.php?id=61589009866760"
+            target="_blank"
             aria-label="Follow PalettIQ on Facebook"
           >
             <LuFacebook
