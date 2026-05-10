@@ -48,9 +48,8 @@ const ItemSelector = ({
             );
           }}
           key={index}
-          className={`w-full flex items-center justify-start gap-3.5 p-2 text-sm font-semibold rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 ${
-            state.includes(tag) ? "text-indigo-600" : "text-gray-900"
-          } hover:cursor-pointer`}
+          className={`w-full flex items-center justify-start gap-3.5 p-2 text-sm font-semibold rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 ${state.includes(tag) ? "text-indigo-600" : "text-gray-900"
+            } hover:cursor-pointer`}
         >
           <LuCheck
             size={18}
@@ -331,18 +330,16 @@ export default function AddToCommunityModel() {
                       aria-label="Toggle industry selection"
                       aria-expanded={showIndustry}
                       onClick={() => setShowIndustry((prev) => !prev)}
-                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${
-                        showIndustry && "border-b-2 border-gray-200"
-                      } cursor-pointer select-none`}
+                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${showIndustry && "border-b-2 border-gray-200"
+                        } cursor-pointer select-none`}
                     >
                       <span className="text-sm font-semibold">
                         Select Industry
                       </span>
                       <LuChevronUp
                         size={20}
-                        className={`transition-transform duration-300 ${
-                          showIndustry ? "rotate-0" : "rotate-180"
-                        }`}
+                        className={`transition-transform duration-300 ${showIndustry ? "rotate-0" : "rotate-180"
+                          }`}
                       />
                     </button>
                     {showIndustry && (
@@ -380,18 +377,16 @@ export default function AddToCommunityModel() {
                       aria-label="Toggle color family selection"
                       aria-expanded={showPreferredColors}
                       onClick={() => setShowPreferredColors((prev) => !prev)}
-                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${
-                        showPreferredColors && "border-b-2 border-gray-200"
-                      } cursor-pointer select-none`}
+                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${showPreferredColors && "border-b-2 border-gray-200"
+                        } cursor-pointer select-none`}
                     >
                       <span className="text-sm font-semibold">
                         Select Color
                       </span>
                       <LuChevronUp
                         size={20}
-                        className={`transition-transform duration-300 ${
-                          showPreferredColors ? "rotate-0" : "rotate-180"
-                        }`}
+                        className={`transition-transform duration-300 ${showPreferredColors ? "rotate-0" : "rotate-180"
+                          }`}
                       />
                     </button>
                     {showPreferredColors && (
@@ -454,16 +449,14 @@ export default function AddToCommunityModel() {
                       aria-label="Toggle mood selection"
                       aria-expanded={showSelectedMoods}
                       onClick={() => setShowSelectedMoods((prev) => !prev)}
-                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${
-                        showSelectedMoods && "border-b-2 border-gray-200"
-                      } cursor-pointer select-none`}
+                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${showSelectedMoods && "border-b-2 border-gray-200"
+                        } cursor-pointer select-none`}
                     >
                       <span className="text-sm font-semibold">Select Mood</span>
                       <LuChevronUp
                         size={20}
-                        className={`transition-transform duration-300 ${
-                          showSelectedMoods ? "rotate-0" : "rotate-180"
-                        }`}
+                        className={`transition-transform duration-300 ${showSelectedMoods ? "rotate-0" : "rotate-180"
+                          }`}
                       />
                     </button>
                     {showSelectedMoods && (
@@ -520,18 +513,16 @@ export default function AddToCommunityModel() {
                       aria-label="Toggle use case selection"
                       aria-expanded={showUsecase}
                       onClick={() => setShowUsecase((prev) => !prev)}
-                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${
-                        showUsecase && "border-b-2 border-gray-200"
-                      } cursor-pointer select-none`}
+                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${showUsecase && "border-b-2 border-gray-200"
+                        } cursor-pointer select-none`}
                     >
                       <span className="text-sm font-semibold">
                         Select Use Case
                       </span>
                       <LuChevronUp
                         size={20}
-                        className={`transition-transform duration-300 ${
-                          showUsecase ? "rotate-0" : "rotate-180"
-                        }`}
+                        className={`transition-transform duration-300 ${showUsecase ? "rotate-0" : "rotate-180"
+                          }`}
                       />
                     </button>
                     {showUsecase && (

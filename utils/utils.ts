@@ -459,11 +459,11 @@ export const generateSVG = (colors: string[]) => {
 
   return `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
 ${colors
-  .map(
-    (c, i) =>
-      `  <rect x="${i * segment}" y="0" width="${segment}" height="${height}" fill="${c}" />`,
-  )
-  .join("\n")}
+      .map(
+        (c, i) =>
+          `  <rect x="${i * segment}" y="0" width="${segment}" height="${height}" fill="${c}" />`,
+      )
+      .join("\n")}
 </svg>`;
 };
 
@@ -895,15 +895,13 @@ export const exportShadowSVG = (
       if (isTextShadow) {
         const t = l as TextShadowLayer;
 
-        return `<feDropShadow dx="${t.offsetX}" dy="${t.offsetY}" stdDeviation="${
-          t.blur / 2
-        }" flood-color="${t.color}" />`;
+        return `<feDropShadow dx="${t.offsetX}" dy="${t.offsetY}" stdDeviation="${t.blur / 2
+          }" flood-color="${t.color}" />`;
       } else {
         const b = l as ShadowLayer;
 
-        return `<feDropShadow dx="${b.offsetX}" dy="${b.offsetY}" stdDeviation="${
-          b.blur / 2
-        }" flood-color="${b.color}" />`;
+        return `<feDropShadow dx="${b.offsetX}" dy="${b.offsetY}" stdDeviation="${b.blur / 2
+          }" flood-color="${b.color}" />`;
       }
     })
     .join("\n");
