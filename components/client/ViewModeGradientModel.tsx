@@ -1,0 +1,74 @@
+"use client";
+
+import { useBrowseStore } from "@/libs/stores/dataStore";
+import { Button } from "../Button";
+import { LuArrowLeft } from "react-icons/lu";
+import { getGradientCSS } from "@/utils/utils";
+import { useEffect } from "react";
+
+export default function ViewModeGradientModel() {
+    const viewModeGradient = useBrowseStore((state) => state.viewModeGradient);
+    const setViewModeGradient = useBrowseStore(
+        (state) => state.setViewModeGradient,
+    );
+    const browseGradientActiveType = useBrowseStore(
+        (state) => state.browseGradientActiveType,
+    );
+
+    useEffect(() => {
+        if (viewModeGradient) {
+            document.body.style.overflow = "hidden";
+        }
+
+        return () => {
+            document.body.style.overflow = "auto";
+        };
+    }, [viewModeGradient]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            const target = e.target as HTMLElement;
+            const isTyping =
+                target.tagName === "INPUT" ||
+                target.tagName === "TEXTAREA" ||
+                target.isContentEditable;
+
+            if (isTyping) return;
+
+            const key = e.key.toLowerCase();
+            if (key === "escape") {
+                e.preventDefault();
+                setViewModeGradient(null);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, []);
+
+    return (
+        <div className="fixed top-0 left-0 w-full h-screen bg-gray-900 z-40">
+            <div className="w-full h-screen flex gap-3 max-lg:flex-col max-lg:p-10 p-25 relative">
+                <div className="w-full h-full rounded-xl" style={{
+                    background: getGradientCSS(
+                        viewModeGradient!,
+                        browseGradientActiveType,
+                        90,
+                        { shape: "circle", x: 50, y: 50 },
+                        { x: 50, y: 50 },
+                    ),
+                }}></div>
+                {viewModeGradient !== null && (
+                    <Button
+                        onClick={() => setViewModeGradient(null)}
+                        variant={"outline"}
+                        size={"circle"}
+                        className="absolute top-4 left-4"
+                    >
+                        <LuArrowLeft size={16} />
+                    </Button>
+                )}
+            </div>
+        </div>
+    );
+}

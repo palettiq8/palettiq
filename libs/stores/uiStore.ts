@@ -9,15 +9,15 @@ interface MenuStateType {
   addAiDescription: boolean;
   setAddAiDescription: () => void;
   isMaximizeColorPicker: boolean;
-  setIsMaximizeColorPicker: () => void;
+  setIsMaximizeColorPicker: (value?: boolean) => void;
   isMaximizeGradient: boolean;
-  setIsMaximizeGradient: () => void;
+  setIsMaximizeGradient: (value?: boolean) => void;
   isMaximizeExtractor: boolean;
-  setIsMaximizeExtractor: () => void;
+  setIsMaximizeExtractor: (value?: boolean) => void;
   isMaximizeContrast: boolean;
-  setIsMaximizeContrast: () => void;
+  setIsMaximizeContrast: (value?: boolean) => void;
   isMaximizeShadow: boolean;
-  setIsMaximizeShadow: () => void;
+  setIsMaximizeShadow: (value?: boolean) => void;
 }
 
 const useUiStore = create<MenuStateType>()(
@@ -35,24 +35,24 @@ const useUiStore = create<MenuStateType>()(
       setAddAiDescription: () =>
         set((state) => ({ addAiDescription: !state.addAiDescription })),
       isMaximizeColorPicker: false,
-      setIsMaximizeColorPicker: () =>
+      setIsMaximizeColorPicker: (value?: boolean) =>
         set((state) => ({
-          isMaximizeColorPicker: !state.isMaximizeColorPicker,
+          isMaximizeColorPicker: value === false ? value : !state.isMaximizeColorPicker,
         })),
       isMaximizeExtractor: false,
-      setIsMaximizeExtractor: () =>
+      setIsMaximizeExtractor: (value?: boolean) =>
         set((state) => ({
-          isMaximizeExtractor: !state.isMaximizeExtractor,
+          isMaximizeExtractor: value === false ? value : !state.isMaximizeExtractor,
         })),
       isMaximizeGradient: false,
-      setIsMaximizeGradient: () =>
-        set((state) => ({ isMaximizeGradient: !state.isMaximizeGradient })),
+      setIsMaximizeGradient: (value?: boolean) =>
+        set((state) => ({ isMaximizeGradient: value === false ? value : !state.isMaximizeGradient })),
       isMaximizeContrast: false,
-      setIsMaximizeContrast: () =>
-        set((state) => ({ isMaximizeContrast: !state.isMaximizeContrast })),
+      setIsMaximizeContrast: (value?: boolean) =>
+        set((state) => ({ isMaximizeContrast: value === false ? value : !state.isMaximizeContrast })),
       isMaximizeShadow: false,
-      setIsMaximizeShadow: () =>
-        set((state) => ({ isMaximizeShadow: !state.isMaximizeShadow })),
+      setIsMaximizeShadow: (value?: boolean) =>
+        set((state) => ({ isMaximizeShadow: value === false ? value : !state.isMaximizeShadow })),
     }),
     {
       name: "_ui_config",

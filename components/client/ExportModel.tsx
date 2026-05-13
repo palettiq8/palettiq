@@ -27,7 +27,7 @@ import {
   getLanguage,
 } from "@/utils/utils";
 import { exportMethods } from "@/utils/Items";
-import { useGradientStore, useOtherStore } from "@/libs/stores/dataStore";
+import { useBrowseStore, useGradientStore, useOtherStore } from "@/libs/stores/dataStore";
 
 export default function ExportModel() {
   const [activeMethod, setActiveMethod] = useState("CSS");
@@ -36,6 +36,10 @@ export default function ExportModel() {
   const exportPalette = useOtherStore((state) => state.exportPalette);
   const downloadPngWithoutHex = useOtherStore(
     (state) => state.downloadPngWithoutHex,
+  );
+  const browseGradients = useBrowseStore((state) => state.browseGradients);
+  const browseGradientActiveType = useBrowseStore(
+    (state) => state.browseGradientActiveType,
   );
 
   const handler = (e: React.MouseEvent) => {
@@ -76,16 +80,27 @@ export default function ExportModel() {
         : generateJSON(exportPalette);
     if (activeMethod === "SVG") return generateSVG(exportPalette);
     if (activeMethod === "Array") return generateArray(exportPalette);
-    if (activeMethod === "Share Link")
-      return exportFrom === "Gradient"
-        ? generateGradientLink(
-            gradientStops,
-            activeGradientType,
-            gradientRotationValue,
-            activeRadial,
-            activeConic,
-          )
-        : generateShareLink(exportPalette, exportFrom);
+    if (activeMethod === "Share Link") {
+      if (exportFrom === "Gradient") {
+        return generateGradientLink(
+          gradientStops,
+          activeGradientType,
+          gradientRotationValue,
+          activeRadial,
+          activeConic,
+        )
+      } else if (exportFrom === "Browse-Gradient") {
+        return generateGradientLink(
+          browseGradients?.stops!,
+          browseGradientActiveType,
+          90,
+          { shape: "circle", x: 50, y: 50 },
+          { x: 50, y: 50 },
+        )
+      } else {
+        return generateShareLink(exportPalette, exportFrom)
+      }
+    }
     return "";
   };
 
@@ -143,18 +158,30 @@ export default function ExportModel() {
       await navigator.clipboard.writeText(generateSVG(exportPalette));
     if (activeMethod === "Array")
       await navigator.clipboard.writeText(generateArray(exportPalette));
-    if (activeMethod === "Share Link")
-      await navigator.clipboard.writeText(
-        exportFrom === "Gradient"
-          ? generateGradientLink(
-              gradientStops,
-              activeGradientType,
-              gradientRotationValue,
-              activeRadial,
-              activeConic,
-            )
-          : generateShareLink(exportPalette, exportFrom),
-      );
+    if (activeMethod === "Share Link") {
+      let textOutput;
+      if (exportFrom === "Gradient") {
+        textOutput = generateGradientLink(
+          gradientStops,
+          activeGradientType,
+          gradientRotationValue,
+          activeRadial,
+          activeConic,
+        )
+      } else if (exportFrom === "Browse-Gradient") {
+        textOutput = generateGradientLink(
+          browseGradients?.stops!,
+          browseGradientActiveType,
+          90,
+          { shape: "circle", x: 50, y: 50 },
+          { x: 50, y: 50 },
+        )
+      } else {
+        textOutput
+          = generateShareLink(exportPalette, exportFrom)
+      }
+      await navigator.clipboard.writeText(textOutput);
+    }
     return "";
   };
 
@@ -167,28 +194,28 @@ export default function ExportModel() {
     if (activeMethod === "Tailwind CSS")
       return exportFrom === "Gradient"
         ? downloadFile(
-            generateTailwindGradient(gradientExport),
-            "tailwind.js",
-            "text/javascript",
-          )
+          generateTailwindGradient(gradientExport),
+          "tailwind.js",
+          "text/javascript",
+        )
         : downloadFile(
-            generateTailwind(exportPalette),
-            "tailwind.js",
-            "text/javascript",
-          );
+          generateTailwind(exportPalette),
+          "tailwind.js",
+          "text/javascript",
+        );
 
     if (activeMethod === "SCSS")
       return exportFrom === "Gradient"
         ? downloadFile(
-            generateSCSSGradient(exportPalette, gradientExport),
-            "palette.scss",
-            "text/scss",
-          )
+          generateSCSSGradient(exportPalette, gradientExport),
+          "palette.scss",
+          "text/scss",
+        )
         : downloadFile(
-            generateSCSS(exportPalette),
-            "palette.scss",
-            "text/scss",
-          );
+          generateSCSS(exportPalette),
+          "palette.scss",
+          "text/scss",
+        );
 
     if (activeMethod === "Gradient CSS")
       return downloadFile(
@@ -200,15 +227,15 @@ export default function ExportModel() {
     if (activeMethod === "JSON")
       return exportFrom === "Gradient"
         ? downloadFile(
-            generateJSONGradient(exportPalette, gradientExport),
-            "palette.json",
-            "application/json",
-          )
+          generateJSONGradient(exportPalette, gradientExport),
+          "palette.json",
+          "application/json",
+        )
         : downloadFile(
-            generateJSON(exportPalette),
-            "palette.json",
-            "application/json",
-          );
+          generateJSON(exportPalette),
+          "palette.json",
+          "application/json",
+        );
 
     if (activeMethod === "SVG")
       return downloadFile(
@@ -224,24 +251,41 @@ export default function ExportModel() {
         "text/plain",
       );
 
-    if (activeMethod === "Share Link")
-      return exportFrom === "Gradient"
-        ? downloadFile(
-            generateGradientLink(
-              gradientStops,
-              activeGradientType,
-              gradientRotationValue,
-              activeRadial,
-              activeConic,
-            ),
-            "gradient-link.txt",
-            "text/plain",
-          )
-        : downloadFile(
-            generateShareLink(exportPalette, exportFrom),
-            "palette-link.txt",
-            "text/plain",
-          );
+    if (activeMethod === "Share Link") {
+      let res;
+      if (exportFrom === "Gradient") {
+        res = downloadFile(
+          generateGradientLink(
+            gradientStops,
+            activeGradientType,
+            gradientRotationValue,
+            activeRadial,
+            activeConic,
+          ),
+          "gradient-link.txt",
+          "text/plain",
+        )
+      } else if (exportFrom === "Browse-Gradient") {
+        res = downloadFile(
+          generateGradientLink(
+            browseGradients?.stops!,
+            browseGradientActiveType,
+            90,
+            { shape: "circle", x: 50, y: 50 },
+            { x: 50, y: 50 },
+          ),
+          "gradient-link.txt",
+          "text/plain",
+        )
+      } else {
+        res = downloadFile(
+          generateShareLink(exportPalette, exportFrom),
+          "palette-link.txt",
+          "text/plain",
+        )
+      }
+      return res;
+    }
   };
 
   return (
@@ -297,18 +341,28 @@ export default function ExportModel() {
                         aria-pressed={isActive}
                         onClick={() => {
                           if (method === "PNG Image") {
-                            exportFrom === "Gradient"
-                              ? downloadGradientPNG(
-                                  gradientStops,
-                                  activeGradientType,
-                                  gradientRotationValue,
-                                  activeRadial,
-                                  activeConic,
-                                )
-                              : downloadPNG(
-                                  exportPalette,
-                                  downloadPngWithoutHex,
-                                );
+                            if (exportFrom === "Gradient") {
+                              downloadGradientPNG(
+                                gradientStops,
+                                activeGradientType,
+                                gradientRotationValue,
+                                activeRadial,
+                                activeConic,
+                              )
+                            } else if (exportFrom === "Browse-Gradient") {
+                              downloadGradientPNG(
+                                browseGradients?.stops!,
+                                browseGradientActiveType,
+                                90,
+                                { shape: "circle", x: 50, y: 50 },
+                                { x: 50, y: 50 },
+                              )
+                            } else {
+                              downloadPNG(
+                                exportPalette,
+                                downloadPngWithoutHex,
+                              )
+                            }
                           } else {
                             setActiveMethod(method);
                           }

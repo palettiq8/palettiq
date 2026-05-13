@@ -33,6 +33,9 @@ import VisualizerPaletteHistoryModel from "./VisualizerPaletteHistoryModel";
 import useModelStore from "@/libs/stores/modelStore";
 import NextTopLoader from "nextjs-toploader";
 import HSLControlPanel from "./HSLControlPanel";
+import GradientViewDetailsModel from "./GradientViewDetailsModel";
+import OpenOnScreenGradientModel from "./OpenOnScreenGradientModel";
+import ViewModeGradientModel from "./ViewModeGradientModel";
 
 export default function MainLayoutWrapper({
   children,
@@ -84,6 +87,11 @@ export default function MainLayoutWrapper({
   const hslControlPanelModel = useModelStore(
     (state) => state.hslControlPanelModel,
   );
+  const gradientViewDetailsModel = useModelStore(
+    (state) => state.gradientViewDetailsModel,
+  );
+  const openOnScreenGradient = useBrowseStore((state) => state.openOnScreenGradient);
+  const viewModeGradient = useBrowseStore((state) => state.viewModeGradient);
 
   useEffect(() => {
     if (!exportModel) {
@@ -115,6 +123,9 @@ export default function MainLayoutWrapper({
         <VisualizerResponsiveTempletesModel />
       )}
       {hslControlPanelModel && <HSLControlPanel />}
+      {gradientViewDetailsModel && <GradientViewDetailsModel />}
+      {openOnScreenGradient !== null && <OpenOnScreenGradientModel />}
+      {viewModeGradient !== null && <ViewModeGradientModel />}
       <Toaster position="top-center" reverseOrder={false} />
     </Provider>
   );

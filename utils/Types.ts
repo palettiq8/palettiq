@@ -394,6 +394,12 @@ export interface BrowseStateTypes {
   setOpenOnScreenPalette: (paletteColor: PaletteColor[] | null) => void;
   viewModePalette: PaletteColor[] | null;
   setViewModePalette: (paletteColor: PaletteColor[] | null) => void;
+  browseGradients: GradientType | null;
+  setBrowseGradients: (gradient: GradientType | null) => void;
+  openOnScreenGradient: StopType[] | null;
+  setOpenOnScreenGradient: (gradient: StopType[] | null) => void;
+  viewModeGradient: StopType[] | null;
+  setViewModeGradient: (gradient: StopType[] | null) => void;
 }
 export interface OtherTypes {
   quickViewActiveTab: string;

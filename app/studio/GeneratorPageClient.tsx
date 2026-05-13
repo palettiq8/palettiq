@@ -211,11 +211,10 @@ function StudioPage() {
         </div>
       </div>
       <div
-        className={`w-full ${
-          generatorMaximize
-            ? "absolute top-0 left-0 w-full h-screen z-50"
-            : "h-[calc(100%-128px)] max-lg:h-[calc(100%-224px)] max-lg:p-4"
-        }`}
+        className={`w-full ${generatorMaximize
+          ? "absolute top-0 left-0 w-full h-screen z-50"
+          : "h-[calc(100%-128px)] max-lg:h-[calc(100%-224px)] max-lg:p-4"
+          }`}
       >
         <DndContext
           onDragEnd={handleDragEnd}

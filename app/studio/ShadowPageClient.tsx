@@ -140,7 +140,7 @@ export default function ShadowPageClient() {
       if (isTyping) return;
       if (e.key === "Escape") {
         e.preventDefault();
-        setIsMaximizeShadow();
+        setIsMaximizeShadow(false);
       }
     };
 

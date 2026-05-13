@@ -244,7 +244,7 @@ function PickerPage() {
       const key = e.key.toLowerCase();
       if (e.key === "Escape") {
         e.preventDefault();
-        setIsMaximizeColorPicker();
+        setIsMaximizeColorPicker(false);
       }
       if (e.key === "Enter") {
         e.preventDefault();

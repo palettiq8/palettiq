@@ -10,6 +10,7 @@ import {
   GeneratorStateTypes,
   GradientContainerSize,
   GradientStateTypes,
+  GradientType,
   OtherTypes,
   PaletteColor,
   Picker,
@@ -554,19 +555,19 @@ const useGradientStore = create<GradientStateTypes>()(
           const stops =
             state.gradientStops.length === 0
               ? [
-                  {
-                    id: crypto.randomUUID(),
-                    color: generateRandomColor(),
-                    isHide: false,
-                    position: 0,
-                  },
-                  {
-                    id: crypto.randomUUID(),
-                    color: generateRandomColor(),
-                    isHide: false,
-                    position: 100,
-                  },
-                ]
+                {
+                  id: crypto.randomUUID(),
+                  color: generateRandomColor(),
+                  isHide: false,
+                  position: 0,
+                },
+                {
+                  id: crypto.randomUUID(),
+                  color: generateRandomColor(),
+                  isHide: false,
+                  position: 100,
+                },
+              ]
               : state.gradientStops;
 
           const randomizedStops = stops.map((stop) => {
@@ -682,11 +683,11 @@ const useExtractorStore = create<ExtractorStateTypes>()(
           pickers: state.pickers.map((p, i) =>
             i === activePickerIndex
               ? {
-                  ...p,
-                  x: mouseX - offsetX - pickerHalf,
-                  y: mouseY - offsetY - pickerHalf,
-                  color: rgb,
-                }
+                ...p,
+                x: mouseX - offsetX - pickerHalf,
+                y: mouseY - offsetY - pickerHalf,
+                color: rgb,
+              }
               : p,
           ),
         }));
@@ -898,13 +899,13 @@ const useContrastStore = create<ContrastStateTypes>()(
           const res =
             from === "normal"
               ? generateContrastPair(
-                  colorFamilies,
-                  state.preferredContrastItems,
-                )
+                colorFamilies,
+                state.preferredContrastItems,
+              )
               : generateComplementaryContrast(
-                  colorFamilies,
-                  state.preferredContrastItems,
-                );
+                colorFamilies,
+                state.preferredContrastItems,
+              );
 
           const generatedContrast = {
             textColor: colord(res.foreground).toHex(),
@@ -1057,7 +1058,7 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
 
           const lastPalette =
             state.visualizerPaletteHistory[
-              state.visualizerPaletteHistory.length - 1
+            state.visualizerPaletteHistory.length - 1
             ];
           const isDuplicate =
             JSON.stringify(lastPalette) === JSON.stringify(paletteToPush);
@@ -1314,6 +1315,12 @@ const useBrowseStore = create<BrowseStateTypes>()(
       viewModePalette: null,
       setViewModePalette: (paletteColor: PaletteColor[] | null) =>
         set({ viewModePalette: paletteColor }),
+      browseGradients: null,
+      setBrowseGradients: (gradient: GradientType | null) => set({ browseGradients: gradient }),
+      openOnScreenGradient: null,
+      setOpenOnScreenGradient: (gradient: StopType[] | null) => set({ openOnScreenGradient: gradient }),
+      viewModeGradient: null,
+      setViewModeGradient: (gradient: StopType[] | null) => set({ viewModeGradient: gradient })
     }),
     {
       name: "_browse_storage",

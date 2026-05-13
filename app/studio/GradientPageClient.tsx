@@ -151,7 +151,7 @@ export default function GradientPageClient() {
       const key = e.key.toLowerCase();
       if (e.key === "Escape") {
         e.preventDefault();
-        setIsMaximizeGradient();
+        setIsMaximizeGradient(false);
       }
       if (key === "h") {
         e.preventDefault();
@@ -302,9 +302,8 @@ export default function GradientPageClient() {
                 activeConic,
               ),
             }}
-            className={`${
-              isMaximizeGradient && "w-full h-screen absolute top-0 left-0 z-50"
-            }`}
+            className={`${isMaximizeGradient && "w-full h-screen absolute top-0 left-0 z-50"
+              }`}
           >
             <div className="w-full h-full relative">
               {isMaximizeGradient && (

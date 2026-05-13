@@ -55,7 +55,7 @@ export default function HeaderMenu() {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
             aria-label="Mobile navigation"
-            className="bg-white shadow-lg flex flex-col rounded-xl p-2.5 z-40 absolute top-12 left-0 w-50"
+            className="bg-white shadow-lg flex flex-col rounded-xl p-2.5 z-40 absolute top-12 left-0 w-max"
           >
             {headerLinkItems.map((item, index) => {
               return (

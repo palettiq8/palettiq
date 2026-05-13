@@ -118,7 +118,7 @@ export default function PaletteViewDetailsModel() {
                 {paletteViewDetailsItem?.description}
               </p>
             </div>
-            <div className="w-full mt-4 px-4">
+            <div className="w-full mt-4 px-3">
               <h3 className="text-xs font-semibold text-gray-500">
                 Preferred Colors
               </h3>

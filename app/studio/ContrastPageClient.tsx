@@ -191,7 +191,7 @@ export default function ContrastPageClient() {
       const key = e.key.toLowerCase();
       if (e.key === "Escape") {
         e.preventDefault();
-        setIsMaximizeContrast();
+        setIsMaximizeContrast(false);
       }
       if (e.key === "Enter") {
         e.preventDefault();
@@ -460,9 +460,8 @@ export default function ContrastPageClient() {
                   <LuChevronDown
                     size={18}
                     aria-hidden="true"
-                    className={`transition-transform duration-300 ${
-                      isAdvancedSettings ? "rotate-180" : "rotate-0"
-                    }`}
+                    className={`transition-transform duration-300 ${isAdvancedSettings ? "rotate-180" : "rotate-0"
+                      }`}
                   />
                 </button>
                 <div

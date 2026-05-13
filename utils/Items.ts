@@ -219,10 +219,10 @@ export const aiPaletteMoreItems = [
   { id: 9, title: "Export", icon: BiExport },
 ];
 export const gradientMoreItems = [
-  { id: 1, title: "Copy", icon: LuCopy },
+  { id: 1, title: "Copy CSS", icon: LuCopy },
   { id: 2, title: "Quick view", icon: LuEye },
   { id: 3, title: "View details", icon: LuView },
-  { id: 4, title: "Edit on generator", icon: LuPencilLine },
+  { id: 4, title: "Open on gradient", icon: LuCircleDot },
   { id: 5, title: "Open on generator", icon: LuGrid2X2Plus },
   { id: 6, title: "Open on screen", icon: LuMaximize2 },
   { id: 7, title: "View mode", icon: LuShrink },

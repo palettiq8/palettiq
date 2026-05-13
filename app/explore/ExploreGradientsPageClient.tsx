@@ -1,19 +1,20 @@
 "use client";
 
-import { Button } from "@/components/Button";
 import CircleLoader from "@/components/server/CircleLoader";
 import FooterSection from "@/components/server/FooterSection";
 import HeaderSection from "@/components/server/HeaderSection";
 import { useFetchGradientsQuery } from "@/libs/features/api/apiSlice";
-import { useBrowseStore } from "@/libs/stores/dataStore";
+import { useBrowseStore, useOtherStore } from "@/libs/stores/dataStore";
 import { preferredColors } from "@/utils/Items";
 import { FlashMessage, getGradientCSS } from "@/utils/utils";
 import dayjs from "dayjs";
-import { LuBookmark, LuSearch } from "react-icons/lu";
+import { LuEye, LuSearch } from "react-icons/lu";
 import { VirtuosoGrid } from "react-virtuoso";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useEffect, useState } from "react";
 import GradientMoreMenu from "@/components/client/GradientMoreMenu";
+import { generatorContentHeaderItemsStyle } from "@/utils/styles/Classes";
+import useModelStore from "@/libs/stores/modelStore";
 
 dayjs.extend(relativeTime);
 
@@ -31,6 +32,18 @@ export default function ExploreGradientsPageClient() {
   );
   const setBrowseGradientActiveType = useBrowseStore(
     (state) => state.setBrowseGradientActiveType,
+  );
+  const toggleQuickViewModel = useModelStore(
+    (state) => state.toggleQuickViewModel,
+  );
+  const setQuickViewActiveTab = useOtherStore(
+    (state) => state.setQuickViewActiveTab,
+  );
+  const setQuickViewPalette = useOtherStore(
+    (state) => state.setQuickViewPalette,
+  );
+  const setQuickViewActiveColor = useOtherStore(
+    (state) => state.setQuickViewActiveColor,
   );
   const { data, isLoading, isFetching } = useFetchGradientsQuery({
     preferred_colors: filterPreferredColors,
@@ -52,7 +65,7 @@ export default function ExploreGradientsPageClient() {
         <HeaderSection />
       </header>
       <div className="w-full px-4 pt-10">
-        <div className="flex items-end justify-between">
+        <div className="flex items-end justify-between gap-4 max-lg:flex-col max-lg:items-start">
           <div>
             <h1 className="text-5xl font-bold text-gray-900">
               Explore CSS Gradients — Linear, Radial & Conic
@@ -64,14 +77,14 @@ export default function ExploreGradientsPageClient() {
               on PalettIQ.
             </p>
           </div>
-          <div className="flex items-center border border-gray-200 rounded-full p-1">
+          <div className="flex items-center border border-gray-200 rounded-full p-1 max-lg:w-full">
             {gradientsTypes.map((_, index) => {
               return (
                 <button
                   key={index}
                   aria-label={`Filter by ${_} gradient`}
                   onClick={() => setBrowseGradientActiveType(_)}
-                  className={`h-10 px-4 text-sm font-semibold border rounded-full ${browseGradientActiveType === _ ? "bg-gray-100 border-gray-200 text-gray900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all`}
+                  className={`h-10 w-full px-4 text-sm font-semibold border rounded-full ${browseGradientActiveType === _ ? "bg-gray-100 border-gray-200 text-gray900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all`}
                 >
                   {_}
                 </button>
@@ -93,14 +106,14 @@ export default function ExploreGradientsPageClient() {
                       : [...filterPreferredColors, name];
                     setFilterPreferredColors(updated);
                   }}
-                  className={`w-max px-5 rounded-full h-10 ${isExist ? "bg-gray-900 text-gray-50 border-gray-900" : "bg-gray-100 text-gray-900 border-gray-200 hover:bg-gray-900 hover:text-gray-50"} text-sm font-semibold border hover:cursor-pointer transition-all`}
+                  className={`w-max px-5 rounded-full h-10 ${isExist ? "bg-gray-900 text-gray-50 border-gray-900" : "bg-gray-100 text-gray-900 border-gray-200 hover:bg-gray-900 hover:text-gray-50"} text-sm font-semibold border hover:cursor-pointer transition-all ${["Brown", "Pink"].includes(name) && "max-[1760px]:hidden"} ${["Purple", "Violet"].includes(name) && "max-[1570px]:hidden"} ${["Indigo", "Blue", "Cyan"].includes(name) && "max-2xl:hidden"} ${["Green", "Lime", "Yellow"].includes(name) && "max-xl:hidden"} ${["Orange", "Red", "Gray"].includes(name) && "max-lg:hidden"} ${["White", "Black"].includes(name) && "max-sm:hidden"}`}
                 >
                   {name}
                 </button>
               );
             })}
           </div>
-          <div className="w-70 relative">
+          <div className="w-70 relative max-sm:w-full">
             <input
               type="text"
               value={inputValue}
@@ -136,7 +149,7 @@ export default function ExploreGradientsPageClient() {
               <VirtuosoGrid
                 useWindowScroll
                 totalCount={data?.length || 0}
-                listClassName="grid grid-cols-5 gap-1 px-4"
+                listClassName="grid grid-cols-4 gap-1 px-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
                 itemContent={(index) => {
                   const gradient = data?.[index];
                   const stops = gradient?.stops || [];
@@ -148,22 +161,28 @@ export default function ExploreGradientsPageClient() {
                         <h3 className="text-sm font-semibold text-gray-900">
                           {gradient?.name}
                         </h3>
-                        <div className="flex items-center">
-                          <Button
-                            variant={"secondary"}
-                            size={"sm"}
-                            className="px-2.5 hover:bg-white"
-                          >
-                            <LuBookmark size={16} />
-                            <span>{0}</span>
-                          </Button>
-                          <GradientMoreMenu />
+                        <div className="flex items-center gap-3">
+                          <LuEye
+                            onClick={() => {
+                              toggleQuickViewModel();
+                              setQuickViewActiveTab("Formats");
+                              const data = [...stops]
+                                .sort((a, b) => a.position - b.position)
+                                .map((stop) => stop.color);
+                              setQuickViewPalette(data);
+                              setQuickViewActiveColor(data[0]);
+                            }}
+                            size={17}
+                            aria-label={`Quick view ${gradient?.name} gradient`}
+                            className={generatorContentHeaderItemsStyle}
+                          />
+                          <GradientMoreMenu gradient={gradient!} />
                         </div>
                       </div>
                       <div className="flex items-center mt-3 border-2 border-white rounded-lg shadow-sm">
                         <div
                           key={index}
-                          className="w-full h-35 first:rounded-l-lg last:rounded-r-lg"
+                          className="w-full h-50 rounded-lg"
                           style={{
                             background: getGradientCSS(
                               stops,
@@ -181,7 +200,7 @@ export default function ExploreGradientsPageClient() {
                                   key={index}
                                   role="button"
                                   aria-label={`Copy gradient color ${stop.color.toUpperCase()}`}
-                                  className="w-full h-35 first:rounded-l-lg last:rounded-r-lg group relative transition-transform cursor-pointer"
+                                  className="w-full h-50 group relative transition-transform cursor-pointer"
                                   onClick={async () => {
                                     await navigator.clipboard.writeText(
                                       stop.color.toUpperCase(),

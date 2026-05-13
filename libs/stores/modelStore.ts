@@ -35,6 +35,8 @@ interface MenuStateType {
   toggleVisualizerResponsiveTempletesModel: () => void;
   hslControlPanelModel: boolean;
   toggleHslControlPanelModel: () => void;
+  gradientViewDetailsModel: boolean;
+  toggleGradientViewDetailsModel: () => void;
 }
 
 const useModelStore = create<MenuStateType>((set) => ({
@@ -101,6 +103,11 @@ const useModelStore = create<MenuStateType>((set) => ({
   toggleHslControlPanelModel: () =>
     set((state) => ({
       hslControlPanelModel: !state.hslControlPanelModel,
+    })),
+  gradientViewDetailsModel: false,
+  toggleGradientViewDetailsModel: () =>
+    set((state) => ({
+      gradientViewDetailsModel: !state.gradientViewDetailsModel,
     })),
 }));
 

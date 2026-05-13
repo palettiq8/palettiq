@@ -349,7 +349,7 @@ export default function ExtractorPageClient() {
       const key = e.key.toLowerCase();
       if (e.key === "Escape") {
         e.preventDefault();
-        setIsMaximizeExtractor();
+        setIsMaximizeExtractor(false);
       }
       if (e.key === "Enter") {
         e.preventDefault();
@@ -483,9 +483,8 @@ export default function ExtractorPageClient() {
                   <div
                     key={i}
                     aria-label={`Color picker ${i + 1} — ${p.color.toUpperCase()}`}
-                    className={`absolute w-7 h-7 max-lg:w-4 max-lg:h-4 max-lg:border-2 rounded-full border-3 border-gray-50 hover:cursor-pointer hover:scale-150 transition-all ${
-                      activePickerIndex === i && "scale-150 transition-none"
-                    }`}
+                    className={`absolute w-7 h-7 max-lg:w-4 max-lg:h-4 max-lg:border-2 rounded-full border-3 border-gray-50 hover:cursor-pointer hover:scale-150 transition-all ${activePickerIndex === i && "scale-150 transition-none"
+                      }`}
                     style={{
                       top: p.y,
                       left: p.x,
@@ -587,11 +586,10 @@ export default function ExtractorPageClient() {
                         {activePickerIndex === i && !isMaximizeExtractor && (
                           <LuCheck
                             size={22}
-                            className={`${
-                              checkIsLight(p.color)
+                            className={`${checkIsLight(p.color)
                                 ? "text-gray-900"
                                 : "text-gray-50"
-                            }`}
+                              }`}
                           />
                         )}
                       </div>
@@ -639,11 +637,10 @@ export default function ExtractorPageClient() {
                         })}
                       </div>
                       <div
-                        className={`w-full h-full rounded-lg bg-gray-900/40 absolute top-0 left-0 grid place-content-center ${
-                          selectedPaletteIndex === index
+                        className={`w-full h-full rounded-lg bg-gray-900/40 absolute top-0 left-0 grid place-content-center ${selectedPaletteIndex === index
                             ? "visible"
                             : "invisible"
-                        } invisible group-hover:visible hover:cursor-pointer`}
+                          } invisible group-hover:visible hover:cursor-pointer`}
                       >
                         {selectedPaletteIndex === index && (
                           <LuCheck className="text-gray-50" size={20} />
