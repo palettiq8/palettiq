@@ -20,7 +20,7 @@ export default function SupportEmail() {
       }}
     >
       <LuMail size={16} className="shrink-0" />
-      <p className="text-sm font-medium text-gray-900">palettiq8@gmail.com</p>
+      <p className="text-sm font-medium text-gray-900">hello@palettiq.net</p>
     </div>
   );
 }
