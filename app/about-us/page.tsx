@@ -4,12 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "About Us — The Story Behind PalettIQ",
+  title: "Ahnaf Shahriar Muiz — Founder & Developer of PalettIQ",
   description:
-    "Learn about the solo developer behind PalettIQ. A Bangladesh-based web, mobile, and UI/UX developer building color tools for designers since 2020.",
+    "Meet Ahnaf Shahriar Muiz, the solo developer behind PalettIQ — a unified color design platform built for designers and developers. Self-taught since 2020, based in Bangladesh.",
   alternates: { canonical: "https://palettiq.net/about-us" },
   openGraph: {
-    title: "About Us — The Developer Behind PalettIQ",
+    title: "Ahnaf Shahriar Muiz — Founder & Developer of PalettIQ",
     url: "https://palettiq.net/about-us",
     images: [{ url: "/banner.png", width: 1200, height: 630 }],
   },
@@ -38,11 +38,11 @@ export default function page() {
         <section className="w-full mt-14 flex items-start gap-10 max-md:flex-col">
           <div className="shrink-0">
             <Image
-              src="/logo.svg"
-              alt="PalettIQ Founder & Developer"
+              src="/me.png"
+              alt="Ahnaf Shahriar Muiz — Founder and Solo Developer of PalettIQ"
               width={160}
               height={160}
-              className="rounded-2xl object-cover"
+              className="rounded-full object-cover"
             />
           </div>
 
@@ -50,9 +50,9 @@ export default function page() {
             <p className="text-xs font-bold uppercase tracking-widest text-gray-400">
               Founder & Developer
             </p>
-            {/* <h2 className="text-2xl font-black text-gray-900 mt-2">
-              Shuvo Kumar Pal
-            </h2> */}
+            <h2 className="text-2xl font-black text-gray-900 mt-2">
+              Ahnaf Shahriar Muiz
+            </h2>
             <p className="text-sm font-semibold text-indigo-500 mt-2">
               Bangladesh 🇧🇩
             </p>
@@ -60,9 +60,9 @@ export default function page() {
             <p className="text-base font-medium text-gray-700 mt-5 leading-relaxed">
               A multidisciplinary software developer based in Bangladesh,
               specializing in web development, mobile application development,
-              and UI/UX design. With hands-on industry experience since 2020, he
-              has built a deep understanding of what modern designers and
-              developers need in their daily workflow.
+              and UI/UX design. With consistent self-driven development
+              experience since 2020, I've built a deep understanding of what
+              modern designers and developers need in their daily workflow.
             </p>
 
             <p className="text-base font-medium text-gray-700 mt-4 leading-relaxed">
@@ -74,8 +74,8 @@ export default function page() {
             </p>
 
             <p className="text-base font-medium text-gray-700 mt-4 leading-relaxed">
-              As a solo developer, he is responsible for every aspect of
-              PalettIQ — from architecture and engineering to design and product
+              As a solo developer, I am responsible for every aspect of PalettIQ
+              — from architecture and engineering to design and product
               decisions. This focused ownership ensures that PalettIQ remains
               fast, reliable, and continuously improving based on real user
               feedback.

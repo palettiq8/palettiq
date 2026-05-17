@@ -169,31 +169,37 @@ export const footerItems = [
   { id: 14, title: "Help center", url: "/help-center" },
   { id: 15, title: "Feedback", url: "/settings/feedback" },
   {
-    id: 16,
+    id: 17,
+    title: "Linkedin",
+    url: "https://www.linkedin.com/company/palettiq/",
+  },
+  {
+    id: 18,
     title: "Pinterest",
     url: "https://www.pinterest.com/palettiq8/_created/",
   },
+
+  { id: 19, title: "Twitter / X", url: "https://x.com/palettiq" },
   {
-    id: 17,
-    title: "Reddit",
-    url: "https://www.reddit.com/user/Positive_Gear_8755/",
-  },
-  { id: 18, title: "Twitter / X", url: "https://x.com/palettiq" },
-  {
-    id: 19,
+    id: 20,
     title: "Facebook",
     url: "https://www.facebook.com/profile.php?id=61589009866760",
   },
-  { id: 20, title: "Terms & conditions", url: "/terms-and-conditions" },
-  { id: 21, title: "Privacy policy", url: "/privacy-policy" },
-  { id: 22, title: "Cookie policy", url: "/cookie-policy" },
+  {
+    id: 21,
+    title: "Reddit",
+    url: "https://www.reddit.com/user/Positive_Gear_8755/",
+  },
+  { id: 22, title: "Terms & conditions", url: "/terms-and-conditions" },
+  { id: 23, title: "Privacy policy", url: "/privacy-policy" },
+  { id: 24, title: "Cookie policy", url: "/cookie-policy" },
 ];
 export const footerSectionItems = [
   { id: 1, title: "Studio Services", data: footerItems.slice(0, 8) },
   { id: 2, title: "Explore Services", data: footerItems.slice(8, 11) },
   { id: 3, title: "Resources", data: footerItems.slice(11, 14) },
-  { id: 4, title: "Social Links", data: footerItems.slice(14, 18) },
-  { id: 5, title: "Legal", data: footerItems.slice(18, 21) },
+  { id: 4, title: "Social Links", data: footerItems.slice(14, 19) },
+  { id: 5, title: "Legal", data: footerItems.slice(19, 21) },
 ];
 export const paletteMoreItems = [
   { id: 1, title: "Copy", icon: LuCopy },
