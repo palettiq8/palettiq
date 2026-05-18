@@ -1,8 +1,6 @@
 import { colorFamilies } from "@/utils/Items";
 import {
   ActiveContrast,
-  AiPaletteType,
-  AiStateTypes,
   BrowseStateTypes,
   ConicType,
   ContrastStateTypes,
@@ -240,115 +238,6 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
     },
   ),
 );
-const useAiStore = create<AiStateTypes>()(
-  persist(
-    (set) => ({
-      aiPreferredColors: [],
-      aiColorCount: "5 Colors",
-      aiColorHarmony: "No Harmony",
-      aiColorMood: "No Mood",
-      aiIndustry: "No Industry",
-      aiBrightness: "No Brightness",
-      aiSaturation: "No Saturation",
-      aiMode: "No Mode",
-      aiPaletteCount: "1 Palette",
-      aiUseCase: "No Use Case",
-      setAiItems: (item: string, from: string) =>
-        set((state) => {
-          switch (from) {
-            case "preferred":
-              const exists = state.aiPreferredColors.includes(item);
-
-              return {
-                aiPreferredColors: exists
-                  ? state.aiPreferredColors.filter((c) => c !== item)
-                  : [...state.aiPreferredColors, item],
-              };
-
-            case "count":
-              return { aiColorCount: item };
-
-            case "paletteCount":
-              return { aiPaletteCount: item };
-
-            case "harmony":
-              return {
-                aiColorHarmony:
-                  state.aiColorHarmony === item ? "No Harmony" : item,
-              };
-
-            case "mood":
-              return {
-                aiColorMood: state.aiColorMood === item ? "No Mood" : item,
-              };
-
-            case "industry":
-              return {
-                aiIndustry: state.aiIndustry === item ? "No Industry" : item,
-              };
-
-            case "brightness":
-              return {
-                aiBrightness:
-                  state.aiBrightness === item ? "No Brightness" : item,
-              };
-
-            case "saturation":
-              return {
-                aiSaturation:
-                  state.aiSaturation === item ? "No Saturation" : item,
-              };
-
-            case "mode":
-              return { aiMode: state.aiMode === item ? "No Mode" : item };
-
-            case "usecase":
-              return {
-                aiUseCase: state.aiUseCase === item ? "No Use Case" : item,
-              };
-
-            default:
-              return {};
-          }
-        }),
-      clearAllAiItems: () =>
-        set({
-          aiPreferredColors: [],
-          aiColorCount: "5 Colors",
-          aiColorHarmony: "No Harmony",
-          aiColorMood: "No Mood",
-          aiIndustry: "No Industry",
-          aiBrightness: "No Brightness",
-          aiSaturation: "No Saturation",
-          aiMode: "No Mode",
-          aiPaletteCount: "1 Palette",
-          aiUseCase: "No Use Case",
-        }),
-      aiGeneratedPalettes: [],
-      setAiGeneratedPalettes: (palettes: AiPaletteType[]) =>
-        set({
-          aiGeneratedPalettes: palettes,
-        }),
-    }),
-    {
-      name: "_ai_storage",
-      storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({
-        aiPreferredColors: state.aiPreferredColors,
-        aiColorCount: state.aiColorCount,
-        aiColorHarmony: state.aiColorHarmony,
-        aiColorMood: state.aiColorMood,
-        aiIndustry: state.aiIndustry,
-        aiBrightness: state.aiBrightness,
-        aiSaturation: state.aiSaturation,
-        aiMode: state.aiMode,
-        aiPaletteCount: state.aiPaletteCount,
-        aiUseCase: state.aiUseCase,
-        aiGeneratedPalettes: state.aiGeneratedPalettes,
-      }),
-    },
-  ),
-);
 const usePickerStore = create<PickerStateTypes>()(
   persist(
     (set) => ({
@@ -555,19 +444,19 @@ const useGradientStore = create<GradientStateTypes>()(
           const stops =
             state.gradientStops.length === 0
               ? [
-                {
-                  id: crypto.randomUUID(),
-                  color: generateRandomColor(),
-                  isHide: false,
-                  position: 0,
-                },
-                {
-                  id: crypto.randomUUID(),
-                  color: generateRandomColor(),
-                  isHide: false,
-                  position: 100,
-                },
-              ]
+                  {
+                    id: crypto.randomUUID(),
+                    color: generateRandomColor(),
+                    isHide: false,
+                    position: 0,
+                  },
+                  {
+                    id: crypto.randomUUID(),
+                    color: generateRandomColor(),
+                    isHide: false,
+                    position: 100,
+                  },
+                ]
               : state.gradientStops;
 
           const randomizedStops = stops.map((stop) => {
@@ -683,11 +572,11 @@ const useExtractorStore = create<ExtractorStateTypes>()(
           pickers: state.pickers.map((p, i) =>
             i === activePickerIndex
               ? {
-                ...p,
-                x: mouseX - offsetX - pickerHalf,
-                y: mouseY - offsetY - pickerHalf,
-                color: rgb,
-              }
+                  ...p,
+                  x: mouseX - offsetX - pickerHalf,
+                  y: mouseY - offsetY - pickerHalf,
+                  color: rgb,
+                }
               : p,
           ),
         }));
@@ -899,13 +788,13 @@ const useContrastStore = create<ContrastStateTypes>()(
           const res =
             from === "normal"
               ? generateContrastPair(
-                colorFamilies,
-                state.preferredContrastItems,
-              )
+                  colorFamilies,
+                  state.preferredContrastItems,
+                )
               : generateComplementaryContrast(
-                colorFamilies,
-                state.preferredContrastItems,
-              );
+                  colorFamilies,
+                  state.preferredContrastItems,
+                );
 
           const generatedContrast = {
             textColor: colord(res.foreground).toHex(),
@@ -1058,7 +947,7 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
 
           const lastPalette =
             state.visualizerPaletteHistory[
-            state.visualizerPaletteHistory.length - 1
+              state.visualizerPaletteHistory.length - 1
             ];
           const isDuplicate =
             JSON.stringify(lastPalette) === JSON.stringify(paletteToPush);
@@ -1316,11 +1205,14 @@ const useBrowseStore = create<BrowseStateTypes>()(
       setViewModePalette: (paletteColor: PaletteColor[] | null) =>
         set({ viewModePalette: paletteColor }),
       browseGradients: null,
-      setBrowseGradients: (gradient: GradientType | null) => set({ browseGradients: gradient }),
+      setBrowseGradients: (gradient: GradientType | null) =>
+        set({ browseGradients: gradient }),
       openOnScreenGradient: null,
-      setOpenOnScreenGradient: (gradient: StopType[] | null) => set({ openOnScreenGradient: gradient }),
+      setOpenOnScreenGradient: (gradient: StopType[] | null) =>
+        set({ openOnScreenGradient: gradient }),
       viewModeGradient: null,
-      setViewModeGradient: (gradient: StopType[] | null) => set({ viewModeGradient: gradient })
+      setViewModeGradient: (gradient: StopType[] | null) =>
+        set({ viewModeGradient: gradient }),
     }),
     {
       name: "_browse_storage",
@@ -1391,7 +1283,6 @@ const useOtherStore = create<OtherTypes>()(
 
 export {
   useGeneratorStore,
-  useAiStore,
   usePickerStore,
   useGradientStore,
   useExtractorStore,

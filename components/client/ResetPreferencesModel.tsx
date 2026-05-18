@@ -4,7 +4,6 @@ import useModelStore from "@/libs/stores/modelStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../Button";
 import {
-  useAiStore,
   useBrowseStore,
   useContrastStore,
   useExtractorStore,
@@ -29,7 +28,6 @@ export default function ResetPreferencesModel() {
   const clearPreferredItems = useGeneratorStore(
     (state) => state.clearPreferredItems,
   );
-  const clearAllAiItems = useAiStore((state) => state.clearAllAiItems);
   const clearPreferredColorItems = usePickerStore(
     (state) => state.clearPreferredColorItems,
   );
@@ -136,7 +134,6 @@ export default function ResetPreferencesModel() {
                 onClick={() => {
                   setColorCount(5);
                   clearPreferredItems();
-                  clearAllAiItems();
                   clearPreferredColorItems();
                   clearPreferredGradientItems();
                   setExtractorPickerCount(5);

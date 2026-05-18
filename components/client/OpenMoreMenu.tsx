@@ -57,7 +57,9 @@ export default function OpenMoreMenu({ from }: { from: string }) {
   );
   const pickers = useExtractorStore((state) => state.pickers);
   const gradientStops = useGradientStore((state) => state.gradientStops);
-  const setViewModeGradient = useBrowseStore((state) => state.setViewModeGradient);
+  const setViewModeGradient = useBrowseStore(
+    (state) => state.setViewModeGradient,
+  );
 
   const MENU_DATA: Record<
     string,
@@ -80,8 +82,8 @@ export default function OpenMoreMenu({ from }: { from: string }) {
           const palette = gradientStops.map((stop, index) => ({
             id: `${index + 1}`,
             color: stop?.color,
-            isLocked: false
-          }))
+            isLocked: false,
+          }));
           setGeneratedPalette(palette);
           window.open("/studio", "_blank");
         },
@@ -207,20 +209,21 @@ export default function OpenMoreMenu({ from }: { from: string }) {
         <Button
           variant={"outline"}
           size={"md"}
-          aria-label={`More options for ${from === "Picker"
-            ? "Color Picker"
-            : from === "Gradient"
-              ? "CSS Gradient Generator"
-              : from === "Contrast"
-                ? "Color Contrast Checker"
-                : from === "Extractor"
-                  ? "Color Extractor"
-                  : from === "Visualizer"
-                    ? "Palette Visualizer"
-                    : from === "Shadow"
-                      ? "CSS Shadow Generator"
-                      : "tool"
-            }`}
+          aria-label={`More options for ${
+            from === "Picker"
+              ? "Color Picker"
+              : from === "Gradient"
+                ? "CSS Gradient Generator"
+                : from === "Contrast"
+                  ? "Color Contrast Checker"
+                  : from === "Extractor"
+                    ? "Color Extractor"
+                    : from === "Visualizer"
+                      ? "Palette Visualizer"
+                      : from === "Shadow"
+                        ? "CSS Shadow Generator"
+                        : "tool"
+          }`}
           aria-expanded={openMoreMenu}
           aria-haspopup="true"
         >
@@ -237,20 +240,21 @@ export default function OpenMoreMenu({ from }: { from: string }) {
         {openMoreMenu && (
           <motion.menu
             ref={menuRef}
-            aria-label={`${from === "Picker"
-              ? "Color Picker"
-              : from === "Gradient"
-                ? "CSS Gradient Generator"
-                : from === "Contrast"
-                  ? "Color Contrast Checker"
-                  : from === "Extractor"
-                    ? "Color Extractor"
-                    : from === "Visualizer"
-                      ? "Palette Visualizer"
-                      : from === "Shadow"
-                        ? "CSS Shadow Generator"
-                        : "tool"
-              } actions`}
+            aria-label={`${
+              from === "Picker"
+                ? "Color Picker"
+                : from === "Gradient"
+                  ? "CSS Gradient Generator"
+                  : from === "Contrast"
+                    ? "Color Contrast Checker"
+                    : from === "Extractor"
+                      ? "Color Extractor"
+                      : from === "Visualizer"
+                        ? "Palette Visualizer"
+                        : from === "Shadow"
+                          ? "CSS Shadow Generator"
+                          : "tool"
+            } actions`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -261,20 +265,21 @@ export default function OpenMoreMenu({ from }: { from: string }) {
               return (
                 <button
                   key={id}
-                  aria-label={`${title} — ${from === "Picker"
-                    ? "Color Picker"
-                    : from === "Gradient"
-                      ? "CSS Gradient Generator"
-                      : from === "Contrast"
-                        ? "Color Contrast Checker"
-                        : from === "Extractor"
-                          ? "Color Extractor"
-                          : from === "Visualizer"
-                            ? "Palette Visualizer"
-                            : from === "Shadow"
-                              ? "CSS Shadow Generator"
-                              : "tool"
-                    }`}
+                  aria-label={`${title} — ${
+                    from === "Picker"
+                      ? "Color Picker"
+                      : from === "Gradient"
+                        ? "CSS Gradient Generator"
+                        : from === "Contrast"
+                          ? "Color Contrast Checker"
+                          : from === "Extractor"
+                            ? "Color Extractor"
+                            : from === "Visualizer"
+                              ? "Palette Visualizer"
+                              : from === "Shadow"
+                                ? "CSS Shadow Generator"
+                                : "tool"
+                  }`}
                   className="flex items-center gap-4 p-2 text-gray-900 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all"
                   onClick={() => {
                     handler();

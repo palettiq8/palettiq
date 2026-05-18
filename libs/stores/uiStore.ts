@@ -6,8 +6,6 @@ interface MenuStateType {
   toggleGeneratorMaximize: (value?: boolean) => void;
   isHorizontalPalette: boolean;
   setIsHorizontalPalette: () => void;
-  addAiDescription: boolean;
-  setAddAiDescription: () => void;
   isMaximizeColorPicker: boolean;
   setIsMaximizeColorPicker: (value?: boolean) => void;
   isMaximizeGradient: boolean;
@@ -31,35 +29,41 @@ const useUiStore = create<MenuStateType>()(
       isHorizontalPalette: false,
       setIsHorizontalPalette: () =>
         set((state) => ({ isHorizontalPalette: !state.isHorizontalPalette })),
-      addAiDescription: false,
-      setAddAiDescription: () =>
-        set((state) => ({ addAiDescription: !state.addAiDescription })),
       isMaximizeColorPicker: false,
       setIsMaximizeColorPicker: (value?: boolean) =>
         set((state) => ({
-          isMaximizeColorPicker: value === false ? value : !state.isMaximizeColorPicker,
+          isMaximizeColorPicker:
+            value === false ? value : !state.isMaximizeColorPicker,
         })),
       isMaximizeExtractor: false,
       setIsMaximizeExtractor: (value?: boolean) =>
         set((state) => ({
-          isMaximizeExtractor: value === false ? value : !state.isMaximizeExtractor,
+          isMaximizeExtractor:
+            value === false ? value : !state.isMaximizeExtractor,
         })),
       isMaximizeGradient: false,
       setIsMaximizeGradient: (value?: boolean) =>
-        set((state) => ({ isMaximizeGradient: value === false ? value : !state.isMaximizeGradient })),
+        set((state) => ({
+          isMaximizeGradient:
+            value === false ? value : !state.isMaximizeGradient,
+        })),
       isMaximizeContrast: false,
       setIsMaximizeContrast: (value?: boolean) =>
-        set((state) => ({ isMaximizeContrast: value === false ? value : !state.isMaximizeContrast })),
+        set((state) => ({
+          isMaximizeContrast:
+            value === false ? value : !state.isMaximizeContrast,
+        })),
       isMaximizeShadow: false,
       setIsMaximizeShadow: (value?: boolean) =>
-        set((state) => ({ isMaximizeShadow: value === false ? value : !state.isMaximizeShadow })),
+        set((state) => ({
+          isMaximizeShadow: value === false ? value : !state.isMaximizeShadow,
+        })),
     }),
     {
       name: "_ui_config",
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         isHorizontalPalette: state.isHorizontalPalette,
-        addAiDescription: state.addAiDescription,
       }),
     },
   ),

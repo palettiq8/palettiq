@@ -25,20 +25,10 @@ import {
   LuScissors,
   LuShrink,
   LuShuffle,
-  LuSparkles,
   LuTrash2,
   LuView,
 } from "react-icons/lu";
 import { RiColorFilterLine } from "react-icons/ri";
-import {
-  bebasNeue,
-  caprasimo,
-  lobster,
-  michroma,
-  mulish,
-  poppins,
-  ubuntu,
-} from "./Fonts";
 import { FaCss3 } from "react-icons/fa";
 import { BiExport } from "react-icons/bi";
 import { ColorFamily, Degree, Position } from "./Types";
@@ -75,16 +65,6 @@ export const features = [
   },
   {
     id: 2,
-    title: "AI Color Palette Generator",
-    urlTitle: "Generate AI color palette",
-    icon: LuSparkles,
-    desc: "Generate stunning, design-ready color palettes in seconds with AI-powered color suggestions tailored to your brand.",
-    bgColors: ["from-orange-600", "to-orange-500"],
-    oneBgColor: "bg-orange-300",
-    url: "/studio/ai-generator",
-  },
-  {
-    id: 3,
     title: "Color Picker",
     urlTitle: "Pick color online free",
     icon: LuPencil,
@@ -94,7 +74,7 @@ export const features = [
     url: "/studio/picker",
   },
   {
-    id: 4,
+    id: 3,
     title: "CSS Gradient Generator",
     urlTitle: "Generate CSS gradient",
     icon: LuCircleDot,
@@ -104,7 +84,7 @@ export const features = [
     url: "/studio/gradient",
   },
   {
-    id: 5,
+    id: 4,
     title: "Color Extractor",
     urlTitle: "Extract colors from image free",
     icon: LuPickaxe,
@@ -114,7 +94,7 @@ export const features = [
     url: "/studio/extractor",
   },
   {
-    id: 6,
+    id: 5,
     title: "Color Contrast Checker",
     urlTitle: "Check color contrast",
     icon: LuContrast,
@@ -124,7 +104,7 @@ export const features = [
     url: "/studio/contrast",
   },
   {
-    id: 7,
+    id: 6,
     title: "Palette Visualizer",
     urlTitle: "Visualize color palette",
     icon: LuActivity,
@@ -134,7 +114,7 @@ export const features = [
     url: "/studio/visualizer",
   },
   {
-    id: 8,
+    id: 7,
     title: "CSS Shadow Generator",
     urlTitle: "Generate CSS shadow",
     icon: LuDroplet,
@@ -144,30 +124,20 @@ export const features = [
     url: "/studio/shadow",
   },
 ];
-export const fontCompareItem = [
-  { id: 1, bgColor: "#FFBE40", font: mulish.className, name: "Mulish" },
-  { id: 2, bgColor: "#EDE3D7", font: poppins.className, name: "Poppins" },
-  { id: 3, bgColor: "#F15524", font: lobster.className, name: "Lobster" },
-  { id: 4, bgColor: "#43D480", font: ubuntu.className, name: "Ubuntu" },
-  { id: 5, bgColor: "#51C6D8", font: bebasNeue.className, name: "Bebas Neue" },
-  { id: 6, bgColor: "#DEFE91", font: caprasimo.className, name: "Caprasimo" },
-  { id: 7, bgColor: "#B696F7", font: michroma.className, name: "Michroma" },
-];
 export const footerItems = [
   { id: 1, title: "Palette generator", url: "/studio" },
-  { id: 2, title: "Ai palette generator", url: "/studio/ai-generator" },
-  { id: 3, title: "Color picker", url: "/studio/picker" },
-  { id: 4, title: "Gradient generator", url: "/studio/gradient" },
-  { id: 5, title: "Color extractor", url: "/studio/extractor" },
-  { id: 6, title: "Contrast checker", url: "/studio/contrast" },
-  { id: 7, title: "Palette visualizer", url: "/studio/visualizer" },
-  { id: 8, title: "Shadow generator", url: "/studio/shadow" },
-  { id: 9, title: "Explore palettes", url: "/explore/palettes" },
-  { id: 10, title: "Explore colors", url: "/explore/colors" },
-  { id: 11, title: "Explore gradients", url: "/explore/gradients" },
-  { id: 13, title: "About us", url: "/about-us" },
-  { id: 14, title: "Help center", url: "/help-center" },
-  { id: 15, title: "Feedback", url: "/settings/feedback" },
+  { id: 2, title: "Color picker", url: "/studio/picker" },
+  { id: 3, title: "Gradient generator", url: "/studio/gradient" },
+  { id: 4, title: "Color extractor", url: "/studio/extractor" },
+  { id: 5, title: "Contrast checker", url: "/studio/contrast" },
+  { id: 6, title: "Palette visualizer", url: "/studio/visualizer" },
+  { id: 7, title: "Shadow generator", url: "/studio/shadow" },
+  { id: 8, title: "Explore palettes", url: "/explore/palettes" },
+  { id: 9, title: "Explore colors", url: "/explore/colors" },
+  { id: 10, title: "Explore gradients", url: "/explore/gradients" },
+  { id: 11, title: "About us", url: "/about-us" },
+  { id: 12, title: "Help center", url: "/help-center" },
+  { id: 13, title: "Feedback", url: "/settings/feedback" },
   {
     id: 17,
     title: "Linkedin",
@@ -195,11 +165,11 @@ export const footerItems = [
   { id: 24, title: "Cookie policy", url: "/cookie-policy" },
 ];
 export const footerSectionItems = [
-  { id: 1, title: "Studio Services", data: footerItems.slice(0, 8) },
-  { id: 2, title: "Explore Services", data: footerItems.slice(8, 11) },
-  { id: 3, title: "Resources", data: footerItems.slice(11, 14) },
-  { id: 4, title: "Social Links", data: footerItems.slice(14, 19) },
-  { id: 5, title: "Legal", data: footerItems.slice(19, 21) },
+  { id: 1, title: "Studio Services", data: footerItems.slice(0, 7) },
+  { id: 2, title: "Explore Services", data: footerItems.slice(7, 10) },
+  { id: 3, title: "Resources", data: footerItems.slice(10, 13) },
+  { id: 4, title: "Social Links", data: footerItems.slice(13, 18) },
+  { id: 5, title: "Legal", data: footerItems.slice(18, 20) },
 ];
 export const paletteMoreItems = [
   { id: 1, title: "Copy", icon: LuCopy },
@@ -212,17 +182,6 @@ export const paletteMoreItems = [
   { id: 8, title: "Visualize the palette", icon: LuActivity },
   { id: 9, title: "Explore similar", icon: LuArrowUpRight },
   { id: 10, title: "Export", icon: BiExport },
-];
-export const aiPaletteMoreItems = [
-  { id: 1, title: "Copy", icon: LuCopy },
-  { id: 2, title: "Quick view", icon: LuEye },
-  { id: 3, title: "Edit on generator", icon: LuPencilLine },
-  { id: 4, title: "Make gradient", icon: LuCircleDot },
-  { id: 5, title: "Open on screen", icon: LuMaximize2 },
-  { id: 6, title: "View mode", icon: LuShrink },
-  { id: 7, title: "Add to community", icon: LuPlus },
-  { id: 8, title: "Visualize the palette", icon: LuActivity },
-  { id: 9, title: "Export", icon: BiExport },
 ];
 export const gradientMoreItems = [
   { id: 1, title: "Copy CSS", icon: LuCopy },

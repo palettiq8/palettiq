@@ -40,10 +40,6 @@ export type PaletteColor = {
   color: string;
   isLocked: boolean;
 };
-export type AiPaletteType = {
-  paletteName: string;
-  colors: string[];
-};
 export interface PickerContainer {
   offsetX: number;
   offsetY: number;
@@ -175,22 +171,6 @@ export interface GeneratorStateTypes {
     value: number,
   ) => void;
   resetHslControlPanelFamilies: () => void;
-}
-export interface AiStateTypes {
-  aiPreferredColors: string[];
-  aiColorCount: string;
-  aiColorHarmony: string;
-  aiColorMood: string;
-  aiIndustry: string;
-  aiBrightness: string;
-  aiSaturation: string;
-  aiMode: string;
-  aiPaletteCount: string;
-  aiUseCase: string;
-  setAiItems: (item: string, from: string) => void;
-  clearAllAiItems: () => void;
-  aiGeneratedPalettes: AiPaletteType[];
-  setAiGeneratedPalettes: (palettes: AiPaletteType[]) => void;
 }
 export interface PickerStateTypes {
   defaultColorPreference: boolean;
