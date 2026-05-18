@@ -57,7 +57,7 @@ export const Api = createApi({
             .from("palettes")
             .select("*")
             .eq("status", "Published")
-            .order("id", { ascending: true });
+            .order("id", { ascending: false });
 
           if (industries.length > 0) {
             query = query.contains("industries", JSON.stringify(industries));

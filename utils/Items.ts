@@ -373,14 +373,6 @@ export const colorCountMenuItems = [
   "9 Colors",
   "10 Colors",
 ];
-export const paletteCount = [
-  "1 Palette",
-  "2 Palettes",
-  "3 Palettes",
-  "4 Palettes",
-  "5 Palettes",
-  "6 Palettes",
-];
 
 export const tags = [
   "#technology",
