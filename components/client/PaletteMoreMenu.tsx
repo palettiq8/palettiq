@@ -95,7 +95,7 @@ export default function PaletteMoreMenu({
         <Button
           variant={"secondary"}
           size={"circle"}
-          className="hover:bg-white"
+          className="border-none hover:bg-gray-50"
           aria-expanded={showMenu}
           aria-haspopup="true"
         >

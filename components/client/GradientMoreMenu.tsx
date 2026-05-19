@@ -7,13 +7,18 @@ import { Button } from "../Button";
 import { gradientMoreItems } from "@/utils/Items";
 import { FlashMessage, getGradientCSS } from "@/utils/utils";
 import { GradientType } from "@/utils/Types";
-import { useBrowseStore, useGeneratorStore, useGradientStore, useOtherStore } from "@/libs/stores/dataStore";
+import {
+  useBrowseStore,
+  useGeneratorStore,
+  useGradientStore,
+  useOtherStore,
+} from "@/libs/stores/dataStore";
 import useModelStore from "@/libs/stores/modelStore";
 
 export default function GradientMoreMenu({
-  gradient
+  gradient,
 }: {
-  gradient: GradientType
+  gradient: GradientType;
 }) {
   const [showMenu, setShowMenu] = useState<boolean>(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -36,15 +41,23 @@ export default function GradientMoreMenu({
   const toggleGradientViewDetailsModel = useModelStore(
     (state) => state.toggleGradientViewDetailsModel,
   );
-  const setBrowseGradients = useBrowseStore((state) => state.setBrowseGradients);
+  const setBrowseGradients = useBrowseStore(
+    (state) => state.setBrowseGradients,
+  );
   const addGradientStop = useGradientStore((state) => state.addGradientStop);
-  const setGeneratedPalette = useGeneratorStore((state) => state.setGeneratedPalette);
+  const setGeneratedPalette = useGeneratorStore(
+    (state) => state.setGeneratedPalette,
+  );
   const toggleExportModel = useModelStore((state) => state.toggleExportModel);
   const setExportPalette = useOtherStore((state) => state.setExportPalette);
   const setExportFrom = useOtherStore((state) => state.setExportFrom);
   const setGradientExport = useOtherStore((state) => state.setGradientExport);
-  const setOpenOnScreenGradient = useBrowseStore((state) => state.setOpenOnScreenGradient);
-  const setViewModeGradient = useBrowseStore((state) => state.setViewModeGradient);
+  const setOpenOnScreenGradient = useBrowseStore(
+    (state) => state.setOpenOnScreenGradient,
+  );
+  const setViewModeGradient = useBrowseStore(
+    (state) => state.setViewModeGradient,
+  );
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -76,7 +89,7 @@ export default function GradientMoreMenu({
         <Button
           variant={"secondary"}
           size={"circle"}
-          className="hover:bg-white"
+          className="border-none hover:bg-gray-50"
         >
           <LuEllipsisVertical size={16} />
         </Button>
@@ -90,7 +103,7 @@ export default function GradientMoreMenu({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className="bg-white shadow-lg rounded-xl flex flex-col p-2.5 z-40 absolute top-9 right-0 w-max"
+            className="bg-white shadow-lg rounded-xl flex flex-col p-2.5 z-50 absolute top-9 right-0 w-max"
           >
             {gradientMoreItems.map(({ id, title, icon: Icon }) => {
               return (
@@ -127,8 +140,8 @@ export default function GradientMoreMenu({
                         const palette = gradient?.stops?.map((stop, index) => ({
                           id: `${index + 1}`,
                           color: stop?.color,
-                          isLocked: false
-                        }))
+                          isLocked: false,
+                        }));
                         setGeneratedPalette(palette);
                         window.open("/studio", "_blank");
                       } else if (title === "Open on screen") {
@@ -138,7 +151,9 @@ export default function GradientMoreMenu({
                       } else if (title === "Export") {
                         toggleExportModel();
                         setExportFrom("Browse-Gradient");
-                        setExportPalette(gradient?.stops?.map((stop) => stop.color));
+                        setExportPalette(
+                          gradient?.stops?.map((stop) => stop.color),
+                        );
                         setGradientExport(
                           `background: ${getGradientCSS(
                             gradient?.stops,
@@ -150,7 +165,7 @@ export default function GradientMoreMenu({
                         );
                       }
                     } catch (error: any) {
-                      FlashMessage("error", "Something went to wrong!")
+                      FlashMessage("error", "Something went to wrong!");
                     }
                   }}
                   className="flex items-center p-2 gap-3 rounded-lg transition-all hover:bg-gray-100 border border-white hover:border-gray-200 hover:cursor-pointer select-none text-gray-900"

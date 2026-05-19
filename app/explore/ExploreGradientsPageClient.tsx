@@ -154,10 +154,21 @@ export default function ExploreGradientsPageClient() {
                   const gradient = data?.[index];
                   const stops = gradient?.stops || [];
                   return (
-                    <article
-                      className={`bg-gray-100 p-4 w-full border rounded-xl border-gray-200`}
-                    >
-                      <div className="flex items-center justify-between">
+                    <article className={`p-4 w-full rounded-xl relative`}>
+                      <div
+                        className="absolute inset-0 rounded-xl"
+                        style={{
+                          background: getGradientCSS(
+                            stops,
+                            "Linear",
+                            90,
+                            { shape: "circle", x: 50, y: 50 },
+                            { x: 50, y: 50 },
+                          ),
+                          opacity: 0.2,
+                        }}
+                      />
+                      <div className="flex items-center justify-between relative">
                         <h3 className="text-sm font-semibold text-gray-900">
                           {gradient?.name}
                         </h3>
