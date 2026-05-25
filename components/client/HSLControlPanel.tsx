@@ -17,6 +17,10 @@ function DualRangeSlider({
   hardMax,
   onMinChange,
   onMaxChange,
+  gradientType,
+  currentHue,
+  currentSat,
+  currentLight,
 }: {
   label: string;
   min: number;
@@ -25,12 +29,15 @@ function DualRangeSlider({
   hardMax: number;
   onMinChange: (val: number) => void;
   onMaxChange: (val: number) => void;
+  gradientType: "hue" | "sat" | "light";
+  currentHue: number;
+  currentSat: number;
+  currentLight: number;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const dragging = useRef<"min" | "max" | null>(null);
 
   const isWrapped = hardMin > hardMax;
-
   const totalRange = isWrapped ? 360 - hardMin + hardMax : hardMax - hardMin;
 
   const getPercent = (val: number) => {
@@ -65,6 +72,32 @@ function DualRangeSlider({
     },
     [hardMin, hardMax, isWrapped, totalRange],
   );
+
+  const getTrackGradient = () => {
+    const H = Math.round(currentHue);
+    const S = Math.round(currentSat);
+    const L = Math.round(currentLight);
+
+    if (gradientType === "hue") {
+      const totalDeg = isWrapped ? 360 - hardMin + hardMax : hardMax - hardMin;
+      const startHue = hardMin;
+      const stops = Array.from({ length: 13 }, (_, i) => {
+        const h = (startHue + Math.round((i / 12) * totalDeg)) % 360;
+        return `hsl(${h}, ${S}%, ${L}%)`;
+      }).join(", ");
+      return `linear-gradient(to right, ${stops})`;
+    }
+
+    if (gradientType === "sat") {
+      const startSat = hardMin;
+      const endSat = hardMax;
+      return `linear-gradient(to right, hsl(${H}, ${startSat}%, ${L}%), hsl(${H}, ${endSat}%, ${L}%))`;
+    }
+
+    const startL = hardMin;
+    const endL = hardMax;
+    return `linear-gradient(to right, hsl(${H}, ${S}%, ${startL}%), hsl(${H}, ${S}%, ${endL}%))`;
+  };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     const val = getValueFromEvent(e.clientX);
@@ -137,7 +170,7 @@ function DualRangeSlider({
     <div className="w-full">
       <div className="w-full flex items-center justify-between mb-1">
         <h3 className="text-sm text-gray-900 font-semibold">{label}</h3>
-        <span className="text-xs font-semibold text-gray-500">
+        <span className="text-xs font-semibold text-gray-900">
           {min} – {max}
         </span>
       </div>
@@ -152,21 +185,35 @@ function DualRangeSlider({
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
       >
-        <div className="absolute w-full h-1.5 bg-gray-200 rounded-full" />
+        <div
+          className="absolute w-full h-4 rounded-full"
+          style={{ background: getTrackGradient() }}
+        />
+
+        <div
+          className="absolute h-4 rounded-l-full bg-white/60"
+          style={{ left: 0, width: `${minPercent}%` }}
+        />
+
+        <div
+          className="absolute h-4 rounded-r-full bg-white/60"
+          style={{ left: `${maxPercent}%`, right: 0 }}
+        />
+
         {isWrapped ? (
           <>
             <div
-              className="absolute h-1.5 bg-gray-900 rounded-full"
+              className="absolute h-4 rounded-full ring-1 ring-gray-300"
               style={{ left: 0, width: `${maxPercent}%` }}
             />
             <div
-              className="absolute h-1.5 bg-gray-900 rounded-full"
+              className="absolute h-4 rounded-full ring-1 ring-gray-300"
               style={{ left: `${minPercent}%`, right: 0 }}
             />
           </>
         ) : (
           <div
-            className="absolute h-1.5 bg-gray-900 rounded-full"
+            className="absolute h-4 rounded-full ring-1 ring-gray-300"
             style={{
               left: `${minPercent}%`,
               width: `${maxPercent - minPercent}%`,
@@ -175,11 +222,11 @@ function DualRangeSlider({
         )}
 
         <div
-          className="absolute w-4 h-4 bg-white border-2 border-gray-900 rounded-full shadow"
+          className="absolute w-4 h-4 bg-white border border-gray-500 rounded-full shadow z-10"
           style={{ left: `calc(${minPercent}% - 8px)` }}
         />
         <div
-          className="absolute w-4 h-4 bg-white border-2 border-gray-900 rounded-full shadow"
+          className="absolute w-4 h-4 bg-white border border-gray-500 rounded-full shadow z-10"
           style={{ left: `calc(${maxPercent}% - 8px)` }}
         />
       </div>
@@ -237,7 +284,6 @@ export default function HSLControlPanel() {
 
   useEffect(() => {
     if (!hslControlPanelModel) return;
-
     preferredItems.forEach((name) => {
       addHslControlPanelFamily(name, colorFamilies[name]);
     });
@@ -251,6 +297,24 @@ export default function HSLControlPanel() {
   };
 
   const originalFamily = activeColor ? colorFamilies[activeColor] : null;
+
+  const getHueMid = (hueMin: number, hueMax: number) => {
+    if (hueMin > hueMax) {
+      const mid = (hueMin + hueMax + 360) / 2;
+      return mid % 360;
+    }
+    return (hueMin + hueMax) / 2;
+  };
+
+  const currentHue = originalFamily
+    ? getHueMid(originalFamily.hue[0], originalFamily.hue[1])
+    : 180;
+  const currentSat = originalFamily
+    ? (originalFamily.sat[0] + originalFamily.sat[1]) / 2
+    : 60;
+  const currentLight = originalFamily
+    ? (originalFamily.light[0] + originalFamily.light[1]) / 2
+    : 50;
 
   return (
     <AnimatePresence>
@@ -379,7 +443,8 @@ export default function HSLControlPanel() {
                         </div>
                       ))}
                     </div>
-                    <div className="w-full flex flex-col gap-6 px-1.5 mt-2">
+
+                    <div className="w-full flex flex-col gap-6 mt-2">
                       {hslFields.map(({ label, key }) => {
                         const hardMin = originalFamily?.[key][0] ?? 0;
                         const hardMax = originalFamily?.[key][1] ?? 100;
@@ -418,6 +483,10 @@ export default function HSLControlPanel() {
                                 val,
                               )
                             }
+                            gradientType={key}
+                            currentHue={currentHue}
+                            currentSat={currentSat}
+                            currentLight={currentLight}
                           />
                         );
                       })}
