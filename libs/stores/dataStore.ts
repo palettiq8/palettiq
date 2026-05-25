@@ -523,7 +523,7 @@ const useGradientStore = create<GradientStateTypes>()(
       modifyActiveColor: { id: "", color: "", isHide: false, position: 0 },
       setModifyActiveColor: (stop: StopType) =>
         set({ modifyActiveColor: stop }),
-      gradientContainerSize: { content: "100%", width: "100%", height: "100%" },
+      gradientContainerSize: { content: "60%", width: "60%", height: "60%" },
       setGradientContainerSize: (item: GradientContainerSize) =>
         set({ gradientContainerSize: item }),
       gradientCornerRadius: 10,

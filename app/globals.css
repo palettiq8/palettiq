@@ -98,7 +98,7 @@ input[type="range"]:hover::-moz-range-thumb {
     transform: translateX(100%);
   }
 }
-.bodySection {
+.dotbg {
   background-color: #fdfaf6;
   background-image:
     radial-gradient(
@@ -123,4 +123,9 @@ input[type="range"]:hover::-moz-range-thumb {
     100% 100%,
     18px 18px;
   background-attachment: fixed;
+}
+.graydotbg {
+  background-color: #f8f8f8;
+  background-image: radial-gradient(circle, #d0d0d0 1px, transparent 1px);
+  background-size: 16px 16px;
 }

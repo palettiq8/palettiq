@@ -71,7 +71,7 @@ export default function BodySection() {
   };
 
   return (
-    <div className="w-full py-13 max-sm:py-8 px-4 bodySection">
+    <div className="w-full py-13 max-sm:py-8 px-4 dotbg">
       <span className="text-sm max-sm:text-xs font-bold text-orange-500 bg-orange-50 border border-orange-200 rounded-full px-3.5 py-1.5 w-max mx-auto block">
         A Unified Color Design Platform for Designers
       </span>

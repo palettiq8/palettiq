@@ -18,6 +18,7 @@ export default function ShadowOutputComponent({
       style={{
         boxShadow: boxShadow,
         borderRadius: `${radius}px`,
+        backgroundColor: "white",
         height: `${size}px`,
         width: `${size}px`,
         border: !boxShadow ? "1px solid #e5e7eb" : "1px solid white",

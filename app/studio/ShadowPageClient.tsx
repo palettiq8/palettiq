@@ -202,7 +202,7 @@ export default function ShadowPageClient() {
         style={{ height: "calc(100% - 64px)" }}
       >
         <div
-          className={`w-full h-full rounded-bl-xl max-lg:rounded-none max-xl:border-b max-xl:border-gray-200 ${isMaximizeShadow && "w-full h-screen absolute bg-white top-0 left-0 z-50"}`}
+          className={`w-full h-full graydotbg rounded-bl-xl max-lg:rounded-none max-xl:border-b max-xl:border-gray-200 ${isMaximizeShadow && "w-full h-screen absolute bg-white top-0 left-0 z-50"}`}
         >
           <div
             ref={containerRef}
@@ -218,6 +218,7 @@ export default function ShadowPageClient() {
                       width: `${isMaxLg ? containerSize : shadowContainerSize}px`,
                       height: `${isMaxLg ? containerSize : shadowContainerSize}px`,
                     }}
+                    className="bg-white"
                   ></div>
                 )}
                 {activeShadowViewer === "Output View" && (

@@ -224,7 +224,7 @@ export default function VisualizerPageClient() {
         className={`w-full bg-white flex h-[calc(100%-128px)] max-lg:h-[calc(100%-280px)]`}
       >
         <div
-          className={`w-3/4 h-full bg-gray-100 z-30 ${activeVisualizerMaximize && "w-full h-screen absolute top-0 left-0"} ${activeTemplateMaximize && "hidden"} max-lg:w-full`}
+          className={`w-3/4 h-full graydotbg z-30 ${activeVisualizerMaximize && "w-full h-screen absolute top-0 left-0"} ${activeTemplateMaximize && "hidden"} max-lg:w-full`}
         >
           <div className="w-full h-full flex items-center justify-center relative">
             <div className="relative h-full w-full p-4">
