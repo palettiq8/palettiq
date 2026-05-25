@@ -6,6 +6,7 @@ import { LuFacebook, LuTwitter } from "react-icons/lu";
 import { Button } from "../Button";
 import SupportEmail from "../client/SupportEmail";
 import { SiPinterest, SiReddit } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa";
 
 const SOCIAL_ICON_STYLE = "size-6";
 
@@ -76,21 +77,21 @@ export default function FooterSection() {
         <SupportEmail />
         <div className="flex items-center gap-7">
           <Link
+            href="https://www.linkedin.com/company/palettiq/"
+            target="_blank"
+            aria-label="Follow PalettIQ on LinkedIn"
+          >
+            <FaLinkedin
+              className={`${SOCIAL_ICON_STYLE} hover:text-blue-500`}
+            />
+          </Link>
+          <Link
             href="https://www.pinterest.com/palettiq8/_created/"
             target="_blank"
             aria-label="Follow PalettIQ on Pinterest"
           >
             <SiPinterest
               className={`${SOCIAL_ICON_STYLE} hover:text-red-500`}
-            />
-          </Link>
-          <Link
-            href="https://www.reddit.com/user/Positive_Gear_8755/"
-            target="_blank"
-            aria-label="Follow PalettIQ on Reddit"
-          >
-            <SiReddit
-              className={`${SOCIAL_ICON_STYLE} hover:text-orange-600`}
             />
           </Link>
           <Link
@@ -107,6 +108,15 @@ export default function FooterSection() {
           >
             <LuFacebook
               className={`${SOCIAL_ICON_STYLE} hover:text-blue-600`}
+            />
+          </Link>
+          <Link
+            href="https://www.reddit.com/user/Positive_Gear_8755/"
+            target="_blank"
+            aria-label="Follow PalettIQ on Reddit"
+          >
+            <SiReddit
+              className={`${SOCIAL_ICON_STYLE} hover:text-orange-600`}
             />
           </Link>
         </div>

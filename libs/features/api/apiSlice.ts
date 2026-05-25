@@ -108,7 +108,11 @@ export const Api = createApi({
 
           if (error) return { error };
 
-          return { data: data as PublishedPaletteType[] };
+          const shuffled = [...(data as PublishedPaletteType[])].sort(
+            () => Math.random() - 0.5,
+          );
+
+          return { data: shuffled };
         } catch (error: any) {
           return { error };
         }

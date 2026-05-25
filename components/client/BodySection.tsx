@@ -71,7 +71,7 @@ export default function BodySection() {
   };
 
   return (
-    <div className="w-full py-13 max-sm:py-8 px-4">
+    <div className="w-full py-13 max-sm:py-8 px-4 bodySection">
       <span className="text-sm max-sm:text-xs font-bold text-orange-500 bg-orange-50 border border-orange-200 rounded-full px-3.5 py-1.5 w-max mx-auto block">
         A Unified Color Design Platform for Designers
       </span>
@@ -97,7 +97,7 @@ export default function BodySection() {
           return (
             <div
               key={index}
-              className={`w-full rounded-xl h-60 bg-gray-100 p-6 border border-gray-200 flex flex-col items-start justify-between`}
+              className={`w-full rounded-xl h-60 bg-white border border-gray-100 p-6 flex flex-col items-start justify-between`}
             >
               <div className="w-full flex flex-col items-start gap-3">
                 <h3 className="text-lg font-bold text-gray-900">{title}</h3>
@@ -119,7 +119,7 @@ export default function BodySection() {
         })}
       </div>
 
-      <div className="max-w-380 mx-auto flex justify-between mt-15 bg-gray-100 border border-gray-200 rounded-xl p-6">
+      <div className="max-w-380 mx-auto flex justify-between mt-15 bg-white border border-gray-100 rounded-xl px-6 py-8">
         <div className="w-full flex flex-col items-start justify-between">
           <div className="w-full">
             <h2 className="text-3xl font-bold text-gray-900">

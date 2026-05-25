@@ -84,10 +84,12 @@ input[type="range"]:hover::-moz-range-thumb {
   position: absolute;
   inset: 0;
   transform: translateX(-100%);
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.8),
-      transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
   animation: skeleton-loading 1.5s infinite;
 }
 
@@ -95,4 +97,30 @@ input[type="range"]:hover::-moz-range-thumb {
   100% {
     transform: translateX(100%);
   }
+}
+.bodySection {
+  background-color: #fdfaf6;
+  background-image:
+    radial-gradient(
+      ellipse 100% 60% at 0% 0%,
+      rgba(251, 191, 36, 0.2) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 100% 100%,
+      rgba(239, 68, 68, 0.15) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 40% at 50% 100%,
+      rgba(251, 113, 133, 0.12) 0%,
+      transparent 60%
+    ),
+    radial-gradient(circle, #ddd0c0 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    18px 18px;
+  background-attachment: fixed;
 }
