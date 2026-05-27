@@ -119,7 +119,7 @@ export default function ExploreGradientsPageClient() {
               value={inputValue}
               aria-label="Search gradients by name"
               placeholder="Search gradients by name..."
-              className="w-full h-10 rounded-full outline-none bg-white pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
+              className="w-full h-10 rounded-full outline-none bg-white pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200 focus:border-gray-300 transition-all"
               onChange={(e) => setInputValue(e.target.value)}
             />
 

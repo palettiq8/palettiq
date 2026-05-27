@@ -40,7 +40,7 @@ export default function ExploreColorsPageClient() {
           </h1>
           <p className="text-sm font-semibold text-gray-600 mt-5">
             Browse 32 curated color scales with complete shade systems from 100
-            to 900. Copy HEX codes instantly for UI design, branding, and
+            to 1200. Copy HEX codes instantly for UI design, branding, and
             digital products — all free on PalettIQ.
           </p>
         </div>
@@ -50,7 +50,7 @@ export default function ExploreColorsPageClient() {
             value={inputValue}
             aria-label="Search colors by name"
             placeholder="Search colors by name..."
-            className="w-full h-10 rounded-full outline-none bg-white pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
+            className="w-full h-10 rounded-full outline-none bg-white pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200 focus:border-gray-300 transition-all"
             onChange={(e) => setInputValue(e.target.value)}
           />
           <LuSearch size={18} className="text-gray-900 absolute top-3 left-4" />

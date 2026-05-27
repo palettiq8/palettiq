@@ -129,7 +129,7 @@ export default function ExplorePalettesPageClient() {
                 value={inputValue}
                 aria-label="Search color palettes by name"
                 placeholder="Search color palettes by name..."
-                className="w-full h-10 rounded-full bg-white outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
+                className="w-full h-10 rounded-full bg-white outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200 focus:border-gray-300 transition-all"
                 onChange={(e) => setInputValue(e.target.value)}
               />
 
