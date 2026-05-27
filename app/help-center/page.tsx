@@ -35,7 +35,7 @@ function Accordion({
   return (
     <div className="w-full mt-10 max-xl:px-4">
       <h3 className="text-xs font-semibold text-gray-900">{title}</h3>
-      <div className="border border-gray-200 mt-4 rounded-xl overflow-hidden">
+      <div className="border border-gray-100 mt-4 rounded-xl overflow-hidden">
         {accordionData.map((item, index) => {
           const isOpen = activeIndex === index;
 
@@ -63,7 +63,7 @@ function Accordion({
               </button>
 
               <div
-                className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                className={`overflow-hidden bg-white transition-all duration-300 ease-in-out ${
                   isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
@@ -143,9 +143,9 @@ function Accordion({
 export default function page() {
   return (
     <CommonHeaderFooterSection>
-      <div className="w-full h-max max-w-230 mx-auto py-20 max-sm:py-10">
+      <div className="w-full h-max max-w-350 mx-auto py-20 max-sm:py-10">
         <h1 className="text-4xl font-bold text-gray-900 text-center">FAQ's</h1>
-        <div className="max-w-230">
+        <div className="w-full">
           <Accordion
             title="General Questions"
             accordionData={generalQuestions}

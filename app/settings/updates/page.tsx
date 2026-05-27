@@ -17,7 +17,7 @@ export default function page() {
         Manage how you receive product updates, new features, and important
         announcements.
       </p>
-      <div className="w-full mt-8 border border-gray-200 rounded-xl p-4">
+      <div className="w-full mt-8 rounded-xl">
         <h3 className="text-lg font-semibold text-gray-900">Product updates</h3>
         <input
           type="email"

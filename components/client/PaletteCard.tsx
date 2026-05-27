@@ -35,7 +35,7 @@ export default function PaletteCard({
 
   return (
     <article
-      className={`bg-gray-100 p-4 w-full border border-gray-200 rounded-xl`}
+      className={`bg-white p-4 w-full border border-gray-200 rounded-xl`}
     >
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-gray-900">{palette?.name}</h3>

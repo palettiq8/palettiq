@@ -12,6 +12,7 @@ import { VirtuosoGrid } from "react-virtuoso";
 import PaletteCard from "@/components/client/PaletteCard";
 import PaletteSkeleton from "@/components/server/PaletteSkeleton";
 import { useEffect, useState } from "react";
+import CircleLoader from "@/components/server/CircleLoader";
 
 export default function ExplorePalettesPageClient() {
   const paletteSearchQuery = useOtherStore((state) => state.paletteSearchQuery);
@@ -86,7 +87,7 @@ export default function ExplorePalettesPageClient() {
   }, [inputValue]);
 
   return (
-    <div className="w-full h-max">
+    <div className="w-full h-max graydotbg">
       <header className="w-full h-15 border-b border-gray-200 sticky top-0 z-30 bg-white/70 backdrop-blur-md">
         <HeaderSection />
       </header>
@@ -114,7 +115,7 @@ export default function ExplorePalettesPageClient() {
                       : [...filterPreferredColors, name];
                     setFilterPreferredColors(updated);
                   }}
-                  className={`w-max px-5 rounded-full h-10 ${isExist ? "bg-gray-900 text-gray-50 border-gray-900" : "bg-gray-100 text-gray-900 border-gray-200 hover:bg-gray-900 hover:text-gray-50"} text-sm font-semibold border hover:cursor-pointer transition-all ${["Brown", "Pink"].includes(name) && "max-[1760px]:hidden"} ${["Purple", "Violet"].includes(name) && "max-[1570px]:hidden"} ${["Indigo", "Blue", "Cyan"].includes(name) && "max-2xl:hidden"} ${["Green", "Lime", "Yellow"].includes(name) && "max-xl:hidden"} ${["Orange", "Red", "Gray"].includes(name) && "max-lg:hidden"} ${["White", "Black"].includes(name) && "max-sm:hidden"}`}
+                  className={`w-max px-5 rounded-full h-10 ${isExist ? "bg-gray-900 text-gray-50 border-gray-900" : "bg-white text-gray-900 border-gray-200 hover:bg-gray-900 hover:text-gray-50"} text-sm font-semibold border hover:cursor-pointer transition-all ${["Brown", "Pink"].includes(name) && "max-[1760px]:hidden"} ${["Purple", "Violet"].includes(name) && "max-[1570px]:hidden"} ${["Indigo", "Blue", "Cyan"].includes(name) && "max-2xl:hidden"} ${["Green", "Lime", "Yellow"].includes(name) && "max-xl:hidden"} ${["Orange", "Red", "Gray"].includes(name) && "max-lg:hidden"} ${["White", "Black"].includes(name) && "max-sm:hidden"}`}
                 >
                   {name}
                 </button>
@@ -128,7 +129,7 @@ export default function ExplorePalettesPageClient() {
                 value={inputValue}
                 aria-label="Search color palettes by name"
                 placeholder="Search color palettes by name..."
-                className="w-full h-10 rounded-full outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
+                className="w-full h-10 rounded-full bg-white outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
                 onChange={(e) => setInputValue(e.target.value)}
               />
 
@@ -150,43 +151,37 @@ export default function ExplorePalettesPageClient() {
         </div>
       </div>
       {isLoading || isFetching ? (
-        <div className="w-full grid grid-cols-4 gap-1 px-4 min-h-180 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
-          <PaletteSkeleton count={12} />
+        <div className="w-full h-120 grid place-content-center">
+          <CircleLoader content="Loading..." />
         </div>
       ) : (
         <>
           {data?.length === 0 ? (
             <div className="w-full h-120 grid place-content-center">
-              <div className="w-120 h-40 grid place-content-center rounded-xl border-2 border-dashed border-gray-200">
+              <div className="w-120 h-40 grid place-content-center rounded-xl border bg-white border-gray-100">
                 <span className="text-md font-semibold text-gray-600">
                   No color palettes found. Try a different search or filter.
                 </span>
               </div>
             </div>
           ) : (
-            <div className="w-full">
+            <div className="w-full px-4 pb-4">
               <VirtuosoGrid
                 useWindowScroll
                 totalCount={data?.length || 0}
-                listClassName="grid grid-cols-4 gap-1 px-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
+                listClassName="grid grid-cols-4 gap-1 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
                 itemContent={(index) => {
                   const palette = data?.[index];
                   return <PaletteCard palette={palette!} />;
-                }}
-                components={{
-                  Footer: () => {
-                    return (
-                      <div className="w-full border-t border-gray-200 mt-4">
-                        <FooterSection />
-                      </div>
-                    );
-                  },
                 }}
               />
             </div>
           )}
         </>
       )}
+      <div className="w-full border-t bg-white border-gray-200">
+        <FooterSection />
+      </div>
     </div>
   );
 }

@@ -76,7 +76,7 @@ export default function page() {
         Share your thoughts, report issues, or suggest improvements to help make
         Palettiq better.
       </p>
-      <div className="w-full mt-8 border border-gray-200 rounded-xl p-4">
+      <div className="w-full mt-8 rounded-xl">
         <div className="flex items-center justify-between w-full">
           <h3 className="text-lg max-sm:text-base font-semibold text-gray-900">
             Feedback
@@ -129,7 +129,9 @@ export default function page() {
           onChange={(e) => setFeedback(e.target.value)}
         />
         <div className="flex items-center justify-between w-full mt-3">
-          <h3 className="text-lg max-sm:text-base font-semibold text-gray-900">Report a bug/issue</h3>
+          <h3 className="text-lg max-sm:text-base font-semibold text-gray-900">
+            Report a bug/issue
+          </h3>
           <Button
             onClick={handleBugSubmit}
             disabled={!bug}

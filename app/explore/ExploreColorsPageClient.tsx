@@ -29,7 +29,7 @@ export default function ExploreColorsPageClient() {
   }, [inputValue]);
 
   return (
-    <div className="w-full h-max">
+    <div className="w-full h-max graydotbg">
       <header className="w-full h-15 border-b border-gray-200 sticky top-0 z-30 bg-white/70 backdrop-blur-md">
         <HeaderSection />
       </header>
@@ -50,10 +50,9 @@ export default function ExploreColorsPageClient() {
             value={inputValue}
             aria-label="Search colors by name"
             placeholder="Search colors by name..."
-            className="w-full h-10 rounded-full outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
+            className="w-full h-10 rounded-full outline-none bg-white pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
             onChange={(e) => setInputValue(e.target.value)}
           />
-
           <LuSearch size={18} className="text-gray-900 absolute top-3 left-4" />
         </div>
       </div>
@@ -65,18 +64,18 @@ export default function ExploreColorsPageClient() {
         <>
           {data?.length === 0 ? (
             <div className="w-full h-120 grid place-content-center">
-              <div className="w-120 h-40 grid place-content-center rounded-xl border-2 border-dashed border-gray-200">
+              <div className="w-120 h-40 grid place-content-center bg-white rounded-xl border border-gray-100">
                 <span className="text-md font-semibold text-gray-600">
                   No colors found. Try a different search term.
                 </span>
               </div>
             </div>
           ) : (
-            <div className="w-full">
+            <div className="w-full px-4 pb-4">
               <VirtuosoGrid
                 useWindowScroll
                 data={data}
-                listClassName="grid grid-cols-1 gap-1 px-4 max-lg:gap-4"
+                listClassName="grid grid-cols-1 gap-1 max-lg:gap-4"
                 itemContent={(index, color) => {
                   return (
                     <article
@@ -126,20 +125,14 @@ export default function ExploreColorsPageClient() {
                     </article>
                   );
                 }}
-                components={{
-                  Footer: () => {
-                    return (
-                      <div className="w-full border-t border-gray-200 mt-4">
-                        <FooterSection />
-                      </div>
-                    );
-                  },
-                }}
               />
             </div>
           )}
         </>
       )}
+      <div className="w-full border-t bg-white border-gray-200">
+        <FooterSection />
+      </div>
     </div>
   );
 }

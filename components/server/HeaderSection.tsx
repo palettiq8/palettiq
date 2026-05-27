@@ -7,7 +7,7 @@ import { LuBolt } from "react-icons/lu";
 
 export default function HeaderSection() {
   return (
-    <div className="max-w-380 max-2xl:px-4 h-full mx-auto flex items-center justify-between">
+    <div className="max-w-350 max-2xl:px-4 h-full mx-auto flex items-center justify-between">
       <div className="w-max h-max flex items-center gap-2">
         <Link
           href={"/"}

@@ -39,7 +39,7 @@ export default function page() {
         Control your overall app experience, including appearance, color
         preferences, and how the Studio behaves.
       </p>
-      <div className="w-full mt-8 border border-gray-200 rounded-xl p-4">
+      <div className="w-full mt-8 rounded-xl">
         <div className="w-full flex items-center justify-between gap-5">
           <div className="flex flex-col gap-1">
             <h3 className="text-lg font-semibold text-gray-900">

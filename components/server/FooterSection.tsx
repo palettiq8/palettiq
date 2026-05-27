@@ -57,7 +57,7 @@ export default function FooterSection() {
               priority={false}
             />
           </Link>
-          <p className="text-xs font-medium text-gray-500 mt-4">
+          <p className="max-w-35 leading-8 text-sm font-semibold text-gray-900 mt-4">
             A unified color design platform for designers. Generate beautiful
             color palettes, gradients, and more — all free.
           </p>

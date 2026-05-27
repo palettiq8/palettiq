@@ -3,12 +3,12 @@ import CommonHeaderFooterSection from "@/components/server/CommonHeaderFooterSec
 export default function page() {
   return (
     <CommonHeaderFooterSection>
-      <div className="w-full h-max max-w-300 mx-auto py-20 max-xl:px-4 max-sm:py-10">
+      <div className="w-full h-max max-w-350 mx-auto py-20 max-xl:px-4 max-sm:py-10">
         <h1 className="text-4xl font-bold text-gray-900 text-center">
           Terms & Conditions
         </h1>
-        <div className="max-w-300 mx-auto mt-20 max-sm:mt-10 p-10 max-xl:p-6 border border-gray-200 rounded-xl">
-          <h2 className="text-2xl font-bold text-gray-900">📘 Introduction</h2>
+        <div className="max-w-350 mx-auto mt-20 max-sm:mt-10 p-10 max-xl:p-6 border border-gray-200 rounded-xl bg-white">
+          <h2 className="text-2xl font-bold text-gray-900">Introduction</h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
               Welcome to <strong>PalettIQ</strong>. These Terms &amp; Conditions
@@ -65,7 +65,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            ✅ Acceptance of Terms
+            Acceptance of Terms
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -117,7 +117,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            🎯 Use of the Service
+            Use of the Service
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -172,7 +172,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            🚫 Prohibited Activities
+            Prohibited Activities
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -236,7 +236,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            🎨 User-Generated Content
+            User-Generated Content
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -301,7 +301,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            🌍 Public Content & Explore Section
+            Public Content & Explore Section
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -356,7 +356,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            📦 Intellectual Property
+            Intellectual Property
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -421,7 +421,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            ⚠️ No Warranty / Service Availability
+            No Warranty / Service Availability
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -476,7 +476,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            🛑 Limitation of Liability
+            Limitation of Liability
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -540,7 +540,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            🧠 No Account System
+            No Account System
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -603,7 +603,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            📤 Publishing & Sharing
+            Publishing & Sharing
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -648,7 +648,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            📥 Feedback & Feature Requests
+            Feedback & Feature Requests
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -709,7 +709,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            📧 Email Subscription
+            Email Subscription
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -765,7 +765,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            🔄 Changes to Terms
+            Changes to Terms
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -814,7 +814,7 @@ export default function page() {
             </div>
           </div>
           <h2 className="text-2xl font-bold text-gray-900 mt-10">
-            📞 Contact Information
+            Contact Information
           </h2>
           <div className="w-full mt-5 space-y-8">
             <p className="text-gray-800 leading-relaxed">
@@ -828,7 +828,7 @@ export default function page() {
                 1. Email Support
               </h3>
               <ul className="list-disc pl-5 text-gray-800 space-y-1">
-                <li>palettiq8@gmail.com</li>
+                <li>hello@palettiq.net</li>
                 <li>
                   Use this email for general inquiries, feedback, or support
                   requests

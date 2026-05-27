@@ -71,13 +71,13 @@ export default function BodySection() {
   };
 
   return (
-    <div className="w-full py-13 max-sm:py-8 px-4 dotbg">
+    <div className="w-full py-13 max-sm:py-8 px-4">
       <span className="text-sm max-sm:text-xs font-bold text-orange-500 bg-orange-50 border border-orange-200 rounded-full px-3.5 py-1.5 w-max mx-auto block">
         A Unified Color Design Platform for Designers
       </span>
       <h1 className="text-6xl font-black text-gray-900 text-center mt-8 max-sm:text-5xl leading-20 max-sm:leading-13">
-        <span className="text-indigo-500">Free Color Palette Generator</span>{" "}
-        <br /> for Designers & Digital Products.
+        <span className="text-indigo-500">You Control the Colors</span> <br />{" "}
+        We Generate the Perfect Palette
       </h1>
       <p className="max-w-148 text-lg max-md:text-base font-semibold text-gray-800 mt-8 mx-auto text-center max-sm:mt-5">
         Generate beautiful, accessible color palettes instantly with PalettIQ.
@@ -92,12 +92,12 @@ export default function BodySection() {
           </Button>
         </Link>
       </div>
-      <div className="max-w-380 mx-auto grid grid-cols-4 gap-1 mt-12 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
+      <div className="max-w-350 mx-auto grid grid-cols-4 gap-1 mt-12 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1">
         {features.map(({ title, desc, url, urlTitle, oneBgColor }, index) => {
           return (
             <div
               key={index}
-              className={`w-full rounded-xl h-60 bg-white border border-gray-100 p-6 flex flex-col items-start justify-between`}
+              className={`w-full rounded-xl h-60 bg-white border border-gray-200 p-6 flex flex-col items-start justify-between`}
             >
               <div className="w-full flex flex-col items-start gap-3">
                 <h3 className="text-lg font-bold text-gray-900">{title}</h3>
@@ -119,7 +119,7 @@ export default function BodySection() {
         })}
       </div>
 
-      <div className="max-w-380 mx-auto flex justify-between mt-15 bg-white border border-gray-100 rounded-xl px-6 py-8">
+      <div className="max-w-350 mx-auto flex justify-between mt-15 bg-white border border-gray-200 rounded-xl px-6 py-8">
         <div className="w-full flex flex-col items-start justify-between">
           <div className="w-full">
             <h2 className="text-3xl font-bold text-gray-900">

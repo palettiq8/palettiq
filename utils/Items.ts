@@ -169,7 +169,7 @@ export const footerSectionItems = [
   { id: 2, title: "Explore Services", data: footerItems.slice(7, 10) },
   { id: 3, title: "Resources", data: footerItems.slice(10, 13) },
   { id: 4, title: "Social Links", data: footerItems.slice(13, 18) },
-  { id: 5, title: "Legal", data: footerItems.slice(18, 20) },
+  { id: 5, title: "Legal", data: footerItems.slice(18, 21) },
 ];
 export const paletteMoreItems = [
   { id: 1, title: "Copy", icon: LuCopy },

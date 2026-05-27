@@ -60,7 +60,7 @@ export default function ExploreGradientsPageClient() {
   }, [inputValue]);
 
   return (
-    <div className="w-full h-max">
+    <div className="w-full h-max graydotbg">
       <header className="w-full h-15 border-b border-gray-200 sticky top-0 z-30 bg-white/70 backdrop-blur-md">
         <HeaderSection />
       </header>
@@ -77,7 +77,7 @@ export default function ExploreGradientsPageClient() {
               on PalettIQ.
             </p>
           </div>
-          <div className="flex items-center border border-gray-200 rounded-full p-1 max-lg:w-full">
+          <div className="flex items-center border border-gray-200 rounded-full p-1 max-lg:w-full bg-white">
             {gradientsTypes.map((_, index) => {
               return (
                 <button
@@ -106,20 +106,20 @@ export default function ExploreGradientsPageClient() {
                       : [...filterPreferredColors, name];
                     setFilterPreferredColors(updated);
                   }}
-                  className={`w-max px-5 rounded-full h-10 ${isExist ? "bg-gray-900 text-gray-50 border-gray-900" : "bg-gray-100 text-gray-900 border-gray-200 hover:bg-gray-900 hover:text-gray-50"} text-sm font-semibold border hover:cursor-pointer transition-all ${["Brown", "Pink"].includes(name) && "max-[1760px]:hidden"} ${["Purple", "Violet"].includes(name) && "max-[1570px]:hidden"} ${["Indigo", "Blue", "Cyan"].includes(name) && "max-2xl:hidden"} ${["Green", "Lime", "Yellow"].includes(name) && "max-xl:hidden"} ${["Orange", "Red", "Gray"].includes(name) && "max-lg:hidden"} ${["White", "Black"].includes(name) && "max-sm:hidden"}`}
+                  className={`w-max px-5 rounded-full h-10 ${isExist ? "bg-gray-900 text-gray-50 border-gray-900" : "bg-white text-gray-900 border-gray-200 hover:bg-gray-900 hover:text-gray-50"} text-sm font-semibold border hover:cursor-pointer transition-all ${["Brown", "Pink"].includes(name) && "max-[1760px]:hidden"} ${["Purple", "Violet"].includes(name) && "max-[1570px]:hidden"} ${["Indigo", "Blue", "Cyan"].includes(name) && "max-2xl:hidden"} ${["Green", "Lime", "Yellow"].includes(name) && "max-xl:hidden"} ${["Orange", "Red", "Gray"].includes(name) && "max-lg:hidden"} ${["White", "Black"].includes(name) && "max-sm:hidden"}`}
                 >
                   {name}
                 </button>
               );
             })}
           </div>
-          <div className="w-70 relative max-sm:w-full">
+          <div className="w-70 relative max-sm:w-full ">
             <input
               type="text"
               value={inputValue}
               aria-label="Search gradients by name"
               placeholder="Search gradients by name..."
-              className="w-full h-10 rounded-full outline-none pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
+              className="w-full h-10 rounded-full outline-none bg-white pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200"
               onChange={(e) => setInputValue(e.target.value)}
             />
 
@@ -138,18 +138,18 @@ export default function ExploreGradientsPageClient() {
         <>
           {data?.length === 0 ? (
             <div className="w-full h-120 grid place-content-center">
-              <div className="w-120 h-40 grid place-content-center rounded-xl border-2 border-dashed border-gray-200">
+              <div className="w-120 h-40 grid place-content-center bg-white rounded-xl border border-gray-100">
                 <span className="text-md font-semibold text-gray-600">
                   No gradients found. Try a different search or filter.
                 </span>
               </div>
             </div>
           ) : (
-            <div className="w-full">
+            <div className="w-full px-4 pb-4">
               <VirtuosoGrid
                 useWindowScroll
                 totalCount={data?.length || 0}
-                listClassName="grid grid-cols-4 gap-1 px-4 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
+                listClassName="grid grid-cols-4 gap-1 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
                 itemContent={(index) => {
                   const gradient = data?.[index];
                   const stops = gradient?.stops || [];
@@ -239,20 +239,14 @@ export default function ExploreGradientsPageClient() {
                     </article>
                   );
                 }}
-                components={{
-                  Footer: () => {
-                    return (
-                      <div className="w-full border-t border-gray-200 mt-4">
-                        <FooterSection />
-                      </div>
-                    );
-                  },
-                }}
               />
             </div>
           )}
         </>
       )}
+      <div className="w-full border-t bg-white border-gray-200">
+        <FooterSection />
+      </div>
     </div>
   );
 }
