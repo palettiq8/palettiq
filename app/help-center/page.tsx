@@ -35,7 +35,7 @@ function Accordion({
   return (
     <div className="w-full mt-10 max-xl:px-4">
       <h3 className="text-xs font-semibold text-gray-900">{title}</h3>
-      <div className="border border-gray-100 mt-4 rounded-xl overflow-hidden">
+      <div className="border border-gray-200 mt-4 rounded-xl overflow-hidden">
         {accordionData.map((item, index) => {
           const isOpen = activeIndex === index;
 
@@ -45,8 +45,8 @@ function Accordion({
               className={`border-b border-gray-200 last:border-none`}
             >
               <button
-                className={`w-full flex justify-between gap-5 p-5 cursor-pointer items-center hover:bg-gray-50 transition-colors text-gray-800 ${
-                  isOpen ? "bg-gray-50/50" : "bg-white"
+                className={`w-full flex justify-between gap-5 p-5 cursor-pointer items-center hover:bg-gray-100 transition-colors text-gray-800 ${
+                  isOpen ? "bg-gray-100" : "bg-white"
                 }`}
                 onClick={() => toggleAccordion(index)}
               >
