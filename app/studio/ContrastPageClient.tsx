@@ -228,7 +228,7 @@ export default function ContrastPageClient() {
   }, [fontSize]);
 
   const min = 8;
-  const max = 34;
+  const max = 24;
   const value = fontSize;
 
   const percent = ((value - min) / (max - min)) * 100;
@@ -395,7 +395,7 @@ export default function ContrastPageClient() {
         </div>
         <div className="w-120 h-full shrink-0 max-lg:w-full max-lg:h-[calc(100%-140px)]">
           <div className="w-full overflow-y-scroll noscrollbar pb-4 h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)]">
-            <div className="w-full p-4 grid grid-cols-2 gap-3 max-sm:grid-cols-1">
+            <div className="w-full px-4 pt-4 pb-1 grid grid-cols-2 gap-1 max-sm:grid-cols-1">
               {colors.map(({ id, title, color }) => (
                 <ContrastColorsWithPickerMenu
                   key={id}
@@ -404,7 +404,7 @@ export default function ContrastPageClient() {
                 />
               ))}
             </div>
-            <div className="w-full px-4 grid grid-cols-2 gap-3 max-sm:grid-cols-1">
+            <div className="w-full px-4 grid grid-cols-2 gap-1 max-sm:grid-cols-1">
               <div className="w-full flex items-center justify-between gap-2.5 border border-gray-200 rounded-lg px-2 h-12">
                 <h3 className="text-sm font-semibold text-gray-900">
                   Contrast Ratio
@@ -420,7 +420,7 @@ export default function ContrastPageClient() {
                 </span>
               </div>
             </div>
-            <div className="w-full p-4 grid grid-cols-1 gap-3">
+            <div className="w-full p-4 grid grid-cols-1 gap-1">
               {WCAG.map(({ id, title, textSize, isPass }) => {
                 return (
                   <div
@@ -460,14 +460,15 @@ export default function ContrastPageClient() {
                   <LuChevronDown
                     size={18}
                     aria-hidden="true"
-                    className={`transition-transform duration-300 ${isAdvancedSettings ? "rotate-180" : "rotate-0"
-                      }`}
+                    className={`transition-transform duration-300 ${
+                      isAdvancedSettings ? "rotate-180" : "rotate-0"
+                    }`}
                   />
                 </button>
                 <div
-                  className={`overflow-hidden transition-all rounded-b-lg bg-white duration-300 ease-in-out border-t border-gray-200 ${isAdvancedSettings ? "h-87 max-lg:h-15 max-sm:h-20" : "h-0 border-t-0"}`}
+                  className={`overflow-hidden transition-all rounded-b-lg bg-white duration-300 ease-in-out border-t border-gray-200 ${isAdvancedSettings ? "h-72 max-lg:h-15 max-sm:h-20" : "h-0 border-t-0"}`}
                 >
-                  <div className="w-full p-3 max-lg:hidden">
+                  <div className="w-full p-4 max-lg:hidden">
                     <div className="w-full flex items-center justify-between">
                       <p className="text-sm font-semibold text-gray-900">
                         Font Size
@@ -479,7 +480,7 @@ export default function ContrastPageClient() {
                     <input
                       type="range"
                       min={8}
-                      max={34}
+                      max={24}
                       value={fontSize}
                       aria-label="Adjust font size for contrast preview"
                       onChange={(e) => setFontSize(Number(e.target.value))}
@@ -494,26 +495,12 @@ export default function ContrastPageClient() {
                         )`,
                       }}
                     />
-                    <div className="w-full flex items-center justify-between mt-2">
-                      {["Small", "Normal", "Large", "Extra Large"].map(
-                        (_, index) => (
-                          <FontSizeComponent
-                            key={index}
-                            title={_}
-                            fontSize={fontSize}
-                            setFontSize={setFontSize}
-                            activeSizeTitle={activeSizeTitle}
-                            setActiveSizeTitle={setActiveSizeTitle}
-                          />
-                        ),
-                      )}
-                    </div>
                   </div>
-                  <div className="w-full p-3 max-lg:hidden">
+                  <div className="w-full px-4 max-lg:hidden">
                     <p className="text-sm font-semibold text-gray-900">
                       Font Weight
                     </p>
-                    <div className="mt-3 w-full gap-2 grid grid-cols-7">
+                    <div className="mt-3 w-full gap-1 grid grid-cols-7">
                       {[100, 200, 300, 400, 500, 600, 700, 800, 900].map(
                         (_, index) => {
                           return (

@@ -15,7 +15,7 @@ export default function StudioLeftMenuContainer() {
       className="w-full overflow-y-auto p-2 noscrollbar"
       style={{ height: "calc(100% - 128px)" }}
     >
-      <div className="w-full flex flex-col gap-2">
+      <div className="w-full flex flex-col gap-1">
         {features.map(({ id, title, desc, icon: Icon, url, bgColors }) => {
           const isPath = url === path;
           return (

@@ -523,7 +523,7 @@ export default function ExtractorPageClient() {
                   </h3>
                   <span className="text-indigo-600 text-sm font-semibold">{`(${extractorPickerCount} Colors)`}</span>
                 </div>
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-4">
                   <LuEye
                     role="button"
                     aria-label="Quick view extracted color formats"
@@ -614,7 +614,7 @@ export default function ExtractorPageClient() {
               <h3 className="text-md font-semibold text-gray-900">
                 Recommended Color Palettes from Image
               </h3>
-              <div className="w-full grid grid-cols-3 gap-3 mt-3 max-md:grid-cols-2">
+              <div className="w-full grid grid-cols-3 gap-1 mt-3 max-md:grid-cols-2">
                 {extractorRecommendedPalettes.map((palettes, index) => {
                   return (
                     <div

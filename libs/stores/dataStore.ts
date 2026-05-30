@@ -1033,9 +1033,10 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
       currentTemplateId: 0,
       setCurrentTemplateId: (id: number) => set({ currentTemplateId: id }),
       activeVisualizerMaximize: false,
-      setActiveVisualizerMaximize: () =>
+      setActiveVisualizerMaximize: (value?: boolean) =>
         set((state) => ({
-          activeVisualizerMaximize: !state.activeVisualizerMaximize,
+          activeVisualizerMaximize:
+            value === false ? value : !state.activeVisualizerMaximize,
         })),
     }),
     {

@@ -157,7 +157,7 @@ export default function GradientCustomizedItem() {
       </div>
       <div className="w-full flex flex-col items-start gap-3">
         <h3 className="text-md font-semibold text-gray-900">Container Size</h3>
-        <div className="w-full grid grid-cols-7 max-sm:grid-cols-4 gap-2">
+        <div className="w-full grid grid-cols-7 max-sm:grid-cols-4 gap-1">
           {gradientContainerSizes.map((item, index) => {
             const isMatch = gradientContainerSize.content === item.content;
             return (

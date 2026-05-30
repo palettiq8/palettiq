@@ -304,7 +304,7 @@ export interface VisualizerStateTypes {
   currentTemplateId: number;
   setCurrentTemplateId: (id: number) => void;
   activeVisualizerMaximize: boolean;
-  setActiveVisualizerMaximize: () => void;
+  setActiveVisualizerMaximize: (value?: boolean) => void;
 }
 export interface ShadowStateTypes {
   activeShadowTab: string;

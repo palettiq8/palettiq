@@ -149,7 +149,7 @@ export default function VisualizerPageClient() {
       const key = e.key.toLowerCase();
       if (key === "escape") {
         e.preventDefault();
-        setActiveVisualizerMaximize();
+        setActiveVisualizerMaximize(false);
       }
       if (key === "h") {
         e.preventDefault();
@@ -251,7 +251,7 @@ export default function VisualizerPageClient() {
           </div>
         </div>
         <div
-          className={`w-1/4 h-full border-l border-gray-200 p-4 overflow-y-auto noscrollbar ${activeTemplateMaximize && "w-full border-none"} max-lg:hidden`}
+          className={`w-1/4 h-full border-l border-gray-200 p-4 overflow-y-auto noscrollbar ${activeTemplateMaximize && "w-full border-none graydotbg"} max-lg:hidden`}
         >
           <div className="w-full flex items-center justify-between">
             <h3 className="text-md font-semibold text-gray-900">
@@ -274,7 +274,7 @@ export default function VisualizerPageClient() {
             </Button>
           </div>
           <div
-            className={`w-full mt-3 grid grid-cols-1 gap-4 ${activeTemplateMaximize && "grid-cols-3"}`}
+            className={`w-full mt-3 grid grid-cols-1 gap-1 ${activeTemplateMaximize && "grid-cols-3"}`}
           >
             {visualizers.map((Component, index) => {
               return (
@@ -286,7 +286,7 @@ export default function VisualizerPageClient() {
                     e.preventDefault();
                     setCurrentTemplateId(index);
                   }}
-                  className="bg-gray-100 p-3 flex items-center justify-center rounded-lg"
+                  className={`${activeTemplateMaximize ? "bg-white" : "bg-gray-100"} border border-gray-200 p-3 flex items-center justify-center rounded-lg`}
                 >
                   <Component palette={generatedVisualizerPalette} />
                 </div>
@@ -368,8 +368,8 @@ export default function VisualizerPageClient() {
                     role="button"
                     aria-label={`Select color ${_.color.toUpperCase()} in visualizer palette`}
                     className={`w-full h-10 cursor-pointer relative grid place-content-center
-                      ${isFirst ? "rounded-l-lg" : ""}
-                      ${isLast ? "rounded-r-lg" : ""}
+                      ${isFirst ? "rounded-l-full" : ""}
+                      ${isLast ? "rounded-r-full" : ""}
                     `}
                     style={{ backgroundColor: _.color }}
                   >
@@ -402,7 +402,7 @@ export default function VisualizerPageClient() {
                   return (
                     <div
                       key={index}
-                      className="w-full group cursor-pointer relative grid place-content-center h-10 first:rounded-l-lg last:rounded-r-lg overflow-hidden"
+                      className="w-full group cursor-pointer relative grid place-content-center h-10 first:rounded-l-full last:rounded-r-full overflow-hidden"
                       onClick={() => lockUnlockHandler(index)}
                     >
                       <div
@@ -411,12 +411,12 @@ export default function VisualizerPageClient() {
                       />
                       <button
                         aria-label={`${_.isLocked ? "Unlock" : "Lock"} color ${_.color.toUpperCase()} in palette`}
-                        className={`relative z-10 text-xs text-gray-900 cursor-pointer lg:invisible ${_.isLocked ? "visible" : "group-hover:visible"}`}
+                        className={`relative z-10 text-xs text-gray-900 cursor-pointer invisible ${_.isLocked ? "visible" : "group-hover:visible"}`}
                       >
                         {_.isLocked ? (
-                          <LuLock size={13} aria-hidden="true" />
+                          <LuLock size={14} aria-hidden="true" />
                         ) : (
-                          <LuLockOpen size={13} aria-hidden="true" />
+                          <LuLockOpen size={14} aria-hidden="true" />
                         )}
                       </button>
                     </div>
