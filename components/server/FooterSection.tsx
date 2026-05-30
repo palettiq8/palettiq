@@ -2,7 +2,7 @@ import { footerSectionItems } from "@/utils/Items";
 import { FooterItem } from "@/utils/Types";
 import Image from "next/image";
 import Link from "next/link";
-import { LuInstagram, LuLinkedin } from "react-icons/lu";
+import { LuFacebook, LuInstagram, LuLinkedin } from "react-icons/lu";
 import { Button } from "../Button";
 import SupportEmail from "../client/SupportEmail";
 import { FaXTwitter } from "react-icons/fa6";
@@ -108,6 +108,14 @@ export default function FooterSection() {
             className={SocialIconStyle}
           >
             <LuLinkedin size={22} />
+          </Link>
+          <Link
+            href="https://www.facebook.com/profile.php?id=61589009866760/"
+            target="_blank"
+            aria-label="Follow PalettIQ on Facebook"
+            className={SocialIconStyle}
+          >
+            <LuFacebook size={22} />
           </Link>
         </div>
       </div>
