@@ -224,6 +224,9 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
             ]),
           ),
         })),
+      paletteStyle: null,
+      setPaletteStyle: (style: string | null) =>
+        set((state) => ({ paletteStyle: state.paletteStyle ? null : style })),
     }),
     {
       name: "_generator_storage",
@@ -234,6 +237,7 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
         preferredItems: state.preferredItems,
         generatedPalette: state.generatedPalette,
         hslControlPanelFamilies: state.hslControlPanelFamilies,
+        paletteStyle: state.paletteStyle,
       }),
     },
   ),

@@ -171,6 +171,8 @@ export interface GeneratorStateTypes {
     value: number,
   ) => void;
   resetHslControlPanelFamilies: () => void;
+  paletteStyle: string | null;
+  setPaletteStyle: (style: string | null) => void;
 }
 export interface PickerStateTypes {
   defaultColorPreference: boolean;

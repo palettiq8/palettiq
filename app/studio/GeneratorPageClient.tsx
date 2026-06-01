@@ -24,6 +24,7 @@ import { PaletteColor } from "@/utils/Types";
 import { useSearchParams } from "next/navigation";
 import CircleLoader from "@/components/server/CircleLoader";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
+import PaletteStylesMenu from "@/components/client/PaletteStylesMenu";
 
 function StudioPage() {
   const generatorMaximize = useUiStore((state) => state.generatorMaximize);
@@ -172,7 +173,8 @@ function StudioPage() {
             <StudioResponsiveMenuIcon />
           </div>
           <h2 className="text-xl font-semibold text-gray-900">
-            Color Palette Generator <span className="max-[1400px]:hidden">~ </span>
+            Color Palette Generator{" "}
+            <span className="max-[1400px]:hidden">~ </span>
             <span className="text-sm font-medium text-gray-800 max-[1400px]:hidden">
               Press Enter to generate!
             </span>
@@ -211,10 +213,11 @@ function StudioPage() {
         </div>
       </div>
       <div
-        className={`w-full ${generatorMaximize
-          ? "absolute top-0 left-0 w-full h-screen z-50"
-          : "h-[calc(100%-128px)] max-lg:h-[calc(100%-224px)] max-lg:p-4"
-          }`}
+        className={`w-full ${
+          generatorMaximize
+            ? "absolute top-0 left-0 w-full h-screen z-50"
+            : "h-[calc(100%-128px)] max-lg:h-[calc(100%-224px)] max-lg:p-4"
+        }`}
       >
         <DndContext
           onDragEnd={handleDragEnd}
@@ -257,6 +260,7 @@ function StudioPage() {
         <div className="max-lg:w-full flex items-center gap-2 max-lg:flex-col">
           <ColorPreferencesMenu from="Studio" />
           <ColorCountMenu from="Generator" />
+          <PaletteStylesMenu />
           <button
             aria-label="Open HSL Control Panel to adjust hue, saturation, and lightness"
             onClick={() => toggleHslControlPanelModel()}
