@@ -82,6 +82,7 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
                 prev?.color ?? "#000000",
                 state.preferredItems,
                 state.hslControlPanelFamilies,
+                state.paletteStyle,
               );
 
               return {
@@ -226,7 +227,9 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
         })),
       paletteStyle: null,
       setPaletteStyle: (style: string | null) =>
-        set((state) => ({ paletteStyle: state.paletteStyle ? null : style })),
+        set((state) => ({
+          paletteStyle: state.paletteStyle === style ? null : style,
+        })),
     }),
     {
       name: "_generator_storage",

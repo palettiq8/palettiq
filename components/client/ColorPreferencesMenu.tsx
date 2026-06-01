@@ -172,7 +172,9 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
             className="bg-white shadow-lg rounded-xl z-40 absolute bottom-12 left-0 w-full"
           >
             <div className="w-full p-4.5 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-gray-900">Default</h3>
+              <h3 className="text-sm font-semibold text-gray-900">
+                All colors
+              </h3>
               <ToggleButton isTrue={isTrue} setIsTrue={setIsTrue} />
             </div>
             <div className="w-full h-max flex flex-col p-2.5 max-h-100 overflow-y-auto noscrollbar">

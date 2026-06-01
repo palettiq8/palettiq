@@ -9,7 +9,7 @@ import {
   ShadowLayer,
   TextShadowLayer,
 } from "./Types";
-import { colorFamilies } from "./Items";
+import { colorFamilies, paletteStylesSL } from "./Items";
 import { colord, extend } from "colord";
 import a11yPlugin from "colord/plugins/a11y";
 import LZString from "lz-string";
@@ -72,50 +72,15 @@ export const generateRandomColor = (): string => {
   return `#${randomColor}`.toUpperCase();
 };
 
-// export const generateColorForFamily = (familyName: string): string => {
-//   const family = colorFamilies[familyName];
-//   if (!family) return generateRandomColor();
-
-//   const [h1, h2] = family.hue;
-
-//   const hue =
-//     h1 > h2
-//       ? Math.random() < 0.5
-//         ? randomBetween(h1, 360)
-//         : randomBetween(0, h2)
-//       : randomBetween(h1, h2);
-
-//   const sat = randomBetween(family.sat[0], family.sat[1]);
-//   const light = randomBetween(family.light[0], family.light[1]);
-
-//   return hslToHex(hue, sat, light);
-// };
-
-// export const generateColor = (
-//   isLocked: boolean,
-//   currentColor: string,
-//   chosenColors: string[],
-// ): string => {
-//   if (isLocked) return currentColor;
-
-//   if (chosenColors.length === 0) {
-//     return generateRandomColor();
-//   }
-
-//   const randomFamily =
-//     chosenColors[Math.floor(Math.random() * chosenColors.length)];
-//   return generateColorForFamily(randomFamily);
-// };
-
 export const generateColorForFamily = (
   familyName: string,
   customFamilies?: Record<string, ColorFamily>,
+  styleSL?: { sat: [number, number]; light: [number, number] },
 ): string => {
   const family = customFamilies?.[familyName] ?? colorFamilies[familyName];
   if (!family) return generateRandomColor();
 
   const [h1, h2] = family.hue;
-
   const hue =
     h1 > h2
       ? Math.random() < 0.5
@@ -123,8 +88,13 @@ export const generateColorForFamily = (
         : randomBetween(0, h2)
       : randomBetween(h1, h2);
 
-  const sat = randomBetween(family.sat[0], family.sat[1]);
-  const light = randomBetween(family.light[0], family.light[1]);
+  const sat = styleSL
+    ? randomBetween(styleSL.sat[0], styleSL.sat[1])
+    : randomBetween(family.sat[0], family.sat[1]);
+
+  const light = styleSL
+    ? randomBetween(styleSL.light[0], styleSL.light[1])
+    : randomBetween(family.light[0], family.light[1]);
 
   return hslToHex(hue, sat, light);
 };
@@ -134,16 +104,25 @@ export const generateColor = (
   currentColor: string,
   chosenColors: string[],
   customFamilies?: Record<string, ColorFamily>,
+  paletteStyle?: string | null,
 ): string => {
   if (isLocked) return currentColor;
 
+  const styleSL = paletteStyle ? paletteStylesSL[paletteStyle] : undefined;
+
   if (chosenColors.length === 0) {
+    if (styleSL) {
+      const allFamilies = Object.keys(colorFamilies);
+      const randomFamily =
+        allFamilies[Math.floor(Math.random() * allFamilies.length)];
+      return generateColorForFamily(randomFamily, customFamilies, styleSL);
+    }
     return generateRandomColor();
   }
 
   const randomFamily =
     chosenColors[Math.floor(Math.random() * chosenColors.length)];
-  return generateColorForFamily(randomFamily, customFamilies);
+  return generateColorForFamily(randomFamily, customFamilies, styleSL);
 };
 
 export const copyTextHandlerOnly = async (content: string) => {
@@ -459,11 +438,11 @@ export const generateSVG = (colors: string[]) => {
 
   return `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
 ${colors
-      .map(
-        (c, i) =>
-          `  <rect x="${i * segment}" y="0" width="${segment}" height="${height}" fill="${c}" />`,
-      )
-      .join("\n")}
+  .map(
+    (c, i) =>
+      `  <rect x="${i * segment}" y="0" width="${segment}" height="${height}" fill="${c}" />`,
+  )
+  .join("\n")}
 </svg>`;
 };
 
@@ -895,13 +874,15 @@ export const exportShadowSVG = (
       if (isTextShadow) {
         const t = l as TextShadowLayer;
 
-        return `<feDropShadow dx="${t.offsetX}" dy="${t.offsetY}" stdDeviation="${t.blur / 2
-          }" flood-color="${t.color}" />`;
+        return `<feDropShadow dx="${t.offsetX}" dy="${t.offsetY}" stdDeviation="${
+          t.blur / 2
+        }" flood-color="${t.color}" />`;
       } else {
         const b = l as ShadowLayer;
 
-        return `<feDropShadow dx="${b.offsetX}" dy="${b.offsetY}" stdDeviation="${b.blur / 2
-          }" flood-color="${b.color}" />`;
+        return `<feDropShadow dx="${b.offsetX}" dy="${b.offsetY}" stdDeviation="${
+          b.blur / 2
+        }" flood-color="${b.color}" />`;
       }
     })
     .join("\n");
