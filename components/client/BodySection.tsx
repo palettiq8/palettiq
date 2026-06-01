@@ -88,7 +88,7 @@ export default function BodySection() {
       <div className="w-full flex items-center justify-center gap-3 mt-8">
         <Link href={"/studio"}>
           <Button variant={"primary"} size={"lg"}>
-            Generate Color Palette Free
+            Get Started Free →
           </Button>
         </Link>
       </div>

@@ -65,7 +65,7 @@ export const features = [
   },
   {
     id: 2,
-    title: "Palette Visualizer",
+    title: "Color Palette Visualizer",
     urlTitle: "Visualize color palette",
     icon: LuActivity,
     desc: "Preview your color palette in real UI components before shipping. See exactly how your colors work in context.",
@@ -106,7 +106,7 @@ export const features = [
   },
   {
     id: 6,
-    title: "Color Picker",
+    title: "Online Color Picker",
     urlTitle: "Pick color online free",
     icon: LuPencil,
     desc: "Pick, adjust, and preview precise colors for your design. Export HEX, RGB, and HSL values instantly.",
