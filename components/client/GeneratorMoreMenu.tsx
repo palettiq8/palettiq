@@ -104,7 +104,7 @@ export default function GeneratorMoreMenu() {
         };
       });
       addGradientStop(stops);
-      window.open("/studio/gradient", "_blank");
+      window.open("/studio/css-gradient-generator", "_blank");
     } else if (title === "Open on screen") {
       toggleGeneratorMaximize();
     } else if (title === "Add to community") {
@@ -112,7 +112,7 @@ export default function GeneratorMoreMenu() {
       setAddToCommunityPalette(generatedPalette);
     } else if (title === "Visualize the palette") {
       setGeneratedVisualizerPalette(generatedPalette);
-      window.open("/studio/visualizer", "_blank");
+      window.open("/studio/color-palette-visualizer", "_blank");
     } else if (title === "Export") {
       toggleExportModel();
       setExportFrom("Palette");

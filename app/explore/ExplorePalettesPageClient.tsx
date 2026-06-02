@@ -13,6 +13,7 @@ import PaletteCard from "@/components/client/PaletteCard";
 import PaletteSkeleton from "@/components/server/PaletteSkeleton";
 import { useEffect, useState } from "react";
 import CircleLoader from "@/components/server/CircleLoader";
+import Link from "next/link";
 
 export default function ExplorePalettesPageClient() {
   const paletteSearchQuery = useOtherStore((state) => state.paletteSearchQuery);
@@ -175,6 +176,24 @@ export default function ExplorePalettesPageClient() {
                   return <PaletteCard palette={palette!} />;
                 }}
               />
+              <div className="max-w-lg mx-auto mt-10 text-center">
+                <div className="inline-flex flex-col items-center gap-4 p-6 border border-gray-200 rounded-2xl bg-white">
+                  <span className="text-4xl">😒</span>
+                  <div className="flex flex-col items-center gap-1">
+                    <p className="text-sm font-semibold text-gray-700">
+                      Still not satisfied?
+                    </p>
+                    <p className="text-xs text-gray-400 font-medium max-w-50">
+                      Generate palettes tailored to your brand, UI, and vision.
+                    </p>
+                  </div>
+                  <Link href="/studio" target="_blank">
+                    <Button variant="primary" size="md">
+                      Generate New Palette →
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           )}
         </>

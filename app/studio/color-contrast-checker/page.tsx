@@ -15,12 +15,14 @@ export const metadata: Metadata = {
     "accessible color combinations",
     "color accessibility tool",
   ],
-  alternates: { canonical: "https://palettiq.net/studio/contrast" },
+  alternates: {
+    canonical: "https://palettiq.net/studio/color-contrast-checker",
+  },
   openGraph: {
     title: "Color Contrast Checker — WCAG AA & AAA Free | PalettIQ",
     description:
       "Check color contrast ratios for WCAG AA and AAA compliance instantly. Ensure readable text for all users. Free on PalettIQ.",
-    url: "https://palettiq.net/studio/contrast",
+    url: "https://palettiq.net/studio/color-contrast-checker",
     images: [
       {
         url: "/banner.webp",

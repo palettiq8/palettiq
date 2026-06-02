@@ -13,13 +13,7 @@ import useUiStore from "@/libs/stores/uiStore";
 import { REDOUNDOCOMMONSTYLE } from "@/utils/styles/Classes";
 import { colord, extend } from "colord";
 import a11yPlugin from "colord/plugins/a11y";
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BiExport } from "react-icons/bi";
 import {
   LuArrowLeft,
@@ -31,54 +25,10 @@ import {
 
 extend([a11yPlugin]);
 
-const FontSizeComponent = ({
-  title,
-  fontSize,
-  setFontSize,
-  activeSizeTitle,
-  setActiveSizeTitle,
-}: {
-  title: string;
-  fontSize: number;
-  setFontSize: Dispatch<SetStateAction<number>>;
-  activeSizeTitle: string;
-  setActiveSizeTitle: Dispatch<SetStateAction<string>>;
-}) => {
-  const handler = () => {
-    setActiveSizeTitle(title);
-    switch (title) {
-      case "Small":
-        setFontSize(8);
-        break;
-      case "Normal":
-        setFontSize(16);
-        break;
-      case "Large":
-        setFontSize(24);
-        break;
-      default:
-        setFontSize(34);
-        break;
-    }
-  };
-
-  return (
-    <button
-      aria-label={`Set font size to ${title}`}
-      aria-pressed={title === activeSizeTitle}
-      className={`px-4 py-2 rounded-full text-sm font-semibold ${title === activeSizeTitle ? "bg-gray-900 text-gray-50" : "bg-gray-100 text-gray-900 hover:bg-gray-200"} transition-all cursor-pointer`}
-      onClick={handler}
-    >
-      {title}
-    </button>
-  );
-};
-
 export default function ContrastPageClient() {
   const [isAdvancedSettings, setIsAdvancedSettings] = useState(false);
   const [fontSize, setFontSize] = useState(16);
   const [fontWeight, setFontWeight] = useState(600);
-  const [activeSizeTitle, setActiveSizeTitle] = useState("Normal");
   const activeContrast = useContrastStore((state) => state.activeContrast);
   const complementaryMode = useContrastStore(
     (state) => state.complementaryMode,
@@ -214,18 +164,6 @@ export default function ContrastPageClient() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
-
-  useEffect(() => {
-    if (fontSize >= 8 && fontSize <= 15) {
-      setActiveSizeTitle("Small");
-    } else if (fontSize >= 16 && fontSize <= 23) {
-      setActiveSizeTitle("Normal");
-    } else if (fontSize >= 24 && fontSize <= 30) {
-      setActiveSizeTitle("Large");
-    } else {
-      setActiveSizeTitle("Extra Large");
-    }
-  }, [fontSize]);
 
   const min = 8;
   const max = 24;

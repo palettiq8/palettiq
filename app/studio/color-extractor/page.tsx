@@ -14,12 +14,12 @@ export const metadata: Metadata = {
     "brand color extractor",
     "photo color picker",
   ],
-  alternates: { canonical: "https://palettiq.net/studio/extractor" },
+  alternates: { canonical: "https://palettiq.net/studio/color-extractor" },
   openGraph: {
     title: "Color Extractor — Extract Colors from Any Image Free | PalettIQ",
     description:
       "Upload any image and extract its dominant color palette instantly. Get HEX, RGB, and HSL codes free on PalettIQ.",
-    url: "https://palettiq.net/studio/extractor",
+    url: "https://palettiq.net/studio/color-extractor",
     images: [
       {
         url: "/banner.webp",

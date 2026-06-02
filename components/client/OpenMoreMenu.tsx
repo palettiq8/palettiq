@@ -170,7 +170,7 @@ export default function OpenMoreMenu({ from }: { from: string }) {
             },
           );
           addGradientStop(stops);
-          window.open("/studio/gradient", "_blank");
+          window.open("/studio/css-gradient-generator", "_blank");
         },
       },
     ],

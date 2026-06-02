@@ -76,11 +76,13 @@ export default function StudioLeftFooterMenu({ from }: { from: string }) {
                 <Link
                   key={id}
                   onClick={() => {
+                    toggleStudioLeftFooterMenu();
                     if (from === "Responsive") {
                       toggleStudioLeftMenuModel();
                     }
                   }}
                   href={url}
+                  target="_blank"
                   className={COMMONSTYLE}
                 >
                   <Icon size={16} />

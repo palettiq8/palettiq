@@ -135,7 +135,7 @@ export default function GradientMoreMenu({
                         toggleGradientViewDetailsModel();
                       } else if (title === "Open on gradient") {
                         addGradientStop(gradient?.stops);
-                        window.open("/studio/gradient", "_blank");
+                        window.open("/studio/css-gradient-generator", "_blank");
                       } else if (title === "Open on generator") {
                         const palette = gradient?.stops?.map((stop, index) => ({
                           id: `${index + 1}`,

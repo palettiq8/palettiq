@@ -838,16 +838,6 @@ export default function page() {
 
             <div className="space-y-3">
               <h3 className="text-lg font-semibold text-gray-900">
-                2. Phone Support
-              </h3>
-              <ul className="list-disc pl-5 text-gray-800 space-y-1">
-                <li>+880 134 535 0622</li>
-                <li>Available for direct support or urgent inquiries</li>
-              </ul>
-            </div>
-
-            <div className="space-y-3">
-              <h3 className="text-lg font-semibold text-gray-900">
                 3. Response Policy
               </h3>
               <p className="text-gray-800 leading-relaxed">

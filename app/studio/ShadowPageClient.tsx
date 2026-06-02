@@ -156,7 +156,7 @@ export default function ShadowPageClient() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState(280);
 
-  const isMaxLg = useIsMaxLg(); // আগের hook টা
+  const isMaxLg = useIsMaxLg();
 
   useEffect(() => {
     if (!containerRef.current) return;

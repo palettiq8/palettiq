@@ -15,12 +15,14 @@ export const metadata: Metadata = {
     "gradient color picker",
     "gradient CSS code",
   ],
-  alternates: { canonical: "https://palettiq.net/studio/gradient" },
+  alternates: {
+    canonical: "https://palettiq.net/studio/css-gradient-generator",
+  },
   openGraph: {
     title: "CSS Gradient Generator — Linear, Radial & Conic Free | PalettIQ",
     description:
       "Create beautiful CSS gradients instantly. Design linear, radial, and conic gradients — copy CSS code free on PalettIQ.",
-    url: "https://palettiq.net/studio/gradient",
+    url: "https://palettiq.net/studio/css-gradient-generator",
     images: [
       {
         url: "/banner.webp",

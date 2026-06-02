@@ -71,7 +71,7 @@ export const features = [
     desc: "Preview your color palette in real UI components before shipping. See exactly how your colors work in context.",
     bgColors: ["from-amber-600", "to-amber-500"],
     oneBgColor: "bg-amber-300",
-    url: "/studio/visualizer",
+    url: "/studio/color-palette-visualizer",
   },
 
   {
@@ -82,7 +82,7 @@ export const features = [
     desc: "Create beautiful CSS gradients instantly. Copy ready-to-use gradient code for your web and UI projects.",
     bgColors: ["from-lime-600", "to-lime-500"],
     oneBgColor: "bg-lime-300",
-    url: "/studio/gradient",
+    url: "/studio/css-gradient-generator",
   },
   {
     id: 4,
@@ -92,7 +92,7 @@ export const features = [
     desc: "Extract dominant color palettes from any image instantly. Perfect for brand matching and mood board creation.",
     bgColors: ["from-green-600", "to-green-500"],
     oneBgColor: "bg-green-300",
-    url: "/studio/extractor",
+    url: "/studio/color-extractor",
   },
   {
     id: 5,
@@ -102,7 +102,7 @@ export const features = [
     desc: "Check WCAG color contrast ratios instantly. Ensure your designs meet accessibility standards for readability.",
     bgColors: ["from-indigo-600", "to-indigo-500"],
     oneBgColor: "bg-indigo-300",
-    url: "/studio/contrast",
+    url: "/studio/color-contrast-checker",
   },
   {
     id: 6,
@@ -112,7 +112,7 @@ export const features = [
     desc: "Pick, adjust, and preview precise colors for your design. Export HEX, RGB, and HSL values instantly.",
     bgColors: ["from-violet-600", "to-violet-500"],
     oneBgColor: "bg-violet-300",
-    url: "/studio/picker",
+    url: "/studio/online-color-picker",
   },
   {
     id: 7,
@@ -122,17 +122,29 @@ export const features = [
     desc: "Create realistic, customizable CSS box shadows that add depth and elevate your UI designs.",
     bgColors: ["from-purple-600", "to-purple-500"],
     oneBgColor: "bg-purple-300",
-    url: "/studio/shadow",
+    url: "/studio/css-shadow-generator",
   },
 ];
 export const footerItems = [
-  { id: 1, title: "Palette generator", url: "/studio" },
-  { id: 2, title: "Color picker", url: "/studio/picker" },
-  { id: 3, title: "Gradient generator", url: "/studio/gradient" },
-  { id: 4, title: "Color extractor", url: "/studio/extractor" },
-  { id: 5, title: "Contrast checker", url: "/studio/contrast" },
-  { id: 6, title: "Palette visualizer", url: "/studio/visualizer" },
-  { id: 7, title: "Shadow generator", url: "/studio/shadow" },
+  { id: 1, title: "Color palette generator", url: "/studio" },
+  { id: 2, title: "Online color picker", url: "/studio/online-color-picker" },
+  {
+    id: 3,
+    title: "CSS gradient generator",
+    url: "/studio/css-gradient-generator",
+  },
+  { id: 4, title: "Color extractor", url: "/studio/color-extractor" },
+  {
+    id: 5,
+    title: "Color contrast checker",
+    url: "/studio/color-contrast-checker",
+  },
+  {
+    id: 6,
+    title: "Color palette visualizer",
+    url: "/studio/color-palette-visualizer",
+  },
+  { id: 7, title: "CSS shadow generator", url: "/studio/css-shadow-generator" },
   { id: 8, title: "Explore palettes", url: "/explore/palettes" },
   { id: 9, title: "Explore colors", url: "/explore/colors" },
   { id: 10, title: "Explore gradients", url: "/explore/gradients" },

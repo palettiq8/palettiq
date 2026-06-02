@@ -457,7 +457,7 @@ export const generateShareLink = (colors: string[], from: string) => {
     link = `${window.location.origin}/studio?colors=${encoded}`;
   }
   if (from === "Color") {
-    link = `${window.location.origin}/studio/picker?color=${encoded}`;
+    link = `${window.location.origin}/studio/online-color-picker?color=${encoded}`;
   }
   return link;
 };
@@ -927,7 +927,7 @@ export const generateGradientLink = (
   const json = JSON.stringify(payload);
   const compressed = LZString.compressToEncodedURIComponent(json);
 
-  return `${window.location.origin}/studio/gradient?g=${compressed}`;
+  return `${window.location.origin}/studio/css-gradient-generator?g=${compressed}`;
 };
 
 export const parseGradientFromURL = () => {

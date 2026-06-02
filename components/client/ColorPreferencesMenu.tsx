@@ -235,13 +235,6 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
                 );
               })}
             </div>
-            {from === "Contrast" && (
-              <div className="w-full p-4 border-t border-gray-200">
-                <p className="text-sm font-semibold text-gray-900">
-                  Select one item only.
-                </p>
-              </div>
-            )}
           </motion.menu>
         )}
       </AnimatePresence>

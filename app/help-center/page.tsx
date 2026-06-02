@@ -12,7 +12,7 @@ import {
 } from "@/utils/Items";
 import Link from "next/link";
 import { useState } from "react";
-import { LuArrowUpRight, LuBolt, LuChevronDown } from "react-icons/lu";
+import { LuArrowUpRight, LuChevronDown } from "react-icons/lu";
 
 export interface AccordionDataType {
   title: string;
@@ -74,7 +74,7 @@ function Accordion({
                   <div className="w-full p-5 flex items-center justify-start">
                     <Link href={"/studio"} target="_blank">
                       <Button variant={"outline"} size={"md"}>
-                        <span>Generator</span>
+                        <span>Color Palette Generator</span>
                         <LuArrowUpRight size={16} />
                       </Button>
                     </Link>
@@ -83,9 +83,9 @@ function Accordion({
                 {item.title ===
                   "Can I import colors from an image or external source?" && (
                   <div className="w-full p-5 flex items-center justify-start">
-                    <Link href={"/studio/extractor"} target="_blank">
+                    <Link href={"/studio/color-extractor"} target="_blank">
                       <Button variant={"outline"} size={"md"}>
-                        <span>Extractor</span>
+                        <span>Color Extractor</span>
                         <LuArrowUpRight size={16} />
                       </Button>
                     </Link>

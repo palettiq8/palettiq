@@ -289,8 +289,10 @@ export default function GradientPageClient() {
         <div className="w-full max-lg:h-35 border-r graydotbg rounded-bl-xl max-lg:rounded-none max-lg:border-r-0 max-lg:border-b border-gray-200 p-4 flex items-center justify-center">
           <div
             style={{
-              width: gradientContainerSize.width,
-              height: gradientContainerSize.height,
+              width: !isMaximizeGradient ? gradientContainerSize.width : "100%",
+              height: !isMaximizeGradient
+                ? gradientContainerSize.height
+                : "100%",
               borderRadius: !isMaximizeGradient
                 ? `${gradientCornerRadius}px`
                 : "0px",

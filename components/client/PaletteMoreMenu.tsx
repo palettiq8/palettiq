@@ -149,14 +149,14 @@ export default function PaletteMoreMenu({
                         };
                       });
                       addGradientStop(stops);
-                      window.open("/studio/gradient", "_blank");
+                      window.open("/studio/css-gradient-generator", "_blank");
                     } else if (title === "Open on screen") {
                       setOpenOnScreenPalette(palette?.colors);
                     } else if (title === "View mode") {
                       setViewModePalette(palette?.colors);
                     } else if (title === "Visualize the palette") {
                       setGeneratedVisualizerPalette(palette?.colors);
-                      window.open("/studio/visualizer", "_blank");
+                      window.open("/studio/color-palette-visualizer", "_blank");
                     } else if (title === "Explore similar") {
                       setFilterPreferredColors(palette?.preferred_colors);
                     } else if (title === "Export") {

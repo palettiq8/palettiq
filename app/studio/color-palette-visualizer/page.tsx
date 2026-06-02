@@ -14,13 +14,15 @@ export const metadata: Metadata = {
     "color design preview",
     "UI color palette tool",
   ],
-  alternates: { canonical: "https://palettiq.net/studio/visualizer" },
+  alternates: {
+    canonical: "https://palettiq.net/studio/color-palette-visualizer",
+  },
   openGraph: {
     title:
       "Color Palette Visualizer — Preview Colors on Real UI Free | PalettIQ",
     description:
       "Preview your color palette on real UI components instantly. See how colors work in design before shipping. Free on PalettIQ.",
-    url: "https://palettiq.net/studio/visualizer",
+    url: "https://palettiq.net/studio/color-palette-visualizer",
     images: [
       {
         url: "/banner.webp",

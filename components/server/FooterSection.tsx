@@ -25,15 +25,7 @@ const FooterLinkItem = ({
     <ul className="flex flex-col gap-3 mt-6">
       {items.map(({ id, title, url }) => (
         <li key={id}>
-          <Link
-            href={url}
-            className="transition-colors"
-            target={
-              ["Pinterest", "Reddit", "Twitter / X", "Facebook"].includes(title)
-                ? "_blank"
-                : "_self"
-            }
-          >
+          <Link href={url} className="transition-colors" target="_blank">
             <Button variant={"textUnderline"} size={"p0"}>
               {title}
             </Button>

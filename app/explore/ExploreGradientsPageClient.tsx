@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import GradientMoreMenu from "@/components/client/GradientMoreMenu";
 import { generatorContentHeaderItemsStyle } from "@/utils/styles/Classes";
 import useModelStore from "@/libs/stores/modelStore";
+import { Button } from "@/components/Button";
+import Link from "next/link";
 
 dayjs.extend(relativeTime);
 
@@ -240,6 +242,24 @@ export default function ExploreGradientsPageClient() {
                   );
                 }}
               />
+              <div className="max-w-lg mx-auto mt-10 text-center">
+                <div className="inline-flex flex-col items-center gap-4 p-6 border border-gray-200 rounded-2xl bg-white">
+                  <span className="text-4xl">😒</span>
+                  <div className="flex flex-col items-center gap-1">
+                    <p className="text-sm font-semibold text-gray-700">
+                      Still not satisfied?
+                    </p>
+                    <p className="text-xs text-gray-400 font-medium max-w-50">
+                      Generate gradients tailored to your brand, UI, and vision.
+                    </p>
+                  </div>
+                  <Link href="/studio/css-gradient-generator" target="_blank">
+                    <Button variant="primary" size="md">
+                      Generate New Gradient →
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           )}
         </>

@@ -15,12 +15,12 @@ export const metadata: Metadata = {
     "free shadow generator",
     "CSS shadow tool",
   ],
-  alternates: { canonical: "https://palettiq.net/studio/shadow" },
+  alternates: { canonical: "https://palettiq.net/studio/css-shadow-generator" },
   openGraph: {
     title: "CSS Shadow Generator — Box Shadow & Text Shadow Free | PalettIQ",
     description:
       "Create CSS box shadows and text shadows visually. Adjust blur, spread, offset, and color — copy CSS code instantly. Free on PalettIQ.",
-    url: "https://palettiq.net/studio/shadow",
+    url: "https://palettiq.net/studio/css-shadow-generator",
     images: [
       {
         url: "/banner.webp",

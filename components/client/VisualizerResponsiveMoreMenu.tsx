@@ -88,7 +88,7 @@ export default function VisualizerResponsiveMoreMenu() {
         };
       });
       addGradientStop(stops);
-      window.open("/studio/gradient", "_blank");
+      window.open("/studio/css-gradient-generator", "_blank");
     } else if (title === "Templetes") {
       toggleVisualizerResponsiveTempletesModel();
     } else if (title === "Export") {
