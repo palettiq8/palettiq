@@ -4,6 +4,7 @@ import { Button } from "@/components/Button";
 import ColorCountMenu from "@/components/client/ColorCountMenu";
 import ColorPreferencesMenu from "@/components/client/ColorPreferencesMenu";
 import OpenMoreMenu from "@/components/client/OpenMoreMenu";
+import PaletteStylesMenu from "@/components/client/PaletteStylesMenu";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import VisualizerColorPickerMenu from "@/components/client/VisualizerColorPickerMenu";
 import VisualizerResponsiveMoreMenu from "@/components/client/VisualizerResponsiveMoreMenu";
@@ -12,7 +13,7 @@ import useModelStore from "@/libs/stores/modelStore";
 import { visualizers } from "@/utils/Items";
 import { REDOUNDOCOMMONSTYLE, CIRCLEBUTTONSTYLE } from "@/utils/styles/Classes";
 import { checkIsLight } from "@/utils/utils";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BiExport } from "react-icons/bi";
 import {
   LuCheck,
@@ -31,9 +32,6 @@ export default function VisualizerPageClient() {
   const [lockPanel, setLockPanel] = useState<boolean>(false);
   const [activeTemplateMaximize, setActiveTemplateMaximize] =
     useState<boolean>(false);
-  const updateSource = useRef<"generate" | "lock/unlock" | "redo/undo" | null>(
-    null,
-  );
   const activeVisualizerMaximize = useVisualizerStore(
     (state) => state.activeVisualizerMaximize,
   );
@@ -100,26 +98,22 @@ export default function VisualizerPageClient() {
   }, [visualizerHistoryIndex]);
 
   const paletteGeneratorHandler = useCallback(() => {
-    updateSource.current = "generate";
     setGeneratedVisualizerPalette();
     setVisualizerPaletteHistory();
   }, [setGeneratedVisualizerPalette]);
 
   const lockUnlockHandler = useCallback(
     (index: number) => {
-      updateSource.current = "lock/unlock";
       toggleVisualizerPaletteColorLock(index);
     },
     [toggleVisualizerPaletteColorLock],
   );
 
   const undoHandler = useCallback(() => {
-    updateSource.current = "redo/undo";
     visualizerPaletteUndoHandler();
   }, []);
 
   const redoHandler = useCallback(() => {
-    updateSource.current = "redo/undo";
     visualizerPaletteRedoHandler();
   }, []);
 
@@ -201,7 +195,7 @@ export default function VisualizerPageClient() {
             }}
             variant={"outline"}
             size={"md"}
-            className="max-[1450px]:hidden"
+            className="max-[1560px]:hidden"
           >
             <BiExport size={16} />
             <span>Export</span>
@@ -215,13 +209,13 @@ export default function VisualizerPageClient() {
           >
             Random Palette
           </Button>
-          <div className="hidden max-[1450px]:block">
+          <div className="hidden max-[1560px]:block">
             <VisualizerResponsiveMoreMenu />
           </div>
         </div>
       </div>
       <div
-        className={`w-full bg-white flex h-[calc(100%-128px)] max-lg:h-[calc(100%-280px)]`}
+        className={`w-full bg-white flex h-[calc(100%-128px)] max-lg:h-[calc(100%-332px)]`}
       >
         <div
           className={`w-3/4 h-full graydotbg z-30 ${activeVisualizerMaximize && "w-full h-screen absolute top-0 left-0"} ${activeTemplateMaximize && "hidden"} max-lg:w-full`}
@@ -295,10 +289,11 @@ export default function VisualizerPageClient() {
           </div>
         </div>
       </div>
-      <div className="w-full h-16 max-lg:h-54 border-t border-gray-200 px-4 bg-white rounded-b-xl flex items-center justify-between gap-3 max-lg:flex-col max-lg:justify-center">
-        <div className="max-lg:w-full flex items-center gap-3">
+      <div className="w-full h-16 max-lg:h-67 border-t border-gray-200 px-4 bg-white rounded-b-xl flex items-center justify-between gap-3 max-lg:flex-col max-lg:justify-center">
+        <div className="max-lg:w-full flex items-center max-lg:flex-col gap-3">
           <ColorPreferencesMenu from="Visualizer" />
-          <div className="max-[1450px]:hidden">
+          <PaletteStylesMenu from="Visualizer" />
+          <div className="max-[1560px]:hidden">
             <OpenMoreMenu from="Visualizer" />
           </div>
         </div>
@@ -314,14 +309,14 @@ export default function VisualizerPageClient() {
               setQuickViewPalette(data);
               setQuickViewActiveColor(data[0]);
             }}
-            className={`${CIRCLEBUTTONSTYLE} max-[1450px]:hidden`}
+            className={`${CIRCLEBUTTONSTYLE} max-[1560px]:hidden`}
           >
             <LuEye size={16} aria-hidden="true" />
           </button>
           <button
             aria-label="Shuffle visualizer palette colors"
             onClick={() => visualizerPaletteColorShuffler()}
-            className={`${CIRCLEBUTTONSTYLE} max-[1450px]:hidden`}
+            className={`${CIRCLEBUTTONSTYLE} max-[1560px]:hidden`}
           >
             <LuShuffle size={16} aria-hidden="true" />
           </button>

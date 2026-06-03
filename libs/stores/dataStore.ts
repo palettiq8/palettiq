@@ -893,6 +893,8 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
               prev?.isLocked ?? false,
               prev?.color ?? "#000000",
               state.preferredVisualizerItems,
+              null,
+              state.visualizerPaletteStyle,
             );
 
             return {
@@ -1045,6 +1047,12 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
           activeVisualizerMaximize:
             value === false ? value : !state.activeVisualizerMaximize,
         })),
+      visualizerPaletteStyle: null,
+      setVisualizerPaletteStyle: (style: string | null) =>
+        set((state) => ({
+          visualizerPaletteStyle:
+            state.visualizerPaletteStyle === style ? null : style,
+        })),
     }),
     {
       name: "_visualizer_storage",
@@ -1055,6 +1063,7 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
         defaultVisualizerPreference: state.defaultVisualizerPreference,
         preferredVisualizerItems: state.preferredVisualizerItems,
         currentTemplateId: state.currentTemplateId,
+        visualizerPaletteStyle: state.visualizerPaletteStyle,
       }),
     },
   ),

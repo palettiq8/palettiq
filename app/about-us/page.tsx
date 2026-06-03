@@ -4,12 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Ahnaf Shahriar Muiz — Founder & Developer of PalettIQ",
+  title: "Ahnaf Shahriar Muiz - Founder & Developer of PalettIQ",
   description:
-    "Meet Ahnaf Shahriar Muiz, the solo developer behind PalettIQ — a unified color design platform built for designers and developers. Self-taught since 2020, based in Bangladesh.",
+    "Meet Ahnaf Shahriar Muiz, the solo developer behind PalettIQ - a unified color design platform built for designers and developers. Self-taught since 2020, based in Bangladesh.",
   alternates: { canonical: "https://palettiq.net/about-us" },
   openGraph: {
-    title: "Ahnaf Shahriar Muiz — Founder & Developer of PalettIQ",
+    title: "Ahnaf Shahriar Muiz - Founder & Developer of PalettIQ",
     url: "https://palettiq.net/about-us",
     images: [{ url: "/banner.png", width: 1200, height: 630 }],
   },

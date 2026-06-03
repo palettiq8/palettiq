@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import PickerPageClient from "../PickerPageClient";
 
 export const metadata: Metadata = {
-  title: "Online Color Picker — HEX, RGB, HSL, CMYK & More Free",
+  title: "Online Color Picker - HEX, RGB, HSL, CMYK & More Free",
   description:
-    "Pick any color and instantly get HEX, RGB, HSL, CMYK, LAB, LCH, and XYZ values. Explore color tints, shades, tones, and harmonies — all free on PalettIQ's online color picker.",
+    "Pick any color and instantly get HEX, RGB, HSL, CMYK, LAB, LCH, and XYZ values. Explore color tints, shades, tones, and harmonies - all free on PalettIQ's online color picker.",
   keywords: [
     "color picker",
     "online color picker",
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://palettiq.net/studio/online-color-picker" },
   openGraph: {
-    title: "Online Color Picker — HEX, RGB, HSL, CMYK & More | PalettIQ",
+    title: "Online Color Picker - HEX, RGB, HSL, CMYK & More | PalettIQ",
     description:
       "Pick any color and get HEX, RGB, HSL, CMYK values instantly. Explore tints, shades, tones, and harmonies. Free on PalettIQ.",
     url: "https://palettiq.net/studio/online-color-picker",
@@ -26,13 +26,13 @@ export const metadata: Metadata = {
         url: "/banner.webp",
         width: 1200,
         height: 630,
-        alt: "PalettIQ — Online Color Picker",
+        alt: "PalettIQ - Online Color Picker",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Online Color Picker — Free | PalettIQ",
+    title: "Online Color Picker - Free | PalettIQ",
     description:
       "Pick any color and get HEX, RGB, HSL, CMYK values instantly. Free on PalettIQ.",
     images: ["/banner.webp"],

@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { LuCheck, LuChevronDown } from "react-icons/lu";
 import { Button } from "../Button";
 import useMenuStore from "@/libs/stores/menuStore";
-import { useGeneratorStore } from "@/libs/stores/dataStore";
+import { useGeneratorStore, useVisualizerStore } from "@/libs/stores/dataStore";
 import { paletteStylesItems } from "@/utils/Items";
 
-export default function PaletteStylesMenu() {
+export default function PaletteStylesMenu({ from }: { from: string }) {
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
 
@@ -18,6 +18,12 @@ export default function PaletteStylesMenu() {
   );
   const paletteStyle = useGeneratorStore((state) => state.paletteStyle);
   const setPaletteStyle = useGeneratorStore((state) => state.setPaletteStyle);
+  const visualizerPaletteStyle = useVisualizerStore(
+    (state) => state.visualizerPaletteStyle,
+  );
+  const setVisualizerPaletteStyle = useVisualizerStore(
+    (state) => state.setVisualizerPaletteStyle,
+  );
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -68,11 +74,17 @@ export default function PaletteStylesMenu() {
             className="bg-white shadow-lg flex flex-col rounded-xl p-2.5 z-40 absolute bottom-12 left-0 w-full"
           >
             {paletteStylesItems.map((style, index) => {
-              const isStyle = style === paletteStyle;
+              const isStyle =
+                style ===
+                (from === "Generator" ? paletteStyle : visualizerPaletteStyle);
               return (
                 <button
                   key={index}
-                  onClick={() => setPaletteStyle(style)}
+                  onClick={() =>
+                    from === "Generator"
+                      ? setPaletteStyle(style)
+                      : setVisualizerPaletteStyle(style)
+                  }
                   className={`flex items-center gap-4 p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${isStyle ? "text-indigo-600" : "text-gray-900"}`}
                 >
                   <LuCheck

@@ -183,7 +183,7 @@ function StudioPage() {
         <div className="bg-gray-50 border border-gray-200 max-lg:bg-white max-lg:border-white px-4 h-10 rounded-full flex items-center gap-6.5">
           <GeneratorContentHeaderIconItems />
         </div>
-        <div className="flex items-center gap-2 max-lg:hidden">
+        <div className="flex items-center gap-3 max-lg:hidden">
           <Button
             aria-label="Export color palette as CSS, HEX, or RGB"
             onClick={() => {
@@ -257,10 +257,10 @@ function StudioPage() {
       </div>
 
       <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-52 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
-        <div className="max-lg:w-full flex items-center gap-2 max-lg:flex-col">
+        <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
           <ColorPreferencesMenu from="Studio" />
           <ColorCountMenu from="Generator" />
-          <PaletteStylesMenu />
+          <PaletteStylesMenu from="Generator" />
           <button
             aria-label="Open HSL Control Panel to adjust hue, saturation, and lightness"
             onClick={() => toggleHslControlPanelModel()}
@@ -270,7 +270,7 @@ function StudioPage() {
             <span>HSL Control Panel</span>
           </button>
         </div>
-        <div className="max-lg:w-full flex items-center gap-2">
+        <div className="max-lg:w-full flex items-center gap-3">
           <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
             <Button
               aria-label="Undo last palette change"

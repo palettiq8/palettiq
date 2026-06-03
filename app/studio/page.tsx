@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import GeneratorPageClient from "./GeneratorPageClient";
 
 export const metadata: Metadata = {
-  title: "Free Color Palette Generator — Create & Export Color Palettes",
+  title: "Free Color Palette Generator - Create & Export Color Palettes",
   description:
-    "Generate beautiful color palettes instantly with PalettIQ. Lock colors, shuffle, control hue, saturation, and lightness — export as HEX, RGB, CSS, Tailwind, and more. Free online color palette generator.",
+    "Generate beautiful color palettes instantly with PalettIQ. Lock colors, shuffle, control hue, saturation, and lightness - export as HEX, RGB, CSS, Tailwind, and more. Free online color palette generator.",
   keywords: [
     "color palette generator",
     "free color palette generator",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "https://palettiq.net/studio" },
   openGraph: {
-    title: "Free Color Palette Generator — Create & Export | PalettIQ",
+    title: "Free Color Palette Generator - Create & Export | PalettIQ",
     description:
       "Generate beautiful color palettes instantly. Lock, shuffle, and export as HEX, RGB, CSS, and more. Free on PalettIQ.",
     url: "https://palettiq.net/studio",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         url: "/banner.webp",
         width: 1200,
         height: 630,
-        alt: "PalettIQ — Free Color Palette Generator",
+        alt: "PalettIQ - Free Color Palette Generator",
       },
     ],
   },

@@ -103,26 +103,25 @@ export const generateColor = (
   isLocked: boolean,
   currentColor: string,
   chosenColors: string[],
-  customFamilies?: Record<string, ColorFamily>,
+  customFamilies?: Record<string, ColorFamily> | null,
   paletteStyle?: string | null,
 ): string => {
   if (isLocked) return currentColor;
-
   const styleSL = paletteStyle ? paletteStylesSL[paletteStyle] : undefined;
 
+  const safeCustomFamilies = customFamilies ?? {};
   if (chosenColors.length === 0) {
     if (styleSL) {
       const allFamilies = Object.keys(colorFamilies);
       const randomFamily =
         allFamilies[Math.floor(Math.random() * allFamilies.length)];
-      return generateColorForFamily(randomFamily, customFamilies, styleSL);
+      return generateColorForFamily(randomFamily, safeCustomFamilies, styleSL);
     }
     return generateRandomColor();
   }
-
   const randomFamily =
     chosenColors[Math.floor(Math.random() * chosenColors.length)];
-  return generateColorForFamily(randomFamily, customFamilies, styleSL);
+  return generateColorForFamily(randomFamily, safeCustomFamilies, styleSL);
 };
 
 export const copyTextHandlerOnly = async (content: string) => {
