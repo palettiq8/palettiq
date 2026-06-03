@@ -82,7 +82,6 @@ export default function StudioLeftFooterMenu({ from }: { from: string }) {
                     }
                   }}
                   href={url}
-                  target="_blank"
                   className={COMMONSTYLE}
                 >
                   <Icon size={16} />

@@ -23,15 +23,23 @@ const FooterLinkItem = ({
       {mainTitle}
     </h3>
     <ul className="flex flex-col gap-3 mt-6">
-      {items.map(({ id, title, url }) => (
-        <li key={id}>
-          <Link href={url} className="transition-colors" target="_blank">
-            <Button variant={"textUnderline"} size={"p0"}>
-              {title}
-            </Button>
-          </Link>
-        </li>
-      ))}
+      {items.map(({ id, title, url }) => {
+        const isExternal = url.startsWith("http");
+        return (
+          <li key={id}>
+            <Link
+              href={url}
+              className="transition-colors"
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
+            >
+              <Button variant={"textUnderline"} size={"p0"}>
+                {title}
+              </Button>
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   </nav>
 );
@@ -72,6 +80,7 @@ export default function FooterSection() {
           <Link
             href="https://x.com/palettiq"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Follow PalettIQ on Twitter"
             className={SocialIconStyle}
           >
@@ -80,6 +89,7 @@ export default function FooterSection() {
           <Link
             href="https://www.pinterest.com/palettiq8/_created/"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Follow PalettIQ on Pinterest"
             className={SocialIconStyle}
           >
@@ -88,6 +98,7 @@ export default function FooterSection() {
           <Link
             href="https://www.instagram.com/palett.iq/"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Follow PalettIQ on Instagram"
             className={SocialIconStyle}
           >
@@ -96,6 +107,7 @@ export default function FooterSection() {
           <Link
             href="https://www.linkedin.com/company/palettiq/"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Follow PalettIQ on LinkedIn"
             className={SocialIconStyle}
           >
@@ -104,6 +116,7 @@ export default function FooterSection() {
           <Link
             href="https://www.facebook.com/profile.php?id=61589009866760/"
             target="_blank"
+            rel="noopener noreferrer"
             aria-label="Follow PalettIQ on Facebook"
             className={SocialIconStyle}
           >

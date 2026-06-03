@@ -242,7 +242,7 @@ export default function ExploreGradientsPageClient() {
                   );
                 }}
               />
-              <div className="max-w-lg mx-auto mt-10 text-center">
+              <div className="max-w-lg mx-auto mt-4 text-center">
                 <div className="inline-flex flex-col items-center gap-4 p-6 border border-gray-200 rounded-2xl bg-white">
                   <span className="text-4xl">😒</span>
                   <div className="flex flex-col items-center gap-1">

@@ -181,7 +181,9 @@ export default function BodySection() {
                   />
                 );
               })}
-              <span className="text-sm font-semibold text-gray-900">
+              <span
+                className={`text-sm font-semibold text-gray-900 ${preferredItems.length > 0 && "ml-2.5"}`}
+              >
                 +{preferredColors.length - preferredItems.length} colors
                 available
               </span>

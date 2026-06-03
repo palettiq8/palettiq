@@ -10,7 +10,6 @@ import { preferredColors } from "@/utils/Items";
 import { LuSearch, LuSettings2 } from "react-icons/lu";
 import { VirtuosoGrid } from "react-virtuoso";
 import PaletteCard from "@/components/client/PaletteCard";
-import PaletteSkeleton from "@/components/server/PaletteSkeleton";
 import { useEffect, useState } from "react";
 import CircleLoader from "@/components/server/CircleLoader";
 import Link from "next/link";
@@ -176,7 +175,7 @@ export default function ExplorePalettesPageClient() {
                   return <PaletteCard palette={palette!} />;
                 }}
               />
-              <div className="max-w-lg mx-auto mt-10 text-center">
+              <div className="max-w-lg mx-auto mt-4 text-center">
                 <div className="inline-flex flex-col items-center gap-4 p-6 border border-gray-200 rounded-2xl bg-white">
                   <span className="text-4xl">😒</span>
                   <div className="flex flex-col items-center gap-1">

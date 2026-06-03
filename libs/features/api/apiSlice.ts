@@ -101,18 +101,13 @@ export const Api = createApi({
           }
 
           if (searchQuery && searchQuery.trim() !== "") {
-            query = query.or(`name.ilike.%${searchQuery}%`);
+            query = query.ilike("name", `%${searchQuery.trim()}%`);
           }
 
           const { data, error } = await query;
-
           if (error) return { error };
 
-          const shuffled = [...(data as PublishedPaletteType[])].sort(
-            () => Math.random() - 0.5,
-          );
-
-          return { data: shuffled };
+          return { data: (data as PublishedPaletteType[]) || [] };
         } catch (error: any) {
           return { error };
         }

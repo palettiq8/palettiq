@@ -506,6 +506,7 @@ export default function ExtractorPageClient() {
             <Link
               href={"https://unsplash.com/"}
               target="_blank"
+              rel="noopener noreferrer"
               aria-label="Visit Unsplash for free images"
               className="hover:underline"
             >
