@@ -22,14 +22,15 @@ const FooterLinkItem = ({
     <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500">
       {mainTitle}
     </h3>
+
     <ul className="flex flex-col gap-3 mt-6">
       {items.map(({ id, title, url }) => {
         const isExternal = url.startsWith("http");
+
         return (
           <li key={id}>
             <Link
               href={url}
-              className="transition-colors"
               target={isExternal ? "_blank" : undefined}
               rel={isExternal ? "noopener noreferrer" : undefined}
             >
@@ -46,23 +47,27 @@ const FooterLinkItem = ({
 
 export default function FooterSection() {
   return (
-    <footer className="max-w-350 px-4 mx-auto">
+    <footer aria-label="Site footer" className="max-w-350 px-4 mx-auto">
       <div className="w-full grid grid-cols-6 gap-10 py-12 max-lg:grid-cols-3 max-sm:grid-cols-2">
         <div className="w-full">
-          <Link href={"/"} aria-label="PalettIQ — Free Color Palette Generator">
+          <Link href="/" aria-label="PalettIQ Home" title="PalettIQ Home">
             <Image
-              src={"/logo.svg"}
+              src="/logo.svg"
               height={50}
               width={50}
-              alt="PalettIQ — Color Design Tool"
+              alt="PalettIQ Logo"
               priority={false}
             />
           </Link>
-          <p className="max-w-35 leading-8 text-sm font-semibold text-gray-900 mt-4">
-            A unified color design platform for designers. Generate beautiful
-            color palettes, gradients, and more — all free.
+
+          <p className="max-w-55 leading-8 text-sm font-semibold text-gray-900 mt-4">
+            Generate personalized color palettes from your selected colors,
+            moods, industries, and styles. Explore gradients, color shades,
+            accessibility tools, and professional color resources for designers
+            and developers.
           </p>
         </div>
+
         {footerSectionItems.map((section) => (
           <FooterLinkItem
             key={section.id}
@@ -71,21 +76,25 @@ export default function FooterSection() {
           />
         ))}
       </div>
+
       <div className="w-full border-t py-10 border-gray-200 flex items-center justify-between max-md:flex-col max-md:gap-10">
         <p className="text-sm font-medium text-gray-600">
           ©{new Date().getFullYear()} PalettIQ. All rights reserved.
         </p>
+
         <SupportEmail />
+
         <div className="flex items-center gap-3">
           <Link
             href="https://x.com/palettiq"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Follow PalettIQ on Twitter"
+            aria-label="Follow PalettIQ on X"
             className={SocialIconStyle}
           >
             <FaXTwitter size={22} />
           </Link>
+
           <Link
             href="https://www.pinterest.com/palettiq8/_created/"
             target="_blank"
@@ -95,6 +104,7 @@ export default function FooterSection() {
           >
             <ImPinterest2 size={22} />
           </Link>
+
           <Link
             href="https://www.instagram.com/palett.iq/"
             target="_blank"
@@ -104,6 +114,7 @@ export default function FooterSection() {
           >
             <LuInstagram size={22} />
           </Link>
+
           <Link
             href="https://www.linkedin.com/company/palettiq/"
             target="_blank"
@@ -113,6 +124,7 @@ export default function FooterSection() {
           >
             <LuLinkedin size={22} />
           </Link>
+
           <Link
             href="https://www.facebook.com/profile.php?id=61589009866760/"
             target="_blank"

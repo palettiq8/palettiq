@@ -2,22 +2,94 @@ import CommonHeaderFooterSection from "@/components/server/CommonHeaderFooterSec
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Ahnaf Shahriar Muiz - Founder & Developer of PalettIQ",
+  title: "About PalettIQ | Ahnaf Shahriar Muiz - Founder & Developer",
   description:
-    "Meet Ahnaf Shahriar Muiz, the solo developer behind PalettIQ - a unified color design platform built for designers and developers. Self-taught since 2020, based in Bangladesh.",
-  alternates: { canonical: "https://palettiq.net/about-us" },
+    "Learn about Ahnaf Shahriar Muiz, founder and solo developer of PalettIQ. Discover the story behind the color design platform built for designers, developers, and creative professionals worldwide.",
+  keywords: [
+    "about palettiq",
+    "ahnaf shahriar muiz",
+    "palettiq founder",
+    "color design platform",
+    "color tools for designers",
+    "color tools for developers",
+    "online color toolkit",
+    "design resources",
+  ],
+  alternates: {
+    canonical: "https://palettiq.net/about-us",
+  },
   openGraph: {
-    title: "Ahnaf Shahriar Muiz - Founder & Developer of PalettIQ",
+    title: "About PalettIQ | Ahnaf Shahriar Muiz - Founder & Developer",
+    description:
+      "Learn about Ahnaf Shahriar Muiz, founder and solo developer of PalettIQ.",
     url: "https://palettiq.net/about-us",
-    images: [{ url: "/banner.png", width: 1200, height: 630 }],
+    images: [
+      {
+        url: "/banner.png",
+        width: 1200,
+        height: 630,
+        alt: "About PalettIQ",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About PalettIQ | Ahnaf Shahriar Muiz",
+    description: "Learn about the founder and story behind PalettIQ.",
+    images: ["/banner.png"],
   },
 };
 
 export default function page() {
   return (
     <CommonHeaderFooterSection>
+      <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: "Ahnaf Shahriar Muiz",
+            jobTitle: "Founder and Software Developer",
+            description:
+              "Founder and solo developer of PalettIQ, a color design platform for designers and developers.",
+            image: "https://palettiq.net/me.png",
+            url: "https://palettiq.net/about-us",
+
+            sameAs: [
+              "https://github.com/ahanafshahariarmuiz",
+              "https://www.linkedin.com/in/ahnafshahriarmuiz/",
+            ],
+
+            nationality: "Bangladeshi",
+            worksFor: {
+              "@type": "Organization",
+              name: "PalettIQ",
+            },
+          }),
+        }}
+      />
+      <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "PalettIQ",
+            url: "https://palettiq.net",
+            logo: "https://palettiq.net/logo.png",
+            founder: {
+              "@type": "Person",
+              name: "Ahnaf Shahriar Muiz",
+            },
+            description:
+              "PalettIQ is a color design platform that helps designers and developers generate palettes, create gradients, check accessibility, and work with colors more efficiently.",
+          }),
+        }}
+      />
       <main className="w-full max-w-200 mx-auto py-20">
         <div className="w-full bg-white rounded-xl border border-gray-200">
           <div className="p-4 pt-10">
@@ -45,6 +117,7 @@ export default function page() {
                 alt="Ahnaf Shahriar Muiz — Founder and Solo Developer of PalettIQ"
                 width={160}
                 height={160}
+                priority
                 className="rounded-full object-cover"
               />
             </div>
@@ -141,6 +214,25 @@ export default function page() {
             </div>
           </section>
         </div>
+        <section className="sr-only">
+          <h2>About PalettIQ</h2>
+
+          <p>
+            PalettIQ is a professional color design platform built for
+            designers, developers, marketers, and creative professionals. The
+            platform helps users generate color palettes, visualize colors in
+            user interfaces, create gradients, extract colors from images, check
+            accessibility contrast ratios, generate CSS shadows, and work with
+            color systems more efficiently.
+          </p>
+
+          <p>
+            PalettIQ was founded and developed by Ahnaf Shahriar Muiz, a
+            software developer from Bangladesh. The platform was created to
+            simplify color decision-making and provide a unified set of color
+            tools in a single workspace.
+          </p>
+        </section>
       </main>
     </CommonHeaderFooterSection>
   );

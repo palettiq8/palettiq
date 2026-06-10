@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import ExplorePalettesPageClient from "../ExplorePalettesPageClient";
+import Script from "next/script";
 
 export const metadata: Metadata = {
+  robots: {
+    index: true,
+    follow: true,
+  },
   title: "Explore Color Palettes - Browse & Download Free",
   description:
     "Explore thousands of curated color palettes for branding, UI design, and digital products. Filter by mood, industry, color family, and style. Copy HEX, RGB, HSL codes instantly. 100% free.",
@@ -22,10 +27,10 @@ export const metadata: Metadata = {
     url: "https://palettiq.net/explore/palettes",
     images: [
       {
-        url: "/banner.webp",
+        url: "/banner.png",
         width: 1200,
         height: 630,
-        alt: "PalettIQ - Explore Color Palettes",
+        alt: "Explore Free Color Palettes on PalettIQ",
       },
     ],
   },
@@ -39,5 +44,27 @@ export const metadata: Metadata = {
 };
 
 export default function page() {
-  return <ExplorePalettesPageClient />;
+  return (
+    <>
+      <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            name: "Explore Color Palettes",
+            description:
+              "Browse thousands of curated color palettes for branding, UI design, websites, mobile apps, and digital products.",
+            url: "https://palettiq.net/explore/palettes",
+            isPartOf: {
+              "@type": "WebSite",
+              name: "PalettIQ",
+              url: "https://palettiq.net",
+            },
+          }),
+        }}
+      />
+      <ExplorePalettesPageClient />
+    </>
+  );
 }

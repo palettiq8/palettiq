@@ -19,8 +19,12 @@ export default function GradientStopMoreMenu({
   const buttonRef = useRef<HTMLDivElement>(null);
 
   const gradientStops = useGradientStore((state) => state.gradientStops);
-  const removeGradientStop = useGradientStore((state) => state.removeGradientStop);
-  const updateGradientStop = useGradientStore((state) => state.updateGradientStop);
+  const removeGradientStop = useGradientStore(
+    (state) => state.removeGradientStop,
+  );
+  const updateGradientStop = useGradientStore(
+    (state) => state.updateGradientStop,
+  );
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -52,7 +56,9 @@ export default function GradientStopMoreMenu({
   return (
     <div className="relative">
       <div ref={buttonRef} onClick={() => setShowMenu((prev) => !prev)}>
-        <button className={BUTTONCOMMONSTYLE}>
+        <button
+          className={`${BUTTONCOMMONSTYLE} ${showMenu && "bg-gray-100 border-gray-200!"}`}
+        >
           <LuEllipsisVertical size={16} />
         </button>
       </div>

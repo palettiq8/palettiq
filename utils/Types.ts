@@ -345,23 +345,6 @@ export interface ShadowStateTypes {
 export interface BrowseStateTypes {
   browseGradientActiveType: string;
   setBrowseGradientActiveType: (type: string) => void;
-  filterIndustries: string[];
-  setFilterIndustries: (item: string[]) => void;
-  filterPreferredColors: string[];
-  setFilterPreferredColors: (item: string[]) => void;
-  filterMoods: string[];
-  setFilterMoods: (item: string[]) => void;
-  filterBrightnessLevels: string[];
-  setFilterBrightnessLevels: (item: string[]) => void;
-  filterSaturationLevels: string[];
-  setFilterSaturationLevels: (item: string[]) => void;
-  filterModes: string[];
-  setFilterModes: (item: string[]) => void;
-  filterUsecases: string[];
-  setFilterUsecases: (item: string[]) => void;
-  filterHarmonies: string[];
-  setFilterHarmonies: (item: string[]) => void;
-  clearAllPaletteFiltersItems: () => void;
   palettesPage: number;
   setPalettesPage: (value: number) => void;
   searchPalettesQuery: string;
@@ -412,3 +395,19 @@ export interface OtherTypes {
   addToCommunityPalette: PaletteColor[] | null;
   setAddToCommunityPalette: (palette: PaletteColor[] | null) => void;
 }
+
+export interface AccordionDataType {
+  title: string;
+  content: string;
+}
+
+export type PaletteFilters = {
+  industries?: string[];
+  preferred_colors?: string[];
+  moods?: string[];
+  brightness_level?: string[];
+  saturation_level?: string[];
+  modes?: string[];
+  usecases?: string[];
+  harmonies?: string[];
+};

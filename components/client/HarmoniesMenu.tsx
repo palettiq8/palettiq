@@ -78,7 +78,9 @@ export default function HarmoniesMenu({
                     size={18}
                     className={`invisible ${isHarmony && "visible"}`}
                   />
-                  <p className="text-sm font-semibold">{title}</p>
+                  <p className="text-sm font-semibold">
+                    {title.split("_").join(" ")}
+                  </p>
                 </button>
               );
             })}

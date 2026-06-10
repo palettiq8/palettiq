@@ -63,7 +63,7 @@ export default function HeaderMenu() {
                   key={index}
                   href={item.url}
                   aria-label={`Navigate to ${item.title}`}
-                  className={`hidden ${["Explore Gradients", "Color Palettes", "Color Shades Explorer"].includes(item.title) && "max-md:block"}`}
+                  className={`hidden ${["Browse Gradients", "Browse Color Palettes", "Explore Color Shades"].includes(item.title) && "max-md:block"}`}
                 >
                   <button className="w-full flex items-center justify-between p-2 gap-3 rounded-lg transition-all hover:bg-gray-100 border border-white hover:border-gray-200 hover:cursor-pointer select-none text-gray-900">
                     <p className="text-sm font-semibold">{item.title}</p>

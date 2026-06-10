@@ -1169,36 +1169,6 @@ const useBrowseStore = create<BrowseStateTypes>()(
       browseGradientActiveType: "Linear",
       setBrowseGradientActiveType: (type: string) =>
         set({ browseGradientActiveType: type }),
-      filterIndustries: [],
-      setFilterIndustries: (item: string[]) => set({ filterIndustries: item }),
-      filterPreferredColors: [],
-      setFilterPreferredColors: (item: string[]) =>
-        set({ filterPreferredColors: item }),
-      filterMoods: [],
-      setFilterMoods: (item: string[]) => set({ filterMoods: item }),
-      filterBrightnessLevels: [],
-      setFilterBrightnessLevels: (item: string[]) =>
-        set({ filterBrightnessLevels: item }),
-      filterSaturationLevels: [],
-      setFilterSaturationLevels: (item: string[]) =>
-        set({ filterSaturationLevels: item }),
-      filterModes: [],
-      setFilterModes: (item: string[]) => set({ filterModes: item }),
-      filterUsecases: [],
-      setFilterUsecases: (item: string[]) => set({ filterUsecases: item }),
-      filterHarmonies: [],
-      setFilterHarmonies: (item: string[]) => set({ filterHarmonies: item }),
-      clearAllPaletteFiltersItems: () =>
-        set({
-          filterIndustries: [],
-          filterPreferredColors: [],
-          filterMoods: [],
-          filterBrightnessLevels: [],
-          filterSaturationLevels: [],
-          filterModes: [],
-          filterUsecases: [],
-          filterHarmonies: [],
-        }),
       palettesPage: 0,
       setPalettesPage: (value: number) => set({ palettesPage: value }),
       searchPalettesQuery: "",

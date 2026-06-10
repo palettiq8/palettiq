@@ -7,36 +7,62 @@ export default function JsonLd() {
         "@id": "https://palettiq.net/#website",
         url: "https://palettiq.net",
         name: "PalettIQ",
-        description: "Color Palette Generator for Designers and Developers",
-        potentialAction: {
-          "@type": "SearchAction",
-          target: {
-            "@type": "EntryPoint",
-            urlTemplate:
-              "https://palettiq.net/explore/palettes?q={search_term_string}",
-          },
-          "query-input": "required name=search_term_string",
+        description:
+          "Generate personalized color palettes from selected colors, moods, industries, and styles.",
+        inLanguage: "en-US",
+        publisher: {
+          "@id": "https://palettiq.net/#organization",
         },
       },
       {
+        "@type": "WebPage",
+        "@id": "https://palettiq.net/#webpage",
+        url: "https://palettiq.net",
+        name: "Color Palette Generator From Your Selected Colors | PalettIQ",
+        description:
+          "Generate personalized color palettes from selected colors, moods, industries, and styles for branding, UI design, websites, and digital products.",
+        inLanguage: "en-US",
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+      },
+      {
+        "@type": "Brand",
+        "@id": "https://palettiq.net/#brand",
+        name: "PalettIQ",
+        url: "https://palettiq.net",
+      },
+      {
         "@type": "SoftwareApplication",
+        "@id": "https://palettiq.net/#software",
         name: "PalettIQ",
         url: "https://palettiq.net",
         applicationCategory: "DesignApplication",
+        applicationSubCategory: "Color Design Tool",
         operatingSystem: "Web",
+        creator: {
+          "@id": "https://palettiq.net/#organization",
+        },
+        brand: {
+          "@id": "https://palettiq.net/#brand",
+        },
+        description:
+          "Generate personalized color palettes from selected colors, moods, industries, and styles. Create accessible color schemes for branding, UI design, websites, and digital products.",
+        screenshot: "https://palettiq.net/banner.webp",
         offers: {
           "@type": "Offer",
           price: "0",
           priceCurrency: "USD",
         },
         featureList: [
-          "Color Palette Generator",
-          "AI Color Generator",
-          "Gradient Generator",
-          "Color Contrast Checker",
-          "Image Color Extractor",
-          "CSS Shadow Generator",
-          "Color Visualizer",
+          "Generate color palettes from selected colors",
+          "Color harmony generation",
+          "Accessible color palette creation",
+          "Gradient generator",
+          "Color contrast checker",
+          "Image color extractor",
+          "CSS shadow generator",
+          "Color visualization tools",
         ],
       },
       {
@@ -48,6 +74,10 @@ export default function JsonLd() {
           "@type": "ImageObject",
           url: "https://palettiq.net/logo.svg",
         },
+        sameAs: [
+          "https://x.com/palettiq",
+          "https://www.pinterest.com/palettiq8",
+        ],
       },
     ],
   };
@@ -55,7 +85,9 @@ export default function JsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(jsonLd),
+      }}
     />
   );
 }

@@ -89,7 +89,7 @@ export default function GradientMoreMenu({
         <Button
           variant={"secondary"}
           size={"circle"}
-          className="border-none hover:bg-gray-50"
+          className={`border-none hover:bg-white ${showMenu && "bg-white"}`}
         >
           <LuEllipsisVertical size={16} />
         </Button>

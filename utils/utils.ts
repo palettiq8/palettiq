@@ -8,8 +8,20 @@ import {
   PaletteColor,
   ShadowLayer,
   TextShadowLayer,
+  PaletteFilters,
 } from "./Types";
-import { colorFamilies, paletteStylesSL } from "./Items";
+import {
+  brightnessLevels,
+  colorFamilies,
+  colorHarmonies,
+  industries,
+  modes,
+  moods,
+  paletteStylesSL,
+  preferredColors,
+  saturationLevels,
+  useCases,
+} from "./Items";
 import { colord, extend } from "colord";
 import a11yPlugin from "colord/plugins/a11y";
 import LZString from "lz-string";
@@ -947,4 +959,86 @@ export const parseGradientFromURL = () => {
 export function isValidEmail(email: string) {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return emailRegex.test(email);
+}
+
+export function nameToSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9\s-]/g, "")
+    .trim()
+    .replace(/\s+/g, "-");
+}
+
+export function filtersToSlug(filters: PaletteFilters): string {
+  const orderedColors = preferredColors.map((c) => c.name);
+  const orderedMoods = moods;
+  const orderedBrightness = brightnessLevels;
+  const orderedSaturation = saturationLevels;
+  const orderedModes = modes;
+  const orderedIndustries = industries;
+  const orderedUsecases = useCases;
+  const orderedHarmonies = colorHarmonies.map((h) => h.title);
+
+  const sortByOrder = (selected: string[], ordered: string[]) =>
+    ordered.filter((v) => selected.includes(v));
+
+  const parts = [
+    ...sortByOrder(filters.preferred_colors ?? [], orderedColors),
+    ...sortByOrder(filters.saturation_level ?? [], orderedSaturation),
+    ...sortByOrder(filters.brightness_level ?? [], orderedBrightness),
+    ...sortByOrder(filters.moods ?? [], orderedMoods),
+    ...sortByOrder(filters.harmonies ?? [], orderedHarmonies),
+    ...sortByOrder(filters.modes ?? [], orderedModes),
+    ...sortByOrder(filters.industries ?? [], orderedIndustries),
+    ...sortByOrder(filters.usecases ?? [], orderedUsecases),
+  ]
+    .filter(Boolean)
+    .map((v) => v.toLowerCase().replace(/&/g, "and"));
+
+  return [...new Set(parts)].join("-");
+}
+
+export function slugToFilters(slug: string): PaletteFilters {
+  const segments = slug.split("-");
+
+  const match = (validValues: string[]) =>
+    validValues.filter((v) =>
+      segments.includes(v.toLowerCase().replace(/&/g, "and")),
+    );
+
+  const allIndustries = industries;
+  const allColors = preferredColors.map((c) => c.name);
+  const allMoods = moods;
+  const allBrightness = brightnessLevels;
+  const allSaturation = saturationLevels;
+  const allModes = modes;
+  const allUsecases = useCases;
+  const allHarmonies = colorHarmonies.map((h) => h.title);
+
+  return {
+    industries: match(allIndustries),
+    preferred_colors: match(allColors),
+    moods: match(allMoods),
+    brightness_level: match(allBrightness),
+    saturation_level: match(allSaturation),
+    modes: match(allModes),
+    usecases: match(allUsecases),
+    harmonies: match(allHarmonies),
+  };
+}
+
+export function filtersToGradientSlug(colors: string[]): string {
+  const orderedColors = preferredColors.map((c) => c.name);
+
+  return orderedColors
+    .filter((c) => colors.includes(c))
+    .map((v) => v.toLowerCase())
+    .join("-");
+}
+
+export function gradientSlugToColors(slug: string): string[] {
+  const segments = slug.split("-");
+  const allColors = preferredColors.map((c) => c.name);
+  return allColors.filter((c) => segments.includes(c.toLowerCase()));
 }

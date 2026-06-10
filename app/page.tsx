@@ -3,36 +3,39 @@ import BodySection from "@/components/client/BodySection";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "PalettIQ - Free Color Palette Generator for Designers",
+  title: "Color Palette Generator From Your Selected Colors | PalettIQ",
+
   description:
-    "Generate beautiful, accessible color palettes instantly with PalettIQ. Color picker, gradient generator, AI palettes, contrast checker - all free.",
-  keywords: [
-    "free color palette generator",
-    "color palette for designers",
-    "AI color palette",
-    "gradient generator free",
-    "contrast checker",
-    "color picker online",
-  ],
-  alternates: { canonical: "https://palettiq.net" },
+    "Generate personalized color palettes from your selected colors, moods, industries, and styles. Create accessible color schemes, gradients, and brand-ready palettes for UI design, branding, and creative projects.",
+
+  alternates: {
+    canonical: "https://palettiq.net",
+  },
+
   openGraph: {
-    title: "PalettIQ - Free Color Palette Generator for Designers",
+    title: "Generate Color Palettes From Your Selected Colors | PalettIQ",
+
     description:
-      "Generate beautiful, accessible color palettes instantly. Color picker, gradient generator, AI palettes - all free.",
+      "Choose colors, moods, industries, and styles to generate beautiful, accessible color palettes tailored to your project.",
+
     url: "https://palettiq.net",
+
     images: [
       {
         url: "/banner.webp",
         width: 1200,
         height: 630,
-        alt: "PalettIQ - Free Color Palette Generator",
+        alt: "PalettIQ Color Palette Generator",
       },
     ],
   },
+
   twitter: {
-    title: "PalettIQ - Free Color Palette Generator for Designers",
+    title: "Generate Color Palettes From Your Selected Colors | PalettIQ",
+
     description:
-      "Generate beautiful, accessible color palettes instantly. All free.",
+      "Create personalized color palettes using your preferred colors, moods, industries, and styles.",
+
     images: ["/banner.webp"],
   },
 };

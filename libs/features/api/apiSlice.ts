@@ -114,6 +114,50 @@ export const Api = createApi({
       },
       providesTags: ["Palettes"],
     }),
+    fetchPaletteById: builder.query<PublishedPaletteType, { id: number }>({
+      queryFn: async ({ id }) => {
+        try {
+          const { data, error } = await supabase
+            .from("palettes")
+            .select("*")
+            .eq("id", id)
+            .eq("status", "Published")
+            .single();
+
+          if (error) return { error };
+          return { data: data as PublishedPaletteType };
+        } catch (error: any) {
+          return { error };
+        }
+      },
+      providesTags: ["Palettes"],
+    }),
+    fetchSimilarPalettes: builder.query<
+      PublishedPaletteType[],
+      {
+        field: string;
+        values: string[];
+        excludeId: number;
+      }
+    >({
+      queryFn: async ({ field, values, excludeId }) => {
+        try {
+          const { data, error } = await supabase
+            .from("palettes")
+            .select("*")
+            .eq("status", "Published")
+            .contains(field, JSON.stringify(values))
+            .neq("id", excludeId)
+            .order("id", { ascending: false });
+
+          if (error) return { error };
+          return { data: (data as PublishedPaletteType[]) || [] };
+        } catch (error: any) {
+          return { error };
+        }
+      },
+      providesTags: ["Palettes"],
+    }),
     fetchColors: builder.query<ColorType[], { searchQuery: string }>({
       queryFn: async ({ searchQuery }) => {
         try {
@@ -242,6 +286,8 @@ export const Api = createApi({
 
 export const {
   useFetchPalettesQuery,
+  useFetchPaletteByIdQuery,
+  useFetchSimilarPalettesQuery,
   useFetchColorsQuery,
   useFetchGradientsQuery,
   usePublishPaletteMutation,

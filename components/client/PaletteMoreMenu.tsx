@@ -6,7 +6,7 @@ import { LuEllipsisVertical } from "react-icons/lu";
 import { Button } from "../Button";
 import { paletteMoreItems } from "@/utils/Items";
 import { PublishedPaletteType, StopType } from "@/utils/Types";
-import { FlashMessage } from "@/utils/utils";
+import { filtersToGradientSlug, FlashMessage } from "@/utils/utils";
 import useModelStore from "@/libs/stores/modelStore";
 import {
   useBrowseStore,
@@ -15,6 +15,7 @@ import {
   useOtherStore,
   useVisualizerStore,
 } from "@/libs/stores/dataStore";
+import { useRouter } from "next/navigation";
 
 export default function PaletteMoreMenu({
   palette,
@@ -55,12 +56,11 @@ export default function PaletteMoreMenu({
   const setGeneratedVisualizerPalette = useVisualizerStore(
     (state) => state.setGeneratedVisualizerPalette,
   );
-  const setFilterPreferredColors = useBrowseStore(
-    (state) => state.setFilterPreferredColors,
-  );
   const toggleExportModel = useModelStore((state) => state.toggleExportModel);
   const setExportPalette = useOtherStore((state) => state.setExportPalette);
   const setExportFrom = useOtherStore((state) => state.setExportFrom);
+
+  const router = useRouter();
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -95,7 +95,7 @@ export default function PaletteMoreMenu({
         <Button
           variant={"secondary"}
           size={"circle"}
-          className="border-none hover:bg-gray-50"
+          className={`border-none hover:bg-gray-100 ${showMenu && "bg-gray-100"}`}
           aria-expanded={showMenu}
           aria-haspopup="true"
         >
@@ -158,7 +158,11 @@ export default function PaletteMoreMenu({
                       setGeneratedVisualizerPalette(palette?.colors);
                       window.open("/studio/color-palette-visualizer", "_blank");
                     } else if (title === "Explore similar") {
-                      setFilterPreferredColors(palette?.preferred_colors);
+                      const colors = palette?.preferred_colors ?? [];
+                      const slug = filtersToGradientSlug(colors);
+                      if (slug) {
+                        router.push(`/explore/palettes/${slug}`);
+                      }
                     } else if (title === "Export") {
                       toggleExportModel();
                       setExportFrom("Palette");

@@ -2,7 +2,7 @@ import StudioLeftFooterMenu from "./StudioLeftFooterMenu";
 import StudioLeftMenuContainer from "./StudioLeftMenuContainer";
 import StudioLeftMenuHeader from "./StudioLeftMenuHeader";
 
-export default function StudioLeftMenuContent({from}: {from: string}) {
+export default function StudioLeftMenuContent({ from }: { from: string }) {
   return (
     <>
       <StudioLeftMenuHeader from={from} />

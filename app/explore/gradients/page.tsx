@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: "https://palettiq.net/explore/gradients",
     images: [
       {
-        url: "/banner.webp",
+        url: "/banner.png",
         width: 1200,
         height: 630,
         alt: "PalettIQ - Explore CSS Gradients",

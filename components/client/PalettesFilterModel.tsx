@@ -14,52 +14,25 @@ import {
   saturationLevels,
   useCases,
 } from "@/utils/Items";
-import { useBrowseStore } from "@/libs/stores/dataStore";
+import { usePathname, useRouter } from "next/navigation";
+import { filtersToSlug, slugToFilters } from "@/utils/utils";
+import { PaletteFilters } from "@/utils/Types";
 
 export default function PalettesFilterModel() {
-  const filterIndustries = useBrowseStore((state) => state.filterIndustries);
-  const setFilterIndustries = useBrowseStore(
-    (state) => state.setFilterIndustries,
-  );
-  const filterPreferredColors = useBrowseStore(
-    (state) => state.filterPreferredColors,
-  );
-  const setFilterPreferredColors = useBrowseStore(
-    (state) => state.setFilterPreferredColors,
-  );
-  const filterMoods = useBrowseStore((state) => state.filterMoods);
-  const setFilterMoods = useBrowseStore((state) => state.setFilterMoods);
-  const filterBrightnessLevels = useBrowseStore(
-    (state) => state.filterBrightnessLevels,
-  );
-  const setFilterBrightnessLevels = useBrowseStore(
-    (state) => state.setFilterBrightnessLevels,
-  );
-  const filterSaturationLevels = useBrowseStore(
-    (state) => state.filterSaturationLevels,
-  );
-  const setFilterSaturationLevels = useBrowseStore(
-    (state) => state.setFilterSaturationLevels,
-  );
-  const filterModes = useBrowseStore((state) => state.filterModes);
-  const setFilterModes = useBrowseStore((state) => state.setFilterModes);
-  const filterUsecases = useBrowseStore((state) => state.filterUsecases);
-  const setFilterUsecases = useBrowseStore((state) => state.setFilterUsecases);
-  const filterHarmonies = useBrowseStore((state) => state.filterHarmonies);
-  const setFilterHarmonies = useBrowseStore(
-    (state) => state.setFilterHarmonies,
-  );
-  const clearAllPaletteFiltersItems = useBrowseStore(
-    (state) => state.clearAllPaletteFiltersItems,
-  );
-
   const palettesFilterModel = useModelStore(
     (state) => state.palettesFilterModel,
   );
   const togglePalettesFilterModel = useModelStore(
     (state) => state.togglePalettesFilterModel,
   );
-  const setPalettesPage = useBrowseStore((state) => state.setPalettesPage);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const currentFilters: PaletteFilters = (() => {
+    const match = pathname.match(/^\/explore\/palettes\/(.+)$/);
+    if (match) return slugToFilters(match[1]);
+    return {};
+  })();
 
   const handler = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -68,84 +41,67 @@ export default function PalettesFilterModel() {
     }
   };
 
+  function handleToggle(field: keyof PaletteFilters, value: string) {
+    const current = currentFilters[field] ?? [];
+    const updated = current.includes(value)
+      ? current.filter((v) => v !== value)
+      : [...current, value];
+
+    const newFilters: PaletteFilters = { ...currentFilters, [field]: updated };
+    const slug = filtersToSlug(newFilters);
+
+    if (slug) {
+      router.replace(`/explore/palettes/${slug}`, { scroll: false });
+    } else {
+      router.replace("/explore/palettes", { scroll: false });
+    }
+  }
+
+  function isActive(field: keyof PaletteFilters, value: string): boolean {
+    return (currentFilters[field] ?? []).includes(value);
+  }
+
   const FilterSection = ({
     title,
     items,
+    field,
   }: {
     title: string;
     items: string[];
+    field: keyof PaletteFilters;
   }) => {
-    const filterSetterMap: Record<string, (value: string[]) => void> = {
-      Industries: setFilterIndustries,
-      Colors: setFilterPreferredColors,
-      "Moods/Emotions": setFilterMoods,
-      "Brightness Level": setFilterBrightnessLevels,
-      "Saturation Level": setFilterSaturationLevels,
-      Modes: setFilterModes,
-      "Use Cases": setFilterUsecases,
-      Harmonies: setFilterHarmonies,
-    };
-
-    const filterStateMap: Record<string, string[]> = {
-      Industries: filterIndustries,
-      Colors: filterPreferredColors,
-      "Moods/Emotions": filterMoods,
-      "Brightness Level": filterBrightnessLevels,
-      "Saturation Level": filterSaturationLevels,
-      Modes: filterModes,
-      "Use Cases": filterUsecases,
-      Harmonies: filterHarmonies,
-    };
-
-    const selectedItems = filterStateMap[title] || [];
-
-    const handleToggle = (value: string) => {
-      setPalettesPage(0);
-      const setter = filterSetterMap[title];
-      if (!setter) return;
-
-      const current = selectedItems;
-
-      const updated = current.includes(value)
-        ? current.filter((item) => item !== value)
-        : [...current, value];
-
-      setter(updated);
-    };
-
     return (
       <div className="w-full">
         <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
-
         <div
           role="group"
           aria-label={`Filter by ${title}`}
-          className={`w-full mt-4 grid grid-cols-2 ${["Industries", "Use Cases", "Harmonies"].includes(title) && "max-sm:grid-cols-1"}`}
+          className={`w-full mt-4 grid grid-cols-3 ${["Industries", "Use Cases", "Harmonies"].includes(title) && "max-sm:grid-cols-1 max-md:grid-cols-2"}`}
         >
           {items.map((item, index) => {
-            const checked = selectedItems.includes(item);
+            const active = isActive(field, item);
             return (
               <div
                 key={index}
                 role="checkbox"
-                aria-checked={checked}
+                aria-checked={active}
                 aria-label={`Filter by ${item}`}
-                onClick={() => handleToggle(item)}
-                className="w-max flex items-center gap-3 pl-2 pr-3 h-9 rounded-full 
-                hover:bg-gray-100 border border-white hover:border-gray-200 
-                cursor-pointer select-none transition-all"
+                onClick={() => handleToggle(field, item)}
+                className={`w-max flex items-center gap-3 pl-2 pr-3 h-9 rounded-full
+                hover:bg-gray-100 border cursor-pointer select-none transition-all
+                ${active ? "border-gray-300 bg-gray-50" : "border-white hover:border-gray-200"}`}
               >
                 <input
                   type="checkbox"
-                  checked={checked}
+                  checked={active}
                   readOnly
                   className="hidden"
                 />
                 <div
                   className={`w-4.5 h-4.5 border rounded-full flex items-center justify-center transition-all
-                  ${checked ? "bg-gray-900 border-gray-900" : "border-gray-400"}`}
+                  ${active ? "bg-gray-900 border-gray-900" : "border-gray-400"}`}
                 >
-                  {checked && (
+                  {active && (
                     <svg
                       className="w-3 h-3 text-white"
                       fill="none"
@@ -158,7 +114,7 @@ export default function PalettesFilterModel() {
                   )}
                 </div>
                 <span className="text-sm font-semibold text-gray-900">
-                  {item}
+                  {item.split("_").join(" ")}
                 </span>
               </div>
             );
@@ -176,17 +132,17 @@ export default function PalettesFilterModel() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handler}
-          className="fixed inset-0 w-full h-screen bg-black/50 grid place-content-center z-50 max-sm:block max-sm:px-4 parent"
+          className="fixed inset-0 w-full h-screen bg-black/50 grid items-end pb-4 z-50 max-sm:px-4 parent"
         >
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label="Filter color palettes"
-            initial={{ scale: 0.8, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.8, opacity: 0, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-150 h-190 bg-white rounded-xl shadow-2xl max-sm:w-full max-sm:h-150"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            className="w-250 h-150 mx-auto bg-white rounded-xl shadow-2xl max-lg:w-full"
           >
             <div className="w-full h-14 px-4 rounded-t-xl bg-white border-b border-gray-200 flex items-center justify-between">
               <h2 className="text-md font-semibold text-gray-900">Filter By</h2>
@@ -203,32 +159,51 @@ export default function PalettesFilterModel() {
               className="w-full overflow-y-auto noscrollbar p-4 flex flex-col gap-6"
               style={{ height: "calc(100% - 112px)" }}
             >
-              <FilterSection title="Industries" items={industries} />
               <FilterSection
                 title="Colors"
-                items={preferredColors.map((color) => color.name)}
-              />
-              <FilterSection title="Moods/Emotions" items={moods} />
-              <FilterSection
-                title="Brightness Level"
-                items={brightnessLevels}
+                items={preferredColors.map((c) => c.name)}
+                field="preferred_colors"
               />
               <FilterSection
                 title="Saturation Level"
                 items={saturationLevels}
+                field="saturation_level"
               />
-              <FilterSection title="Modes" items={modes} />
-              <FilterSection title="Use Cases" items={useCases} />
+              <FilterSection
+                title="Brightness Level"
+                items={brightnessLevels}
+                field="brightness_level"
+              />
+              <FilterSection
+                title="Moods/Emotions"
+                items={moods}
+                field="moods"
+              />
               <FilterSection
                 title="Harmonies"
-                items={colorHarmonies.map((harmony) => harmony.title)}
+                items={colorHarmonies.map((h) => h.title)}
+                field="harmonies"
+              />
+              <FilterSection title="Modes" items={modes} field="modes" />
+              <FilterSection
+                title="Industries"
+                items={industries}
+                field="industries"
+              />
+              <FilterSection
+                title="Use Cases"
+                items={useCases}
+                field="usecases"
               />
             </div>
             <div className="w-full rounded-b-xl bg-white px-4 h-14 border-t border-gray-200 flex items-center justify-center">
               <Button
-                onClick={() => clearAllPaletteFiltersItems()}
                 variant={"distrcutiveText"}
                 size={"p0"}
+                onClick={() => {
+                  router.replace("/explore/palettes", { scroll: false });
+                  togglePalettesFilterModel();
+                }}
               >
                 Clear all
               </Button>

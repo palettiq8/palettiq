@@ -1,15 +1,11 @@
 import { PublishedPaletteType } from "@/utils/Types";
-import { LuCopy, LuEye } from "react-icons/lu";
+import { LuArrowUpRight, LuCopy, LuEye, LuShrink } from "react-icons/lu";
 import PaletteMoreMenu from "./PaletteMoreMenu";
-import { FlashMessage } from "@/utils/utils";
-import dayjs from "dayjs";
-import { generatorContentHeaderItemsStyle } from "@/utils/styles/Classes";
+import { FlashMessage, nameToSlug } from "@/utils/utils";
 import useModelStore from "@/libs/stores/modelStore";
-import { useOtherStore } from "@/libs/stores/dataStore";
-import relativeTime from "dayjs/plugin/relativeTime";
+import { useBrowseStore, useOtherStore } from "@/libs/stores/dataStore";
 import { Button } from "../Button";
-
-dayjs.extend(relativeTime);
+import Link from "next/link";
 
 export default function PaletteCard({
   palette,
@@ -28,6 +24,9 @@ export default function PaletteCard({
   const setQuickViewActiveColor = useOtherStore(
     (state) => state.setQuickViewActiveColor,
   );
+  const setViewModePalette = useBrowseStore(
+    (state) => state.setViewModePalette,
+  );
   const explorePaletteView = useOtherStore((state) => state.explorePaletteView);
 
   const colorsFromPalettes =
@@ -39,18 +38,38 @@ export default function PaletteCard({
     >
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-semibold text-gray-900">{palette?.name}</h3>
-        <div className="flex items-center gap-3">
-          <LuEye
-            onClick={() => {
-              toggleQuickViewModel();
-              setQuickViewActiveTab("Formats");
-              setQuickViewPalette(colorsFromPalettes);
-              setQuickViewActiveColor(colorsFromPalettes[0]);
-            }}
-            size={17}
-            aria-label={`Quick view ${palette?.name} color palette`}
-            className={generatorContentHeaderItemsStyle}
-          />
+        <div className="flex items-center gap-1">
+          <Link
+            href={`/palettes/${palette?.id}-${nameToSlug(palette?.name ?? "")}`}
+          >
+            <Button
+              variant={"secondary"}
+              size={"circle"}
+              className="border-none hover:bg-gray-50"
+            >
+              <LuArrowUpRight
+                size={16}
+                aria-label={`Quick view ${palette?.name} color palette`}
+              />
+            </Button>
+          </Link>
+          <Button
+            variant={"secondary"}
+            size={"circle"}
+            className="border-none hover:bg-gray-50"
+          >
+            <LuEye
+              onClick={() => {
+                toggleQuickViewModel();
+                setQuickViewActiveTab("Formats");
+                setQuickViewPalette(colorsFromPalettes);
+                setQuickViewActiveColor(colorsFromPalettes[0]);
+              }}
+              size={16}
+              aria-label={`Quick view ${palette?.name} color palette`}
+            />
+          </Button>
+
           <PaletteMoreMenu palette={palette} />
         </div>
       </div>
@@ -62,7 +81,7 @@ export default function PaletteCard({
             <div
               key={index}
               role="button"
-              className={`w-full ${explorePaletteView === "Vertical" ? "first:rounded-t-lg last:rounded-b-lg h-20" : "h-35 first:rounded-l-lg last:rounded-r-lg"} group relative transition-transform cursor-pointer`}
+              className={`w-full ${explorePaletteView === "Vertical" ? "first:rounded-t-lg last:rounded-b-lg h-30" : "h-40 max-lg:h-30 first:rounded-l-lg last:rounded-r-lg"} group relative transition-transform cursor-pointer`}
               style={{ backgroundColor: color }}
               aria-label={`Copy color ${color.toUpperCase()} from ${palette?.name} palette`}
               onClick={async () => {
@@ -83,12 +102,16 @@ export default function PaletteCard({
         })}
       </div>
       <div className="flex items-center justify-between mt-3">
-        <time
-          dateTime={palette?.created_at?.toString()}
-          className="text-sm font-semibold text-gray-900"
+        <Button
+          variant={"outline"}
+          size={"md"}
+          onClick={() => {
+            setViewModePalette(palette?.colors);
+          }}
         >
-          {dayjs(palette?.created_at).fromNow()}
-        </time>
+          <LuShrink size={16} />
+          <span>View mode</span>
+        </Button>
         <Button
           onClick={async () => {
             await navigator.clipboard.writeText(
@@ -100,7 +123,10 @@ export default function PaletteCard({
           variant={"outline"}
           size={"md"}
         >
-          <LuCopy size={16} className={generatorContentHeaderItemsStyle} />
+          <LuCopy
+            size={16}
+            className="text-gray-900 hover:scale-110 cursor-pointer active:scale-90 transition-all"
+          />
           <span>Copy</span>
         </Button>
       </div>

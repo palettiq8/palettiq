@@ -64,9 +64,6 @@ export default function ResetPreferencesModel() {
   const setBrowseGradientActiveType = useBrowseStore(
     (state) => state.setBrowseGradientActiveType,
   );
-  const clearAllPaletteFiltersItems = useBrowseStore(
-    (state) => state.clearAllPaletteFiltersItems,
-  );
   const setPalettesPage = useBrowseStore((state) => state.setPalettesPage);
   const setSearchPalettesQuery = useBrowseStore(
     (state) => state.setSearchPalettesQuery,
@@ -146,7 +143,6 @@ export default function ResetPreferencesModel() {
                   setActiveShadowViewer("Container View");
                   setActiveTextShadowViewer("Container View");
                   setBrowseGradientActiveType("Linear");
-                  clearAllPaletteFiltersItems();
                   setPalettesPage(0);
                   setSearchPalettesQuery("");
                   setSearchColorsQuery("");

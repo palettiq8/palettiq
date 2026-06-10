@@ -8,29 +8,42 @@ import JsonLd from "@/components/server/JsonLd";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://palettiq.net"),
+  applicationName: "PalettIQ",
+  publisher: "PalettIQ",
+  referrer: "origin-when-cross-origin",
+  formatDetection: {
+    telephone: false,
+  },
+  manifest: "/site.webmanifest",
   title: {
-    default: "PalettIQ - Color Palette Generator for Designers",
+    default:
+      "Color Palette Generator & Color Schemes From Your Colors | PalettIQ",
     template: "%s | PalettIQ",
   },
   description:
-    "Generate beautiful, accessible color palettes instantly. Explore colors, gradients, and design tools - all in one place. Free forever.",
+    "Generate color palettes from your selected colors, moods, industries, and styles. Create accessible color schemes, gradients, and brand-ready palettes tailored to your project.",
   keywords: [
-    "PalettIQ",
     "color palette generator",
-    "color scheme tool",
-    "gradient generator",
-    "color picker",
-    "design color tool",
+    "palette generator from colors",
+    "color scheme generator",
+    "brand color palette",
     "accessible color palette",
-    "brand color generator",
+    "ui color palette",
+    "color combinations",
+    "color harmony generator",
+    "design color tool",
+    "palette generator for designers",
+    "generate palette from selected colors",
+    "website color palette",
+    "branding color palette",
   ],
   authors: [{ name: "PalettIQ", url: "https://palettiq.net" }],
   creator: "PalettIQ",
   category: "design",
   openGraph: {
-    title: "PalettIQ - Color Palette Generator for Designers",
+    title: "Generate Color Palettes From Your Selected Colors | PalettIQ",
     description:
-      "Generate beautiful, accessible color palettes instantly. Free design color tool.",
+      "Choose colors, moods, industries, and styles to generate beautiful, accessible color palettes tailored to your project.",
     url: "https://palettiq.net",
     siteName: "PalettIQ",
     images: [
@@ -43,16 +56,15 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
     type: "website",
+    countryName: "Worldwide",
   },
   twitter: {
     card: "summary_large_image",
-    title: "PalettIQ - Color Palette Generator",
-    description: "Generate beautiful color palettes instantly. Free forever.",
+    title: "Generate Color Palettes From Your Colors | PalettIQ",
+    description:
+      "Create personalized color palettes using your preferred colors, moods, industries, and styles.",
     images: ["/banner.webp"],
     creator: "@palettiq",
-  },
-  alternates: {
-    canonical: "https://palettiq.net",
   },
   robots: {
     index: true,
@@ -71,6 +83,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [{ url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" }],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    shortcut: "/favicon.ico",
   },
 };
 

@@ -48,17 +48,18 @@ import Visualize5 from "@/components/visualizers/Visualize5";
 import Visualize6 from "@/components/visualizers/Visualize6";
 
 export const headerLinkItems = [
-  { id: 1, title: "Color Palettes", url: "/explore/palettes" },
-  { id: 2, title: "Color Shades Explorer", url: "/explore/colors" },
-  { id: 3, title: "Explore Gradients", url: "/explore/gradients" },
+  { id: 1, title: "Browse Color Palettes", url: "/explore/palettes" },
+  { id: 2, title: "Explore Color Shades", url: "/explore/colors" },
+  { id: 3, title: "Browse Gradients", url: "/explore/gradients" },
 ];
+
 export const features = [
   {
     id: 1,
     title: "Color Palette Generator",
-    urlTitle: "Generate free color palette",
+    urlTitle: "Generate color palettes",
     icon: LuGrid2X2,
-    desc: "Create beautiful, harmonious color palettes instantly. Fine-tune hue, saturation, and lightness for pixel-perfect results.",
+    desc: "Generate personalized color palettes from selected colors, moods, industries, harmonies, and styles. Export ready-to-use palettes instantly.",
     bgColors: ["from-red-600", "to-red-500"],
     oneBgColor: "bg-red-300",
     url: "/studio",
@@ -66,20 +67,19 @@ export const features = [
   {
     id: 2,
     title: "Color Palette Visualizer",
-    urlTitle: "Visualize color palette",
+    urlTitle: "Visualize color palettes",
     icon: LuActivity,
-    desc: "Preview your color palette in real UI components before shipping. See exactly how your colors work in context.",
+    desc: "Preview color palettes in real UI components, dashboards, websites, and design layouts before using them in production.",
     bgColors: ["from-amber-600", "to-amber-500"],
     oneBgColor: "bg-amber-300",
     url: "/studio/color-palette-visualizer",
   },
-
   {
     id: 3,
     title: "CSS Gradient Generator",
-    urlTitle: "Generate CSS gradient",
+    urlTitle: "Generate CSS gradients",
     icon: LuCircleDot,
-    desc: "Create beautiful CSS gradients instantly. Copy ready-to-use gradient code for your web and UI projects.",
+    desc: "Create linear, radial, and conic CSS gradients visually. Customize colors, directions, and stops, then copy production-ready CSS code.",
     bgColors: ["from-lime-600", "to-lime-500"],
     oneBgColor: "bg-lime-300",
     url: "/studio/css-gradient-generator",
@@ -87,9 +87,9 @@ export const features = [
   {
     id: 4,
     title: "Color Extractor",
-    urlTitle: "Extract colors from image free",
+    urlTitle: "Extract colors from images",
     icon: LuPickaxe,
-    desc: "Extract dominant color palettes from any image instantly. Perfect for brand matching and mood board creation.",
+    desc: "Extract dominant colors and generate palettes from images instantly. Get HEX, RGB, and HSL values for branding and design projects.",
     bgColors: ["from-green-600", "to-green-500"],
     oneBgColor: "bg-green-300",
     url: "/studio/color-extractor",
@@ -97,9 +97,9 @@ export const features = [
   {
     id: 5,
     title: "Color Contrast Checker",
-    urlTitle: "Check color contrast",
+    urlTitle: "Check color contrast ratios",
     icon: LuContrast,
-    desc: "Check WCAG color contrast ratios instantly. Ensure your designs meet accessibility standards for readability.",
+    desc: "Check WCAG AA and AAA color contrast ratios instantly. Test foreground and background color combinations for accessibility compliance.",
     bgColors: ["from-indigo-600", "to-indigo-500"],
     oneBgColor: "bg-indigo-300",
     url: "/studio/color-contrast-checker",
@@ -107,9 +107,9 @@ export const features = [
   {
     id: 6,
     title: "Online Color Picker",
-    urlTitle: "Pick color online free",
+    urlTitle: "Pick color online",
     icon: LuPencil,
-    desc: "Pick, adjust, and preview precise colors for your design. Export HEX, RGB, and HSL values instantly.",
+    desc: "Pick colors online and instantly get HEX, RGB, HSL, CMYK, LAB, LCH, and XYZ values with harmonies, tints, shades, and tones.",
     bgColors: ["from-violet-600", "to-violet-500"],
     oneBgColor: "bg-violet-300",
     url: "/studio/online-color-picker",
@@ -117,14 +117,15 @@ export const features = [
   {
     id: 7,
     title: "CSS Shadow Generator",
-    urlTitle: "Generate CSS shadow",
+    urlTitle: "Generate CSS shadows",
     icon: LuDroplet,
-    desc: "Create realistic, customizable CSS box shadows that add depth and elevate your UI designs.",
+    desc: "Create box shadows and text shadows visually. Adjust blur, spread, offset, color, and inset settings, then copy CSS code instantly.",
     bgColors: ["from-purple-600", "to-purple-500"],
     oneBgColor: "bg-purple-300",
     url: "/studio/css-shadow-generator",
   },
 ];
+
 export const footerItems = [
   { id: 1, title: "Color palette generator", url: "/studio" },
   { id: 2, title: "Online color picker", url: "/studio/online-color-picker" },
@@ -254,6 +255,16 @@ export const visualizerResponsiveMoreMenuItems = [
 export const shadowResponsiveMoreMenuItems = [
   { id: 1, title: "Open on screen", icon: LuMaximize2 },
   { id: 2, title: "Export", icon: BiExport },
+];
+export const paletteDetailsMenuItems = [
+  { id: 1, title: "Copy", icon: LuCopy },
+  { id: 2, title: "Quick view", icon: LuEye },
+  { id: 3, title: "View mode", icon: LuShrink },
+  { id: 4, title: "Edit on generator", icon: LuPencilLine },
+  { id: 5, title: "Open on screen", icon: LuMaximize2 },
+  { id: 6, title: "Make gradient", icon: LuCircleDot },
+  { id: 7, title: "Visualize the palette", icon: LuActivity },
+  { id: 8, title: "Export", icon: BiExport },
 ];
 export const colorFamilies: Record<string, ColorFamily> = {
   Black: { hue: [0, 360], sat: [0, 50], light: [0, 30] },
@@ -415,28 +426,28 @@ export const colorCountMenuItems = [
 
 export const tags = [
   "#technology",
-  "#finance-banking",
-  "#healthcare-medical",
+  "#finance&banking",
+  "#healthcare&medical",
   "#education",
-  "#retail-ecommerce",
+  "#retail&ecommerce",
   "#manufacturing",
-  "#agriculture-farming",
-  "#food-beverage",
-  "#entertainment-media",
+  "#agriculture&farming",
+  "#food&beverage",
+  "#entertainment&media",
   "#realestate",
   "#transportation",
-  "#energy-utilities",
-  "#hospitality-tourism",
-  "#fashion-apparel",
-  "#beauty-personalcare",
+  "#energy&utilities",
+  "#hospitality&tourism",
+  "#fashion&apparel",
+  "#beauty&personalcare",
   "#automotive",
-  "#government-publicsector",
-  "#nonprofit-ngo",
-  "#sports-fitness",
+  "#government&publicsector",
+  "#nonprofit&ngo",
+  "#sports&fitness",
   "#telecom",
-  "#science-research",
-  "#legal-consulting",
-  "#arts-creative",
+  "#science&research",
+  "#legal&consulting",
+  "#arts&creative",
   "#home",
   "#cryptocurrency",
   "#black",
@@ -502,7 +513,7 @@ export const tags = [
   "#neon",
   "#lightmode",
   "#darkmode",
-  "#light-darkboth",
+  "#light&darkboth",
   "#branding",
   "#logodesign",
   "#websiteui",
@@ -534,28 +545,28 @@ export const tags = [
 ];
 export const industries = [
   "Technology",
-  "Finance & Banking",
-  "Healthcare & Medical",
+  "Finance_&_Banking",
+  "Healthcare_&_Medical",
   "Education",
-  "Retail & Ecommerce",
+  "Retail_&_Ecommerce",
   "Manufacturing",
-  "Agriculture & Farming",
-  "Food & Beverage",
-  "Entertainment & Media",
-  "Real Estate",
+  "Agriculture_&_Farming",
+  "Food_&_Beverage",
+  "Entertainment_&_Media",
+  "Real_Estate",
   "Transportation",
-  "Energy & Utilities",
-  "Hospitality & Tourism",
-  "Fashion & Apparel",
-  "Beauty & Personal Care",
+  "Energy_&_Utilities",
+  "Hospitality_&_Tourism",
+  "Fashion_&_Apparel",
+  "Beauty_&_Personal_Care",
   "Automotive",
-  "Government & Public Sector",
-  "Non-Profit & NGO",
-  "Sports & Fitness",
+  "Government_&_Public_Sector",
+  "Non_Profit_&_NGO",
+  "Sports_&_Fitness",
   "Telecom",
-  "Science & Research",
-  "Legal & Consulting",
-  "Arts & Creative",
+  "Science_&_Research",
+  "Legal_&_Consulting",
+  "Arts_&_Creative",
   "Home",
   "Cryptocurrency",
 ];
@@ -601,7 +612,7 @@ export const moods = [
   "Secure",
   "Futuristic",
   "Innovative",
-  "Nature Inspired",
+  "Nature_Inspired",
   "Organic",
   "Vintage",
   "Retro",
@@ -610,13 +621,13 @@ export const moods = [
   "Sophisticated",
 ];
 export const brightnessLevels = [
-  "Very Light",
+  "Very_Light",
   "Light",
-  "Soft Light",
+  "Soft_Light",
   "Balanced",
   "Medium",
   "Dark",
-  "Very Dark",
+  "Very_Dark",
 ];
 export const saturationLevels = [
   "Pastel",
@@ -628,28 +639,28 @@ export const saturationLevels = [
   "Intense",
   "Neon",
 ];
-export const modes = ["Light Mode", "Dark Mode"];
+export const modes = ["Light_Mode", "Dark_Mode", "Light_&_Dark_Both"];
 export const useCases = [
   "Branding",
-  "Logo Design",
-  "Website UI",
-  "Landing Page",
-  "Mobile App UI",
-  "Dashboard or Admin Panel",
-  "Ecommerce Website",
-  "Social Media Graphics",
-  "Presentation or Slides",
-  "Poster Design",
-  "Marketing Materials",
+  "Logo_Design",
+  "Website_UI",
+  "Landing_Page",
+  "Mobile_App_UI",
+  "Dashboard_or_Admin_Panel",
+  "Ecommerce_Website",
+  "Social_Media_Graphics",
+  "Presentation_or_Slides",
+  "Poster_Design",
+  "Marketing_Materials",
   "Illustration",
   "Infographics",
-  "Game UI",
-  "Video or Motion Graphics",
-  "Product Packaging",
-  "Print Design",
-  "Interior Design",
-  "Fashion Design",
-  "General Purpose",
+  "Game_UI",
+  "Video_or_Motion_Graphics",
+  "Product_Packaging",
+  "Print_Design",
+  "Interior_Design",
+  "Fashion_Design",
+  "General_Purpose",
 ];
 export const colorHarmonies = [
   { id: 1, title: "Analogous", harmony: "analogous" },
@@ -657,11 +668,11 @@ export const colorHarmonies = [
   { id: 3, title: "Complementary", harmony: "complementary" },
   {
     id: 4,
-    title: "Double Split Complementary",
+    title: "Double_Split_Complementary",
     harmony: "double-split-complementary",
   },
   { id: 5, title: "Rectangle", harmony: "rectangle" },
-  { id: 6, title: "Split Complementary", harmony: "split-complementary" },
+  { id: 6, title: "Split_Complementary", harmony: "split-complementary" },
   { id: 7, title: "Tetradic", harmony: "tetradic" },
   { id: 8, title: "Triadic", harmony: "triadic" },
 ];
@@ -673,7 +684,7 @@ export const exportMethods = [
   { icon: BsFiletypeJson, method: "JSON" },
   { icon: BsFiletypeSvg, method: "SVG" },
   { icon: MdDataArray, method: "Array" },
-  { icon: LuLink, method: "Share Link" },
+  { icon: LuLink, method: "Share Studio Link" },
   { icon: BsFiletypePng, method: "PNG Image" },
 ];
 export const exportShadowMethods = [
@@ -834,7 +845,7 @@ export const paletteAndColorsQuestions = [
   {
     title: "Does PalettIQ support HEX, RGB, and HSL formats?",
     content:
-      "Yes, Palettiq supports HEX, RGB, and HSL formats. You can view and copy colors in different formats depending on your needs.",
+      "Yes, PalettIQ supports HEX, RGB, and HSL formats. You can view and copy colors in different formats depending on your needs.",
   },
   {
     title: "Can I lock specific colors while generating palettes?",
@@ -1006,9 +1017,9 @@ export const updateAndAccountsQuestions = [
     content: "No, your email is not shared with third parties.",
   },
   {
-    title: "Why doesn’t Palettiq require user accounts like other platforms?",
+    title: "Why doesn’t PalettIQ require user accounts like other platforms?",
     content:
-      "Palettiq is designed to prioritize fast and powerful palette generation and exploration over account-based management. Instead of focusing on saving or organizing content behind accounts, it focuses on delivering the best possible creative output with minimal friction. Users can always request an account system or other features through the feedback section.",
+      "PalettIQ is designed to prioritize fast and powerful palette generation and exploration over account-based management. Instead of focusing on saving or organizing content behind accounts, it focuses on delivering the best possible creative output with minimal friction. Users can always request an account system or other features through the feedback section.",
   },
 ];
 export const visualizers = [
@@ -1018,4 +1029,98 @@ export const visualizers = [
   Visualize2,
   Visualize5,
   Visualize3,
+];
+export const homeFAQQuestions = [
+  {
+    title: "Is PalettIQ free to use?",
+    content:
+      "Yes, PalettIQ offers free access to its core features, including palette creation, exploration, and exporting. Additional features may be introduced in the future.",
+  },
+  {
+    title: "Do I need an account to use PalettIQ?",
+    content:
+      "No, you don’t need an account to use PalettIQ. All current features are available without signing up, so you can explore, generate, and use palettes freely. Account-based features like saving palettes or creating projects may be introduced in future updates.",
+  },
+  {
+    title: "What makes PalettIQ different from other palette tools?",
+    content:
+      "PalettIQ focuses on generating palettes based on your interests, such as preferred colors, moods, and use cases, so the results feel more relevant. It also provides additional tools like gradient generation, contrast checking, and color extraction, making it more than just a basic palette generator.",
+  },
+  {
+    title: "Can I use PalettIQ for professional projects?",
+    content:
+      "Yes, you can use palettes and colors from PalettIQ in both personal and professional projects, including design and development work.",
+  },
+  {
+    title: "Is my data safe on PalettIQ?",
+    content:
+      "PalettIQ aims to handle user data responsibly and securely. Currently, since no account or personal data storage system is required, your usage remains minimal and safe. Any future features involving user data will be designed with security and privacy in mind.",
+  },
+  {
+    title: "How do I create a color palette?",
+    content:
+      "Go to the Generator section and click the 'Generate Palette' button or press Enter to create a palette instantly. You can also customize your results by selecting preferred colors and adjusting each color’s Hue, Saturation, and Lightness (HSL) values before generating.",
+  },
+  {
+    title: "Can I generate random palettes?",
+    content:
+      "Yes, you can generate random palettes. By default, the generator creates random palettes with a variety of colors. You can also customize the result by selecting your preferred colors and adjusting Hue, Saturation, and Lightness (HSL) to generate a palette that fits your needs.",
+  },
+  {
+    title: "How do I copy a color code?",
+    content:
+      "You can copy a color by simply clicking on it — the HEX code is copied instantly. In some cases, a quick view panel opens where you can copy the color in different formats. You’ll also find copy buttons in various places throughout the app for quick access.",
+  },
+  {
+    title: "Does PalettIQ support HEX, RGB, and HSL formats?",
+    content:
+      "Yes, Palettiq supports HEX, RGB, and HSL formats. You can view and copy colors in different formats depending on your needs.",
+  },
+  {
+    title: "Can I duplicate a palette?",
+    content:
+      "No, duplicating palettes is not supported. Each palette is generated or created uniquely, and duplicate actions are not available at the moment.",
+  },
+  {
+    title: "Can I publish palettes?",
+    content: "Yes, you can publish palettes even without creating an account.",
+  },
+  {
+    title: "How can I delete my published palettes?",
+    content:
+      "To delete a published palette, please search for the palette in the Explore section and contact our support team via email with the palette name. We will take care of the deletion for you.",
+  },
+  {
+    title: "Why am I not seeing relevant palettes?",
+    content:
+      "You may not see relevant palettes if no matches are available or due to active filters. Try adjusting your search or filters, or report the issue if it persists.",
+  },
+  {
+    title: "Can I search using keywords or color names?",
+    content:
+      "You can search by palette name or color name. Keyword search is not supported at the moment.",
+  },
+  {
+    title: "Are palettes safe for commercial use?",
+    content: "Yes.",
+  },
+  {
+    title: "What formats are available for export?",
+    content:
+      "CSS, Tailwind CSS, SCSS, Gradient CSS, JSON, SVG, and Array. You can also download as images or share palette links.",
+  },
+  {
+    title: "How do I reset my preferences?",
+    content:
+      "Go to Settings → General and scroll down to find the reset option.",
+  },
+  {
+    title: "How do I subscribe to product updates?",
+    content: "Go to Settings → Updates and subscribe using your email address.",
+  },
+  {
+    title: "Why doesn’t PalettIQ require user accounts like other platforms?",
+    content:
+      "PalettIQ is designed to prioritize fast and powerful palette generation and exploration over account-based management. Instead of focusing on saving or organizing content behind accounts, it focuses on delivering the best possible creative output with minimal friction. Users can always request an account system or other features through the feedback section.",
+  },
 ];

@@ -84,7 +84,7 @@ export default function ExportModel() {
         : generateJSON(exportPalette);
     if (activeMethod === "SVG") return generateSVG(exportPalette);
     if (activeMethod === "Array") return generateArray(exportPalette);
-    if (activeMethod === "Share Link") {
+    if (activeMethod === "Share Studio Link") {
       if (exportFrom === "Gradient") {
         return generateGradientLink(
           gradientStops,
@@ -116,7 +116,7 @@ export default function ExportModel() {
     if (activeMethod === "JSON") return "Copy JSON";
     if (activeMethod === "SVG") return "Copy SVG";
     if (activeMethod === "Array") return "Copy Array";
-    if (activeMethod === "Share Link") return "Copy Link";
+    if (activeMethod === "Share Studio Link") return "Copy Link";
     return "";
   };
 
@@ -128,7 +128,7 @@ export default function ExportModel() {
     if (activeMethod === "JSON") return "Download JSON";
     if (activeMethod === "SVG") return "Download SVG";
     if (activeMethod === "Array") return "Download Array";
-    if (activeMethod === "Share Link") return "Download Link";
+    if (activeMethod === "Share Studio Link") return "Download Link";
     return "";
   };
 
@@ -162,7 +162,7 @@ export default function ExportModel() {
       await navigator.clipboard.writeText(generateSVG(exportPalette));
     if (activeMethod === "Array")
       await navigator.clipboard.writeText(generateArray(exportPalette));
-    if (activeMethod === "Share Link") {
+    if (activeMethod === "Share Studio Link") {
       let textOutput;
       if (exportFrom === "Gradient") {
         textOutput = generateGradientLink(
@@ -254,7 +254,7 @@ export default function ExportModel() {
         "text/plain",
       );
 
-    if (activeMethod === "Share Link") {
+    if (activeMethod === "Share Studio Link") {
       let res;
       if (exportFrom === "Gradient") {
         res = downloadFile(

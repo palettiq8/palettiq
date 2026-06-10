@@ -166,146 +166,162 @@ function StudioPage() {
   }, []);
 
   return (
-    <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
-      <div className="w-full h-16 border-b border-gray-200 flex items-center justify-between px-4 max-lg:pr-0">
-        <div className="flex items-center gap-3">
-          <div className="hidden max-[1400px]:block">
-            <StudioResponsiveMenuIcon />
-          </div>
-          <h2 className="text-xl font-semibold text-gray-900">
-            Color Palette Generator{" "}
-            <span className="max-[1400px]:hidden">~ </span>
-            <span className="text-sm font-medium text-gray-800 max-[1400px]:hidden">
-              Press Enter to generate!
-            </span>
-          </h2>
-        </div>
-        <div className="bg-gray-50 border border-gray-200 max-lg:bg-white max-lg:border-white px-4 h-10 rounded-full flex items-center gap-6.5">
-          <GeneratorContentHeaderIconItems />
-        </div>
-        <div className="flex items-center gap-3 max-lg:hidden">
-          <Button
-            aria-label="Export color palette as CSS, HEX, or RGB"
-            onClick={() => {
-              toggleExportModel();
-              setExportFrom("Palette");
-              setExportPalette(
-                generatedPalette.map((palette) => palette.color),
-              );
-            }}
-            variant={"outline"}
-            size={"md"}
-          >
-            <BiExport size={16} />
-            <span>Export</span>
-          </Button>
-          <Button
-            aria-label="Add color palette to PalettIQ community"
-            onClick={() => {
-              toggleAddToCommunityModel();
-              setAddToCommunityPalette(generatedPalette);
-            }}
-            variant={"outline"}
-            size={"md"}
-          >
-            Add to Community
-          </Button>
-        </div>
-      </div>
-      <div
-        className={`w-full ${
-          generatorMaximize
-            ? "absolute top-0 left-0 w-full h-screen z-50"
-            : "h-[calc(100%-128px)] max-lg:h-[calc(100%-272px)] max-lg:p-4"
-        }`}
-      >
-        <DndContext
-          onDragEnd={handleDragEnd}
-          modifiers={[restrictToParentElement]}
-          collisionDetection={closestCenter}
-        >
-          <SortableContext
-            items={generatedPalette.map((_, index) => index.toString())}
-            strategy={rectSortingStrategy}
-          >
-            <div
-              className={`w-full bg-white h-full ${!generatorMaximize && "max-lg:h-70 max-md:h-50 max-sm:h-35"} flex ${isHorizontalPalette && "flex-col"} ${generatorMaximize && "max-lg:flex-col"} relative`}
-            >
-              {generatedPalette.map(({ id, color, isLocked }, index) => (
-                <SortablePaletteItem
-                  key={id}
-                  index={index}
-                  color={color}
-                  isLocked={isLocked}
-                  isFirst={index === 0}
-                  isLast={index === generatedPalette.length - 1}
-                />
-              ))}
-              {generatorMaximize && (
-                <Button
-                  onClick={() => toggleGeneratorMaximize()}
-                  variant={"outline"}
-                  size={"circle"}
-                  className="absolute top-4 left-4"
-                >
-                  <LuArrowLeft size={16} />
-                </Button>
-              )}
+    <>
+      <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
+        <div className="w-full h-16 border-b border-gray-200 flex items-center justify-between px-4 max-lg:pr-0">
+          <div className="flex items-center gap-3">
+            <div className="hidden max-[1400px]:block">
+              <StudioResponsiveMenuIcon />
             </div>
-          </SortableContext>
-        </DndContext>
-      </div>
-
-      <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-52 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
-        <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
-          <ColorPreferencesMenu from="Studio" />
-          <ColorCountMenu from="Generator" />
-          <PaletteStylesMenu from="Generator" />
-          <button
-            aria-label="Open HSL Control Panel to adjust hue, saturation, and lightness"
-            onClick={() => toggleHslControlPanelModel()}
-            className="h-10 px-4 font-semibold text-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center select-none text-gray-50 rounded-full gap-2 bg-radial-[at_25%_25%] from-indigo-300 to-indigo-600 to-75% max-lg:hidden"
-          >
-            <LuBanknote size={16} />
-            <span>HSL Control Panel</span>
-          </button>
-        </div>
-        <div className="max-lg:w-full flex items-center gap-3">
-          <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
+            <h1 className="text-xl font-semibold text-gray-900">
+              Color Palette Generator{" "}
+              <span className="max-[1400px]:hidden">~ </span>
+              <span className="text-sm font-medium text-gray-800 max-[1400px]:hidden">
+                Press Enter to generate!
+              </span>
+            </h1>
+          </div>
+          <div className="bg-gray-100 border border-gray-200 max-lg:bg-white max-lg:border-white px-0.5 h-10 rounded-full flex items-center gap-2">
+            <GeneratorContentHeaderIconItems />
+          </div>
+          <div className="flex items-center gap-3 max-lg:hidden">
             <Button
-              aria-label="Undo last palette change"
-              disabled={!(historyIndex > 0)}
-              onClick={undoHandler}
-              className={REDOUNDOCOMMONSTYLE}
-              variant={"text"}
-              size={"p0"}
+              aria-label="Export color palette as HEX, RGB, CSS, Tailwind CSS, SCSS, or JSON"
+              onClick={() => {
+                toggleExportModel();
+                setExportFrom("Palette");
+                setExportPalette(
+                  generatedPalette.map((palette) => palette.color),
+                );
+              }}
+              variant={"outline"}
+              size={"md"}
             >
-              <LuUndo2 size={16} />
+              <BiExport size={16} />
+              <span>Export</span>
             </Button>
-            <span className="w-px h-4 bg-gray-200"></span>
             <Button
-              aria-label="Redo last palette change"
-              disabled={!(historyIndex < paletteHistory.length - 1)}
-              onClick={redoHandler}
-              className={REDOUNDOCOMMONSTYLE}
-              variant={"text"}
-              size={"p0"}
+              aria-label="Add color palette to PalettIQ community"
+              onClick={() => {
+                toggleAddToCommunityModel();
+                setAddToCommunityPalette(generatedPalette);
+              }}
+              variant={"outline"}
+              size={"md"}
             >
-              <LuRedo2 size={16} />
+              Add to Community
             </Button>
           </div>
-          <Button
-            aria-label="Generate new color palette"
-            onClick={paletteGeneratorHandler}
-            variant={"primary"}
-            size={"md"}
-            className="max-lg:w-full"
+        </div>
+        <div
+          className={`w-full ${
+            generatorMaximize
+              ? "absolute top-0 left-0 w-full h-screen z-50"
+              : "h-[calc(100%-128px)] max-lg:h-[calc(100%-272px)] max-lg:p-4"
+          }`}
+        >
+          <DndContext
+            onDragEnd={handleDragEnd}
+            modifiers={[restrictToParentElement]}
+            collisionDetection={closestCenter}
           >
-            Generate Palette
-          </Button>
+            <SortableContext
+              items={generatedPalette.map((_, index) => index.toString())}
+              strategy={rectSortingStrategy}
+            >
+              <div
+                className={`w-full bg-white h-full ${!generatorMaximize && "max-lg:h-70 max-md:h-50 max-sm:h-35"} flex ${isHorizontalPalette && "flex-col"} ${generatorMaximize && "max-lg:flex-col"} relative`}
+              >
+                {generatedPalette.map(({ id, color, isLocked }, index) => (
+                  <SortablePaletteItem
+                    key={id}
+                    index={index}
+                    color={color}
+                    isLocked={isLocked}
+                    isFirst={index === 0}
+                    isLast={index === generatedPalette.length - 1}
+                  />
+                ))}
+                {generatorMaximize && (
+                  <Button
+                    onClick={() => toggleGeneratorMaximize()}
+                    variant={"outline"}
+                    size={"circle"}
+                    className="absolute top-4 left-4"
+                  >
+                    <LuArrowLeft size={16} />
+                  </Button>
+                )}
+              </div>
+            </SortableContext>
+          </DndContext>
+        </div>
+
+        <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-52 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
+          <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
+            <ColorPreferencesMenu from="Studio" />
+            <ColorCountMenu from="Generator" />
+            <PaletteStylesMenu from="Generator" />
+            <button
+              aria-label="Open HSL Control Panel to adjust hue, saturation, and lightness"
+              onClick={() => toggleHslControlPanelModel()}
+              className="h-10 px-4 font-semibold text-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center select-none text-gray-50 rounded-full gap-2 bg-radial-[at_25%_25%] from-indigo-300 to-indigo-600 to-75% max-lg:hidden"
+            >
+              <LuBanknote size={16} />
+              <span>HSL Control Panel</span>
+            </button>
+          </div>
+          <div className="max-lg:w-full flex items-center gap-3">
+            <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
+              <Button
+                aria-label="Undo last palette change"
+                disabled={!(historyIndex > 0)}
+                onClick={undoHandler}
+                className={REDOUNDOCOMMONSTYLE}
+                variant={"text"}
+                size={"p0"}
+              >
+                <LuUndo2 size={16} aria-hidden="true" />
+              </Button>
+              <span className="w-px h-4 bg-gray-200"></span>
+              <Button
+                aria-label="Redo last palette change"
+                disabled={!(historyIndex < paletteHistory.length - 1)}
+                onClick={redoHandler}
+                className={REDOUNDOCOMMONSTYLE}
+                variant={"text"}
+                size={"p0"}
+              >
+                <LuRedo2 size={16} aria-hidden="true" />
+              </Button>
+            </div>
+            <Button
+              aria-label="Generate personalized color palette"
+              onClick={paletteGeneratorHandler}
+              variant={"primary"}
+              size={"md"}
+              className="max-lg:w-full"
+            >
+              Generate Palette
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
+      <section className="sr-only">
+        <h2>Generate Personalized Color Palettes</h2>
+
+        <p>
+          Generate personalized color palettes from selected colors, color
+          families, moods, industries, and styles.
+        </p>
+
+        <p>
+          Customize hue, saturation, and lightness, lock colors, reorder palette
+          colors, and export palettes in HEX, RGB, CSS, Tailwind CSS, SCSS, and
+          other formats.
+        </p>
+      </section>
+    </>
   );
 }
 

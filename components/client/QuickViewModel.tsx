@@ -122,17 +122,17 @@ export default function QuickViewModel() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handler}
-          className="fixed inset-0 w-full h-screen bg-black/50 z-50 grid place-content-center max-sm:block max-sm:px-4 parent"
+          className="fixed inset-0 w-full h-screen bg-black/50 z-50 grid items-end max-sm:px-4 parent pb-4"
         >
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label="Quick view color formats and harmonies"
-            initial={{ scale: 0.8, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.8, opacity: 0, y: 20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-150 bg-white rounded-xl shadow-2xl max-sm:w-full"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            className="w-150 mx-auto bg-white rounded-xl shadow-2xl max-sm:w-full"
           >
             <div className="w-full h-30 border-b border-gray-200 flex p-3">
               {quickViewPalette.map((_, index) => {
@@ -171,7 +171,7 @@ export default function QuickViewModel() {
                 <div className="w-full h-max p-3">
                   <div className="w-full flex items-center justify-between">
                     <h3 className="text-sm font-semibold text-gray-900">
-                      {harmonyTitle}
+                      {harmonyTitle.split("_").join(" ")}
                     </h3>
                     <HarmoniesMenu
                       activeHarmony={activeHarmony}

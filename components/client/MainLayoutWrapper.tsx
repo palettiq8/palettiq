@@ -90,7 +90,9 @@ export default function MainLayoutWrapper({
   const gradientViewDetailsModel = useModelStore(
     (state) => state.gradientViewDetailsModel,
   );
-  const openOnScreenGradient = useBrowseStore((state) => state.openOnScreenGradient);
+  const openOnScreenGradient = useBrowseStore(
+    (state) => state.openOnScreenGradient,
+  );
   const viewModeGradient = useBrowseStore((state) => state.viewModeGradient);
 
   useEffect(() => {

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: "https://palettiq.net/explore/colors",
     images: [
       {
-        url: "/banner.webp",
+        url: "/banner.png",
         width: 1200,
         height: 630,
         alt: "PalettIQ - Color Shades Explorer",

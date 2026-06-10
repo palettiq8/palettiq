@@ -33,7 +33,7 @@ export default function ExploreColorsPageClient() {
       <header className="w-full h-15 border-b border-gray-200 sticky top-0 z-30 bg-white/70 backdrop-blur-md">
         <HeaderSection />
       </header>
-      <div className="w-full px-4 pt-10 pb-5 flex items-end justify-between gap-5 max-lg:flex-col">
+      <section className="w-full px-4 pt-10 pb-5 flex items-end justify-between gap-5 max-lg:flex-col">
         <div className="w-full">
           <h1 className="text-5xl font-bold text-gray-900">
             Explore Color Shades & Scales Online
@@ -50,12 +50,14 @@ export default function ExploreColorsPageClient() {
             value={inputValue}
             aria-label="Search colors by name"
             placeholder="Search colors by name..."
+            autoComplete="off"
+            name="color-search"
             className="w-full h-10 rounded-full outline-none bg-white pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200 focus:border-gray-300 transition-all"
             onChange={(e) => setInputValue(e.target.value)}
           />
           <LuSearch size={18} className="text-gray-900 absolute top-3 left-4" />
         </div>
-      </div>
+      </section>
       {isLoading || isFetching ? (
         <div className="w-full h-120 grid place-content-center">
           <CircleLoader content="Loading..." />
@@ -89,7 +91,7 @@ export default function ExploreColorsPageClient() {
                         {color.shades.map((hex, index) => {
                           const isLight = checkIsLight(hex);
                           return (
-                            <div
+                            <button
                               key={index}
                               role="button"
                               aria-label={`Copy ${hex.toUpperCase()} — ${color.name} shade ${(index + 1) * 100}`}
@@ -118,7 +120,7 @@ export default function ExploreColorsPageClient() {
                                   <div className="w-2 h-2 top-6 left-1/2 absolute rotate-45 bg-gray-900"></div>
                                 </div>
                               </div>
-                            </div>
+                            </button>
                           );
                         })}
                       </div>
@@ -133,6 +135,28 @@ export default function ExploreColorsPageClient() {
       <div className="w-full border-t bg-white border-gray-200">
         <FooterSection />
       </div>
+      <section className="sr-only">
+        <h2>Color Shades and Color Scales Library</h2>
+
+        <p>
+          Explore professionally curated color scales with shades ranging from
+          100 to 1200. Browse color families including red, orange, yellow,
+          green, cyan, blue, indigo, violet, purple, pink, brown, gray, black,
+          and white.
+        </p>
+
+        <p>
+          Each color scale includes multiple shade variations suitable for
+          design systems, user interfaces, websites, mobile applications,
+          dashboards, branding projects, and digital products.
+        </p>
+
+        <p>
+          Copy HEX color codes instantly and discover balanced color shades for
+          modern design workflows. PalettIQ provides free access to structured
+          color scales for designers and developers.
+        </p>
+      </section>
     </div>
   );
 }

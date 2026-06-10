@@ -1,6 +1,5 @@
 "use client";
 
-import { generatorContentHeaderItemsStyle } from "@/utils/styles/Classes";
 import {
   LuColumns3,
   LuEye,
@@ -44,63 +43,75 @@ export default function GeneratorContentHeaderIconItems() {
 
   return (
     <>
-      <LuEye
-        role="button"
-        aria-label="Quick view color palette formats"
-        onClick={() => {
-          toggleQuickViewModel();
-          setQuickViewActiveTab("Formats");
-          setQuickViewPalette(data);
-          setQuickViewActiveColor(data[0]);
-        }}
-        size={17}
-        className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
-      />
-      <LuMaximize2
-        role="button"
-        aria-label="Maximize color palette generator"
-        onClick={() => toggleGeneratorMaximize()}
-        size={17}
-        className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
-      />
+      <button className="w-8.5 h-8.5 cursor-pointer max-lg:hidden rounded-full hover:bg-white border border-gray-100 hover:border-gray-200 grid place-content-center">
+        <LuEye
+          role="button"
+          aria-label="Quick view color palette formats"
+          onClick={() => {
+            toggleQuickViewModel();
+            setQuickViewActiveTab("Formats");
+            setQuickViewPalette(data);
+            setQuickViewActiveColor(data[0]);
+          }}
+          size={16}
+          className={`text-gray-900`}
+        />
+      </button>
+      <button className="w-8.5 h-8.5 cursor-pointer max-lg:hidden rounded-full hover:bg-white border border-gray-100 hover:border-gray-200 grid place-content-center">
+        <LuMaximize2
+          role="button"
+          aria-label="Maximize color palette generator"
+          onClick={() => toggleGeneratorMaximize()}
+          size={16}
+          className={`text-gray-900`}
+        />
+      </button>
       {isHorizontalPalette ? (
-        <LuColumns3
-          role="button"
-          aria-label="Switch to vertical palette layout"
-          onClick={handler}
-          size={17}
-          className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
-        />
+        <button className="w-8.5 h-8.5 cursor-pointer max-lg:hidden rounded-full hover:bg-white border border-gray-100 hover:border-gray-200 grid place-content-center">
+          <LuColumns3
+            role="button"
+            aria-label="Switch to vertical palette layout"
+            onClick={handler}
+            size={16}
+            className={`text-gray-900`}
+          />
+        </button>
       ) : (
-        <LuRows3
-          role="button"
-          aria-label="Switch to horizontal palette layout"
-          onClick={handler}
-          size={17}
-          className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
-        />
+        <button className="w-8.5 h-8.5 cursor-pointer max-lg:hidden rounded-full hover:bg-white border border-gray-100 hover:border-gray-200 grid place-content-center">
+          <LuRows3
+            role="button"
+            aria-label="Switch to horizontal palette layout"
+            onClick={handler}
+            size={16}
+            className={`text-gray-900`}
+          />
+        </button>
       )}
-      <LuBlend
-        role="button"
-        aria-label="View color harmony suggestions"
-        onClick={() => {
-          toggleQuickViewModel();
-          setQuickViewActiveTab("Harmonies");
-          setQuickViewPalette(data);
-          setQuickViewActiveColor(data[0]);
-        }}
-        size={17}
-        className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
-      />
-      <LuHistory
-        role="button"
-        aria-label="View palette generation history"
-        onClick={() => {
-          togglePaletteHistoryModel();
-        }}
-        size={17}
-        className={`${generatorContentHeaderItemsStyle} max-lg:hidden`}
-      />
+      <button className="w-8.5 h-8.5 cursor-pointer max-lg:hidden rounded-full hover:bg-white border border-gray-100 hover:border-gray-200 grid place-content-center">
+        <LuBlend
+          role="button"
+          aria-label="View color harmony suggestions"
+          onClick={() => {
+            toggleQuickViewModel();
+            setQuickViewActiveTab("Harmonies");
+            setQuickViewPalette(data);
+            setQuickViewActiveColor(data[0]);
+          }}
+          size={16}
+          className={`text-gray-900`}
+        />
+      </button>
+      <button className="w-8.5 h-8.5 cursor-pointer max-lg:hidden rounded-full hover:bg-white border border-gray-100 hover:border-gray-200 grid place-content-center">
+        <LuHistory
+          role="button"
+          aria-label="View palette generation history"
+          onClick={() => {
+            togglePaletteHistoryModel();
+          }}
+          size={16}
+          className={`text-gray-900`}
+        />
+      </button>
       <GeneratorMoreMenu />
     </>
   );

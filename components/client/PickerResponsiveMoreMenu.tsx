@@ -4,7 +4,6 @@ import { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LuEllipsisVertical } from "react-icons/lu";
 import useMenuStore from "@/libs/stores/menuStore";
-import { generatorContentHeaderItemsStyle } from "@/utils/styles/Classes";
 import { pickerResponsiveMoreMenuItems } from "@/utils/Items";
 import useModelStore from "@/libs/stores/modelStore";
 import useUiStore from "@/libs/stores/uiStore";
@@ -72,7 +71,7 @@ export default function PickerResponsiveMoreMenu() {
         <LuEllipsisVertical
           size={17}
           aria-hidden="true"
-          className={`${generatorContentHeaderItemsStyle}`}
+          className={`text-gray-900 hover:scale-110 cursor-pointer active:scale-90 transition-all`}
         />
       </div>
 

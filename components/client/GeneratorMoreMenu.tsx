@@ -4,7 +4,6 @@ import { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LuEllipsisVertical } from "react-icons/lu";
 import useMenuStore from "@/libs/stores/menuStore";
-import { generatorContentHeaderItemsStyle } from "@/utils/styles/Classes";
 import { generatorContentHeaderMoreItems } from "@/utils/Items";
 import { StopType } from "@/utils/Types";
 import {
@@ -164,10 +163,11 @@ export default function GeneratorMoreMenu() {
         onClick={() => toggleGeneratorMoreMenu()}
         aria-label="More options for color palette"
       >
-        <LuEllipsisVertical
-          size={17}
-          className={generatorContentHeaderItemsStyle}
-        />
+        <button
+          className={`w-8.5 h-8.5 cursor-pointer max-lg:hidden rounded-full hover:bg-white border border-gray-100 hover:border-gray-200 grid place-content-center ${generatorMoreMenu && "bg-white border-gray-200"}`}
+        >
+          <LuEllipsisVertical size={17} className="text-gray-900" />
+        </button>
       </div>
 
       <AnimatePresence>
@@ -180,7 +180,7 @@ export default function GeneratorMoreMenu() {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
             className="bg-white shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] rounded-xl flex flex-col p-2.5 z-40 absolute 
-            top-8 lg:left-0 w-max max-lg:right-0"
+            top-10 lg:left-0 w-max max-lg:right-0"
           >
             {generatorContentHeaderMoreItems.map(
               ({ id, title, icon: Icon }) => {
