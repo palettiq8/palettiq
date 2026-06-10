@@ -168,7 +168,7 @@ function StudioPage() {
   return (
     <>
       <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
-        <div className="w-full h-16 border-b border-gray-200 flex items-center justify-between px-4 max-lg:pr-0">
+        <div className="w-full h-16 border-b border-gray-200 flex items-center justify-between px-4">
           <div className="flex items-center gap-3">
             <div className="hidden max-[1400px]:block">
               <StudioResponsiveMenuIcon />
@@ -181,7 +181,7 @@ function StudioPage() {
               </span>
             </h1>
           </div>
-          <div className="bg-gray-100 border border-gray-200 max-lg:bg-white max-lg:border-white px-0.5 h-10 rounded-full flex items-center gap-2">
+          <div className="bg-gray-100 border border-gray-200 max-lg:bg-white max-lg:border-white px-0.5 h-10 rounded-full flex items-center gap-2 max-lg:px-0">
             <GeneratorContentHeaderIconItems />
           </div>
           <div className="flex items-center gap-3 max-lg:hidden">
@@ -258,7 +258,7 @@ function StudioPage() {
         </div>
 
         <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-52 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
-          <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
+          <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col-reverse">
             <ColorPreferencesMenu from="Studio" />
             <ColorCountMenu from="Generator" />
             <PaletteStylesMenu from="Generator" />

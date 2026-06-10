@@ -287,7 +287,7 @@ export default function VisualizerPageClient() {
           </div>
         </div>
         <div className="w-full h-16 max-lg:h-67 border-t border-gray-200 px-4 bg-white rounded-b-xl flex items-center justify-between gap-3 max-lg:flex-col max-lg:justify-center">
-          <div className="max-lg:w-full flex items-center max-lg:flex-col gap-3">
+          <div className="max-lg:w-full flex items-center max-lg:flex-col-reverse gap-3">
             <ColorPreferencesMenu from="Visualizer" />
             <PaletteStylesMenu from="Visualizer" />
             <div className="max-[1560px]:hidden">

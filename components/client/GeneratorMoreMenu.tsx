@@ -164,7 +164,7 @@ export default function GeneratorMoreMenu() {
         aria-label="More options for color palette"
       >
         <button
-          className={`w-8.5 h-8.5 cursor-pointer max-lg:hidden rounded-full hover:bg-white border border-gray-100 hover:border-gray-200 grid place-content-center ${generatorMoreMenu && "bg-white border-gray-200"}`}
+          className={`w-8.5 h-8.5 cursor-pointer rounded-full hover:bg-white border border-gray-100 hover:border-gray-200 grid place-content-center ${generatorMoreMenu ? "bg-white max-lg:bg-gray-100 border-gray-200" : "max-lg:border-white"}`}
         >
           <LuEllipsisVertical size={17} className="text-gray-900" />
         </button>

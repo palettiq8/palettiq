@@ -68,11 +68,15 @@ export default function PickerResponsiveMoreMenu() {
         aria-label="More options for color picker"
         onClick={() => togglePickerResponsiveMoreMenu()}
       >
-        <LuEllipsisVertical
-          size={17}
-          aria-hidden="true"
-          className={`text-gray-900 hover:scale-110 cursor-pointer active:scale-90 transition-all`}
-        />
+        <button
+          className={`w-8.5 h-8.5 cursor-pointer rounded-full border grid place-content-center ${pickerResponsiveMoreMenu ? "bg-gray-100 border-gray-200" : "border-white"}`}
+        >
+          <LuEllipsisVertical
+            size={17}
+            aria-hidden="true"
+            className="text-gray-900"
+          />
+        </button>
       </div>
 
       <AnimatePresence>
@@ -84,7 +88,7 @@ export default function PickerResponsiveMoreMenu() {
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
             className="bg-white shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] rounded-xl flex flex-col p-2.5 z-40 absolute 
-            top-8 right-0 w-max"
+            top-10 right-0 w-max"
           >
             {pickerResponsiveMoreMenuItems.map(({ id, title, icon: Icon }) => {
               return (

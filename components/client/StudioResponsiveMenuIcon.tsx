@@ -11,9 +11,9 @@ export default function StudioResponsiveMenuIcon() {
     <button
       aria-label="Open studio navigation menu"
       onClick={() => toggleStudioLeftMenuModel()}
-      className="w-10 h-10 rounded-lg border border-gray-200 bg-gray-100 grid place-content-center cursor-pointer active:scale-95 transition-all"
+      className="w-8.5 h-8.5 rounded-lg border border-gray-200 bg-gray-100 grid place-content-center cursor-pointer active:scale-95 transition-all"
     >
-      <LuMenu size={18} />
+      <LuMenu size={16} />
     </button>
   );
 }
