@@ -37,6 +37,8 @@ interface MenuStateType {
   toggleHslControlPanelModel: () => void;
   gradientViewDetailsModel: boolean;
   toggleGradientViewDetailsModel: () => void;
+  pickedPalettesForPublishedModel: boolean;
+  togglePickedPalettesForPublishedModel: () => void;
 }
 
 const useModelStore = create<MenuStateType>((set) => ({
@@ -108,6 +110,11 @@ const useModelStore = create<MenuStateType>((set) => ({
   toggleGradientViewDetailsModel: () =>
     set((state) => ({
       gradientViewDetailsModel: !state.gradientViewDetailsModel,
+    })),
+  pickedPalettesForPublishedModel: false,
+  togglePickedPalettesForPublishedModel: () =>
+    set((state) => ({
+      pickedPalettesForPublishedModel: !state.pickedPalettesForPublishedModel,
     })),
 }));
 

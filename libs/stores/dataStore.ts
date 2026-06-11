@@ -230,6 +230,22 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
         set((state) => ({
           paletteStyle: state.paletteStyle === style ? null : style,
         })),
+      pickedPalettesForPublished: [],
+      setPickedPalettesForPublished: (colors: PaletteColor[]) =>
+        set((state) => {
+          const exists = state.pickedPalettesForPublished.some(
+            (p) => JSON.stringify(p) === JSON.stringify(colors),
+          );
+          return {
+            pickedPalettesForPublished: exists
+              ? state.pickedPalettesForPublished.filter(
+                  (p) => JSON.stringify(p) !== JSON.stringify(colors),
+                )
+              : [...state.pickedPalettesForPublished, colors],
+          };
+        }),
+      clearPickedPalettesForPublished: () =>
+        set({ pickedPalettesForPublished: [] }),
     }),
     {
       name: "_generator_storage",
@@ -241,6 +257,7 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
         generatedPalette: state.generatedPalette,
         hslControlPanelFamilies: state.hslControlPanelFamilies,
         paletteStyle: state.paletteStyle,
+        pickedPalettesForPublished: state.pickedPalettesForPublished,
       }),
     },
   ),

@@ -25,6 +25,7 @@ import { useSearchParams } from "next/navigation";
 import CircleLoader from "@/components/server/CircleLoader";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import PaletteStylesMenu from "@/components/client/PaletteStylesMenu";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 function StudioPage() {
   const generatorMaximize = useUiStore((state) => state.generatorMaximize);
@@ -61,6 +62,9 @@ function StudioPage() {
   );
   const toggleHslControlPanelModel = useModelStore(
     (state) => state.toggleHslControlPanelModel,
+  );
+  const togglePickedPalettesForPublishedModel = useModelStore(
+    (state) => state.togglePickedPalettesForPublishedModel,
   );
 
   const paletteGeneratorHandler = useCallback(() => {
@@ -185,6 +189,15 @@ function StudioPage() {
             <GeneratorContentHeaderIconItems />
           </div>
           <div className="flex items-center gap-3 max-lg:hidden">
+            {useIsAdmin() && (
+              <Button
+                onClick={() => togglePickedPalettesForPublishedModel()}
+                variant={"outline"}
+                size={"md"}
+              >
+                Picked Palettes
+              </Button>
+            )}
             <Button
               aria-label="Export color palette as HEX, RGB, CSS, Tailwind CSS, SCSS, or JSON"
               onClick={() => {

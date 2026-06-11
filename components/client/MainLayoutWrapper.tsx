@@ -36,6 +36,7 @@ import HSLControlPanel from "./HSLControlPanel";
 import GradientViewDetailsModel from "./GradientViewDetailsModel";
 import OpenOnScreenGradientModel from "./OpenOnScreenGradientModel";
 import ViewModeGradientModel from "./ViewModeGradientModel";
+import PickedPalettesForPublishedModel from "./PickedPalettesForPublishedModel";
 
 export default function MainLayoutWrapper({
   children,
@@ -94,6 +95,9 @@ export default function MainLayoutWrapper({
     (state) => state.openOnScreenGradient,
   );
   const viewModeGradient = useBrowseStore((state) => state.viewModeGradient);
+  const pickedPalettesForPublishedModel = useModelStore(
+    (state) => state.pickedPalettesForPublishedModel,
+  );
 
   useEffect(() => {
     if (!exportModel) {
@@ -129,6 +133,9 @@ export default function MainLayoutWrapper({
       {openOnScreenGradient !== null && <OpenOnScreenGradientModel />}
       {viewModeGradient !== null && <ViewModeGradientModel />}
       <Toaster position="top-center" reverseOrder={false} />
+      {pickedPalettesForPublishedModel !== null && (
+        <PickedPalettesForPublishedModel />
+      )}
     </Provider>
   );
 }

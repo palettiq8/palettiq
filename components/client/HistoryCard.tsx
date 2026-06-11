@@ -1,5 +1,6 @@
 "use client";
 
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import {
   useExtractorStore,
   useGeneratorStore,
@@ -35,6 +36,16 @@ export default function HistoryCard({
   );
   const setExtractorHistoryIndex = useExtractorStore(
     (state) => state.setExtractorHistoryIndex,
+  );
+  const pickedPalettesForPublished = useGeneratorStore(
+    (state) => state.pickedPalettesForPublished,
+  );
+  const setPickedPalettesForPublished = useGeneratorStore(
+    (state) => state.setPickedPalettesForPublished,
+  );
+
+  const isSelected = pickedPalettesForPublished.some(
+    (p) => p[0]?.id === (history as PaletteColor[])[0]?.id,
   );
 
   const isActivePalette =
@@ -87,6 +98,16 @@ export default function HistoryCard({
         <p className="text-sm font-semibold text-gray-900 hover:cursor-pointer">
           {`Palette ${index + 1}`}
         </p>
+        {useIsAdmin() && (
+          <button
+            className={`text-sm border rounded-lg h-8 px-2.5 font-semibold active:scale-95 transition-all cursor-pointer ${isSelected ? "text-indigo-500 border-indigo-200 bg-indigo-50" : "border-gray-200 bg-white text-gray-900"}`}
+            onClick={() =>
+              setPickedPalettesForPublished(history as PaletteColor[])
+            }
+          >
+            Select
+          </button>
+        )}
       </div>
     </div>
   );
