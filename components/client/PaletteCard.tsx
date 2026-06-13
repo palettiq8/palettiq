@@ -84,7 +84,7 @@ export default function PaletteCard({
             <div
               key={index}
               role="button"
-              className={`w-full ${explorePaletteView === "Vertical" ? "first:rounded-t-lg last:rounded-b-lg h-30" : "h-40 max-lg:h-30 first:rounded-l-lg last:rounded-r-lg"} group relative transition-transform cursor-pointer`}
+              className={`w-full ${explorePaletteView === "Vertical" ? "first:rounded-t-lg last:rounded-b-lg h-30" : "h-30 max-lg:h-30 first:rounded-l-lg last:rounded-r-lg"} group relative transition-transform cursor-pointer`}
               style={{ backgroundColor: color }}
               aria-label={`Copy color ${color.toUpperCase()} from ${palette?.name} palette`}
               onClick={async () => {

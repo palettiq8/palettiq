@@ -184,7 +184,7 @@ export default function ExplorePalettesPageClient({
               <VirtuosoGrid
                 useWindowScroll
                 totalCount={data?.length || 0}
-                listClassName="grid grid-cols-3 gap-1 max-xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
+                listClassName="grid grid-cols-4 gap-1 max-2xl:grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1"
                 itemContent={(index) => {
                   const palette = data?.[index];
                   return <PaletteCard palette={palette!} />;

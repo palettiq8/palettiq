@@ -255,25 +255,25 @@ function StudioPage() {
                     isLast={index === generatedPalette.length - 1}
                   />
                 ))}
-                {generatorMaximize && (
-                  <Button
-                    onClick={() => toggleGeneratorMaximize()}
-                    variant={"outline"}
-                    size={"circle"}
-                    className="absolute top-4 left-4"
-                  >
-                    <LuArrowLeft size={16} />
-                  </Button>
-                )}
               </div>
             </SortableContext>
+            {generatorMaximize && (
+              <Button
+                onClick={() => toggleGeneratorMaximize()}
+                variant={"outline"}
+                size={"circle"}
+                className="absolute top-4 left-4"
+              >
+                <LuArrowLeft size={16} />
+              </Button>
+            )}
           </DndContext>
         </div>
 
         <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-52 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
-          <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col-reverse">
-            <ColorPreferencesMenu from="Studio" />
+          <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
             <ColorCountMenu from="Generator" />
+            <ColorPreferencesMenu from="Studio" />
             <PaletteStylesMenu from="Generator" />
             <button
               aria-label="Open HSL Control Panel to adjust hue, saturation, and lightness"

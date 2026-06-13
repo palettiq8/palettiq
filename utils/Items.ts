@@ -298,6 +298,14 @@ export const paletteStylesSL: Record<
   Retro: { sat: [50, 80], light: [40, 65] },
   Warm: { sat: [60, 90], light: [45, 70] },
 };
+export const palettesCount = [
+  "1 Palette",
+  "2 Palettes",
+  "3 Palettes",
+  "4 Palettes",
+  "5 Palettes",
+  "6 Palettes",
+];
 export const paletteStylesItems = [
   "Pastel",
   "Vibrant",
