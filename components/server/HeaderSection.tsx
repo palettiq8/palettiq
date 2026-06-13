@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { headerLinkItems } from "@/utils/Items";
 import HeaderMenu from "../client/HeaderMenu";
-import { LuBolt } from "react-icons/lu";
+import { LuArrowDown, LuBolt, LuChevronDown } from "react-icons/lu";
+import ColorToolsMenu from "../client/ColorToolsMenu";
 
 export default function HeaderSection() {
   return (
@@ -58,19 +59,15 @@ export default function HeaderSection() {
       </div>
 
       <div className="flex items-center gap-2">
+        <ColorToolsMenu />
         <Link
-          href="/settings/feedback"
-          aria-label="Send feedback about PalettIQ"
-          title="Send Feedback"
-          className="h-10 px-4 rounded-full text-sm font-semibold text-gray-900 hover:bg-gray-100 cursor-pointer border border-white hover:border-gray-200 transition-all active:scale-95 place-content-center max-sm:hidden"
+          href="/settings"
+          aria-label="PalettIQ Settings"
+          title="Settings"
+          className="max-sm:hidden"
         >
-          Feedback
-        </Link>
-
-        <Link href="/settings" aria-label="PalettIQ Settings" title="Settings">
-          <Button variant="outline" size="md">
+          <Button variant="outline" size="md" className="px-0 w-10">
             <LuBolt size={16} />
-            <span>Settings</span>
           </Button>
         </Link>
       </div>

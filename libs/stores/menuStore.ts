@@ -59,6 +59,7 @@ const useMenuStore = create<MenuStateType>((set) => ({
   visualizerResponsiveMoreMenu: false,
   shadowResponsiveMoreMenu: false,
   paletteStylesMenu: false,
+  colorToolsMenu: false,
 
   toggleColorPreferencesMenu: () =>
     set((state) => ({ colorPreferencesMenu: !state.colorPreferencesMenu })),
