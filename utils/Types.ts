@@ -370,6 +370,8 @@ export interface BrowseStateTypes {
   setOpenOnScreenGradient: (gradient: StopType[] | null) => void;
   viewModeGradient: StopType[] | null;
   setViewModeGradient: (gradient: StopType[] | null) => void;
+  quickVisualizerPalette: PaletteColor[] | null;
+  setQuickVisualizerPalette: (palette: PaletteColor[] | null) => void;
 }
 export interface OtherTypes {
   quickViewActiveTab: string;

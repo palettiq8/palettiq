@@ -1217,6 +1217,9 @@ const useBrowseStore = create<BrowseStateTypes>()(
       viewModeGradient: null,
       setViewModeGradient: (gradient: StopType[] | null) =>
         set({ viewModeGradient: gradient }),
+      quickVisualizerPalette: null,
+      setQuickVisualizerPalette: (palette: PaletteColor[] | null) =>
+        set({ quickVisualizerPalette: palette }),
     }),
     {
       name: "_browse_storage",

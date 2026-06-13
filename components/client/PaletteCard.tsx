@@ -1,5 +1,5 @@
 import { PublishedPaletteType } from "@/utils/Types";
-import { LuArrowUpRight, LuCopy, LuEye, LuShrink } from "react-icons/lu";
+import { LuArrowUpRight, LuCopy, LuEye } from "react-icons/lu";
 import PaletteMoreMenu from "./PaletteMoreMenu";
 import { FlashMessage, nameToSlug } from "@/utils/utils";
 import useModelStore from "@/libs/stores/modelStore";
@@ -24,10 +24,13 @@ export default function PaletteCard({
   const setQuickViewActiveColor = useOtherStore(
     (state) => state.setQuickViewActiveColor,
   );
-  const setViewModePalette = useBrowseStore(
-    (state) => state.setViewModePalette,
-  );
   const explorePaletteView = useOtherStore((state) => state.explorePaletteView);
+  const togglePaletteQuickVisualizerModel = useModelStore(
+    (state) => state.togglePaletteQuickVisualizerModel,
+  );
+  const setQuickVisualizerPalette = useBrowseStore(
+    (state) => state.setQuickVisualizerPalette,
+  );
 
   const colorsFromPalettes =
     palette?.colors?.map(({ color }: any) => color) || [];
@@ -104,13 +107,13 @@ export default function PaletteCard({
       <div className="flex items-center justify-between mt-3">
         <Button
           variant={"outline"}
-          size={"md"}
+          size={"sm"}
           onClick={() => {
-            setViewModePalette(palette?.colors);
+            togglePaletteQuickVisualizerModel();
+            setQuickVisualizerPalette(palette?.colors);
           }}
         >
-          <LuShrink size={16} />
-          <span>View mode</span>
+          <span>Quick Visualize</span>
         </Button>
         <Button
           onClick={async () => {
@@ -121,7 +124,7 @@ export default function PaletteCard({
           }}
           aria-label={`Copy all colors from ${palette?.name} palette`}
           variant={"outline"}
-          size={"md"}
+          size={"sm"}
         >
           <LuCopy
             size={16}

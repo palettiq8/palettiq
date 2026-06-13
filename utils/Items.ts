@@ -57,7 +57,7 @@ export const features = [
   {
     id: 1,
     title: "Color Palette Generator",
-    urlTitle: "Generate color palettes",
+    urlTitle: "Generate Color Palettes",
     icon: LuGrid2X2,
     desc: "Generate personalized color palettes from selected colors, moods, industries, harmonies, and styles. Export ready-to-use palettes instantly.",
     bgColors: ["from-red-600", "to-red-500"],
@@ -67,7 +67,7 @@ export const features = [
   {
     id: 2,
     title: "Color Palette Visualizer",
-    urlTitle: "Visualize color palettes",
+    urlTitle: "Visualize Color Palettes",
     icon: LuActivity,
     desc: "Preview color palettes in real UI components, dashboards, websites, and design layouts before using them in production.",
     bgColors: ["from-amber-600", "to-amber-500"],
@@ -77,7 +77,7 @@ export const features = [
   {
     id: 3,
     title: "CSS Gradient Generator",
-    urlTitle: "Generate CSS gradients",
+    urlTitle: "Generate CSS Gradients",
     icon: LuCircleDot,
     desc: "Create linear, radial, and conic CSS gradients visually. Customize colors, directions, and stops, then copy production-ready CSS code.",
     bgColors: ["from-lime-600", "to-lime-500"],
@@ -87,7 +87,7 @@ export const features = [
   {
     id: 4,
     title: "Color Extractor",
-    urlTitle: "Extract colors from images",
+    urlTitle: "Extract Colors from Images",
     icon: LuPickaxe,
     desc: "Extract dominant colors and generate palettes from images instantly. Get HEX, RGB, and HSL values for branding and design projects.",
     bgColors: ["from-green-600", "to-green-500"],
@@ -97,7 +97,7 @@ export const features = [
   {
     id: 5,
     title: "Color Contrast Checker",
-    urlTitle: "Check color contrast ratios",
+    urlTitle: "Check Color Contrast Ratios",
     icon: LuContrast,
     desc: "Check WCAG AA and AAA color contrast ratios instantly. Test foreground and background color combinations for accessibility compliance.",
     bgColors: ["from-indigo-600", "to-indigo-500"],
@@ -107,7 +107,7 @@ export const features = [
   {
     id: 6,
     title: "Online Color Picker",
-    urlTitle: "Pick color online",
+    urlTitle: "Pick Color Online",
     icon: LuPencil,
     desc: "Pick colors online and instantly get HEX, RGB, HSL, CMYK, LAB, LCH, and XYZ values with harmonies, tints, shades, and tones.",
     bgColors: ["from-violet-600", "to-violet-500"],
@@ -117,7 +117,7 @@ export const features = [
   {
     id: 7,
     title: "CSS Shadow Generator",
-    urlTitle: "Generate CSS shadows",
+    urlTitle: "Generate CSS Shadows",
     icon: LuDroplet,
     desc: "Create box shadows and text shadows visually. Adjust blur, spread, offset, color, and inset settings, then copy CSS code instantly.",
     bgColors: ["from-purple-600", "to-purple-500"],
@@ -192,7 +192,7 @@ export const paletteMoreItems = [
   { id: 5, title: "Make gradient", icon: LuCircleDot },
   { id: 6, title: "Open on screen", icon: LuMaximize2 },
   { id: 7, title: "View mode", icon: LuShrink },
-  { id: 8, title: "Visualize the palette", icon: LuActivity },
+  { id: 8, title: "Open on visualizer", icon: LuActivity },
   { id: 9, title: "Explore similar", icon: LuArrowUpRight },
   { id: 10, title: "Export", icon: BiExport },
 ];

@@ -227,7 +227,7 @@ function StudioPage() {
           </div>
         </div>
         <div
-          className={`w-full ${
+          className={`w-full p-30 graydotbg ${
             generatorMaximize
               ? "absolute top-0 left-0 w-full h-screen z-50"
               : "h-[calc(100%-128px)] max-lg:h-[calc(100%-272px)] max-lg:p-4"
@@ -243,7 +243,7 @@ function StudioPage() {
               strategy={rectSortingStrategy}
             >
               <div
-                className={`w-full bg-white h-full ${!generatorMaximize && "max-lg:h-70 max-md:h-50 max-sm:h-35"} flex ${isHorizontalPalette && "flex-col"} ${generatorMaximize && "max-lg:flex-col"} relative`}
+                className={`w-full h-full ${!generatorMaximize && "max-lg:h-70 max-md:h-50 max-sm:h-35"} flex gap-1 ${isHorizontalPalette && "flex-col"} ${generatorMaximize && "max-lg:flex-col"} relative`}
               >
                 {generatedPalette.map(({ id, color, isLocked }, index) => (
                   <SortablePaletteItem

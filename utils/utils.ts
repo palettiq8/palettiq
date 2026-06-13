@@ -308,10 +308,10 @@ export function distributePalette(
   palette: PaletteColor[],
   SHAPE_COUNT: number,
 ) {
-  if (!palette.length) return [];
+  if (!palette?.length) return [];
 
   return Array.from({ length: SHAPE_COUNT }, (_, i) => {
-    const index = Math.floor((i * palette.length) / SHAPE_COUNT);
+    const index = Math.floor((i * palette?.length) / SHAPE_COUNT);
     return palette[index];
   });
 }

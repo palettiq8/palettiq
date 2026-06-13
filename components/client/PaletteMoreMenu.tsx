@@ -154,7 +154,7 @@ export default function PaletteMoreMenu({
                       setOpenOnScreenPalette(palette?.colors);
                     } else if (title === "View mode") {
                       setViewModePalette(palette?.colors);
-                    } else if (title === "Visualize the palette") {
+                    } else if (title === "Open on visualizer") {
                       setGeneratedVisualizerPalette(palette?.colors);
                       window.open("/studio/color-palette-visualizer", "_blank");
                     } else if (title === "Explore similar") {

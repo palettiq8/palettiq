@@ -39,6 +39,8 @@ interface MenuStateType {
   toggleGradientViewDetailsModel: () => void;
   pickedPalettesForPublishedModel: boolean;
   togglePickedPalettesForPublishedModel: () => void;
+  paletteQuickVisualizerModel: boolean;
+  togglePaletteQuickVisualizerModel: () => void;
 }
 
 const useModelStore = create<MenuStateType>((set) => ({
@@ -115,6 +117,11 @@ const useModelStore = create<MenuStateType>((set) => ({
   togglePickedPalettesForPublishedModel: () =>
     set((state) => ({
       pickedPalettesForPublishedModel: !state.pickedPalettesForPublishedModel,
+    })),
+  paletteQuickVisualizerModel: false,
+  togglePaletteQuickVisualizerModel: () =>
+    set((state) => ({
+      paletteQuickVisualizerModel: !state.paletteQuickVisualizerModel,
     })),
 }));
 

@@ -37,6 +37,7 @@ import GradientViewDetailsModel from "./GradientViewDetailsModel";
 import OpenOnScreenGradientModel from "./OpenOnScreenGradientModel";
 import ViewModeGradientModel from "./ViewModeGradientModel";
 import PickedPalettesForPublishedModel from "./PickedPalettesForPublishedModel";
+import PaletteQuickVisualizerModel from "./PaletteQuickVisualizerModel";
 
 export default function MainLayoutWrapper({
   children,
@@ -98,6 +99,9 @@ export default function MainLayoutWrapper({
   const pickedPalettesForPublishedModel = useModelStore(
     (state) => state.pickedPalettesForPublishedModel,
   );
+  const paletteQuickVisualizerModel = useModelStore(
+    (state) => state.paletteQuickVisualizerModel,
+  );
 
   useEffect(() => {
     if (!exportModel) {
@@ -136,6 +140,7 @@ export default function MainLayoutWrapper({
       {pickedPalettesForPublishedModel !== null && (
         <PickedPalettesForPublishedModel />
       )}
+      {paletteQuickVisualizerModel !== null && <PaletteQuickVisualizerModel />}
     </Provider>
   );
 }
