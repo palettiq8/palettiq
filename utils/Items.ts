@@ -46,6 +46,7 @@ import Visualize3 from "@/components/visualizers/Visualize3";
 import Visualize4 from "@/components/visualizers/Visualize4";
 import Visualize5 from "@/components/visualizers/Visualize5";
 import Visualize6 from "@/components/visualizers/Visualize6";
+import Visualize7 from "@/components/visualizers/Visualize7";
 
 export const headerLinkItems = [
   { id: 1, title: "Browse Color Palettes", url: "/explore/palettes" },
@@ -1032,6 +1033,7 @@ export const updateAndAccountsQuestions = [
 ];
 export const visualizers = [
   Visualize6,
+  Visualize7,
   Visualize4,
   Visualize1,
   Visualize2,
