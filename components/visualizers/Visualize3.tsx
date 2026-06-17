@@ -5,8 +5,8 @@ import { PaletteColor } from "@/utils/Types";
 import { distributePalette } from "@/utils/utils";
 
 export default function Visualize3({ palette }: { palette: PaletteColor[] }) {
-  const setVisualizerActiveColor = useVisualizerStore(
-    (state) => state.setVisualizerActiveColor,
+  const setVisualizerActiveColors = useVisualizerStore(
+    (state) => state.setVisualizerActiveColors,
   );
   const colors = distributePalette(palette, 7);
   const color1 = colors[0]?.color;
@@ -17,7 +17,7 @@ export default function Visualize3({ palette }: { palette: PaletteColor[] }) {
   const color6 = colors[5]?.color;
   const color7 = colors[6]?.color;
   const clickHandler = (color: string) => {
-    setVisualizerActiveColor(color);
+    setVisualizerActiveColors([color]);
   };
   return (
     <svg

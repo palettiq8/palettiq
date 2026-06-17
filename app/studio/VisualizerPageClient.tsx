@@ -17,6 +17,7 @@ import { useCallback, useEffect, useState } from "react";
 import { BiExport } from "react-icons/bi";
 import {
   LuCheck,
+  LuCloudUpload,
   LuEye,
   LuLock,
   LuLockKeyhole,
@@ -27,6 +28,8 @@ import {
   LuShuffle,
   LuUndo2,
 } from "react-icons/lu";
+import SVGUploadModal from "@/components/client/SVGUploadModal";
+import VisualizeSVG from "@/components/visualizers/VisualizeSVG";
 
 export default function VisualizerPageClient() {
   const [lockPanel, setLockPanel] = useState<boolean>(false);
@@ -77,8 +80,8 @@ export default function VisualizerPageClient() {
   const toggleVisualizerPaletteColorLock = useVisualizerStore(
     (state) => state.toggleVisualizerPaletteColorLock,
   );
-  const visualizerActiveColor = useVisualizerStore(
-    (state) => state.visualizerActiveColor,
+  const visualizerActiveColors = useVisualizerStore(
+    (state) => state.visualizerActiveColors,
   );
   const currentTemplateId = useVisualizerStore(
     (state) => state.currentTemplateId,
@@ -92,6 +95,11 @@ export default function VisualizerPageClient() {
   const toggleExportModel = useModelStore((state) => state.toggleExportModel);
   const setExportPalette = useOtherStore((state) => state.setExportPalette);
   const setExportFrom = useOtherStore((state) => state.setExportFrom);
+
+  const svgUploadModel = useModelStore((state) => state.svgUploadModel);
+  const toggleSVGUploadModel = useModelStore(
+    (state) => state.toggleSVGUploadModel,
+  );
 
   const paletteGeneratorHandler = useCallback(() => {
     setGeneratedVisualizerPalette();
@@ -164,6 +172,21 @@ export default function VisualizerPageClient() {
 
   const ActiveVisualizer = visualizers[currentTemplateId];
 
+  const uploadedSVGString = useVisualizerStore((s) => s.uploadedSVGString);
+
+  useEffect(() => {
+    const currentTemplateId = useVisualizerStore.getState().currentTemplateId;
+    if (uploadedSVGString) {
+      setCurrentTemplateId(0);
+    } else {
+      if (currentTemplateId !== 0) {
+        setCurrentTemplateId(currentTemplateId);
+      } else {
+        setCurrentTemplateId(1);
+      }
+    }
+  }, [uploadedSVGString]);
+
   return (
     <>
       <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
@@ -196,6 +219,16 @@ export default function VisualizerPageClient() {
             >
               <BiExport size={16} />
               <span>Export</span>
+            </Button>
+            <Button
+              aria-label="Upload your own SVG to visualize with the current palette"
+              variant={"outline"}
+              size={"md"}
+              onClick={() => toggleSVGUploadModel()}
+              className="max-lg:hidden"
+            >
+              <LuCloudUpload size={16} />
+              <span>Upload SVG</span>
             </Button>
             <Button
               aria-label="Generate random color palette for UI visualization"
@@ -268,6 +301,8 @@ export default function VisualizerPageClient() {
               className={`w-full mt-3 grid grid-cols-1 gap-1 ${activeTemplateMaximize && "grid-cols-3"}`}
             >
               {visualizers.map((Component, index) => {
+                if (!uploadedSVGString && Component === VisualizeSVG)
+                  return null;
                 return (
                   <div
                     role="button"
@@ -372,7 +407,9 @@ export default function VisualizerPageClient() {
                           color={_.color}
                         />
                       </div>
-                      {visualizerActiveColor === _.color && (
+                      {visualizerActiveColors.includes(
+                        _.color.toUpperCase(),
+                      ) && (
                         <LuCheck
                           className={`${isLight ? "text-gray-900" : "text-gray-50"}`}
                           size={16}
@@ -438,24 +475,36 @@ export default function VisualizerPageClient() {
         </div>
       </div>
       <section className="sr-only">
-        <h2>Preview Color Palettes on Real User Interfaces</h2>
+        <h2>SVG Color Palette Visualizer</h2>
 
         <p>
-          Test and preview color palettes on buttons, cards, dashboards,
-          navigation bars, forms, and layouts.
+          Upload your own SVG files and instantly preview color palettes on
+          illustrations, logos, icons, graphics, and vector artwork.
         </p>
 
         <p>
-          Visualize how colors work together before applying them to websites,
-          mobile applications, SaaS products, branding systems, and design
-          systems.
+          Test color combinations before applying them to websites, mobile apps,
+          dashboards, design systems, branding projects, and marketing
+          materials.
         </p>
 
         <p>
-          Experiment with different color combinations, generate new palettes,
-          lock colors, and export design-ready color schemes.
+          The PalettIQ Color Palette Visualizer helps designers and developers
+          evaluate how colors work together in real user interface components
+          and custom SVG graphics.
+        </p>
+
+        <p>
+          Preview palettes on buttons, cards, forms, navigation bars,
+          dashboards, layouts, logos, and uploaded SVG designs to make better
+          color decisions.
         </p>
       </section>
+
+      <SVGUploadModal
+        isOpen={svgUploadModel}
+        onClose={() => toggleSVGUploadModel()}
+      />
     </>
   );
 }

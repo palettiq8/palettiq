@@ -1053,9 +1053,18 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
           };
         });
       },
-      visualizerActiveColor: "",
-      setVisualizerActiveColor: (color: string) =>
-        set({ visualizerActiveColor: color }),
+      visualizerActiveColors: [],
+      setVisualizerActiveColors: (colors: string[]) =>
+        set((state) => {
+          const allExist = colors.every((c) =>
+            state.visualizerActiveColors.includes(c),
+          );
+          return {
+            visualizerActiveColors: allExist
+              ? state.visualizerActiveColors.filter((c) => !colors.includes(c))
+              : [...new Set([...state.visualizerActiveColors, ...colors])],
+          };
+        }),
       currentTemplateId: 0,
       setCurrentTemplateId: (id: number) => set({ currentTemplateId: id }),
       activeVisualizerMaximize: false,
@@ -1070,6 +1079,17 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
           visualizerPaletteStyle:
             state.visualizerPaletteStyle === style ? null : style,
         })),
+      uploadedSVGString: null,
+      uploadedSVGSelectedColors: [],
+
+      setUploadedSVGData: (svg, selectedColors) =>
+        set({
+          uploadedSVGString: svg,
+          uploadedSVGSelectedColors: selectedColors,
+        }),
+
+      clearUploadedSVG: () =>
+        set({ uploadedSVGString: null, uploadedSVGSelectedColors: [] }),
     }),
     {
       name: "_visualizer_storage",

@@ -41,6 +41,8 @@ interface MenuStateType {
   togglePickedPalettesForPublishedModel: () => void;
   paletteQuickVisualizerModel: boolean;
   togglePaletteQuickVisualizerModel: () => void;
+  svgUploadModel: boolean;
+  toggleSVGUploadModel: () => void;
 }
 
 const useModelStore = create<MenuStateType>((set) => ({
@@ -122,6 +124,11 @@ const useModelStore = create<MenuStateType>((set) => ({
   togglePaletteQuickVisualizerModel: () =>
     set((state) => ({
       paletteQuickVisualizerModel: !state.paletteQuickVisualizerModel,
+    })),
+  svgUploadModel: false,
+  toggleSVGUploadModel: () =>
+    set((state) => ({
+      svgUploadModel: !state.svgUploadModel,
     })),
 }));
 

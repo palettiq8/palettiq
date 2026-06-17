@@ -5,6 +5,7 @@ import {
   LuBlend,
   LuBolt,
   LuCircleDot,
+  LuCloudUpload,
   LuContrast,
   LuCopy,
   LuDroplet,
@@ -47,6 +48,7 @@ import Visualize4 from "@/components/visualizers/Visualize4";
 import Visualize5 from "@/components/visualizers/Visualize5";
 import Visualize6 from "@/components/visualizers/Visualize6";
 import Visualize7 from "@/components/visualizers/Visualize7";
+import VisualizeSVG from "@/components/visualizers/VisualizeSVG";
 
 export const headerLinkItems = [
   { id: 1, title: "Browse Color Palettes", url: "/explore/palettes" },
@@ -247,11 +249,12 @@ export const visualizerResponsiveMoreMenuItems = [
   { id: 1, title: "History", icon: LuHistory },
   { id: 2, title: "Quick view", icon: LuEye },
   { id: 3, title: "Shuffle palette", icon: LuShuffle },
-  { id: 4, title: "Edit on generator", icon: LuPencilLine },
-  { id: 5, title: "Open on screen", icon: LuMaximize2 },
-  { id: 6, title: "Make gradient", icon: LuCircleDot },
-  { id: 7, title: "Templetes", icon: LuPanelRight },
-  { id: 8, title: "Export", icon: BiExport },
+  { id: 4, title: "Upload SVG", icon: LuCloudUpload },
+  { id: 5, title: "Edit on generator", icon: LuPencilLine },
+  { id: 6, title: "Open on screen", icon: LuMaximize2 },
+  { id: 7, title: "Make gradient", icon: LuCircleDot },
+  { id: 8, title: "Templetes", icon: LuPanelRight },
+  { id: 9, title: "Export", icon: BiExport },
 ];
 export const shadowResponsiveMoreMenuItems = [
   { id: 1, title: "Open on screen", icon: LuMaximize2 },
@@ -1032,6 +1035,7 @@ export const updateAndAccountsQuestions = [
   },
 ];
 export const visualizers = [
+  VisualizeSVG,
   Visualize6,
   Visualize7,
   Visualize4,

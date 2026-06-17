@@ -58,6 +58,9 @@ export default function VisualizerResponsiveMoreMenu() {
   const setActiveVisualizerMaximize = useVisualizerStore(
     (state) => state.setActiveVisualizerMaximize,
   );
+  const toggleSVGUploadModel = useModelStore(
+    (state) => state.toggleSVGUploadModel,
+  );
 
   const handler = (title: string) => {
     if (title !== "Shuffle palette") toggleVisualizerResponsiveMoreMenu();
@@ -71,6 +74,8 @@ export default function VisualizerResponsiveMoreMenu() {
       setQuickViewActiveColor(data[0]);
     } else if (title === "Shuffle palette") {
       visualizerPaletteColorShuffler();
+    } else if (title === "Upload SVG") {
+      toggleSVGUploadModel();
     } else if (title === "Edit on generator") {
       setGeneratedPalette(generatedVisualizerPalette);
       window.open("/studio", "_blank");
@@ -152,7 +157,7 @@ export default function VisualizerResponsiveMoreMenu() {
                 return (
                   <div
                     key={id}
-                    className={`w-full ${title === "Templetes" && "hidden max-lg:block"}`}
+                    className={`w-full ${["Templetes", "Upload SVG"].includes(title) && "hidden max-lg:block"}`}
                   >
                     <button
                       aria-label={`${title} — Color Palette Visualizer`}

@@ -304,14 +304,18 @@ export interface VisualizerStateTypes {
   visualizerPaletteUndoHandler: () => void;
   visualizerPaletteRedoHandler: () => void;
   visualizerPaletteColorShuffler: () => void;
-  visualizerActiveColor: string;
-  setVisualizerActiveColor: (color: string) => void;
+  visualizerActiveColors: string[];
+  setVisualizerActiveColors: (colors: string[]) => void;
   currentTemplateId: number;
   setCurrentTemplateId: (id: number) => void;
   activeVisualizerMaximize: boolean;
   setActiveVisualizerMaximize: (value?: boolean) => void;
   visualizerPaletteStyle: string | null;
   setVisualizerPaletteStyle: (style: string | null) => void;
+  uploadedSVGString: string | null;
+  uploadedSVGSelectedColors: string[];
+  setUploadedSVGData: (svg: string, selectedColors: string[]) => void;
+  clearUploadedSVG: () => void;
 }
 export interface ShadowStateTypes {
   activeShadowTab: string;
