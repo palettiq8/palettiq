@@ -24,7 +24,6 @@ import { PaletteColor } from "@/utils/Types";
 import { useSearchParams } from "next/navigation";
 import CircleLoader from "@/components/server/CircleLoader";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
-import PaletteStylesMenu from "@/components/client/PaletteStylesMenu";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
 
 function StudioPage() {
@@ -178,8 +177,8 @@ function StudioPage() {
               <StudioResponsiveMenuIcon />
             </div>
             <h1 className="text-xl font-semibold text-gray-900">
-              Color Palette Generator{" "}
-              <span className="max-[1400px]:hidden">~ </span>
+              Color Palette Generator
+              <span className="max-[1400px]:hidden"> ~ </span>
               <span className="text-sm font-medium text-gray-800 max-[1400px]:hidden">
                 Press Enter to generate!
               </span>
@@ -230,7 +229,7 @@ function StudioPage() {
           className={`w-full p-30 graydotbg ${
             generatorMaximize
               ? "absolute top-0 left-0 w-full h-screen z-50"
-              : "h-[calc(100%-128px)] max-lg:h-[calc(100%-272px)] max-lg:p-4"
+              : "h-[calc(100%-128px)] max-lg:h-[calc(100%-224px)] max-lg:p-4"
           }`}
         >
           <DndContext
@@ -270,11 +269,10 @@ function StudioPage() {
           </DndContext>
         </div>
 
-        <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-52 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
+        <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-40 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
           <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
             <ColorCountMenu from="Generator" />
             <ColorPreferencesMenu from="Studio" />
-            <PaletteStylesMenu from="Generator" />
             <button
               aria-label="Open HSL Control Panel to adjust hue, saturation, and lightness"
               onClick={() => toggleHslControlPanelModel()}

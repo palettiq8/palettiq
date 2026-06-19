@@ -3,11 +3,12 @@
 import useModelStore from "@/libs/stores/modelStore";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../Button";
-import { LuArrowUpRight, LuShuffle, LuX } from "react-icons/lu";
+import { LuArrowUpRight, LuCloudUpload, LuShuffle, LuX } from "react-icons/lu";
 import { useBrowseStore, useVisualizerStore } from "@/libs/stores/dataStore";
 import { visualizers } from "@/utils/Items";
 import { PaletteColor } from "@/utils/Types";
 import { useEffect, useState } from "react";
+import VisualizeSVG from "../visualizers/VisualizeSVG";
 
 export default function PaletteQuickVisualizerModel() {
   const paletteQuickVisualizerModel = useModelStore(
@@ -27,6 +28,10 @@ export default function PaletteQuickVisualizerModel() {
   );
   const setGeneratedVisualizerPalette = useVisualizerStore(
     (state) => state.setGeneratedVisualizerPalette,
+  );
+  const uploadedSVGString = useVisualizerStore((s) => s.uploadedSVGString);
+  const toggleSVGUploadModel = useModelStore(
+    (state) => state.toggleSVGUploadModel,
   );
 
   const handler = (e: React.MouseEvent) => {
@@ -49,7 +54,7 @@ export default function PaletteQuickVisualizerModel() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handler}
-          className="fixed inset-0 w-full h-screen bg-black/50 grid items-end pb-4 z-50 max-sm:px-4 parent"
+          className="fixed inset-0 w-full h-screen bg-black/50 grid items-end pb-4 z-50 max-xl:px-4 parent"
         >
           <motion.div
             role="dialog"
@@ -66,6 +71,19 @@ export default function PaletteQuickVisualizerModel() {
                 Quick Visualize
               </h2>
               <div className="flex items-center gap-2">
+                <Button
+                  aria-label="Upload your own SVG to visualize with the current palette"
+                  variant={"outline"}
+                  size={"md"}
+                  onClick={() => {
+                    localStorage.setItem("open-svg-upload-modal", "true");
+                    window.open("/studio/color-palette-visualizer", "_blank");
+                  }}
+                  className="max-sm:hidden"
+                >
+                  <LuCloudUpload size={16} />
+                  <span>Upload SVG</span>
+                </Button>
                 <Button
                   variant={"outline"}
                   size={"circle"}
@@ -109,6 +127,8 @@ export default function PaletteQuickVisualizerModel() {
               style={{ height: "calc(100% - 56px)" }}
             >
               {visualizers.map((Component, index) => {
+                if (!uploadedSVGString && Component === VisualizeSVG)
+                  return null;
                 return (
                   <div
                     aria-label={`Preview color palette on UI template ${index + 1}`}

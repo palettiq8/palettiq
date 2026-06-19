@@ -35,8 +35,6 @@ interface MenuStateType {
   toggleVisualizerResponsiveMoreMenu: () => void;
   shadowResponsiveMoreMenu: boolean;
   toggleShadowResponsiveMoreMenu: () => void;
-  paletteStylesMenu: boolean;
-  togglePaletteStylesMenu: () => void;
 }
 
 const useMenuStore = create<MenuStateType>((set) => ({
@@ -58,7 +56,6 @@ const useMenuStore = create<MenuStateType>((set) => ({
   contrastResponsiveMoreMenu: false,
   visualizerResponsiveMoreMenu: false,
   shadowResponsiveMoreMenu: false,
-  paletteStylesMenu: false,
   colorToolsMenu: false,
 
   toggleColorPreferencesMenu: () =>
@@ -114,10 +111,6 @@ const useMenuStore = create<MenuStateType>((set) => ({
   toggleShadowResponsiveMoreMenu: () =>
     set((state) => ({
       shadowResponsiveMoreMenu: !state.shadowResponsiveMoreMenu,
-    })),
-  togglePaletteStylesMenu: () =>
-    set((state) => ({
-      paletteStylesMenu: !state.paletteStylesMenu,
     })),
 }));
 

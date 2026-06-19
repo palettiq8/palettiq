@@ -17,7 +17,6 @@ import {
   industries,
   modes,
   moods,
-  paletteStylesSL,
   preferredColors,
   saturationLevels,
   useCases,
@@ -87,7 +86,6 @@ export const generateRandomColor = (): string => {
 export const generateColorForFamily = (
   familyName: string,
   customFamilies?: Record<string, ColorFamily>,
-  styleSL?: { sat: [number, number]; light: [number, number] },
 ): string => {
   const family = customFamilies?.[familyName] ?? colorFamilies[familyName];
   if (!family) return generateRandomColor();
@@ -100,13 +98,8 @@ export const generateColorForFamily = (
         : randomBetween(0, h2)
       : randomBetween(h1, h2);
 
-  const sat = styleSL
-    ? randomBetween(styleSL.sat[0], styleSL.sat[1])
-    : randomBetween(family.sat[0], family.sat[1]);
-
-  const light = styleSL
-    ? randomBetween(styleSL.light[0], styleSL.light[1])
-    : randomBetween(family.light[0], family.light[1]);
+  const sat = randomBetween(family.sat[0], family.sat[1]);
+  const light = randomBetween(family.light[0], family.light[1]);
 
   return hslToHex(hue, sat, light);
 };
@@ -116,24 +109,18 @@ export const generateColor = (
   currentColor: string,
   chosenColors: string[],
   customFamilies?: Record<string, ColorFamily> | null,
-  paletteStyle?: string | null,
 ): string => {
   if (isLocked) return currentColor;
-  const styleSL = paletteStyle ? paletteStylesSL[paletteStyle] : undefined;
 
   const safeCustomFamilies = customFamilies ?? {};
+
   if (chosenColors.length === 0) {
-    if (styleSL) {
-      const allFamilies = Object.keys(colorFamilies);
-      const randomFamily =
-        allFamilies[Math.floor(Math.random() * allFamilies.length)];
-      return generateColorForFamily(randomFamily, safeCustomFamilies, styleSL);
-    }
     return generateRandomColor();
   }
+
   const randomFamily =
     chosenColors[Math.floor(Math.random() * chosenColors.length)];
-  return generateColorForFamily(randomFamily, safeCustomFamilies, styleSL);
+  return generateColorForFamily(randomFamily, safeCustomFamilies);
 };
 
 export const copyTextHandlerOnly = async (content: string) => {

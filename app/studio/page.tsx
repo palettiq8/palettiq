@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title:
     "Color Palette Generator From Your Colors | Create, Customize & Export Palettes",
   description:
-    "Generate personalized color palettes from your selected colors, color families, moods, industries, and styles. Customize hue, saturation, and lightness, then export palettes as HEX, RGB, CSS, Tailwind CSS, SCSS, and more.",
+    "Generate personalized color palettes from your selected colors, color families, harmonies and styles. Customize hue, saturation, and lightness, then export palettes as HEX, RGB, CSS, Tailwind CSS, SCSS, and more.",
   keywords: [
     "color palette generator",
     "palette generator from colors",
@@ -34,24 +34,26 @@ export const metadata: Metadata = {
     canonical: "https://palettiq.net/studio",
   },
   openGraph: {
-    title: "Generate Personalized Color Palettes From Your Colors | PalettIQ",
+    title:
+      "Generate Personalized Color Palettes From Your Selected Colors | PalettIQ",
     description:
-      "Choose colors, moods, industries, and styles to generate personalized color palettes for branding, UI design, websites, and digital products.",
+      "Choose colors, harmonies, and styles to generate personalized color palettes for branding, UI design, websites, and digital products.",
     url: "https://palettiq.net/studio",
     images: [
       {
         url: "/banner.webp",
         width: 1200,
         height: 630,
-        alt: "Generate Personalized Color Palettes From Your Colors",
+        alt: "Generate Personalized Color Palettes From Your Selected Colors",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Generate Personalized Color Palettes From Your Colors | PalettIQ",
+    title:
+      "Generate Personalized Color Palettes From Your Selected Colors | PalettIQ",
     description:
-      "Create personalized color palettes using your preferred colors, moods, industries, and styles.",
+      "Create personalized color palettes using your preferred colors, harmonies, and styles.",
     images: ["/banner.webp"],
   },
 };
@@ -75,11 +77,11 @@ export default function page() {
               priceCurrency: "USD",
             },
             description:
-              "Generate personalized color palettes from selected colors, moods, industries, and styles.",
+              "Generate personalized color palettes from selected colors, harmonies, and styles.",
             featureList: [
               "Color Palette Generation",
               "Palette Generation From Selected Colors",
-              "Mood Based Palette Generation",
+              "Harmony Based Palette Generation",
               "Industry Based Palette Generation",
               "Style Based Palette Generation",
               "Palette Export",

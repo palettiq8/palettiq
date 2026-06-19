@@ -171,8 +171,6 @@ export interface GeneratorStateTypes {
     value: number,
   ) => void;
   resetHslControlPanelFamilies: () => void;
-  paletteStyle: string | null;
-  setPaletteStyle: (style: string | null) => void;
   pickedPalettesForPublished: PaletteColor[][];
   setPickedPalettesForPublished: (colors: PaletteColor[]) => void;
   clearPickedPalettesForPublished: () => void;
@@ -310,8 +308,6 @@ export interface VisualizerStateTypes {
   setCurrentTemplateId: (id: number) => void;
   activeVisualizerMaximize: boolean;
   setActiveVisualizerMaximize: (value?: boolean) => void;
-  visualizerPaletteStyle: string | null;
-  setVisualizerPaletteStyle: (style: string | null) => void;
   uploadedSVGString: string | null;
   uploadedSVGSelectedColors: string[];
   setUploadedSVGData: (svg: string, selectedColors: string[]) => void;

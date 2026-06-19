@@ -1,132 +1,3 @@
-// "use client";
-
-// import { useVisualizerStore } from "@/libs/stores/dataStore";
-// import { PaletteColor } from "@/utils/Types";
-// import { distributePalette } from "@/utils/utils";
-// import { useEffect, useMemo, useRef } from "react";
-
-// function normaliseColor(raw: string): string | null {
-//   if (!raw || raw === "none" || raw === "transparent") return null;
-//   const s = raw.trim().toLowerCase();
-//   if (s.startsWith("#") && s.length === 7) return s;
-//   if (s.startsWith("#") && s.length === 4)
-//     return "#" + s[1] + s[1] + s[2] + s[2] + s[3] + s[3];
-//   const rgbMatch = s.match(/^rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)$/);
-//   if (rgbMatch)
-//     return (
-//       "#" +
-//       [rgbMatch[1], rgbMatch[2], rgbMatch[3]]
-//         .map((n) => parseInt(n).toString(16).padStart(2, "0"))
-//         .join("")
-//     );
-//   return null;
-// }
-
-// function buildLiveSVG(
-//   originalSVG: string,
-//   selectedColors: string[],
-//   palette: PaletteColor[],
-// ): string {
-//   if (!originalSVG || !selectedColors.length || !palette.length)
-//     return originalSVG;
-
-//   const distributed = distributePalette(palette, selectedColors.length);
-//   let result = originalSVG;
-
-//   selectedColors.forEach((originalColor, i) => {
-//     const paletteColor = distributed[i]?.color ?? originalColor;
-//     const escaped = originalColor.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-//     result = result.replace(new RegExp(escaped, "gi"), paletteColor);
-//   });
-
-//   return result;
-// }
-
-// export default function VisualizeSVG({ palette }: { palette: PaletteColor[] }) {
-//   const uploadedSVGString = useVisualizerStore((s) => s.uploadedSVGString);
-//   const uploadedSVGSelectedColors = useVisualizerStore(
-//     (s) => s.uploadedSVGSelectedColors,
-//   );
-//   const setVisualizerActiveColor = useVisualizerStore(
-//     (s) => s.setVisualizerActiveColor,
-//   );
-
-//   const containerRef = useRef<HTMLDivElement>(null);
-
-//   const liveSVG = useMemo(
-//     () =>
-//       buildLiveSVG(uploadedSVGString ?? "", uploadedSVGSelectedColors, palette),
-//     [uploadedSVGString, uploadedSVGSelectedColors, palette],
-//   );
-
-//   useEffect(() => {
-//     const container = containerRef.current;
-//     if (!container) return;
-
-//     // No SVG — clear and bail
-//     if (!uploadedSVGString || !liveSVG) {
-//       container.innerHTML = "";
-//       return;
-//     }
-
-//     container.innerHTML = liveSVG;
-
-//     const svgEl = container.querySelector("svg");
-//     if (!svgEl) return;
-
-//     svgEl.style.width = "100%";
-//     svgEl.style.height = "100%";
-//     svgEl.style.pointerEvents = "all";
-
-//     const handlers: Array<{ el: Element; fn: (e: Event) => void }> = [];
-
-//     const attach = (el: Element, color: string) => {
-//       const fn = (e: Event) => {
-//         e.stopPropagation();
-//         setVisualizerActiveColor(color);
-//       };
-//       el.addEventListener("click", fn);
-//       handlers.push({ el, fn });
-//     };
-
-//     // Normal fill elements
-//     svgEl.querySelectorAll("[fill]").forEach((el) => {
-//       const fillAttr = el.getAttribute("fill") ?? "";
-//       if (fillAttr.startsWith("url(") || fillAttr === "none") return;
-//       const color = normaliseColor(fillAttr);
-//       if (color) attach(el, color);
-//     });
-
-//     // Gradient fill elements — use live stop-color (already palette-replaced)
-//     svgEl.querySelectorAll('[fill^="url("]').forEach((el) => {
-//       const fillAttr = el.getAttribute("fill") ?? "";
-//       const idMatch = fillAttr.match(/url\(#([^)]+)\)/);
-//       if (!idMatch) return;
-//       const gradient = svgEl.querySelector(`#${CSS.escape(idMatch[1])}`);
-//       const firstStop = gradient?.querySelector("stop");
-//       const stopColor = normaliseColor(
-//         firstStop?.getAttribute("stop-color") ??
-//           (firstStop as HTMLElement | null)?.style?.stopColor ??
-//           "",
-//       );
-//       if (stopColor) attach(el, stopColor);
-//     });
-
-//     return () => {
-//       handlers.forEach(({ el, fn }) => el.removeEventListener("click", fn));
-//     };
-//   }, [liveSVG, uploadedSVGString, setVisualizerActiveColor]);
-
-//   // Always render the div so containerRef is always mounted.
-//   // Hide visually when no SVG uploaded.
-//   return (
-//     <div
-//       ref={containerRef}
-//       className="w-full h-full flex items-center justify-center [&>svg]:w-full [&>svg]:h-full cursor-pointer"
-//       style={{ display: uploadedSVGString ? "flex" : "none" }}
-//     />
-//   );
-// }
 "use client";
 
 import { useVisualizerStore } from "@/libs/stores/dataStore";
@@ -140,17 +11,58 @@ function normaliseColor(raw: string): string | null {
   if (s.startsWith("#") && s.length === 7) return s;
   if (s.startsWith("#") && s.length === 4)
     return "#" + s[1] + s[1] + s[2] + s[2] + s[3] + s[3];
-  const rgbMatch = s.match(/^rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)$/);
+
+  // rgb(r, g, b) — integer 0-255 form
+  const rgbMatch = s.match(
+    /^rgb\(\s*(\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?)\s*\)$/,
+  );
   if (rgbMatch)
     return (
       "#" +
       [rgbMatch[1], rgbMatch[2], rgbMatch[3]]
-        .map((n) => parseInt(n).toString(16).padStart(2, "0"))
+        .map((n) => Math.round(parseFloat(n)).toString(16).padStart(2, "0"))
         .join("")
     );
+
+  // rgb(r%, g%, b%) — percentage form, e.g. rgb(40.4968%, 71.9284%, 91.22%)
+  const rgbPercentMatch = s.match(
+    /^rgb\(\s*(\d+(?:\.\d+)?)%,\s*(\d+(?:\.\d+)?)%,\s*(\d+(?:\.\d+)?)%\s*\)$/,
+  );
+  if (rgbPercentMatch)
+    return (
+      "#" +
+      [rgbPercentMatch[1], rgbPercentMatch[2], rgbPercentMatch[3]]
+        .map((p) =>
+          Math.round((parseFloat(p) / 100) * 255)
+            .toString(16)
+            .padStart(2, "0"),
+        )
+        .join("")
+    );
+
   return null;
 }
 
+/** Convert a hex color to its rgb() string form, e.g. #bde1fa -> rgb(189, 225, 250) */
+function hexToRgbString(hex: string): string | null {
+  const h = hex.replace("#", "");
+  if (h.length !== 6) return null;
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  if ([r, g, b].some((n) => Number.isNaN(n))) return null;
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+/**
+ * Build the live SVG by replacing every selected original color with its
+ * mapped palette color. Handles three color formats found in real-world
+ * SVGs: hex (#rrggbb), integer rgb(r, g, b), and percentage rgb(r%, g%, b%)
+ * — the last one is common in Adobe Illustrator / some design-tool exports
+ * and can't be regenerated byte-for-byte from a rounded hex, so we scan and
+ * match every rgb(...) occurrence in the string by its *normalised* hex
+ * value instead of trying to reconstruct the exact original substring.
+ */
 function buildLiveSVG(
   originalSVG: string,
   selectedColors: string[],
@@ -160,13 +72,51 @@ function buildLiveSVG(
     return originalSVG;
 
   const distributed = distributePalette(palette, selectedColors.length);
+
+  // Map: original hex -> replacement color (hex)
+  const colorMap = new Map<string, string>();
+  selectedColors.forEach((originalColor, i) => {
+    colorMap.set(originalColor, distributed[i]?.color ?? originalColor);
+  });
+
   let result = originalSVG;
 
-  selectedColors.forEach((originalColor, i) => {
-    const paletteColor = distributed[i]?.color ?? originalColor;
-    const escaped = originalColor.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    result = result.replace(new RegExp(escaped, "gi"), paletteColor);
+  // Step 1: replace plain hex occurrences directly
+  colorMap.forEach((paletteColor, originalColor) => {
+    const escapedHex = originalColor.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    result = result.replace(new RegExp(escapedHex, "gi"), paletteColor);
   });
+
+  // Step 2: replace integer rgb(r, g, b) occurrences directly (exact match)
+  colorMap.forEach((paletteColor, originalColor) => {
+    const rgbString = hexToRgbString(originalColor);
+    if (!rgbString) return;
+    const rgbValues = rgbString.match(/\d+/g)!;
+    const rgbPattern = `rgb\\(\\s*${rgbValues[0]}\\s*,\\s*${rgbValues[1]}\\s*,\\s*${rgbValues[2]}\\s*\\)`;
+    const paletteRgb = hexToRgbString(paletteColor) ?? paletteColor;
+    result = result.replace(new RegExp(rgbPattern, "gi"), paletteRgb);
+  });
+
+  // Step 3: scan every rgb(a%, b%, c%) occurrence, normalise it to hex, and
+  // replace it if that hex matches one of the selected colors. This handles
+  // arbitrary decimal precision (e.g. 40.496826%) without needing an exact
+  // string match.
+  result = result.replace(
+    /rgb\(\s*(\d+(?:\.\d+)?)%,\s*(\d+(?:\.\d+)?)%,\s*(\d+(?:\.\d+)?)%\s*\)/gi,
+    (match, p1, p2, p3) => {
+      const hex =
+        "#" +
+        [p1, p2, p3]
+          .map((p) =>
+            Math.round((parseFloat(p) / 100) * 255)
+              .toString(16)
+              .padStart(2, "0"),
+          )
+          .join("");
+      const replacement = colorMap.get(hex);
+      return replacement ?? match;
+    },
+  );
 
   return result;
 }
@@ -218,18 +168,32 @@ export default function VisualizeSVG({ palette }: { palette: PaletteColor[] }) {
       handlers.push({ el, fn });
     };
 
-    // Normal fill elements
-    svgEl.querySelectorAll("[fill]").forEach((el) => {
-      const fillAttr = el.getAttribute("fill") ?? "";
-      if (fillAttr.startsWith("url(") || fillAttr === "none") return;
+    // Normal fill elements — via fill attribute OR inline style="fill: rgb(...)"
+    const fillEls = new Set<Element>();
+    svgEl.querySelectorAll("[fill]").forEach((el) => fillEls.add(el));
+    svgEl.querySelectorAll('[style*="fill"]').forEach((el) => fillEls.add(el));
+
+    fillEls.forEach((el) => {
+      const fillAttr =
+        el.getAttribute("fill") ?? (el as HTMLElement).style?.fill ?? "";
+      if (fillAttr.startsWith("url(") || fillAttr === "none" || !fillAttr)
+        return;
       const color = normaliseColor(fillAttr);
       if (color) attach(el, color);
     });
 
-    // Gradient fill elements — use live stop-color (already palette-replaced)
-    // Gradient fill elements
-    svgEl.querySelectorAll('[fill^="url("]').forEach((el) => {
-      const fillAttr = el.getAttribute("fill") ?? "";
+    // Gradient fill elements — via attribute OR inline style
+    const gradientEls = new Set<Element>();
+    svgEl
+      .querySelectorAll('[fill^="url("]')
+      .forEach((el) => gradientEls.add(el));
+    svgEl
+      .querySelectorAll('[style*="url("]')
+      .forEach((el) => gradientEls.add(el));
+
+    gradientEls.forEach((el) => {
+      const fillAttr =
+        el.getAttribute("fill") ?? (el as HTMLElement).style?.fill ?? "";
       const idMatch = fillAttr.match(/url\(#([^)]+)\)/);
       if (!idMatch) return;
       const gradient = svgEl.querySelector(`#${CSS.escape(idMatch[1])}`);

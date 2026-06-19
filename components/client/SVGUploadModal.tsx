@@ -12,15 +12,37 @@ function normaliseColor(raw: string): string | null {
   if (s.startsWith("#") && (s.length === 4 || s.length === 7)) return s;
   if (s.startsWith("#") && s.length === 4)
     return "#" + s[1] + s[1] + s[2] + s[2] + s[3] + s[3];
-  const rgbMatch = s.match(/^rgb\(\s*(\d+),\s*(\d+),\s*(\d+)\s*\)$/);
+
+  // rgb(r, g, b) — integer 0-255 form
+  const rgbMatch = s.match(
+    /^rgb\(\s*(\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?),\s*(\d+(?:\.\d+)?)\s*\)$/,
+  );
   if (rgbMatch) {
     return (
       "#" +
       [rgbMatch[1], rgbMatch[2], rgbMatch[3]]
-        .map((n) => parseInt(n).toString(16).padStart(2, "0"))
+        .map((n) => Math.round(parseFloat(n)).toString(16).padStart(2, "0"))
         .join("")
     );
   }
+
+  // rgb(r%, g%, b%) — percentage form, e.g. rgb(40.49%, 71.92%, 91.22%)
+  const rgbPercentMatch = s.match(
+    /^rgb\(\s*(\d+(?:\.\d+)?)%,\s*(\d+(?:\.\d+)?)%,\s*(\d+(?:\.\d+)?)%\s*\)$/,
+  );
+  if (rgbPercentMatch) {
+    return (
+      "#" +
+      [rgbPercentMatch[1], rgbPercentMatch[2], rgbPercentMatch[3]]
+        .map((p) =>
+          Math.round((parseFloat(p) / 100) * 255)
+            .toString(16)
+            .padStart(2, "0"),
+        )
+        .join("")
+    );
+  }
+
   return null;
 }
 
@@ -52,10 +74,9 @@ function extractUniqueColors(svgString: string): string[] {
 
 /** Prefix all gradient/clip/filter IDs in an SVG string with a unique
  *  namespace so they don't clash with other SVGs already on the page. */
-function namespaceSVGIds(svgString: string): string {
-  const uid = `modal-${Math.random().toString(36).slice(2, 9)}`;
+function namespaceSVGIds(svgString: string, prefix: string): string {
   const ids: string[] = [];
-  const idRegex = /id="([^"]+)"/g;
+  const idRegex = /id="([^"]+)"/g;
   let match;
   while ((match = idRegex.exec(svgString)) !== null) {
     ids.push(match[1]);
@@ -64,15 +85,21 @@ function namespaceSVGIds(svgString: string): string {
 
   let result = svgString;
   ids.forEach((id) => {
+    const escapedId = id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
     result = result
-      .split(`id="${id}"`)
-      .join(`id="${uid}-${id}"`)
-      .split(`url(#${id})`)
-      .join(`url(#${uid}-${id})`)
-      .split(`href="#${id}"`)
-      .join(`href="#${uid}-${id}"`)
-      .split(`xlink:href="#${id}"`)
-      .join(`xlink:href="#${uid}-${id}"`);
+      .replace(new RegExp(`id="${escapedId}"`, "g"), `id="${prefix}-${id}"`)
+      .replace(
+        new RegExp(`url\\(#${escapedId}\\)`, "g"),
+        `url(#${prefix}-${id})`,
+      )
+      .replace(
+        new RegExp(`href="#${escapedId}"`, "g"),
+        `href="#${prefix}-${id}"`,
+      )
+      .replace(
+        new RegExp(`xlink:href="#${escapedId}"`, "g"),
+        `xlink:href="#${prefix}-${id}"`,
+      );
   });
   return result;
 }
@@ -98,6 +125,10 @@ export default function SVGUploadModal({ isOpen, onClose }: Props) {
   const lastMouse = useRef({ x: 0, y: 0 });
   const previewRef = useRef<HTMLDivElement>(null);
   const [transformOrigin, setTransformOrigin] = useState("center center");
+  const [svgNaturalSize, setSvgNaturalSize] = useState({
+    width: 500,
+    height: 500,
+  });
 
   useEffect(() => {
     if (!isOpen) {
@@ -119,8 +150,10 @@ export default function SVGUploadModal({ isOpen, onClose }: Props) {
     const reader = new FileReader();
     reader.onload = (e) => {
       const text = e.target?.result as string;
-      const namespacedText = namespaceSVGIds(text);
+      // Namespace all IDs so gradient IDs don't clash with other SVGs on page
+      const namespacedText = namespaceSVGIds(text, "modal-svg");
       setSvgString(namespacedText);
+      // Extract colors from the ORIGINAL text (before namespacing) so hex values are unaffected
       const colors = extractUniqueColors(text);
       setUniqueColors(colors);
       setSelectedColors(new Set());
@@ -289,6 +322,9 @@ export default function SVGUploadModal({ isOpen, onClose }: Props) {
       );
 
       setScale(fitScale);
+
+      setSvgNaturalSize({ width: svgW, height: svgH });
+      setScale(fitScale);
       // Center এ রাখো
       setTranslate({
         x: (rect.width - svgW * fitScale) / 2,
@@ -453,9 +489,10 @@ export default function SVGUploadModal({ isOpen, onClose }: Props) {
                           position: "absolute",
                           top: "0",
                           left: "0",
-                          maxWidth: "90%",
-                          maxHeight: "90%",
+                          width: `${svgNaturalSize.width}px`,
+                          height: `${svgNaturalSize.height}px`,
                         }}
+                        className="[&>svg]:w-full [&>svg]:h-full [&>svg]:block"
                         dangerouslySetInnerHTML={{ __html: svgString }}
                       />
                     </div>
@@ -589,7 +626,7 @@ export default function SVGUploadModal({ isOpen, onClose }: Props) {
                     disabled={!svgString || selectedColors.size === 0}
                     className="w-full"
                   >
-                    Apply Palette
+                    Open on Visualizer
                   </Button>
                 </div>
               </div>

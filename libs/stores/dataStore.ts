@@ -82,7 +82,6 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
                 prev?.color ?? "#000000",
                 state.preferredItems,
                 state.hslControlPanelFamilies,
-                state.paletteStyle,
               );
 
               return {
@@ -225,11 +224,6 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
             ]),
           ),
         })),
-      paletteStyle: null,
-      setPaletteStyle: (style: string | null) =>
-        set((state) => ({
-          paletteStyle: state.paletteStyle === style ? null : style,
-        })),
       pickedPalettesForPublished: [],
       setPickedPalettesForPublished: (colors: PaletteColor[]) =>
         set((state) => {
@@ -256,7 +250,6 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
         preferredItems: state.preferredItems,
         generatedPalette: state.generatedPalette,
         hslControlPanelFamilies: state.hslControlPanelFamilies,
-        paletteStyle: state.paletteStyle,
         pickedPalettesForPublished: state.pickedPalettesForPublished,
       }),
     },
@@ -911,7 +904,6 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
               prev?.color ?? "#000000",
               state.preferredVisualizerItems,
               null,
-              state.visualizerPaletteStyle,
             );
 
             return {
@@ -1073,12 +1065,6 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
           activeVisualizerMaximize:
             value === false ? value : !state.activeVisualizerMaximize,
         })),
-      visualizerPaletteStyle: null,
-      setVisualizerPaletteStyle: (style: string | null) =>
-        set((state) => ({
-          visualizerPaletteStyle:
-            state.visualizerPaletteStyle === style ? null : style,
-        })),
       uploadedSVGString: null,
       uploadedSVGSelectedColors: [],
 
@@ -1100,7 +1086,6 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
         defaultVisualizerPreference: state.defaultVisualizerPreference,
         preferredVisualizerItems: state.preferredVisualizerItems,
         currentTemplateId: state.currentTemplateId,
-        visualizerPaletteStyle: state.visualizerPaletteStyle,
       }),
     },
   ),

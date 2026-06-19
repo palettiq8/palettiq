@@ -4,7 +4,6 @@ import { Button } from "@/components/Button";
 import ColorCountMenu from "@/components/client/ColorCountMenu";
 import ColorPreferencesMenu from "@/components/client/ColorPreferencesMenu";
 import OpenMoreMenu from "@/components/client/OpenMoreMenu";
-import PaletteStylesMenu from "@/components/client/PaletteStylesMenu";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import VisualizerColorPickerMenu from "@/components/client/VisualizerColorPickerMenu";
 import VisualizerResponsiveMoreMenu from "@/components/client/VisualizerResponsiveMoreMenu";
@@ -187,16 +186,25 @@ export default function VisualizerPageClient() {
     }
   }, [uploadedSVGString]);
 
+  useEffect(() => {
+    const shouldOpen = localStorage.getItem("open-svg-upload-modal");
+
+    if (shouldOpen === "true") {
+      toggleSVGUploadModel(true);
+      localStorage.removeItem("open-svg-upload-modal");
+    }
+  }, []);
+
   return (
     <>
       <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
-        <div className="w-full h-16 border-b border-gray-200 px-4 bg-white rounded-t-xl flex items-center justify-between">
+        <div className="w-full h-16 border-b border-gray-200 flex items-center justify-between px-4">
           <div className="flex items-center gap-3">
             <div className="hidden max-[1400px]:block">
               <StudioResponsiveMenuIcon />
             </div>
             <h1 className="text-xl font-semibold text-gray-900">
-              Color Palette Visualizer{" "}
+              Color Palette Visualizer
               <span className="max-[1400px]:hidden"> ~ </span>
               <span className="text-sm font-medium text-gray-800 max-[1400px]:hidden">
                 Right-click on templates to open!
@@ -245,7 +253,7 @@ export default function VisualizerPageClient() {
           </div>
         </div>
         <div
-          className={`w-full bg-white flex h-[calc(100%-128px)] max-lg:h-[calc(100%-332px)]`}
+          className={`w-full bg-white flex h-[calc(100%-128px)] max-lg:h-[calc(100%-280px)]`}
         >
           <div
             className={`w-3/4 h-full graydotbg z-30 ${activeVisualizerMaximize && "w-full h-screen absolute top-0 left-0"} ${activeTemplateMaximize && "hidden"} max-lg:w-full`}
@@ -321,10 +329,9 @@ export default function VisualizerPageClient() {
             </div>
           </div>
         </div>
-        <div className="w-full h-16 max-lg:h-67 border-t border-gray-200 px-4 bg-white rounded-b-xl flex items-center justify-between gap-3 max-lg:flex-col max-lg:justify-center">
+        <div className="w-full h-16 max-lg:h-54 border-t border-gray-200 px-4 bg-white rounded-b-xl flex items-center justify-between gap-3 max-lg:flex-col max-lg:justify-center">
           <div className="max-lg:w-full flex items-center max-lg:flex-col-reverse gap-3">
             <ColorPreferencesMenu from="Visualizer" />
-            <PaletteStylesMenu from="Visualizer" />
             <div className="max-[1560px]:hidden">
               <OpenMoreMenu from="Visualizer" />
             </div>

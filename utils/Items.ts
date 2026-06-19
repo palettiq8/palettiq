@@ -310,18 +310,6 @@ export const palettesCount = [
   "5 Palettes",
   "6 Palettes",
 ];
-export const paletteStylesItems = [
-  "Pastel",
-  "Vibrant",
-  "Muted",
-  "Earthy",
-  "Dark",
-  "Neon",
-  "Vintage",
-  "JewelTone",
-  "Retro",
-  "Warm",
-];
 export const quickViewTabItems = [
   { id: 1, title: "Formats" },
   { id: 2, title: "Tints" },
