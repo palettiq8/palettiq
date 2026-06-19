@@ -240,6 +240,12 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
         }),
       clearPickedPalettesForPublished: () =>
         set({ pickedPalettesForPublished: [] }),
+      generatorColorHarmony: null,
+      setGeneratorColorHarmony: (harmony: string | null) =>
+        set((state) => ({
+          generatorColorHarmony:
+            state.generatorColorHarmony === harmony ? null : harmony,
+        })),
     }),
     {
       name: "_generator_storage",
@@ -251,6 +257,7 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
         generatedPalette: state.generatedPalette,
         hslControlPanelFamilies: state.hslControlPanelFamilies,
         pickedPalettesForPublished: state.pickedPalettesForPublished,
+        generatorColorHarmony: state.generatorColorHarmony,
       }),
     },
   ),
@@ -1076,6 +1083,12 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
 
       clearUploadedSVG: () =>
         set({ uploadedSVGString: null, uploadedSVGSelectedColors: [] }),
+      visualizerColorHarmony: null,
+      setVisualizerColorHarmony: (harmony: string | null) =>
+        set((state) => ({
+          visualizerColorHarmony:
+            state.visualizerColorHarmony === harmony ? null : harmony,
+        })),
     }),
     {
       name: "_visualizer_storage",
@@ -1086,6 +1099,7 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
         defaultVisualizerPreference: state.defaultVisualizerPreference,
         preferredVisualizerItems: state.preferredVisualizerItems,
         currentTemplateId: state.currentTemplateId,
+        visualizerColorHarmony: state.visualizerColorHarmony,
       }),
     },
   ),

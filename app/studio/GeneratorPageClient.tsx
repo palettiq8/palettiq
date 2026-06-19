@@ -25,6 +25,7 @@ import { useSearchParams } from "next/navigation";
 import CircleLoader from "@/components/server/CircleLoader";
 import StudioResponsiveMenuIcon from "@/components/client/StudioResponsiveMenuIcon";
 import { useIsAdmin } from "@/hooks/useIsAdmin";
+import ColorHarmoniesMenu from "@/components/client/ColorHarmoniesMenu";
 
 function StudioPage() {
   const generatorMaximize = useUiStore((state) => state.generatorMaximize);
@@ -272,6 +273,7 @@ function StudioPage() {
         <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-40 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
           <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
             <ColorCountMenu from="Generator" />
+            <ColorHarmoniesMenu from="Generator" />
             <ColorPreferencesMenu from="Studio" />
             <button
               aria-label="Open HSL Control Panel to adjust hue, saturation, and lightness"

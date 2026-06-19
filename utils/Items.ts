@@ -287,21 +287,6 @@ export const colorFamilies: Record<string, ColorFamily> = {
   Pink: { hue: [320, 355], sat: [60, 100], light: [40, 90] },
   Brown: { hue: [0, 30], sat: [40, 70], light: [20, 45] },
 };
-export const paletteStylesSL: Record<
-  string,
-  { sat: [number, number]; light: [number, number] }
-> = {
-  Pastel: { sat: [20, 50], light: [70, 90] },
-  Vibrant: { sat: [80, 100], light: [40, 60] },
-  Muted: { sat: [10, 35], light: [35, 65] },
-  Earthy: { sat: [30, 60], light: [20, 50] },
-  Dark: { sat: [40, 80], light: [10, 30] },
-  Neon: { sat: [90, 100], light: [50, 70] },
-  Vintage: { sat: [20, 50], light: [35, 60] },
-  JewelTone: { sat: [70, 90], light: [25, 45] },
-  Retro: { sat: [50, 80], light: [40, 65] },
-  Warm: { sat: [60, 90], light: [45, 70] },
-};
 export const palettesCount = [
   "1 Palette",
   "2 Palettes",

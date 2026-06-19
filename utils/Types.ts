@@ -174,6 +174,8 @@ export interface GeneratorStateTypes {
   pickedPalettesForPublished: PaletteColor[][];
   setPickedPalettesForPublished: (colors: PaletteColor[]) => void;
   clearPickedPalettesForPublished: () => void;
+  generatorColorHarmony: string | null;
+  setGeneratorColorHarmony: (harmony: string | null) => void;
 }
 export interface PickerStateTypes {
   defaultColorPreference: boolean;
@@ -312,6 +314,8 @@ export interface VisualizerStateTypes {
   uploadedSVGSelectedColors: string[];
   setUploadedSVGData: (svg: string, selectedColors: string[]) => void;
   clearUploadedSVG: () => void;
+  visualizerColorHarmony: string | null;
+  setVisualizerColorHarmony: (harmony: string | null) => void;
 }
 export interface ShadowStateTypes {
   activeShadowTab: string;
