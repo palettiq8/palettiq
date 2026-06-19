@@ -277,8 +277,6 @@ export default function HSLControlPanel() {
   const addHslControlPanelFamily = useGeneratorStore(
     (state) => state.addHslControlPanelFamily,
   );
-  const paletteStyle = useGeneratorStore((state) => state.paletteStyle);
-  const setPaletteStyle = useGeneratorStore((state) => state.setPaletteStyle);
 
   useEffect(() => {
     setActiveColor(preferredItems[0]);
@@ -374,8 +372,7 @@ export default function HSLControlPanel() {
             <div className="w-full flex">
               <div className="w-45 h-100 border-r border-gray-200 p-2.5 shrink-0 flex flex-col gap-1 items-start overflow-y-auto noscrollbar">
                 {preferredColors.map(({ id, name, hex }) => {
-                  const isInclude =
-                    preferredItems.includes(name) && !paletteStyle;
+                  const isInclude = preferredItems.includes(name);
                   const isActive = activeColor === name;
                   return (
                     <button
@@ -409,26 +406,10 @@ export default function HSLControlPanel() {
               </div>
 
               <div className="w-full h-100 p-4 overflow-y-auto">
-                {preferredItems.length === 0 || paletteStyle ? (
+                {preferredItems.length === 0 ? (
                   <div className="w-full h-full grid place-content-center bg-gray-100 border border-gray-200 rounded-lg">
                     <p className="text-sm font-medium text-gray-500 text-center max-w-70">
-                      {paletteStyle ? (
-                        <>
-                          You have already added{" "}
-                          <span className="text-gray-900">{paletteStyle}</span>{" "}
-                          style. If you need more control over your selected
-                          colors{" "}
-                          <span
-                            className="text-red-500 hover:underline hover:cursor-pointer"
-                            onClick={() => setPaletteStyle(null)}
-                          >
-                            remove
-                          </span>{" "}
-                          the style.
-                        </>
-                      ) : (
-                        "Add preferred colors to continue."
-                      )}
+                      Add preferred colors to continue.
                     </p>
                   </div>
                 ) : (
