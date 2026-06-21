@@ -515,7 +515,7 @@ export default function ExtractorPageClient() {
             </span>
           </div>
           <div className="w-120 max-lg:w-full h-full shrink-0 max-lg:h-[calc(100%-140px)]">
-            <div className="w-full h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)] overflow-y-scroll noscrollbar">
+            <div className="w-full h-[calc(100%-64px)] max-lg:h-[calc(100%-120px)] overflow-y-scroll noscrollbar">
               <div className="w-full p-4 h-max border-b border-gray-200">
                 <div className="w-full flex items-center justify-between">
                   <div className="flex items-center max-sm:flex-col max-sm:items-start gap-1">
@@ -656,7 +656,7 @@ export default function ExtractorPageClient() {
                 </div>
               </div>
             </div>
-            <div className="w-full h-16 max-lg:h-28 border-t bg-white rounded-br-xl max-lg:rounded-bl-xl border-gray-200 flex items-center justify-between max-lg:flex-col max-lg:items-start max-lg:justify-center max-lg:gap-2 p-4">
+            <div className="w-full h-16 max-lg:h-30 border-t bg-white rounded-br-xl max-lg:rounded-bl-xl border-gray-200 flex items-center justify-between max-lg:flex-col max-lg:items-start max-lg:justify-center max-lg:gap-2 p-4">
               <div className="max-lg:hidden">
                 <OpenMoreMenu from="Extractor" />
               </div>

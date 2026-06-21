@@ -227,10 +227,10 @@ function StudioPage() {
           </div>
         </div>
         <div
-          className={`w-full p-30 graydotbg ${
+          className={`w-full graydotbg ${
             generatorMaximize
               ? "absolute top-0 left-0 w-full h-screen z-50"
-              : "h-[calc(100%-128px)] max-lg:h-[calc(100%-224px)] max-lg:p-4"
+              : "h-[calc(100%-128px)] max-lg:h-[calc(100%-284px)] max-lg:p-4"
           }`}
         >
           <DndContext
@@ -243,7 +243,7 @@ function StudioPage() {
               strategy={rectSortingStrategy}
             >
               <div
-                className={`w-full h-full ${!generatorMaximize && "max-lg:h-70 max-md:h-50 max-sm:h-35"} flex gap-1 ${isHorizontalPalette && "flex-col"} ${generatorMaximize && "max-lg:flex-col"} relative`}
+                className={`w-full h-full ${!generatorMaximize && "max-lg:h-70 max-md:h-50 max-sm:h-35"} flex ${isHorizontalPalette && "flex-col"} ${generatorMaximize && "max-lg:flex-col"} relative`}
               >
                 {generatedPalette.map(({ id, color, isLocked }, index) => (
                   <SortablePaletteItem
@@ -270,15 +270,15 @@ function StudioPage() {
           </DndContext>
         </div>
 
-        <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-40 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
-          <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
+        <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-55 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
+          <div className="max-lg:w-full flex items-center gap-2 max-lg:flex-col">
             <ColorCountMenu from="Generator" />
-            <ColorHarmoniesMenu from="Generator" />
             <ColorPreferencesMenu from="Studio" />
+            <ColorHarmoniesMenu from="Generator" />
             <button
               aria-label="Open HSL Control Panel to adjust hue, saturation, and lightness"
               onClick={() => toggleHslControlPanelModel()}
-              className="h-10 px-4 font-semibold text-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center select-none text-gray-50 rounded-full gap-2 bg-radial-[at_25%_25%] from-indigo-300 to-indigo-600 to-75% max-lg:hidden"
+              className="h-10 px-4 font-semibold text-sm transition-all cursor-pointer active:scale-95 flex items-center justify-center select-none text-gray-50 rounded-full gap-2 bg-radial-[at_25%_25%] from-indigo-300 to-indigo-600 to-75% max-[1080px]:hidden"
             >
               <LuBanknote size={16} />
               <span>HSL Control Panel</span>

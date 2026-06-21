@@ -254,7 +254,7 @@ export default function VisualizerPageClient() {
           </div>
         </div>
         <div
-          className={`w-full bg-white flex h-[calc(100%-128px)] max-lg:h-[calc(100%-280px)]`}
+          className={`w-full bg-white flex h-[calc(100%-128px)] max-lg:h-[calc(100%-328px)]`}
         >
           <div
             className={`w-3/4 h-full graydotbg z-30 ${activeVisualizerMaximize && "w-full h-screen absolute top-0 left-0"} ${activeTemplateMaximize && "hidden"} max-lg:w-full`}
@@ -330,15 +330,15 @@ export default function VisualizerPageClient() {
             </div>
           </div>
         </div>
-        <div className="w-full h-16 max-lg:h-54 border-t border-gray-200 px-4 bg-white rounded-b-xl flex items-center justify-between gap-3 max-lg:flex-col max-lg:justify-center">
-          <div className="max-lg:w-full flex items-center max-lg:flex-col-reverse gap-3">
-            <ColorHarmoniesMenu from="Visualizer" />
+        <div className="w-full h-16 max-lg:h-66 border-t border-gray-200 px-4 bg-white rounded-b-xl flex items-center justify-between gap-2 max-lg:flex-col max-lg:justify-center">
+          <div className="max-lg:w-full flex items-center max-lg:flex-col-reverse gap-2">
             <ColorPreferencesMenu from="Visualizer" />
+            <ColorHarmoniesMenu from="Visualizer" />
             <div className="max-[1560px]:hidden">
               <OpenMoreMenu from="Visualizer" />
             </div>
           </div>
-          <div className="max-lg:w-full flex items-center gap-3 max-lg:flex-col">
+          <div className="max-lg:w-full flex items-center gap-2 max-lg:flex-col">
             <button
               aria-label="Quick view color palette formats"
               onClick={() => {
@@ -361,7 +361,7 @@ export default function VisualizerPageClient() {
             >
               <LuShuffle size={16} aria-hidden="true" />
             </button>
-            <div className="max-lg:w-full flex items-center gap-3">
+            <div className="max-lg:w-full flex items-center gap-2">
               <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
                 <Button
                   aria-label="Undo palette change"
@@ -392,7 +392,7 @@ export default function VisualizerPageClient() {
               </div>
               <ColorCountMenu from="Visualizer" />
             </div>
-            <div className="max-lg:w-full flex items-center gap-3">
+            <div className="max-lg:w-full flex items-center gap-2">
               <div className="w-72 max-lg:w-full flex relative">
                 {generatedVisualizerPalette.map((_, index) => {
                   const isLight = checkIsLight(_.color);

@@ -385,7 +385,7 @@ function PickerPage() {
               </div>
             </div>
           </div>
-          <div className="w-full h-full max-lg:h-[calc(100%-140px)]">
+          <div className="w-full h-full max-lg:h-[calc(100%-148px)]">
             <div className="w-full overflow-y-scroll noscrollbar h-[calc(100%-64px)] max-lg:h-[calc(100%-112px)]">
               <div className="w-full p-4">
                 <div className="w-full flex items-center justify-between">
@@ -468,7 +468,7 @@ function PickerPage() {
                 </div>
               </div>
             </div>
-            <div className="w-full h-16 max-lg:h-28 border-t bg-white rounded-br-xl max-lg:rounded-bl-xl border-gray-200 flex items-center justify-between max-lg:flex-col max-lg:items-start max-lg:justify-center max-lg:gap-2 p-4">
+            <div className="w-full h-16 max-lg:h-30 border-t bg-white rounded-br-xl max-lg:rounded-bl-xl border-gray-200 flex items-center justify-between max-lg:flex-col max-lg:items-start max-lg:justify-center max-lg:gap-2 p-4">
               <div className="max-lg:hidden">
                 <OpenMoreMenu from="Picker" />
               </div>

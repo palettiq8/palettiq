@@ -25,6 +25,7 @@ import {
   generateColor,
   generateComplementaryContrast,
   generateContrastPair,
+  generateHarmoniousPalette,
   generateRandomColor,
   getColorAtPosition,
 } from "@/utils/utils";
@@ -69,28 +70,32 @@ const useGeneratorStore = create<GeneratorStateTypes>()(
           if (palette) {
             return { generatedPalette: palette };
           }
+
           const safePrev = Array.isArray(state.generatedPalette)
             ? state.generatedPalette
             : [];
+          const count = state.colorCount;
 
-          const newPalette = Array.from({ length: state.colorCount }).map(
-            (_, i) => {
-              const prev = safePrev[i];
-
-              const color = generateColor(
-                prev?.isLocked ?? false,
-                prev?.color ?? "#000000",
-                state.preferredItems,
-                state.hslControlPanelFamilies,
-              );
-
-              return {
-                id: crypto.randomUUID(),
-                color,
-                isLocked: prev?.isLocked ?? false,
-              };
-            },
+          // Generate a full harmonious batch — locked colors are kept as-is below
+          const newColors = generateHarmoniousPalette(
+            count,
+            state.preferredItems,
+            state.hslControlPanelFamilies,
+            state.generatorColorHarmony,
           );
+
+          const newPalette = Array.from({ length: count }).map((_, i) => {
+            const prev = safePrev[i];
+            if (prev?.isLocked) {
+              return prev; // keep locked colors untouched
+            }
+            return {
+              id: crypto.randomUUID(),
+              color: newColors[i],
+              isLocked: false,
+            };
+          });
+
           return { generatedPalette: newPalette };
         });
       },
@@ -892,7 +897,6 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
       clearPreferredVisualizerItems: () =>
         set({ preferredVisualizerItems: [] }),
       generatedVisualizerPalette: [],
-
       setGeneratedVisualizerPalette: (palette?: PaletteColor[]) => {
         set((state) => {
           if (palette) {
@@ -901,22 +905,23 @@ const useVisualizerStore = create<VisualizerStateTypes>()(
           const safePrev = Array.isArray(state.generatedVisualizerPalette)
             ? state.generatedVisualizerPalette
             : [];
+          const count = state.visualizerColorCount;
 
-          const newPalette = Array.from({
-            length: state.visualizerColorCount,
-          }).map((_, i) => {
+          const newColors = generateHarmoniousPalette(
+            count,
+            state.preferredVisualizerItems,
+            null,
+            state.visualizerColorHarmony,
+          );
+          const newPalette = Array.from({ length: count }).map((_, i) => {
             const prev = safePrev[i];
-            const color = generateColor(
-              prev?.isLocked ?? false,
-              prev?.color ?? "#000000",
-              state.preferredVisualizerItems,
-              null,
-            );
-
+            if (prev?.isLocked) {
+              return prev;
+            }
             return {
               id: crypto.randomUUID(),
-              color,
-              isLocked: prev?.isLocked ?? false,
+              color: newColors[i],
+              isLocked: false,
             };
           });
           return { generatedVisualizerPalette: newPalette };

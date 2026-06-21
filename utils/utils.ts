@@ -27,6 +27,98 @@ import LZString from "lz-string";
 
 extend([a11yPlugin]);
 
+const harmonyOffsets: Record<string, number[]> = {
+  analogous: [0, 30, -30, 60, -60],
+  monochromatic: [0],
+  complementary: [0, 180],
+  "double-split-complementary": [0, 30, -30, 150, 210],
+  rectangle: [0, 90, 180, 270],
+  "split-complementary": [0, 150, 210],
+  tetradic: [0, 90, 180, 270],
+  triadic: [0, 120, 240],
+};
+
+export const generateHarmoniousPalette = (
+  count: number,
+  chosenColors: string[],
+  customFamilies: Record<string, ColorFamily> | null,
+  harmony: string | null,
+): string[] => {
+  const safeCustomFamilies = customFamilies ?? {};
+
+  const allFamilyNames = Object.keys(colorFamilies);
+  const pool = chosenColors.length > 0 ? chosenColors : allFamilyNames;
+  const baseFamilyName = pool[Math.floor(Math.random() * pool.length)];
+  const baseFamily =
+    safeCustomFamilies[baseFamilyName] ?? colorFamilies[baseFamilyName];
+
+  if (!baseFamily) {
+    return Array.from({ length: count }, () => generateRandomColor());
+  }
+
+  const allHarmonyKeys = colorHarmonies.map((h) => h.harmony);
+  const activeHarmony =
+    harmony ??
+    allHarmonyKeys[Math.floor(Math.random() * allHarmonyKeys.length)];
+  const offsets = harmonyOffsets[activeHarmony] ?? [0];
+
+  const [h1, h2] = baseFamily.hue;
+  const baseHue =
+    h1 > h2
+      ? Math.random() < 0.5
+        ? randomBetween(h1, 360)
+        : randomBetween(0, h2)
+      : randomBetween(h1, h2);
+
+  const [lightMin, lightMax] = baseFamily.light;
+  const lightnessSteps = Array.from({ length: count }, (_, i) => {
+    if (count === 1) return (lightMin + lightMax) / 2;
+    const t = i / (count - 1);
+    const jitter = randomBetween(-3, 3);
+    return Math.min(
+      lightMax,
+      Math.max(lightMin, lightMin + t * (lightMax - lightMin) + jitter),
+    );
+  });
+
+  const familyRange = lightMax - lightMin;
+  const minGap = Math.max(4, familyRange * 0.08);
+  for (let i = 1; i < lightnessSteps.length; i++) {
+    const diff = lightnessSteps[i] - lightnessSteps[i - 1];
+    if (diff < minGap) {
+      lightnessSteps[i] = Math.min(lightMax, lightnessSteps[i - 1] + minGap);
+    }
+  }
+
+  const baseSat = randomBetween(baseFamily.sat[0], baseFamily.sat[1]);
+
+  const colors = Array.from({ length: count }, (_, i) => {
+    const offset = offsets[i % offsets.length];
+    const hue = (baseHue + offset + 360) % 360;
+
+    let sat = Math.min(
+      baseFamily.sat[1],
+      Math.max(baseFamily.sat[0], baseSat + randomBetween(-8, 8)),
+    );
+    const light = lightnessSteps[i];
+    if (light > 75 && sat > 70) {
+      sat = sat - (light - 75) * 0.4;
+    }
+    if (light < 25 && sat < 60) {
+      sat = sat + (25 - light) * 0.5;
+    }
+    sat = Math.min(baseFamily.sat[1], Math.max(baseFamily.sat[0], sat));
+
+    return { hue, sat, light };
+  });
+
+  if (activeHarmony === "monochromatic") {
+    colors.sort((a, b) => a.light - b.light);
+  }
+
+  return colors.map((c) => hslToHex(c.hue, c.sat, c.light));
+};
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

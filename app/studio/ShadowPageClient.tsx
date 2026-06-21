@@ -268,7 +268,7 @@ export default function ShadowPageClient() {
           <div className="w-120 max-lg:w-full shrink-0 h-full rounded-br-xl border-l max-lg:border-none border-gray-200 max-lg:h-[calc(100%-200px)]">
             <div
               className="w-full overflow-y-auto pb-4"
-              style={{ height: "calc(100% - 64px)" }}
+              style={{ height: "calc(100% - 72px)" }}
             >
               <div className="w-full p-4">
                 <div className="flex items-center border border-gray-200 rounded-full p-1">
@@ -541,7 +541,7 @@ export default function ShadowPageClient() {
                 </div>
               )}
             </div>
-            <div className="w-full h-16 border-t border-gray-200 flex items-center justify-between px-4">
+            <div className="w-full h-18 border-t border-gray-200 flex items-center justify-between px-4">
               <div className="max-lg:hidden">
                 <OpenMoreMenu from="Shadow" />
               </div>

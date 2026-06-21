@@ -81,7 +81,7 @@ export default function ColorHarmoniesMenu({ from }: { from: string }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.2 }}
-            className="bg-white shadow-lg rounded-xl z-40 absolute bottom-12 left-0 w-max"
+            className="bg-white shadow-lg rounded-xl z-40 absolute bottom-12 left-0 w-max max-lg:w-full"
           >
             <div className="w-full p-4.5 border-b border-gray-200 flex items-center justify-between">
               <h3 className="text-sm font-semibold text-gray-900">
@@ -94,15 +94,15 @@ export default function ColorHarmoniesMenu({ from }: { from: string }) {
                 const harmony = item?.title?.split("_").join(" ");
                 const isActiveHarmony =
                   from === "Generator"
-                    ? generatorColorHarmony === harmony
-                    : visualizerColorHarmony === harmony;
+                    ? generatorColorHarmony === item.harmony
+                    : visualizerColorHarmony === item.harmony;
                 return (
                   <button
                     key={index}
                     onClick={() =>
                       from === "Generator"
-                        ? setGeneratorColorHarmony(harmony)
-                        : setVisualizerColorHarmony(harmony)
+                        ? setGeneratorColorHarmony(item.harmony)
+                        : setVisualizerColorHarmony(item.harmony)
                     }
                     className={`flex items-center gap-4 p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${isActiveHarmony ? "text-indigo-600" : "text-gray-900"}`}
                   >
