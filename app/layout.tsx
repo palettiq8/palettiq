@@ -5,6 +5,7 @@ import MainLayoutWrapper from "@/components/client/MainLayoutWrapper";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import JsonLd from "@/components/server/JsonLd";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://palettiq.net"),
@@ -103,6 +104,12 @@ export default function RootLayout({
         <SpeedInsights />
         <MainLayoutWrapper>{children}</MainLayoutWrapper>
       </body>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6991544978459968"
+        crossOrigin="anonymous"
+        strategy="afterInteractive"
+      />
     </html>
   );
 }
