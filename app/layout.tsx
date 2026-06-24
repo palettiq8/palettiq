@@ -86,6 +86,9 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
     shortcut: "/favicon.ico",
   },
+  other: {
+    "google-adsense-account": "ca-pub-6991544978459968",
+  },
 };
 
 export default function RootLayout({
