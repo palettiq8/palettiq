@@ -411,7 +411,7 @@ export default function ExtractorPageClient() {
               Color Extractor
             </h1>
           </div>
-          <div className="flex items-center gap-3 max-lg:hidden">
+          <div className="flex items-center gap-2 max-lg:hidden">
             <Button
               aria-label="View color extraction history"
               onClick={() => toggleExtractorHistoryModel()}

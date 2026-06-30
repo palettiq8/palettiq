@@ -211,7 +211,7 @@ export default function GradientPageClient() {
               CSS Gradient Generator
             </h1>
           </div>
-          <div className="flex items-center gap-3 max-lg:hidden">
+          <div className="flex items-center gap-2 max-lg:hidden">
             <Button
               aria-label="View gradient history"
               onClick={() => toggleGradientHistoryModel()}

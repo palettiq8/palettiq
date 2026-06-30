@@ -188,7 +188,7 @@ function StudioPage() {
           <div className="bg-gray-100 border border-gray-200 max-lg:bg-white max-lg:border-white px-0.5 h-10 rounded-full flex items-center gap-2 max-lg:px-0">
             <GeneratorContentHeaderIconItems />
           </div>
-          <div className="flex items-center gap-3 max-lg:hidden">
+          <div className="flex items-center gap-2 max-lg:hidden">
             {useIsAdmin() && (
               <Button
                 onClick={() => togglePickedPalettesForPublishedModel()}

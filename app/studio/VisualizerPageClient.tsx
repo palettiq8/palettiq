@@ -213,7 +213,7 @@ export default function VisualizerPageClient() {
               </span>
             </h1>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Button
               aria-label="Export color palette as HEX, RGB, CSS, Tailwind CSS, SCSS, or JSON"
               onClick={() => {

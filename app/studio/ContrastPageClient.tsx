@@ -213,7 +213,7 @@ export default function ContrastPageClient() {
               Color Contrast Checker
             </h1>
           </div>
-          <div className="flex items-center gap-3 max-lg:hidden">
+          <div className="flex items-center gap-2 max-lg:hidden">
             <Button
               aria-label="View contrast history"
               onClick={() => toggleContrastHistoryModel()}
