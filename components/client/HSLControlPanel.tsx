@@ -324,16 +324,16 @@ export default function HSLControlPanel() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handler}
-          className="fixed inset-0 w-full h-screen bg-black/50 z-50 grid items-end pb-4 max-md:px-4 parent"
+          className="fixed inset-0 w-full h-screen bg-black/50 z-50 grid items-center parent"
         >
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label="HSL Control Panel — Adjust hue, saturation, and lightness"
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            initial={{ scale: 0.8, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.8, opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
             className="w-170 bg-white mx-auto rounded-xl shadow-2xl max-md:w-full"
           >
             <div className="w-full p-4 flex items-center justify-between bg-white rounded-t-xl border-b border-gray-200">

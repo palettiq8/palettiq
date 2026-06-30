@@ -25,6 +25,9 @@ import { PaletteColor } from "@/utils/Types";
 const INPUTCOMMONSTYLE =
   "w-full p-3 rounded-lg border-2 text-sm font-medium text-gray-900 placeholder:text-gray-500 caret-gray-500 outline-none transition-all";
 
+const FOCUS_RING =
+  "focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-indigo-200 focus-visible:ring-offset-1";
+
 const ItemSelector = ({
   items,
   state,
@@ -38,6 +41,8 @@ const ItemSelector = ({
     <>
       {items.map((tag, index) => (
         <button
+          key={index}
+          type="button"
           aria-label={`${state.includes(tag) ? "Remove" : "Add"} ${tag}`}
           aria-pressed={state.includes(tag)}
           onClick={() => {
@@ -47,16 +52,15 @@ const ItemSelector = ({
                 : [...prev, tag],
             );
           }}
-          key={index}
-          className={`w-full flex items-center justify-start gap-3.5 p-2 text-sm font-semibold rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 ${
+          className={`w-full flex items-center justify-start gap-3.5 p-2 text-sm font-semibold rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 ${FOCUS_RING} ${
             state.includes(tag) ? "text-indigo-600" : "text-gray-900"
-          } hover:cursor-pointer`}
+          } cursor-pointer`}
         >
           <LuCheck
             size={18}
-            className={`invisible ${state.includes(tag) && "visible"}`}
+            className={`shrink-0 invisible ${state.includes(tag) && "visible"}`}
           />
-          <p>{tag}</p>
+          <p className="text-left">{tag}</p>
         </button>
       ))}
     </>
@@ -82,6 +86,9 @@ const FlexWrapItemSelector = ({
           const isExist = state.includes(_);
           return (
             <button
+              key={index}
+              type="button"
+              aria-pressed={isExist}
               onClick={() => {
                 setState((prev) =>
                   prev.includes(_)
@@ -89,8 +96,7 @@ const FlexWrapItemSelector = ({
                     : [...prev, _],
                 );
               }}
-              key={index}
-              className={`text-xs font-semibold px-3 py-1.5 rounded-full border cursor-pointer transition-all ${isExist ? "bg-indigo-50 border-indigo-200 text-indigo-600" : "bg-gray-50 border-gray-200 text-gray-900"}`}
+              className={`text-xs font-semibold px-3 py-1.5 rounded-full border cursor-pointer transition-all ${FOCUS_RING} ${isExist ? "bg-indigo-50 border-indigo-200 text-indigo-600" : "bg-gray-50 border-gray-200 text-gray-900"}`}
             >
               {_}
             </button>
@@ -101,12 +107,72 @@ const FlexWrapItemSelector = ({
   );
 };
 
+/* Shared collapsible section — replaces the repeated hardcoded h-98.75 dropdown markup */
+
+const CollapsibleSection = ({
+  title,
+  buttonLabel,
+  isOpen,
+  onToggle,
+  selected,
+  children,
+}: {
+  title: string;
+  buttonLabel: string;
+  isOpen: boolean;
+  onToggle: () => void;
+  selected: string[];
+  children: React.ReactNode;
+}) => {
+  return (
+    <div className="w-full mt-4">
+      <h3 className="text-sm font-semibold text-gray-900">{title}</h3>
+      {selected.length > 0 && (
+        <div className="flex flex-wrap gap-2 mt-3">
+          {selected.map((_, index) => (
+            <p
+              key={index}
+              className="text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-200 py-1 px-2 rounded-full"
+            >
+              {_}
+            </p>
+          ))}
+        </div>
+      )}
+      <div className="w-full border-2 border-gray-200 rounded-lg mt-3 bg-white">
+        <button
+          type="button"
+          aria-label={`Toggle ${title.toLowerCase()} selection`}
+          aria-expanded={isOpen}
+          onClick={onToggle}
+          className={`flex items-center justify-between text-gray-900 p-3 w-full rounded-t-lg ${FOCUS_RING} ${
+            isOpen && "border-b-2 border-gray-200"
+          } cursor-pointer select-none`}
+        >
+          <span className="text-sm font-semibold">{buttonLabel}</span>
+          <LuChevronUp
+            size={20}
+            className={`transition-transform duration-300 shrink-0 ${
+              isOpen ? "rotate-0" : "rotate-180"
+            }`}
+          />
+        </button>
+        {isOpen && (
+          <div className="w-full rounded-b-lg max-h-80 overflow-y-auto p-1.5 noscrollbar">
+            {children}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export default function AddToCommunityModel() {
-  const [showDescCount, setShowDescCount] = useState(false);
   const [showIndustry, setShowIndustry] = useState(false);
   const [showPreferredColors, setShowPreferredColors] = useState(false);
   const [showSelectedMoods, setShowSelectedMoods] = useState(false);
   const [showUsecase, setShowUsecase] = useState(false);
+  const [showDescCount, setShowDescCount] = useState(false);
   const [searchBoxTags, setSearchBoxTags] = useState("");
   const [paletteNameError, setPaletteNameError] = useState<string | null>(null);
   const [paletteName, setPaletteName] = useState("");
@@ -139,6 +205,7 @@ export default function AddToCommunityModel() {
     (state) => state.addToCommunityPalette,
   );
   const [publishPalette, { isLoading }] = usePublishPaletteMutation();
+
   const handler = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
     if (target.classList.contains("parent")) {
@@ -146,6 +213,7 @@ export default function AddToCommunityModel() {
       setAddToCommunityPalette(null);
     }
   };
+
   const ftags = tags.filter((tag) => {
     if (!searchBoxTags.trim() && isTagInputFocused) return true;
     const escapedSearch = searchBoxTags.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -201,25 +269,26 @@ export default function AddToCommunityModel() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handler}
-          className="fixed inset-0 w-full h-screen bg-black/50 grid items-end pb-4 z-50 max-sm:px-4 parent"
+          className="fixed inset-0 w-full h-screen bg-black/50 flex items-center justify-center z-50 p-4 max-sm:p-0 parent"
         >
           <motion.div
             ref={dataContentRef}
             role="dialog"
             aria-modal="true"
             aria-label="Publish color palette to community"
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            className="w-125 h-150 mx-auto bg-white rounded-xl shadow-2xl max-sm:w-full overflow-y-scroll noscrollbar"
+            initial={{ scale: 0.8, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.8, opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="w-125 max-w-full h-150 max-h-[90vh] flex flex-col bg-white rounded-xl shadow-2xl overflow-hidden max-sm:rounded-none max-sm:w-full max-sm:h-full max-sm:max-h-full"
           >
-            <div className="w-full sticky top-0 px-3 border-b border-gray-200 z-40">
-              <div className="w-full flex items-center justify-between py-3 bg-white">
-                <h2 className="text-md font-semibold text-gray-900">
-                  Publish Palette
-                </h2>
+            <div className="w-full shrink-0 flex items-center justify-between gap-2 px-3 py-3 border-b border-gray-200 bg-white">
+              <h2 className="text-md font-semibold text-gray-900">
+                Publish palette
+              </h2>
+              <div className="flex items-center gap-2">
                 <Button
+                  type="button"
                   onClick={publishPaletteHandler}
                   disabled={isDisabledPublishedButton}
                   aria-label="Publish color palette to PalettIQ community"
@@ -229,33 +298,43 @@ export default function AddToCommunityModel() {
                   {isLoading && <ButtonLoader />}
                   <span>Publish</span>
                 </Button>
+                <Button
+                  type="button"
+                  aria-label="Close publish palette dialog"
+                  onClick={() => toggleAddToCommunityModel()}
+                  variant={"outline"}
+                  size={"circle"}
+                >
+                  <LuX size={18} />
+                </Button>
               </div>
             </div>
-            <div className="w-full p-3">
-              <div className="flex">
-                {addToCommunityPalette?.map(({ color }, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="w-full h-30 first:rounded-l-xl last:rounded-r-xl"
-                      style={{ backgroundColor: color }}
-                    ></div>
-                  );
-                })}
+
+            <div className="w-full flex-1 min-h-0 overflow-y-auto noscrollbar p-3">
+              <div className="flex rounded-xl overflow-hidden">
+                {addToCommunityPalette?.map(({ color }, index) => (
+                  <div
+                    key={index}
+                    className="flex-1 min-w-8 h-24 max-sm:h-20"
+                    style={{ backgroundColor: color }}
+                  />
+                ))}
               </div>
-              <div className="w-full flex-col gap-3">
+
+              <div className="w-full flex flex-col gap-3">
                 <div className="w-full mt-4">
                   <label
                     htmlFor="palettename"
                     className="text-sm font-semibold"
                   >
-                    Palette Name
+                    Palette name
                   </label>
                   <input
+                    id="palettename"
                     type="text"
                     placeholder="Name (professional)"
                     name="palettename"
-                    className={`${INPUTCOMMONSTYLE} mt-3 ${paletteNameError ? "border-red-400" : "border-gray-200 focus:border-indigo-500"}`}
+                    className={`${INPUTCOMMONSTYLE} mt-3 ${FOCUS_RING} ${paletteNameError ? "border-red-400" : "border-gray-200 focus:border-indigo-500"}`}
                     onChange={(e) => {
                       const value = e.target.value;
                       setPaletteName(value);
@@ -273,6 +352,7 @@ export default function AddToCommunityModel() {
                     </span>
                   )}
                 </div>
+
                 <div className="flex flex-col w-full gap-3 mt-4">
                   <label
                     htmlFor="description"
@@ -282,15 +362,15 @@ export default function AddToCommunityModel() {
                   </label>
                   <div className="w-full h-max relative">
                     <textarea
+                      id="description"
                       name="description"
                       onFocus={() => setShowDescCount(true)}
                       onBlur={() => setShowDescCount(false)}
                       value={desc}
                       placeholder="Add a short description"
-                      className={`${INPUTCOMMONSTYLE} resize-none h-60 border-gray-200 focus:border-indigo-500`}
+                      className={`${INPUTCOMMONSTYLE} resize-none h-48 max-sm:h-40 border-gray-200 focus:border-indigo-500 ${FOCUS_RING}`}
                       onChange={(e) => {
                         const value = e.target.value;
-
                         if (value.length <= 1024) {
                           setDesc(value);
                         } else {
@@ -308,184 +388,81 @@ export default function AddToCommunityModel() {
                   </div>
                 </div>
 
-                <div className="w-full mt-4">
-                  <h3 className="text-sm font-semibold text-gray-900">
-                    Industries
-                  </h3>
-                  {selectedIndustries.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {selectedIndustries.map((_, index) => {
-                        return (
-                          <p
-                            key={index}
-                            className="text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-200 py-1 px-2 rounded-full"
-                          >
-                            {_}
-                          </p>
-                        );
-                      })}
-                    </div>
-                  )}
-                  <div className="w-full border-2 border-gray-200 rounded-lg mt-3 bg-white">
-                    <button
-                      aria-label="Toggle industry selection"
-                      aria-expanded={showIndustry}
-                      onClick={() => setShowIndustry((prev) => !prev)}
-                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${
-                        showIndustry && "border-b-2 border-gray-200"
-                      } cursor-pointer select-none`}
-                    >
-                      <span className="text-sm font-semibold">
-                        Select Industry
-                      </span>
-                      <LuChevronUp
-                        size={20}
-                        className={`transition-transform duration-300 ${
-                          showIndustry ? "rotate-0" : "rotate-180"
-                        }`}
-                      />
-                    </button>
-                    {showIndustry && (
-                      <div className="w-full rounded-lg h-98.75 overflow-y-scroll p-1.5 noscrollbar">
-                        <ItemSelector
-                          items={industries}
-                          state={selectedIndustries}
-                          setState={setSelectedIndustries}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <CollapsibleSection
+                  title="Industries"
+                  buttonLabel="Select industry"
+                  isOpen={showIndustry}
+                  onToggle={() => setShowIndustry((prev) => !prev)}
+                  selected={selectedIndustries}
+                >
+                  <ItemSelector
+                    items={industries}
+                    state={selectedIndustries}
+                    setState={setSelectedIndustries}
+                  />
+                </CollapsibleSection>
 
-                <div className="w-full mt-4">
-                  <h3 className="text-sm font-semibold text-gray-900">
-                    Preferred Colors
-                  </h3>
-                  {colorPreferred.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {colorPreferred.map((_, index) => {
-                        return (
-                          <p
-                            key={index}
-                            className="text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-200 py-1 px-2 rounded-full"
-                          >
-                            {_}
-                          </p>
-                        );
-                      })}
-                    </div>
-                  )}
-                  <div className="w-full border-2 border-gray-200 rounded-lg mt-3 bg-white">
-                    <button
-                      aria-label="Toggle color family selection"
-                      aria-expanded={showPreferredColors}
-                      onClick={() => setShowPreferredColors((prev) => !prev)}
-                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${
-                        showPreferredColors && "border-b-2 border-gray-200"
-                      } cursor-pointer select-none`}
-                    >
-                      <span className="text-sm font-semibold">
-                        Select Color
-                      </span>
-                      <LuChevronUp
-                        size={20}
-                        className={`transition-transform duration-300 ${
-                          showPreferredColors ? "rotate-0" : "rotate-180"
-                        }`}
-                      />
-                    </button>
-                    {showPreferredColors && (
-                      <div className="w-full rounded-lg h-98.75 overflow-y-scroll p-1.5 noscrollbar">
-                        {preferredColors.map((color) => {
-                          const isExist = colorPreferred.includes(color.name);
-                          return (
-                            <button
-                              key={color.id}
-                              className={`w-full flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${isExist ? "text-indigo-600" : "text-gray-900"}`}
-                              onClick={() => {
-                                setColorPreferred((prev) =>
-                                  prev.includes(color.name)
-                                    ? prev.filter((item) => item !== color.name)
-                                    : [...prev, color.name],
-                                );
-                              }}
-                            >
-                              <div className="flex items-center gap-4">
-                                <LuCheck
-                                  size={16}
-                                  className={`invisible ${isExist && "visible"}`}
-                                />
-                                <p className="text-sm font-semibold">
-                                  {color.name}
-                                </p>
-                              </div>
-                              <span
-                                className="w-5 h-5 rounded-full"
-                                style={{ backgroundColor: color.hex }}
-                              ></span>
-                            </button>
+                <CollapsibleSection
+                  title="Preferred colors"
+                  buttonLabel="Select color"
+                  isOpen={showPreferredColors}
+                  onToggle={() => setShowPreferredColors((prev) => !prev)}
+                  selected={colorPreferred}
+                >
+                  {preferredColors.map((color) => {
+                    const isExist = colorPreferred.includes(color.name);
+                    return (
+                      <button
+                        key={color.id}
+                        type="button"
+                        aria-pressed={isExist}
+                        className={`w-full flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${FOCUS_RING} ${isExist ? "text-indigo-600" : "text-gray-900"}`}
+                        onClick={() => {
+                          setColorPreferred((prev) =>
+                            prev.includes(color.name)
+                              ? prev.filter((item) => item !== color.name)
+                              : [...prev, color.name],
                           );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="w-full mt-4">
-                  <h3 className="text-sm font-semibold text-gray-900">
-                    Moods/Emotions
-                  </h3>
-                  {selectedMoods.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {selectedMoods.map((_, index) => {
-                        return (
-                          <p
-                            key={index}
-                            className="text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-200 py-1 px-2 rounded-full"
-                          >
-                            {_}
-                          </p>
-                        );
-                      })}
-                    </div>
-                  )}
-                  <div className="w-full border-2 border-gray-200 rounded-lg mt-3 bg-white">
-                    <button
-                      aria-label="Toggle mood selection"
-                      aria-expanded={showSelectedMoods}
-                      onClick={() => setShowSelectedMoods((prev) => !prev)}
-                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${
-                        showSelectedMoods && "border-b-2 border-gray-200"
-                      } cursor-pointer select-none`}
-                    >
-                      <span className="text-sm font-semibold">Select Mood</span>
-                      <LuChevronUp
-                        size={20}
-                        className={`transition-transform duration-300 ${
-                          showSelectedMoods ? "rotate-0" : "rotate-180"
-                        }`}
-                      />
-                    </button>
-                    {showSelectedMoods && (
-                      <div className="w-full rounded-lg h-98.75 overflow-y-scroll p-1.5 noscrollbar">
-                        <ItemSelector
-                          items={moods}
-                          state={selectedMoods}
-                          setState={setSelectedMoods}
+                        }}
+                      >
+                        <div className="flex items-center gap-4">
+                          <LuCheck
+                            size={16}
+                            className={`shrink-0 invisible ${isExist && "visible"}`}
+                          />
+                          <p className="text-sm font-semibold">{color.name}</p>
+                        </div>
+                        <span
+                          className="w-5 h-5 rounded-full shrink-0 border border-gray-200"
+                          style={{ backgroundColor: color.hex }}
                         />
-                      </div>
-                    )}
-                  </div>
-                </div>
+                      </button>
+                    );
+                  })}
+                </CollapsibleSection>
+
+                <CollapsibleSection
+                  title="Moods/emotions"
+                  buttonLabel="Select mood"
+                  isOpen={showSelectedMoods}
+                  onToggle={() => setShowSelectedMoods((prev) => !prev)}
+                  selected={selectedMoods}
+                >
+                  <ItemSelector
+                    items={moods}
+                    state={selectedMoods}
+                    setState={setSelectedMoods}
+                  />
+                </CollapsibleSection>
 
                 <FlexWrapItemSelector
-                  title="Brightness Levels"
+                  title="Brightness levels"
                   items={brightnessLevels}
                   state={selectedBrightnessLevel}
                   setState={setSelectedBrightnessLevel}
                 />
                 <FlexWrapItemSelector
-                  title="Saturation Levels"
+                  title="Saturation levels"
                   items={saturationLevels}
                   state={selectedSaturationLevel}
                   setState={setSelectedSaturationLevel}
@@ -497,57 +474,22 @@ export default function AddToCommunityModel() {
                   setState={setSelectedModes}
                 />
 
-                <div className="w-full mt-4">
-                  <h3 className="text-sm font-semibold text-gray-900">
-                    Use Cases
-                  </h3>
-                  {selectedUsecases.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3">
-                      {selectedUsecases.map((_, index) => {
-                        return (
-                          <p
-                            key={index}
-                            className="text-xs font-semibold text-indigo-600 bg-indigo-50 border border-indigo-200 py-1 px-2 rounded-full"
-                          >
-                            {_}
-                          </p>
-                        );
-                      })}
-                    </div>
-                  )}
-                  <div className="w-full border-2 border-gray-200 rounded-lg mt-3 bg-white">
-                    <button
-                      aria-label="Toggle use case selection"
-                      aria-expanded={showUsecase}
-                      onClick={() => setShowUsecase((prev) => !prev)}
-                      className={`flex items-center justify-between text-gray-900 p-3 w-full ${
-                        showUsecase && "border-b-2 border-gray-200"
-                      } cursor-pointer select-none`}
-                    >
-                      <span className="text-sm font-semibold">
-                        Select Use Case
-                      </span>
-                      <LuChevronUp
-                        size={20}
-                        className={`transition-transform duration-300 ${
-                          showUsecase ? "rotate-0" : "rotate-180"
-                        }`}
-                      />
-                    </button>
-                    {showUsecase && (
-                      <div className="w-full rounded-lg h-98.75 overflow-y-scroll p-1.5 noscrollbar">
-                        <ItemSelector
-                          items={useCases}
-                          state={selectedUsecases}
-                          setState={setSelectedUsecases}
-                        />
-                      </div>
-                    )}
-                  </div>
-                </div>
+                <CollapsibleSection
+                  title="Use cases"
+                  buttonLabel="Select use case"
+                  isOpen={showUsecase}
+                  onToggle={() => setShowUsecase((prev) => !prev)}
+                  selected={selectedUsecases}
+                >
+                  <ItemSelector
+                    items={useCases}
+                    state={selectedUsecases}
+                    setState={setSelectedUsecases}
+                  />
+                </CollapsibleSection>
 
                 <FlexWrapItemSelector
-                  title="Color Hamonies"
+                  title="Color harmonies"
                   items={colorHarmonies.map((harmony) => harmony.title)}
                   state={selectedHarmonies}
                   setState={setselectedHarmonies}
@@ -564,25 +506,26 @@ export default function AddToCommunityModel() {
                   </div>
                   {selectedTags.length > 0 && (
                     <div className="flex flex-wrap gap-2 mt-3">
-                      {selectedTags.map((_, index) => {
-                        return (
+                      {selectedTags.map((_, index) => (
+                        <span
+                          key={index}
+                          className="text-xs font-semibold text-indigo-800 bg-indigo-50 border border-indigo-100 py-1 px-2 rounded-full flex items-center gap-1.5"
+                        >
+                          <span>{_}</span>
                           <button
+                            type="button"
                             aria-label={`Remove tag ${_}`}
-                            key={index}
-                            className="text-xs font-semibold text-indigo-800 bg-indigo-50 border border-indigo-100 py-1 px-2 rounded-full flex items-center gap-1.5"
+                            onClick={() => {
+                              setSelectedTags((prev) =>
+                                prev.filter((item) => item !== _),
+                              );
+                            }}
+                            className={`text-gray-900 cursor-pointer ${FOCUS_RING}`}
                           >
-                            <span>{_}</span>
-                            <LuX
-                              onClick={() => {
-                                setSelectedTags((prev) =>
-                                  prev.filter((item) => item !== _),
-                                );
-                              }}
-                              className="text-gray-900 cursor-pointer"
-                            />
+                            <LuX size={14} />
                           </button>
-                        );
-                      })}
+                        </span>
+                      ))}
                     </div>
                   )}
                   <div className="mt-3">
@@ -593,24 +536,26 @@ export default function AddToCommunityModel() {
                           value={searchBoxTags}
                           aria-label="Search palette tags"
                           onFocus={() => setIsTagInputFocused(true)}
-                          className="text-sm font-medium w-full px-8 py-1.5 focus:outline-gray-300 rounded-md focus:placeholder:text-gray-400 placeholder:text-gray-500 caret-gray-500"
+                          className={`text-sm font-medium w-full px-8 py-1.5 rounded-md focus:placeholder:text-gray-400 placeholder:text-gray-500 caret-gray-500 ${FOCUS_RING}`}
                           placeholder="Search tags..."
                           onChange={(e) => setSearchBoxTags(e.target.value)}
                         />
                         {isTagsShow && (
                           <button
+                            type="button"
                             aria-label="Clear tag search"
                             onClick={() => {
                               setSearchBoxTags("");
                               setIsTagInputFocused(false);
                             }}
-                            className="text-gray-600 absolute top-1 right-1 cursor-pointer w-6 h-6 rounded-md hover:bg-gray-100 grid place-content-center border border-white hover:border-gray-200"
+                            className={`text-gray-600 absolute top-1 right-1 cursor-pointer w-6 h-6 rounded-md hover:bg-gray-100 grid place-content-center border border-white hover:border-gray-200 ${FOCUS_RING}`}
                           >
                             <LuX size={16} aria-hidden="true" />
                           </button>
                         )}
                         <LuSearch
                           size={16}
+                          aria-hidden="true"
                           className="text-gray-400 absolute top-2 left-2"
                         />
                       </div>

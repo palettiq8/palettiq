@@ -30,9 +30,6 @@ export default function PaletteQuickVisualizerModel() {
     (state) => state.setGeneratedVisualizerPalette,
   );
   const uploadedSVGString = useVisualizerStore((s) => s.uploadedSVGString);
-  const toggleSVGUploadModel = useModelStore(
-    (state) => state.toggleSVGUploadModel,
-  );
 
   const handler = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -54,23 +51,23 @@ export default function PaletteQuickVisualizerModel() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={handler}
-          className="fixed inset-0 w-full h-screen bg-black/50 grid items-end pb-4 z-50 max-xl:px-4 parent"
+          className="fixed inset-0 w-full h-screen bg-black/50 flex items-center justify-center z-50 p-4 max-sm:p-0 parent"
         >
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label="Visualize color palettes quick"
-            initial={{ y: "100%" }}
-            animate={{ y: 0 }}
-            exit={{ y: "100%" }}
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            className="w-250 h-190 mx-auto bg-white rounded-xl shadow-2xl max-lg:w-full"
+            initial={{ scale: 0.8, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.8, opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="w-250 max-w-full h-190 max-h-full flex flex-col bg-white rounded-xl shadow-2xl overflow-hidden max-lg:rounded-none max-sm:w-full max-sm:h-full"
           >
-            <div className="w-full h-14 px-4 rounded-t-xl bg-white border-b border-gray-200 flex items-center justify-between">
+            <div className="w-full shrink-0 flex flex-wrap items-center justify-between gap-2 px-4 py-3 bg-white border-b border-gray-200">
               <h2 className="text-md font-semibold text-gray-900">
-                Quick Visualize
+                Quick visualize
               </h2>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 max-sm:w-full max-sm:justify-between">
                 <Button
                   aria-label="Upload your own SVG to visualize with the current palette"
                   variant={"outline"}
@@ -79,53 +76,53 @@ export default function PaletteQuickVisualizerModel() {
                     localStorage.setItem("open-svg-upload-modal", "true");
                     window.open("/studio/color-palette-visualizer", "_blank");
                   }}
-                  className="max-sm:hidden"
+                  className="max-sm:flex-1"
                 >
                   <LuCloudUpload size={16} />
-                  <span>Upload SVG</span>
+                  <span className="max-[360px]:hidden">Upload SVG</span>
                 </Button>
-                <Button
-                  variant={"outline"}
-                  size={"circle"}
-                  aria-label="Shuffle visualizer palette colors"
-                  onClick={() => {
-                    setShuffledPalette((prev) =>
-                      [...prev].sort(() => Math.random() - 0.5),
-                    );
-                  }}
-                >
-                  <LuShuffle size={16} />
-                </Button>
-                <Button
-                  variant={"outline"}
-                  size={"circle"}
-                  aria-label="Open on visualizer"
-                  onClick={() => {
-                    setGeneratedVisualizerPalette(
-                      quickVisualizerPalette as PaletteColor[],
-                    );
-                    window.open("/studio/color-palette-visualizer", "_blank");
-                  }}
-                >
-                  <LuArrowUpRight size={16} />
-                </Button>
-                <Button
-                  onClick={() => {
-                    togglePaletteQuickVisualizerModel();
-                    setQuickVisualizerPalette(null);
-                  }}
-                  variant={"outline"}
-                  size={"circle"}
-                  aria-label="Close quick visualizer panel"
-                >
-                  <LuX size={18} />
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant={"outline"}
+                    size={"circle"}
+                    aria-label="Shuffle visualizer palette colors"
+                    onClick={() => {
+                      setShuffledPalette((prev) =>
+                        [...prev].sort(() => Math.random() - 0.5),
+                      );
+                    }}
+                  >
+                    <LuShuffle size={16} />
+                  </Button>
+                  <Button
+                    variant={"outline"}
+                    size={"circle"}
+                    aria-label="Open on visualizer"
+                    onClick={() => {
+                      setGeneratedVisualizerPalette(
+                        quickVisualizerPalette as PaletteColor[],
+                      );
+                      window.open("/studio/color-palette-visualizer", "_blank");
+                    }}
+                  >
+                    <LuArrowUpRight size={16} />
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      togglePaletteQuickVisualizerModel();
+                      setQuickVisualizerPalette(null);
+                    }}
+                    variant={"outline"}
+                    size={"circle"}
+                    aria-label="Close quick visualizer panel"
+                  >
+                    <LuX size={18} />
+                  </Button>
+                </div>
               </div>
             </div>
-            <div
-              className="w-full overflow-y-auto noscrollbar rounded-b-xl p-4 grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-1"
-              style={{ height: "calc(100% - 56px)" }}
-            >
+
+            <div className="w-full flex-1 min-h-0 overflow-y-auto noscrollbar p-4 grid grid-cols-3 max-lg:grid-cols-2 max-sm:grid-cols-1 gap-3 content-start">
               {visualizers.map((Component, index) => {
                 if (!uploadedSVGString && Component === VisualizeSVG)
                   return null;
@@ -133,7 +130,7 @@ export default function PaletteQuickVisualizerModel() {
                   <div
                     aria-label={`Preview color palette on UI template ${index + 1}`}
                     key={index}
-                    className={`bg-gray-100 border border-gray-200 p-3 flex items-center justify-center rounded-lg`}
+                    className="bg-gray-100 border border-gray-200 p-3 flex items-center justify-center rounded-lg aspect-square"
                   >
                     <Component palette={shuffledPalette} />
                   </div>

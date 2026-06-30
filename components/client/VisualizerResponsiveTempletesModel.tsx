@@ -6,6 +6,7 @@ import { Button } from "../Button";
 import { LuX } from "react-icons/lu";
 import { visualizers } from "@/utils/Items";
 import { useVisualizerStore } from "@/libs/stores/dataStore";
+import VisualizeSVG from "../visualizers/VisualizeSVG";
 
 export default function VisualizerResponsiveTempletesModel() {
   const visualizerResponsiveTempletesModel = useModelStore(
@@ -20,6 +21,7 @@ export default function VisualizerResponsiveTempletesModel() {
   const setCurrentTemplateId = useVisualizerStore(
     (state) => state.setCurrentTemplateId,
   );
+  const uploadedSVGString = useVisualizerStore((s) => s.uploadedSVGString);
 
   const handler = (e: React.MouseEvent) => {
     const target = e.target as HTMLElement;
@@ -60,6 +62,8 @@ export default function VisualizerResponsiveTempletesModel() {
               style={{ height: "calc(100% - 56px)" }}
             >
               {visualizers.map((Component, index) => {
+                if (!uploadedSVGString && Component === VisualizeSVG)
+                  return null;
                 return (
                   <div
                     key={index}

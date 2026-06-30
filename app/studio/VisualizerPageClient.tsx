@@ -189,6 +189,7 @@ export default function VisualizerPageClient() {
 
   useEffect(() => {
     const shouldOpen = localStorage.getItem("open-svg-upload-modal");
+    console.log("shouldOpen value:", shouldOpen);
 
     if (shouldOpen === "true") {
       toggleSVGUploadModel(true);

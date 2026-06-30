@@ -11,7 +11,7 @@ export default function FormatCard({
 }) {
   return (
     <article className="w-full p-3 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-between">
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-2">
         <h4 className="text-sm font-semibold uppercase text-gray-500">
           {name}
         </h4>
