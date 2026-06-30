@@ -124,7 +124,7 @@ export default function SVGUploadModal({ isOpen, onClose }: Props) {
   const hasMoved = useRef(false);
   const lastMouse = useRef({ x: 0, y: 0 });
   const previewRef = useRef<HTMLDivElement>(null);
-  const [transformOrigin, setTransformOrigin] = useState("center center");
+  const changeFileInputRef = useRef<HTMLInputElement>(null);
   const [svgNaturalSize, setSvgNaturalSize] = useState({
     width: 500,
     height: 500,
@@ -382,13 +382,35 @@ export default function SVGUploadModal({ isOpen, onClose }: Props) {
             className="relative mx-auto w-300 h-[85vh] max-xl:w-full max-xl:h-full max-xl:rounded-none bg-gray-50 rounded-xl flex flex-col overflow-hidden"
           >
             {/* header */}
-            <div className="w-full p-4 border-b border-gray-200 flex items-center justify-between">
+            <div className="w-full px-4 h-16 border-b border-gray-200 flex items-center justify-between gap-2">
               <p className="text-md font-semibold text-gray-900">
                 Upload SVG &amp; Apply Palettes
               </p>
-              <Button onClick={onClose} variant={"outline"} size={"circle"}>
-                <LuX size={18} />
-              </Button>
+              <div className="flex items-center gap-2">
+                {svgString && (
+                  <>
+                    <input
+                      ref={changeFileInputRef}
+                      type="file"
+                      accept=".svg,image/svg+xml"
+                      className="sr-only"
+                      onChange={onFileInput}
+                    />
+                    <Button
+                      onClick={() => changeFileInputRef.current?.click()}
+                      variant={"outline"}
+                      size={"sm"}
+                      aria-label="Change uploaded SVG"
+                    >
+                      <LuUpload size={16} />
+                      <span>Change SVG</span>
+                    </Button>
+                  </>
+                )}
+                <Button onClick={onClose} variant={"outline"} size={"circle"}>
+                  <LuX size={18} />
+                </Button>
+              </div>
             </div>
 
             {/* body */}
