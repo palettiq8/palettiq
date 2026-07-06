@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import GradientPageClient from "../GradientPageClient";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   robots: {
@@ -8,10 +7,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   category: "Design Tools",
-  title:
-    "CSS Gradient Generator | Create Linear, Radial & Conic Gradients Online",
+  title: "CSS Gradient Generator - Linear, Radial & Conic",
   description:
-    "Create personalized CSS gradients with full control over colors, stops, direction, radial settings, and conic gradients. Generate, customize, preview, and export ready-to-use CSS gradient code instantly.",
+    "Create custom CSS gradients with full control over colors, stops, and direction. Generate, preview, and export ready-to-use CSS gradient code instantly.",
   keywords: [
     "css gradient generator",
     "gradient generator",
@@ -34,6 +32,9 @@ export const metadata: Metadata = {
     description:
       "Create and customize CSS gradients with adjustable color stops, directions, radial controls, and export-ready CSS code.",
     url: "https://palettiq.net/studio/css-gradient-generator",
+    siteName: "PalettIQ",
+    locale: "en_US",
+    type: "website",
     images: [
       {
         url: "/banner.webp",
@@ -49,40 +50,61 @@ export const metadata: Metadata = {
     description:
       "Create linear, radial, and conic gradients with export-ready CSS code.",
     images: ["/banner.webp"],
+    creator: "@palettiq",
   },
 };
 
 export default function Page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://palettiq.net/studio/css-gradient-generator#software",
+        name: "CSS Gradient Generator",
+        applicationCategory: "DesignApplication",
+        operatingSystem: "Web",
+        url: "https://palettiq.net/studio/css-gradient-generator",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        description:
+          "Create custom linear, radial, and conic gradients with export-ready CSS code.",
+        creator: {
+          "@id": "https://palettiq.net/#organization",
+        },
+        featureList: [
+          "Linear Gradient Generator",
+          "Radial Gradient Generator",
+          "Conic Gradient Generator",
+          "Gradient Stop Editor",
+          "CSS Gradient Export",
+          "Gradient Presets",
+          "Random Gradient Generator",
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://palettiq.net/studio/css-gradient-generator#webpage",
+        url: "https://palettiq.net/studio/css-gradient-generator",
+        name: "CSS Gradient Generator - Linear, Radial & Conic",
+        description:
+          "Create custom CSS gradients with full control over colors, stops, and direction. Generate, preview, and export ready-to-use CSS gradient code instantly.",
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+      },
+    ],
+  };
+
   return (
     <>
-      <Script
-        id="gradient-generator-schema"
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "CSS Gradient Generator",
-            applicationCategory: "DesignApplication",
-            operatingSystem: "Web",
-            url: "https://palettiq.net/studio/css-gradient-generator",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD",
-            },
-            description:
-              "Create custom linear, radial, and conic gradients with export-ready CSS code.",
-            featureList: [
-              "Linear Gradient Generator",
-              "Radial Gradient Generator",
-              "Conic Gradient Generator",
-              "Gradient Stop Editor",
-              "CSS Gradient Export",
-              "Gradient Presets",
-              "Random Gradient Generator",
-            ],
-          }),
+          __html: JSON.stringify(jsonLd),
         }}
       />
       <GradientPageClient />

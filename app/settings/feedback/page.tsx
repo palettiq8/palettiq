@@ -74,7 +74,7 @@ export default function page() {
       <h1 className="text-2xl font-semibold text-gray-900">Feedback</h1>
       <p className="text-sm font-medium text-gray-500 mt-2">
         Share your thoughts, report issues, or suggest improvements to help make
-        Palettiq better.
+        PalettIQ better.
       </p>
       <div className="w-full mt-8 rounded-xl">
         <div className="flex items-center justify-between w-full">
@@ -122,9 +122,9 @@ export default function page() {
           </div>
         </div>
         <textarea
-          name="bug"
+          name="feedback"
           className="w-full h-50 p-4 rounded-lg border-2 border-gray-200 focus:border-indigo-500 outline-none mt-3 text-sm font-semibold text-gray-900 caret-gray-500 resize-none"
-          placeholder="Tell us what you love about Palettiq or how we can make it even better..."
+          placeholder="Tell us what you love about PalettIQ or how we can make it even better..."
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}
         />
@@ -162,7 +162,7 @@ export default function page() {
           </Button>
         </div>
         <textarea
-          name="bug"
+          name="feature"
           className="w-full h-50 p-4 rounded-lg border-2 border-gray-200 focus:border-indigo-500 outline-none mt-3 text-sm font-semibold text-gray-900 caret-gray-500 resize-none"
           placeholder="Describe the feature you'd like to see, how it should work, and why it would be useful..."
           value={feature}

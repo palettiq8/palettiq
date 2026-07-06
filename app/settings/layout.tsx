@@ -1,12 +1,16 @@
-"use client";
-
 import CommonHeaderFooterSection from "@/components/server/CommonHeaderFooterSection";
-import { settingsMenuItems } from "@/utils/Items";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import SettingsTabsNav from "@/components/client/SettingsTabsNav";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Settings",
+  robots: {
+    index: false,
+    follow: true,
+  },
+};
 
 export default function layout({ children }: { children: React.ReactNode }) {
-  const path = usePathname();
   return (
     <CommonHeaderFooterSection>
       <div className="w-full min-h-120 h-max max-w-200 mx-auto py-20 max-sm:py-10 max-lg:px-4">
@@ -14,19 +18,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
           Settings
         </h1>
         <div className="bg-white border border-gray-200 mt-20 rounded-xl">
-          <div className="w-full flex items-center gap-6.5 border-b border-gray-200 px-4 pt-4">
-            {settingsMenuItems.map(({ id, title, url }) => {
-              return (
-                <Link
-                  key={id}
-                  href={url}
-                  className={`text-sm font-semibold pb-2.5 border-b-2 ${path === url ? "border-gray-900 text-gray-900" : "border-white text-gray-500"}`}
-                >
-                  {title}
-                </Link>
-              );
-            })}
-          </div>
+          <SettingsTabsNav />
           <div className="w-full h-max rounded-xl mt-10 p-4">{children}</div>
         </div>
       </div>

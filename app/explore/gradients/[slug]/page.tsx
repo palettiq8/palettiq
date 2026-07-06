@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { gradientSlugToColors } from "@/utils/utils";
 import ExploreGradientsPageClient from "../../ExploreGradientsPageClient";
-import Script from "next/script";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
 
+function buildGradientLabel(slug: string): string {
+  const colors = gradientSlugToColors(slug);
+  return colors.join(", ") || slug.replace(/-/g, " ");
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const colors = gradientSlugToColors(slug);
-  const label = colors.join(", ") || slug.replace(/-/g, " ");
+  const label = buildGradientLabel(slug);
 
   return {
     robots: { index: true, follow: true },
@@ -40,9 +43,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${label} CSS Gradients | PalettIQ`,
       description: `Browse free ${label.toLowerCase()} CSS gradients for UI design and branding.`,
       url: `https://palettiq.net/explore/gradients/${slug}`,
+      siteName: "PalettIQ",
+      locale: "en_US",
+      type: "website",
       images: [
         {
-          url: "https://palettiq.net/banner.png",
+          url: "/banner.webp",
           width: 1200,
           height: 630,
           alt: `${label} CSS Gradients on PalettIQ`,
@@ -53,7 +59,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: `${label} CSS Gradients | PalettIQ`,
       description: `Browse free ${label.toLowerCase()} CSS gradients. Copy code instantly.`,
-      images: ["https://palettiq.net/banner.png"],
+      images: ["/banner.webp"],
+      creator: "@palettiq",
     },
   };
 }
@@ -61,51 +68,54 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function SlugGradientsPage({ params }: Props) {
   const { slug } = await params;
   const colors = gradientSlugToColors(slug);
-  const label = colors.join(", ") || slug.replace(/-/g, " ");
+  const label = buildGradientLabel(slug);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `https://palettiq.net/explore/gradients/${slug}#webpage`,
+        name: `${label} CSS Gradients`,
+        description: `Browse curated ${label.toLowerCase()} CSS gradients for websites, branding, UI design, mobile applications, and digital products.`,
+        url: `https://palettiq.net/explore/gradients/${slug}`,
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+        publisher: {
+          "@id": "https://palettiq.net/#organization",
+        },
+        about: {
+          "@type": "Thing",
+          name: `${label} CSS Gradients`,
+        },
+        breadcrumb: {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Explore Gradients",
+              item: "https://palettiq.net/explore/gradients",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: `${label} Gradients`,
+              item: `https://palettiq.net/explore/gradients/${slug}`,
+            },
+          ],
+        },
+      },
+    ],
+  };
 
   return (
     <>
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            name: `${label} CSS Gradients`,
-            description: `Browse curated ${label.toLowerCase()} CSS gradients for websites, branding, UI design, mobile applications, and digital products.`,
-            url: `https://palettiq.net/explore/gradients/${slug}`,
-            isPartOf: {
-              "@type": "WebSite",
-              name: "PalettIQ",
-              url: "https://palettiq.net",
-            },
-            breadcrumb: {
-              "@type": "BreadcrumbList",
-              itemListElement: [
-                {
-                  "@type": "ListItem",
-                  position: 1,
-                  name: "Explore Gradients",
-                  item: "https://palettiq.net/explore/gradients",
-                },
-                {
-                  "@type": "ListItem",
-                  position: 2,
-                  name: `${label} Gradients`,
-                  item: `https://palettiq.net/explore/gradients/${slug}`,
-                },
-              ],
-            },
-            about: {
-              "@type": "Thing",
-              name: `${label} CSS Gradients`,
-            },
-            publisher: {
-              "@type": "Organization",
-              name: "PalettIQ",
-              url: "https://palettiq.net",
-            },
-          }),
+          __html: JSON.stringify(jsonLd),
         }}
       />
 

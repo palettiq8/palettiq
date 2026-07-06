@@ -191,6 +191,7 @@ function StudioPage() {
           <div className="flex items-center gap-2 max-lg:hidden">
             {useIsAdmin() && (
               <Button
+                aria-label="Open picked palettes for publishing"
                 onClick={() => togglePickedPalettesForPublishedModel()}
                 variant={"outline"}
                 size={"md"}
@@ -270,7 +271,7 @@ function StudioPage() {
           </DndContext>
         </div>
 
-        <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-55 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center ">
+        <div className="w-full px-4 bg-white rounded-b-xl h-16 max-lg:h-55 border-t border-gray-200 flex max-lg:flex-col gap-2 items-center justify-between max-lg:justify-center">
           <div className="max-lg:w-full flex items-center gap-2 max-lg:flex-col">
             <ColorCountMenu from="Generator" />
             <ColorPreferencesMenu from="Studio" />
@@ -324,14 +325,13 @@ function StudioPage() {
         <h2>Generate Personalized Color Palettes</h2>
 
         <p>
-          Generate personalized color palettes from selected colors, color
-          families, moods, industries, and styles.
+          Generate personalized color palettes from your selected colors and
+          harmonies, with full control over hue, saturation, and lightness.
         </p>
 
         <p>
-          Customize hue, saturation, and lightness, lock colors, reorder palette
-          colors, and export palettes in HEX, RGB, CSS, Tailwind CSS, SCSS, and
-          other formats.
+          Lock colors, reorder your palette, undo or redo changes, and export
+          palettes in HEX, RGB, CSS, Tailwind CSS, SCSS, and other formats.
         </p>
       </section>
     </>

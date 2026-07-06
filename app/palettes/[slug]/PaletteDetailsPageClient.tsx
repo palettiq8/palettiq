@@ -49,6 +49,17 @@ const TagSection = ({
   );
 };
 
+const similarFilterOptions = [
+  "Similar with Preferred Colors",
+  "Similar with Saturation Level",
+  "Similar with Brightness Level",
+  "Similar with Moods/Emotions",
+  "Similar with Harmonies",
+  "Similar with Modes",
+  "Similar with Industries",
+  "Similar with Use Cases",
+];
+
 type Props = {
   id: number;
 };
@@ -125,6 +136,11 @@ export default function PaletteDetailsPageClient({ id }: Props) {
   const setQuickViewActiveColor = useOtherStore(
     (state) => state.setQuickViewActiveColor,
   );
+
+  async function copyColor(color: string) {
+    await navigator.clipboard.writeText(color.toUpperCase());
+    FlashMessage("success", "Copied to the clipboard!");
+  }
 
   return (
     <CommonHeaderFooterSection>
@@ -217,13 +233,17 @@ export default function PaletteDetailsPageClient({ id }: Props) {
                     {data.colors?.map(({ id, color }) => (
                       <div
                         key={id}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Copy color ${color.toUpperCase()}`}
                         className="w-full h-full group relative cursor-pointer transition-all"
                         style={{ backgroundColor: color }}
-                        onClick={async () => {
-                          await navigator.clipboard.writeText(
-                            color.toUpperCase(),
-                          );
-                          FlashMessage("success", "Copied to the clipboard!");
+                        onClick={() => copyColor(color)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            copyColor(color);
+                          }
                         }}
                       >
                         <div className="absolute top-5 left-1/2">
@@ -288,27 +308,18 @@ export default function PaletteDetailsPageClient({ id }: Props) {
                     items={data.saturation_level}
                   />
                 </div>
-                <h1 className="text-xl font-semibold text-gray-900 mt-10">
+                <h2 className="text-xl font-semibold text-gray-900 mt-10">
                   Explore Similar
-                </h1>
+                </h2>
                 <div className="w-full flex flex-wrap items-center gap-1">
-                  {[
-                    "Similar with Preferred Colors",
-                    "Similar with Saturation Level",
-                    "Similar with Brightness Level",
-                    "Similar with Moods/Emotions",
-                    "Similar with Harmonies",
-                    "Similar with Modes",
-                    "Similar with Industries",
-                    "Similar with Use Cases",
-                  ].map((_, index) => {
+                  {similarFilterOptions.map((label, index) => {
                     return (
                       <button
                         key={index}
-                        className={`text-sm font-semibold ${similarWith === _ ? "bg-gray-900 text-gray-50 border-gray-900" : "text-gray-900 bg-white border-gray-200"} h-10 px-4 rounded-full border cursor-pointer transition-all active:scale-95`}
-                        onClick={() => setSimilarWith(_)}
+                        className={`text-sm font-semibold ${similarWith === label ? "bg-gray-900 text-gray-50 border-gray-900" : "text-gray-900 bg-white border-gray-200"} h-10 px-4 rounded-full border cursor-pointer transition-all active:scale-95`}
+                        onClick={() => setSimilarWith(label)}
                       >
-                        {_}
+                        {label}
                       </button>
                     );
                   })}

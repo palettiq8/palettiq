@@ -42,16 +42,34 @@ export default function ColorHarmoniesMenu({ from }: { from: string }) {
       }
     }
 
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        toggleColorHarmoniesMenu();
+      }
+    }
+
     if (colorHarmoniesMenu) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [colorHarmoniesMenu]);
 
   const isTrue =
     from === "Generator"
       ? generatorColorHarmony === null
       : visualizerColorHarmony === null;
+
+  const resetHarmonyHandler = () => {
+    if (from === "Generator") {
+      setGeneratorColorHarmony(null);
+    } else {
+      setVisualizerColorHarmony(null);
+    }
+  };
 
   return (
     <div className="relative max-lg:w-full">
@@ -63,10 +81,14 @@ export default function ColorHarmoniesMenu({ from }: { from: string }) {
         <Button
           variant={"outline"}
           size={"md"}
+          aria-label="Select color harmony for palette generation"
+          aria-expanded={colorHarmoniesMenu}
+          aria-haspopup="menu"
           className="max-lg:w-full max-lg:justify-between"
         >
           <span>Color Harmonies</span>
           <LuChevronDown
+            aria-hidden="true"
             className={`${colorHarmoniesMenu ? "rotate-0" : "rotate-180"} transition-all`}
             size={16}
           />
@@ -77,6 +99,8 @@ export default function ColorHarmoniesMenu({ from }: { from: string }) {
         {colorHarmoniesMenu && (
           <motion.menu
             ref={menuRef}
+            role="menu"
+            aria-label="Color harmony options"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -87,7 +111,7 @@ export default function ColorHarmoniesMenu({ from }: { from: string }) {
               <h3 className="text-sm font-semibold text-gray-900">
                 All harmonies
               </h3>
-              <ToggleButton isTrue={isTrue} setIsTrue={() => {}} />
+              <ToggleButton isTrue={isTrue} setIsTrue={resetHarmonyHandler} />
             </div>
             <div className="w-full h-max flex flex-col p-2.5 max-h-100 overflow-y-auto noscrollbar">
               {colorHarmonies.map((item, index) => {
@@ -99,6 +123,9 @@ export default function ColorHarmoniesMenu({ from }: { from: string }) {
                 return (
                   <button
                     key={index}
+                    role="menuitem"
+                    aria-label={`Select ${harmony} color harmony`}
+                    aria-pressed={isActiveHarmony}
                     onClick={() =>
                       from === "Generator"
                         ? setGeneratorColorHarmony(item.harmony)
@@ -108,6 +135,7 @@ export default function ColorHarmoniesMenu({ from }: { from: string }) {
                   >
                     <LuCheck
                       size={16}
+                      aria-hidden="true"
                       className={`invisible ${isActiveHarmony && "visible"}`}
                     />
                     <p className="text-sm font-semibold">{harmony}</p>

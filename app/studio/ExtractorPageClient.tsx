@@ -48,6 +48,7 @@ export default function ExtractorPageClient() {
   const setQuickViewActiveTab = useOtherStore(
     (state) => state.setQuickViewActiveTab,
   );
+
   const setQuickViewPalette = useOtherStore(
     (state) => state.setQuickViewPalette,
   );
@@ -266,28 +267,28 @@ export default function ExtractorPageClient() {
     );
   }, [pickerContainer, extractorPickerCount]);
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handlePointerMove = (e: PointerEvent) => {
     if (!isDragging || activePickerIndex === null || !pickerContainer) return;
 
     const rect = canvasRef.current!.getBoundingClientRect();
     const pickerHalf = 14;
 
-    let mouseX = e.clientX - rect.left;
-    let mouseY = e.clientY - rect.top;
+    let pointerX = e.clientX - rect.left;
+    let pointerY = e.clientY - rect.top;
 
-    mouseX = clamp(
-      mouseX,
+    pointerX = clamp(
+      pointerX,
       pickerContainer.offsetX,
       pickerContainer.offsetX + pickerContainer.width - 1,
     );
-    mouseY = clamp(
-      mouseY,
+    pointerY = clamp(
+      pointerY,
       pickerContainer.offsetY,
       pickerContainer.offsetY + pickerContainer.height - 1,
     );
 
     const ctx = canvasRef.current!.getContext("2d")!;
-    const data = ctx.getImageData(mouseX, mouseY, 1, 1).data;
+    const data = ctx.getImageData(pointerX, pointerY, 1, 1).data;
     const [r, g, b] = data;
     const rgb = `rgb(${r}, ${g}, ${b})`;
 
@@ -295,16 +296,16 @@ export default function ExtractorPageClient() {
 
     updatePickers(
       activePickerIndex,
-      mouseX,
+      pointerX,
       pickerContainer.offsetX,
       pickerHalf,
-      mouseY,
+      pointerY,
       pickerContainer.offsetY,
       hex,
     );
   };
 
-  const handleMouseUp = () => {
+  const handlePointerUp = () => {
     setIsDragging(false);
     setActivePickerIndex(null);
   };
@@ -312,12 +313,12 @@ export default function ExtractorPageClient() {
   useEffect(() => {
     if (!isDragging) return;
 
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseup", handleMouseUp);
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerup", handlePointerUp);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseup", handleMouseUp);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerup", handlePointerUp);
     };
   }, [isDragging, activePickerIndex, pickerContainer]);
 
@@ -368,6 +369,24 @@ export default function ExtractorPageClient() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [randomShuffleHandler]);
+
+  function openQuickView() {
+    toggleQuickViewModel();
+    setQuickViewActiveTab("Formats");
+    const data = pickers.map((picker) => picker.color);
+    setQuickViewPalette(data);
+    setQuickViewActiveColor(data[0]);
+  }
+
+  function selectExtractedColor(index: number) {
+    if (isMaximizeExtractor) return;
+    setActivePickerIndex(activePickerIndex === index ? null : index);
+  }
+
+  function selectRecommendedPalette(palettes: Picker[], index: number) {
+    setPickers(palettes);
+    setSelectedPaletteIndex(index);
+  }
 
   function UploadButton({ onUpload }: { onUpload: (src: string) => void }) {
     return (
@@ -482,8 +501,10 @@ export default function ExtractorPageClient() {
                   return (
                     <div
                       key={i}
-                      aria-label={`Color picker ${i + 1} — ${p.color.toUpperCase()}`}
-                      className={`absolute w-7 h-7 max-lg:w-4 max-lg:h-4 max-lg:border-2 rounded-full border-3 border-gray-50 hover:cursor-pointer hover:scale-150 transition-all ${
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Color picker ${i + 1} — ${p.color.toUpperCase()}. Drag to sample a different color.`}
+                      className={`absolute w-7 h-7 max-lg:w-4 max-lg:h-4 max-lg:border-2 rounded-full border-3 border-gray-50 hover:cursor-pointer hover:scale-150 transition-all touch-none ${
                         activePickerIndex === i && "scale-150 transition-none"
                       }`}
                       style={{
@@ -491,8 +512,9 @@ export default function ExtractorPageClient() {
                         left: p.x,
                         backgroundColor: p.color,
                       }}
-                      onMouseDown={(e) => {
+                      onPointerDown={(e) => {
                         e.preventDefault();
+                        e.currentTarget.setPointerCapture(e.pointerId);
                         setIsDragging(true);
                         setActivePickerIndex(i);
                       }}
@@ -527,20 +549,20 @@ export default function ExtractorPageClient() {
                   <div className="flex items-center gap-4">
                     <LuEye
                       role="button"
+                      tabIndex={0}
                       aria-label="Quick view extracted color formats"
-                      onClick={() => {
-                        toggleQuickViewModel();
-                        setQuickViewActiveTab("Formats");
-                        const data = pickers.map((picker) => picker.color);
-                        setQuickViewPalette(data);
-                        setQuickViewActiveColor(data[0]);
+                      onClick={openQuickView}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          openQuickView();
+                        }
                       }}
                       size={17}
                       className={`text-gray-900 hover:scale-110 cursor-pointer active:scale-90 transition-all max-lg:hidden`}
                     />
                     <div className="flex items-center justify-between gap-4 px-3 border border-gray-200 h-9 rounded-full">
                       <Button
-                        role="button"
                         aria-label="Decrease color picker count"
                         className={REDOUNDOCOMMONSTYLE}
                         onClick={minusHandler}
@@ -575,15 +597,17 @@ export default function ExtractorPageClient() {
                         <div
                           key={i}
                           role="button"
+                          tabIndex={0}
                           aria-label={`Select extracted color ${p.color.toUpperCase()}`}
                           className={`w-full ${isMaximizeExtractor ? "h-full" : "h-30 first:rounded-l-lg last:rounded-r-lg"} grid place-content-center hover:cursor-pointer`}
                           style={{ backgroundColor: p.color }}
-                          onClick={() =>
-                            !isMaximizeExtractor &&
-                            setActivePickerIndex(
-                              activePickerIndex === i ? null : i,
-                            )
-                          }
+                          onClick={() => selectExtractedColor(i)}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              selectExtractedColor(i);
+                            }
+                          }}
                         >
                           {activePickerIndex === i && !isMaximizeExtractor && (
                             <LuCheck
@@ -600,12 +624,13 @@ export default function ExtractorPageClient() {
                     })}
                     {isMaximizeExtractor && (
                       <Button
+                        aria-label="Exit fullscreen extracted palette view"
                         onClick={() => setIsMaximizeExtractor()}
                         variant={"outline"}
                         size={"circle"}
                         className="absolute top-4 left-4"
                       >
-                        <LuArrowLeft size={16} />
+                        <LuArrowLeft size={16} aria-hidden="true" />
                       </Button>
                     )}
                   </div>
@@ -620,10 +645,16 @@ export default function ExtractorPageClient() {
                     return (
                       <div
                         role="button"
+                        tabIndex={0}
                         aria-label={`Select recommended color palette ${index + 1}`}
-                        onClick={() => {
-                          setPickers(palettes);
-                          setSelectedPaletteIndex(index);
+                        onClick={() =>
+                          selectRecommendedPalette(palettes, index)
+                        }
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            selectRecommendedPalette(palettes, index);
+                          }
                         }}
                         className="relative group"
                         key={index}

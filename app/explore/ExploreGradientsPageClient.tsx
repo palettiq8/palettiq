@@ -71,6 +71,11 @@ export default function ExploreGradientsPageClient({
     }
   }
 
+  async function copyStopColor(color: string) {
+    await navigator.clipboard.writeText(color.toUpperCase());
+    FlashMessage("success", "Copied to the clipboard!");
+  }
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setSearchQuery(inputValue);
@@ -104,7 +109,7 @@ export default function ExploreGradientsPageClient({
                 aria-label={`Filter by ${type} gradient`}
                 aria-pressed={browseGradientActiveType === type}
                 onClick={() => setBrowseGradientActiveType(type)}
-                className={`h-10 w-full px-4 text-sm font-semibold border rounded-full ${browseGradientActiveType === type ? "bg-gray-100 border-gray-200 text-gray900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all`}
+                className={`h-10 w-full px-4 text-sm font-semibold border rounded-full ${browseGradientActiveType === type ? "bg-gray-100 border-gray-200 text-gray-900" : "bg-white border-white text-gray-900"} cursor-pointer transition-all`}
               >
                 {type}
               </button>
@@ -141,6 +146,7 @@ export default function ExploreGradientsPageClient({
             />
             <LuSearch
               size={18}
+              aria-hidden="true"
               className="text-gray-900 absolute top-3 left-4"
             />
           </div>
@@ -201,11 +207,11 @@ export default function ExploreGradientsPageClient({
                               onClick={() => {
                                 toggleQuickViewModel();
                                 setQuickViewActiveTab("Formats");
-                                const data = [...stops]
+                                const sortedColors = [...stops]
                                   .sort((a, b) => a.position - b.position)
                                   .map((stop) => stop.color);
-                                setQuickViewPalette(data);
-                                setQuickViewActiveColor(data[0]);
+                                setQuickViewPalette(sortedColors);
+                                setQuickViewActiveColor(sortedColors[0]);
                               }}
                               size={16}
                               aria-label={`Quick view ${gradient?.name} gradient`}
@@ -233,16 +239,15 @@ export default function ExploreGradientsPageClient({
                               <div
                                 key={index}
                                 role="button"
+                                tabIndex={0}
                                 aria-label={`Copy gradient color ${stop.color.toUpperCase()}`}
                                 className="w-full h-50 group relative transition-transform cursor-pointer"
-                                onClick={async () => {
-                                  await navigator.clipboard.writeText(
-                                    stop.color.toUpperCase(),
-                                  );
-                                  FlashMessage(
-                                    "success",
-                                    "Copied to the clipboard!",
-                                  );
+                                onClick={() => copyStopColor(stop.color)}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    copyStopColor(stop.color);
+                                  }
                                 }}
                               >
                                 <div className="absolute top-5 left-1/2">

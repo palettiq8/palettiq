@@ -31,7 +31,7 @@ const ColorItems = ({
                 className="w-3 h-3 rounded-full shadow-sm"
                 style={{ backgroundColor: color.hex }}
               ></div>
-              <p className="text-md max-sm:text-sm font-semibold text-semibold">
+              <p className="text-md max-sm:text-sm font-semibold">
                 {color.name}
               </p>
             </div>
@@ -81,8 +81,8 @@ export default function HomeColorFamilySection() {
           <p className="text-sm font-semibold text-gray-800 mt-4 max-w-150 max-2xl:max-w-130">
             Select one or more preferred colors and instantly generate
             harmonious, design-ready color palettes tailored to your vision.
-            PalettIQ intelligently creates color combinations for branding, UI
-            design, websites, and digital products around your selected colors.
+            PalettIQ generates color combinations for branding, UI design,
+            websites, and digital products around your selected colors.
           </p>
           <div className="w-full hidden max-xl:block mt-8">
             <div className="w-full h-full grid grid-cols-3 gap-1 max-xl:grid-cols-4 max-lg:grid-cols-3 max-md:grid-cols-2">

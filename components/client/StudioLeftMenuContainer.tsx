@@ -22,6 +22,7 @@ export default function StudioLeftMenuContainer() {
             <Link
               href={url}
               key={id}
+              aria-current={isPath ? "page" : undefined}
               onClick={() => {
                 if (!(window.innerWidth >= 1280)) {
                   toggleStudioLeftMenuModel();
@@ -32,7 +33,7 @@ export default function StudioLeftMenuContainer() {
               <div
                 className={`w-9 h-9 rounded-lg grid place-content-center bg-linear-to-t shrink-0 ${bgColors[0]} ${bgColors[1]}`}
               >
-                <Icon size={17} className="text-gray-50" />
+                <Icon size={17} aria-hidden="true" className="text-gray-50" />
               </div>
               <p className="text-md font-semibold text-gray-900">{title}</p>
               <span className="text-xs font-semibold text-gray-600">

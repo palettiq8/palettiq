@@ -4,6 +4,7 @@ import {
   moods,
   industries,
   colorHarmonies,
+  useCases,
 } from "@/utils/Items";
 import {
   filtersToSlug,
@@ -21,6 +22,7 @@ const paletteSlugs = [
   ...colorHarmonies.map((harmony) =>
     filtersToSlug({ harmonies: [harmony.title] }),
   ),
+  ...useCases.map((usecase) => filtersToSlug({ usecases: [usecase] })),
   ...preferredColors.flatMap((color) =>
     moods.map((mood) =>
       filtersToSlug({ preferred_colors: [color.name], moods: [mood] }),
@@ -28,7 +30,7 @@ const paletteSlugs = [
   ),
 ].filter(Boolean);
 
-const uniquePaletteSlugs = [...new Set(paletteSlugs.filter(Boolean))];
+const uniquePaletteSlugs = [...new Set(paletteSlugs)];
 
 const singleGradientSlugs = preferredColors.map((color) =>
   filtersToGradientSlug([color.name]),

@@ -7,15 +7,15 @@ export default function HomeHeroSection() {
       <span className="text-sm max-sm:text-xs font-bold text-orange-500 bg-orange-50 border border-orange-200 rounded-full px-3.5 py-1.5 w-max mx-auto block">
         A Unified Color Design Platform for Designers
       </span>
-      <h1 className="text-6xl font-black text-gray-900 text-center mt-8 max-sm:text-5xl leading-20 max-sm:leading-13">
+      <h1 className="text-7xl font-black text-gray-900 text-center mt-8 max-sm:text-5xl leading-20 max-sm:leading-13">
         <span className="text-indigo-500">Generate Color Palettes</span> <br />{" "}
         From Your Selected Colors
       </h1>
       <p className="max-w-148 text-lg max-md:text-base font-semibold text-gray-800 mt-8 mx-auto text-center max-sm:mt-5">
-        Generate personalized color palettes from your selected colors. Control
-        hue, saturation, lightness, moods, and styles to create accessible color
-        schemes for branding, UI design, websites, mobile apps, and digital
-        products.
+        Generate personalized color palettes from your selected colors and
+        harmonies. Control hue, saturation, and lightness to create accessible
+        color schemes for branding, UI design, websites, mobile apps, and
+        digital products.
       </p>
       <div className="w-full flex items-center justify-center gap-3 mt-8">
         <Link

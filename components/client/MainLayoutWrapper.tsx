@@ -7,6 +7,8 @@ import React, { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
 import { useBrowseStore, useOtherStore } from "@/libs/stores/dataStore";
+import useModelStore from "@/libs/stores/modelStore";
+import NextTopLoader from "nextjs-toploader";
 const QuickViewModel = dynamic(() => import("./QuickViewModel"));
 const PaletteHistoryModel = dynamic(() => import("./PaletteHistoryModel"));
 const AddToCommunityModel = dynamic(() => import("./AddToCommunityModel"));
@@ -20,24 +22,28 @@ const ExportShadowModel = dynamic(() => import("./ExportShadowModel"));
 const PaletteViewDetailsModel = dynamic(
   () => import("./PaletteViewDetailsModel"),
 );
-const OpenOnScreenPaletteModel = dynamic(
-  () => import("./OpenOnScreenPaletteModel"),
-);
-const ViewModePaletteModel = dynamic(() => import("./ViewModePaletteModel"));
-const ResetPreferencesModel = dynamic(() => import("./ResetPreferencesModel"));
+import OpenOnScreenPaletteModel from "./OpenOnScreenPaletteModel";
+import ViewModePaletteModel from "./ViewModePaletteModel";
+import ResetPreferencesModel from "./ResetPreferencesModel";
 const StudioLeftMenuModel = dynamic(() => import("./StudioLeftMenuModel"));
 const VisualizerResponsiveTempletesModel = dynamic(
   () => import("./VisualizerResponsiveTempletesModel"),
 );
-import VisualizerPaletteHistoryModel from "./VisualizerPaletteHistoryModel";
-import useModelStore from "@/libs/stores/modelStore";
-import NextTopLoader from "nextjs-toploader";
-import HSLControlPanel from "./HSLControlPanel";
-import GradientViewDetailsModel from "./GradientViewDetailsModel";
+const VisualizerPaletteHistoryModel = dynamic(
+  () => import("./VisualizerPaletteHistoryModel"),
+);
+const HSLControlPanel = dynamic(() => import("./HSLControlPanel"));
+const GradientViewDetailsModel = dynamic(
+  () => import("./GradientViewDetailsModel"),
+);
 import OpenOnScreenGradientModel from "./OpenOnScreenGradientModel";
 import ViewModeGradientModel from "./ViewModeGradientModel";
-import PickedPalettesForPublishedModel from "./PickedPalettesForPublishedModel";
-import PaletteQuickVisualizerModel from "./PaletteQuickVisualizerModel";
+const PickedPalettesForPublishedModel = dynamic(
+  () => import("./PickedPalettesForPublishedModel"),
+);
+const PaletteQuickVisualizerModel = dynamic(
+  () => import("./PaletteQuickVisualizerModel"),
+);
 
 export default function MainLayoutWrapper({
   children,
@@ -107,7 +113,7 @@ export default function MainLayoutWrapper({
     if (!exportModel) {
       setGradientExport("");
     }
-  }, [exportModel]);
+  }, [exportModel, setGradientExport]);
 
   return (
     <Provider store={store}>

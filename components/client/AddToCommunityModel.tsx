@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "../Button";
 import ButtonLoader from "../server/ButtonLoader";
 import { useOtherStore } from "@/libs/stores/dataStore";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import {
   industries,
   preferredColors,
@@ -188,7 +188,7 @@ export default function AddToCommunityModel() {
   >([]);
   const [selectedModes, setSelectedModes] = useState<string[]>([]);
   const [selectedUsecases, setSelectedUsecases] = useState<string[]>([]);
-  const [selectedHarmonies, setselectedHarmonies] = useState<string[]>([]);
+  const [selectedHarmonies, setSelectedHarmonies] = useState<string[]>([]);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [isTagInputFocused, setIsTagInputFocused] = useState(false);
   const dataContentRef = useRef<HTMLDivElement | null>(null);
@@ -206,13 +206,32 @@ export default function AddToCommunityModel() {
   );
   const [publishPalette, { isLoading }] = usePublishPaletteMutation();
 
+  const closeModal = () => {
+    toggleAddToCommunityModel();
+    setAddToCommunityPalette(null);
+  };
+
   const handler = (e: React.MouseEvent) => {
-    const target = e.target as HTMLElement;
-    if (target.classList.contains("parent")) {
-      toggleAddToCommunityModel();
-      setAddToCommunityPalette(null);
+    if (e.target === e.currentTarget) {
+      closeModal();
     }
   };
+
+  useEffect(() => {
+    if (!addToCommunityModel) return;
+
+    dataContentRef.current?.focus();
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeModal();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [addToCommunityModel]);
 
   const ftags = tags.filter((tag) => {
     if (!searchBoxTags.trim() && isTagInputFocused) return true;
@@ -220,19 +239,21 @@ export default function AddToCommunityModel() {
     return new RegExp(escapedSearch, "i").test(tag);
   });
   const isTagsShow = searchBoxTags.length > 0 || isTagInputFocused;
-  const isDisabledPublishedButton = !(
-    paletteName &&
-    desc &&
-    selectedIndustries.length > 0 &&
-    colorPreferred.length > 0 &&
-    selectedMoods.length > 0 &&
-    selectedBrightnessLevel.length > 0 &&
-    selectedSaturationLevel.length > 0 &&
-    selectedModes.length > 0 &&
-    selectedUsecases.length > 0 &&
-    selectedHarmonies.length > 0 &&
-    selectedTags.length > 0
-  );
+  const isDisabledPublishedButton =
+    isLoading ||
+    !(
+      paletteName &&
+      desc &&
+      selectedIndustries.length > 0 &&
+      colorPreferred.length > 0 &&
+      selectedMoods.length > 0 &&
+      selectedBrightnessLevel.length > 0 &&
+      selectedSaturationLevel.length > 0 &&
+      selectedModes.length > 0 &&
+      selectedUsecases.length > 0 &&
+      selectedHarmonies.length > 0 &&
+      selectedTags.length > 0
+    );
 
   const publishPaletteHandler = async () => {
     try {
@@ -254,8 +275,7 @@ export default function AddToCommunityModel() {
         status: "Published",
       }).unwrap();
       FlashMessage("success", "Palette published successfully.");
-      toggleAddToCommunityModel();
-      setAddToCommunityPalette(null);
+      closeModal();
     } catch (error: any) {
       FlashMessage("error", error?.message);
     }
@@ -276,11 +296,12 @@ export default function AddToCommunityModel() {
             role="dialog"
             aria-modal="true"
             aria-label="Publish color palette to community"
+            tabIndex={-1}
             initial={{ scale: 0.8, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.8, opacity: 0, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="w-125 max-w-full h-150 max-h-[90vh] flex flex-col bg-white rounded-xl shadow-2xl overflow-hidden max-sm:rounded-none max-sm:w-full max-sm:h-full max-sm:max-h-full"
+            className="w-125 max-w-full h-150 max-h-[90vh] flex flex-col bg-white rounded-xl shadow-2xl overflow-hidden max-sm:rounded-none max-sm:w-full max-sm:h-full max-sm:max-h-full focus:outline-none"
           >
             <div className="w-full shrink-0 flex items-center justify-between gap-2 px-3 py-3 border-b border-gray-200 bg-white">
               <h2 className="text-md font-semibold text-gray-900">
@@ -301,7 +322,7 @@ export default function AddToCommunityModel() {
                 <Button
                   type="button"
                   aria-label="Close publish palette dialog"
-                  onClick={() => toggleAddToCommunityModel()}
+                  onClick={closeModal}
                   variant={"outline"}
                   size={"circle"}
                 >
@@ -492,7 +513,7 @@ export default function AddToCommunityModel() {
                   title="Color harmonies"
                   items={colorHarmonies.map((harmony) => harmony.title)}
                   state={selectedHarmonies}
-                  setState={setselectedHarmonies}
+                  setState={setSelectedHarmonies}
                 />
 
                 <div className="w-full mt-4">

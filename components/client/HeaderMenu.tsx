@@ -24,22 +24,35 @@ export default function HeaderMenu() {
       }
     }
 
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setShowMenu(false);
+      }
+    }
+
     if (showMenu) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [showMenu]);
 
   return (
     <div className="relative">
-      <div
-        ref={buttonRef}
-        onClick={() => setShowMenu((prev) => !prev)}
-        aria-label="Toggle navigation menu"
-      >
-        <Button variant={"outline"} size={"md"}>
+      <div ref={buttonRef} onClick={() => setShowMenu((prev) => !prev)}>
+        <Button
+          variant={"outline"}
+          size={"md"}
+          aria-label="Toggle navigation menu"
+          aria-expanded={showMenu}
+          aria-controls="mobile-nav-menu"
+        >
           <span>Menu</span>
           <LuChevronDown
+            aria-hidden="true"
             className={`${showMenu ? "rotate-180" : "rotate-0"} transition-all`}
             size={16}
           />
@@ -49,6 +62,7 @@ export default function HeaderMenu() {
       <AnimatePresence>
         {showMenu && (
           <motion.nav
+            id="mobile-nav-menu"
             ref={menuRef}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -63,11 +77,11 @@ export default function HeaderMenu() {
                   key={index}
                   href={item.url}
                   aria-label={`Navigate to ${item.title}`}
-                  className={`hidden ${["Browse Gradients", "Browse Color Palettes", "Explore Color Shades"].includes(item.title) && "max-lg:block"}`}
+                  className={`hidden ${item.hideOnTablet && "max-lg:block"}`}
                 >
                   <button className="w-full flex items-center justify-between p-2 gap-3 rounded-lg transition-all hover:bg-gray-100 border border-white hover:border-gray-200 hover:cursor-pointer select-none text-gray-900">
                     <p className="text-sm font-semibold">{item.title}</p>
-                    <LuArrowRight size={16} />
+                    <LuArrowRight size={16} aria-hidden="true" />
                   </button>
                 </Link>
               );

@@ -175,12 +175,12 @@ export default function VisualizerPageClient() {
   const uploadedSVGString = useVisualizerStore((s) => s.uploadedSVGString);
 
   useEffect(() => {
-    const currentTemplateId = useVisualizerStore.getState().currentTemplateId;
+    const activeTemplateId = useVisualizerStore.getState().currentTemplateId;
     if (uploadedSVGString) {
       setCurrentTemplateId(0);
     } else {
-      if (currentTemplateId !== 0) {
-        setCurrentTemplateId(currentTemplateId);
+      if (activeTemplateId !== 0) {
+        setCurrentTemplateId(activeTemplateId);
       } else {
         setCurrentTemplateId(1);
       }
@@ -189,13 +189,16 @@ export default function VisualizerPageClient() {
 
   useEffect(() => {
     const shouldOpen = localStorage.getItem("open-svg-upload-modal");
-    console.log("shouldOpen value:", shouldOpen);
 
     if (shouldOpen === "true") {
       toggleSVGUploadModel(true);
       localStorage.removeItem("open-svg-upload-modal");
     }
   }, []);
+
+  function selectTemplate(index: number) {
+    setCurrentTemplateId(index);
+  }
 
   return (
     <>
@@ -316,11 +319,18 @@ export default function VisualizerPageClient() {
                 return (
                   <div
                     role="button"
+                    tabIndex={0}
                     aria-label={`Preview color palette on UI template ${index + 1}`}
                     key={index}
                     onContextMenu={(e) => {
                       e.preventDefault();
-                      setCurrentTemplateId(index);
+                      selectTemplate(index);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        selectTemplate(index);
+                      }
                     }}
                     className={`${activeTemplateMaximize ? "bg-white" : "bg-gray-100"} border border-gray-200 p-3 flex items-center justify-center rounded-lg`}
                   >

@@ -14,7 +14,7 @@ export default function HomeFAQSection() {
         <div className="w-full flex items-center justify-center mt-12">
           <Link href={"/help-center"}>
             <Button variant={"outline"} size={"md"}>
-              See All FAQ's →
+              See All FAQs →
             </Button>
           </Link>
         </div>

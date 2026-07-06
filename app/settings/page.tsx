@@ -8,6 +8,14 @@ import useModelStore from "@/libs/stores/modelStore";
 import { FlashMessage } from "@/utils/utils";
 import { useEffect, useState } from "react";
 
+const shortcuts = [
+  { key: "Escape", action: "Minimize content" },
+  { key: "H", action: "Toggle history" },
+  { key: "Enter", action: "Generate content" },
+  { key: "ArrowLeft", action: "Undo" },
+  { key: "ArrowRight", action: "Redo" },
+];
+
 export default function page() {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -70,56 +78,18 @@ export default function page() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="p-4 text-sm font-semibold text-gray-900 rounded-tl-xl text-start">
-                <span className="py-1 px-1.5 rounded-lg bg-white border border-gray-200">
-                  Escape
-                </span>
-              </td>
-              <td className="p-4 text-sm font-semibold text-gray-900 rounded-tl-xl text-start">
-                Minimize content
-              </td>
-            </tr>
-            <tr>
-              <td className="p-4 text-sm font-semibold text-gray-900 rounded-tl-xl text-start">
-                <span className="py-1 px-1.5 rounded-lg bg-white border border-gray-200">
-                  H
-                </span>
-              </td>
-              <td className="p-4 text-sm font-semibold text-gray-900 rounded-tl-xl text-start">
-                Toggle history
-              </td>
-            </tr>
-            <tr>
-              <td className="p-4 text-sm font-semibold text-gray-900 rounded-tl-xl text-start">
-                <span className="py-1 px-1.5 rounded-lg bg-white border border-gray-200">
-                  Enter
-                </span>
-              </td>
-              <td className="p-4 text-sm font-semibold text-gray-900 rounded-tl-xl text-start">
-                Generate content
-              </td>
-            </tr>
-            <tr>
-              <td className="p-4 text-sm font-semibold text-gray-900 rounded-tl-xl text-start">
-                <span className="py-1 px-1.5 rounded-lg bg-white border border-gray-200">
-                  ArrowLeft
-                </span>
-              </td>
-              <td className="p-4 text-sm font-semibold text-gray-900 rounded-tl-xl text-start">
-                Undo
-              </td>
-            </tr>
-            <tr>
-              <td className="p-4 text-sm font-semibold text-gray-900 rounded-tl-xl text-start">
-                <span className="py-1 px-1.5 rounded-lg bg-white border border-gray-200">
-                  ArrowRight
-                </span>
-              </td>
-              <td className="p-4 text-sm font-semibold text-gray-900 rounded-tl-xl text-start">
-                Redo
-              </td>
-            </tr>
+            {shortcuts.map(({ key, action }) => (
+              <tr key={key}>
+                <td className="p-4 text-sm font-semibold text-gray-900 text-start">
+                  <span className="py-1 px-1.5 rounded-lg bg-white border border-gray-200">
+                    {key}
+                  </span>
+                </td>
+                <td className="p-4 text-sm font-semibold text-gray-900 text-start">
+                  {action}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
         <h3 className="text-lg font-semibold text-gray-900 mt-8">
@@ -130,16 +100,16 @@ export default function page() {
         </p>
         <div className="mt-3">
           <input
-            name="title"
-            id="title"
+            name="contrastTitle"
+            id="contrastTitle"
             className="w-full h-12 border-2 border-gray-200 rounded-lg resize-none p-4 text-sm font-semibold text-gray-900 outline-none focus:border-indigo-500"
             placeholder="Contrast title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <textarea
-            name="title"
-            id="title"
+            name="contrastDescription"
+            id="contrastDescription"
             className="w-full mt-3 h-60 border-2 border-gray-200 rounded-lg resize-none p-4 text-sm font-semibold text-gray-900 outline-none focus:border-indigo-500"
             placeholder="Contrast description"
             value={desc}

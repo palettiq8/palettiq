@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import PickerPageClient from "../PickerPageClient";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   robots: {
@@ -8,10 +7,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   category: "Design Tools",
-  title:
-    "Online Color Picker | HEX, RGB, HSL, CMYK, LAB, LCH & XYZ Color Converter",
+  title: "Online Color Picker - HEX, RGB, HSL, CMYK & More",
   description:
-    "Pick any color and instantly convert between HEX, RGB, RGBA, HSL, HSV, HWB, CMYK, LAB, LCH, and XYZ. Explore color harmonies, tints, shades, and tones with PalettIQ's free online color picker.",
+    "Pick any color and instantly convert between HEX, RGB, HSL, CMYK, LAB, LCH, and XYZ. Explore color harmonies, tints, shades, and tones.",
   keywords: [
     "online color picker",
     "color picker",
@@ -20,18 +18,13 @@ export const metadata: Metadata = {
     "hsl color picker",
     "cmyk color picker",
     "hex to rgb",
-    "rgb to hex",
     "color converter",
     "color format converter",
     "lab color converter",
     "lch color converter",
     "xyz color converter",
     "color harmonies",
-    "color tints",
-    "color shades",
-    "color tones",
-    "web color picker",
-    "ui color picker",
+    "color tints and shades",
     "free color picker",
   ],
   alternates: {
@@ -43,6 +36,8 @@ export const metadata: Metadata = {
     description:
       "Pick any color and instantly get HEX, RGB, RGBA, HSL, HSV, HWB, CMYK, LAB, LCH, and XYZ values. Explore harmonies, tints, shades, and tones for UI design, branding, and creative projects.",
     url: "https://palettiq.net/studio/online-color-picker",
+    siteName: "PalettIQ",
+    locale: "en_US",
     type: "website",
     images: [
       {
@@ -60,48 +55,68 @@ export const metadata: Metadata = {
     description:
       "Pick colors, convert formats, generate harmonies, tints, shades, and tones instantly with PalettIQ.",
     images: ["/banner.webp"],
+    creator: "@palettiq",
   },
 };
 
 export default function page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://palettiq.net/studio/online-color-picker#software",
+        name: "Online Color Picker",
+        applicationCategory: "DesignApplication",
+        operatingSystem: "Web",
+        url: "https://palettiq.net/studio/online-color-picker",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        description:
+          "Pick any color and instantly convert between HEX, RGB, RGBA, HSL, HSV, HWB, CMYK, LAB, LCH, and XYZ color formats while exploring harmonies, tints, shades, and tones.",
+        creator: {
+          "@id": "https://palettiq.net/#organization",
+        },
+        featureList: [
+          "HEX Color Picker",
+          "RGB Color Picker",
+          "RGBA Converter",
+          "HSL Converter",
+          "HSV Converter",
+          "HWB Converter",
+          "CMYK Converter",
+          "LAB Converter",
+          "LCH Converter",
+          "XYZ Converter",
+          "Color Harmony Generator",
+          "Color Tint, Shade, and Tone Generator",
+          "Color History Tracking",
+          "Color Export Tool",
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://palettiq.net/studio/online-color-picker#webpage",
+        url: "https://palettiq.net/studio/online-color-picker",
+        name: "Online Color Picker - HEX, RGB, HSL, CMYK & More",
+        description:
+          "Pick any color and instantly convert between HEX, RGB, HSL, CMYK, LAB, LCH, and XYZ. Explore color harmonies, tints, shades, and tones.",
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+      },
+    ],
+  };
+
   return (
     <>
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "Online Color Picker",
-            applicationCategory: "DesignApplication",
-            operatingSystem: "Web",
-            url: "https://palettiq.net/studio/online-color-picker",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD",
-            },
-            featureList: [
-              "HEX color picker",
-              "RGB color picker",
-              "RGBA converter",
-              "HSL converter",
-              "HSV converter",
-              "HWB converter",
-              "CMYK converter",
-              "LAB converter",
-              "LCH converter",
-              "XYZ converter",
-              "Color harmony generator",
-              "Color tint generator",
-              "Color shade generator",
-              "Color tone generator",
-              "Color history tracking",
-              "Color export tool",
-            ],
-            description:
-              "Pick any color and instantly convert between HEX, RGB, RGBA, HSL, HSV, HWB, CMYK, LAB, LCH, and XYZ color formats while exploring harmonies, tints, shades, and tones.",
-          }),
+          __html: JSON.stringify(jsonLd),
         }}
       />
       <PickerPageClient />

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import VisualizerPageClient from "../VisualizerPageClient";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   robots: {
@@ -8,31 +7,24 @@ export const metadata: Metadata = {
     follow: true,
   },
   category: "Design Tools",
-  title: "Color Palette Visualizer | Preview Color Palettes on Real UI Designs",
+  title: "Color Palette Visualizer | Preview on Real UI Designs",
   description:
-    "Preview color palettes on real UI components and upload your own SVG illustrations, icons, logos, and graphics to instantly visualize color palettes. Test colors on buttons, cards, dashboards, forms, layouts, websites, apps, and design systems before implementation.",
+    "Preview color palettes on ready-made UI templates or upload your own SVG design to see exactly how your colors will look in production.",
   keywords: [
     "color palette visualizer",
     "ui color palette visualizer",
     "color palette preview",
-    "ui color preview",
     "website color palette preview",
     "design system color preview",
     "color scheme visualizer",
-    "ui design color testing",
     "brand color visualizer",
-    "palette preview tool",
-    "design color preview",
     "svg color palette visualizer",
-    "svg color preview",
-    "svg recolor tool",
-    "svg palette preview",
+    "visualize color palette on svg",
     "upload svg and test colors",
-    "svg color testing",
+    "svg recolor tool",
     "logo color visualizer",
     "illustration color visualizer",
-    "brand color preview",
-    "svg design color preview",
+    "ui design color testing",
   ],
   alternates: {
     canonical: "https://palettiq.net/studio/color-palette-visualizer",
@@ -43,6 +35,9 @@ export const metadata: Metadata = {
     description:
       "Upload your own SVG files and preview color palettes on real UI components, dashboards, forms, logos, illustrations, and design systems.",
     url: "https://palettiq.net/studio/color-palette-visualizer",
+    siteName: "PalettIQ",
+    locale: "en_US",
+    type: "website",
     images: [
       {
         url: "/banner.webp",
@@ -59,47 +54,63 @@ export const metadata: Metadata = {
     description:
       "Upload SVG files and preview color palettes on real UI components, logos, illustrations, and websites before implementation.",
     images: ["/banner.webp"],
+    creator: "@palettiq",
   },
 };
 
 export default function page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://palettiq.net/studio/color-palette-visualizer#software",
+        name: "Color Palette Visualizer",
+        applicationCategory: "DesignApplication",
+        operatingSystem: "Web",
+        url: "https://palettiq.net/studio/color-palette-visualizer",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        description:
+          "Preview color palettes on real UI components and upload custom SVG files to visualize colors on logos, illustrations, icons, dashboards, forms, buttons, cards, and complete design systems.",
+        creator: {
+          "@id": "https://palettiq.net/#organization",
+        },
+        featureList: [
+          "Color Palette Visualization on Ready-Made UI Templates",
+          "Custom SVG Upload Support",
+          "SVG Color Preview",
+          "Logo Color Visualization",
+          "Illustration Color Preview",
+          "UI Component Preview (Buttons, Cards, Forms, Dashboards)",
+          "Website Layout Color Testing",
+          "Design System Testing",
+          "Color Locking and Shuffling",
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://palettiq.net/studio/color-palette-visualizer#webpage",
+        url: "https://palettiq.net/studio/color-palette-visualizer",
+        name: "Color Palette Visualizer | Preview on Real UI Designs",
+        description:
+          "Preview color palettes on ready-made UI templates or upload your own SVG design to see exactly how your colors will look in production.",
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+      },
+    ],
+  };
+
   return (
     <>
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "Color Palette Visualizer",
-            applicationCategory: "DesignApplication",
-            operatingSystem: "Web",
-            url: "https://palettiq.net/studio/color-palette-visualizer",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD",
-            },
-            description:
-              "Preview color palettes on real UI components and upload custom SVG files to visualize colors on logos, illustrations, icons, dashboards, forms, buttons, cards, and complete design systems.",
-            featureList: [
-              "Color Palette Visualization",
-              "SVG Upload Support",
-              "SVG Color Preview",
-              "Logo Color Visualization",
-              "Illustration Color Preview",
-              "UI Component Preview",
-              "Dashboard Color Preview",
-              "Button Color Preview",
-              "Card Color Preview",
-              "Form Color Preview",
-              "Layout Color Testing",
-              "Website Color Preview",
-              "Design System Testing",
-              "Real World Palette Simulation",
-              "Palette Comparison",
-            ],
-          }),
+          __html: JSON.stringify(jsonLd),
         }}
       />
       <VisualizerPageClient />

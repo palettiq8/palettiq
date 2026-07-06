@@ -35,6 +35,11 @@ export default function PaletteCard({
   const colorsFromPalettes =
     palette?.colors?.map(({ color }: any) => color) || [];
 
+  async function copyToClipboard(text: string) {
+    await navigator.clipboard.writeText(text);
+    FlashMessage("success", "Copied to the clipboard!");
+  }
+
   return (
     <article
       className={`bg-white p-4 w-full border border-gray-200 rounded-xl`}
@@ -44,33 +49,29 @@ export default function PaletteCard({
         <div className="flex items-center gap-1">
           <Link
             href={`/palettes/${palette?.id}-${nameToSlug(palette?.name ?? "")}`}
+            aria-label={`View ${palette?.name} palette details page`}
           >
             <Button
               variant={"secondary"}
               size={"circle"}
               className="border-none hover:bg-gray-50"
             >
-              <LuArrowUpRight
-                size={16}
-                aria-label={`Quick view ${palette?.name} color palette`}
-              />
+              <LuArrowUpRight size={16} aria-hidden="true" />
             </Button>
           </Link>
           <Button
             variant={"secondary"}
             size={"circle"}
             className="border-none hover:bg-gray-50"
+            aria-label={`Quick view ${palette?.name} color formats`}
+            onClick={() => {
+              toggleQuickViewModel();
+              setQuickViewActiveTab("Formats");
+              setQuickViewPalette(colorsFromPalettes);
+              setQuickViewActiveColor(colorsFromPalettes[0]);
+            }}
           >
-            <LuEye
-              onClick={() => {
-                toggleQuickViewModel();
-                setQuickViewActiveTab("Formats");
-                setQuickViewPalette(colorsFromPalettes);
-                setQuickViewActiveColor(colorsFromPalettes[0]);
-              }}
-              size={16}
-              aria-label={`Quick view ${palette?.name} color palette`}
-            />
+            <LuEye size={16} aria-hidden="true" />
           </Button>
 
           <PaletteMoreMenu palette={palette} />
@@ -84,12 +85,16 @@ export default function PaletteCard({
             <div
               key={index}
               role="button"
+              tabIndex={0}
               className={`w-full ${explorePaletteView === "Vertical" ? "first:rounded-t-lg last:rounded-b-lg h-30" : "h-30 max-lg:h-30 first:rounded-l-lg last:rounded-r-lg"} group relative transition-transform cursor-pointer`}
               style={{ backgroundColor: color }}
               aria-label={`Copy color ${color.toUpperCase()} from ${palette?.name} palette`}
-              onClick={async () => {
-                await navigator.clipboard.writeText(color.toUpperCase());
-                FlashMessage("success", "Copied to the clipboard!");
+              onClick={() => copyToClipboard(color.toUpperCase())}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  copyToClipboard(color.toUpperCase());
+                }
               }}
             >
               <div className="absolute top-5 left-1/2">
@@ -116,18 +121,18 @@ export default function PaletteCard({
           <span>Quick Visualize</span>
         </Button>
         <Button
-          onClick={async () => {
-            await navigator.clipboard.writeText(
-              `[${palette.colors.map((color) => `"${color.color}"`)}]`,
-            );
-            FlashMessage("success", "Copied to the clipboard!");
-          }}
+          onClick={() =>
+            copyToClipboard(
+              `[${colorsFromPalettes.map((color) => `"${color}"`)}]`,
+            )
+          }
           aria-label={`Copy all colors from ${palette?.name} palette`}
           variant={"outline"}
           size={"sm"}
         >
           <LuCopy
             size={16}
+            aria-hidden="true"
             className="text-gray-900 hover:scale-110 cursor-pointer active:scale-90 transition-all"
           />
           <span>Copy</span>

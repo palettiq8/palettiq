@@ -55,7 +55,11 @@ export default function ExploreColorsPageClient() {
             className="w-full h-10 rounded-full outline-none bg-white pl-11 pr-4 text-sm font-semibold placeholder:text-gray-500 caret-gray-500 border border-gray-200 focus:border-gray-300 transition-all"
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <LuSearch size={18} className="text-gray-900 absolute top-3 left-4" />
+          <LuSearch
+            size={18}
+            aria-hidden="true"
+            className="text-gray-900 absolute top-3 left-4"
+          />
         </div>
       </section>
       {isLoading || isFetching ? (
@@ -87,13 +91,12 @@ export default function ExploreColorsPageClient() {
                       <h3 className="text-sm font-semibold text-gray-900 w-25 max-lg:w-max">
                         {color.name}
                       </h3>
-                      <div key={index} className="w-full flex">
+                      <div className="w-full flex">
                         {color.shades.map((hex, index) => {
                           const isLight = checkIsLight(hex);
                           return (
                             <button
                               key={index}
-                              role="button"
                               aria-label={`Copy ${hex.toUpperCase()} — ${color.name} shade ${(index + 1) * 100}`}
                               className="w-full cursor-pointer h-30 first:rounded-l-xl last:rounded-r-xl text-gray-50 flex items-center justify-center pl-4 group relative transition-transform"
                               style={{ backgroundColor: hex }}

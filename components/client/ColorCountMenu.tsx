@@ -36,10 +36,20 @@ export default function ColorCountMenu({ from }: { from: string }) {
       }
     }
 
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        toggleColorCountMenu();
+      }
+    }
+
     if (colorCountMenu) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [colorCountMenu]);
 
   return (
@@ -54,7 +64,7 @@ export default function ColorCountMenu({ from }: { from: string }) {
           size={"md"}
           aria-label={`Select number of colors for ${from === "Generator" ? "Color Palette Generator" : "Palette Visualizer"}`}
           aria-expanded={colorCountMenu}
-          aria-haspopup="true"
+          aria-haspopup="menu"
           className="max-lg:w-full max-lg:justify-between"
         >
           <span>Color Count</span>
@@ -69,6 +79,7 @@ export default function ColorCountMenu({ from }: { from: string }) {
         {colorCountMenu && (
           <motion.menu
             ref={menuRef}
+            role="menu"
             aria-label="Color count options"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -84,6 +95,7 @@ export default function ColorCountMenu({ from }: { from: string }) {
               return (
                 <button
                   key={index}
+                  role="menuitem"
                   aria-label={`Generate palette with ${count} colors`}
                   aria-pressed={isCount}
                   className={`flex items-center gap-4 p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${isCount ? "text-indigo-600" : "text-gray-900"}`}

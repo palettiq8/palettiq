@@ -199,6 +199,25 @@ export default function GradientPageClient() {
     }
   }, []);
 
+  function selectGradientStop(stop: {
+    id: string;
+    color: string;
+    isHide: boolean;
+    position: number;
+  }) {
+    setModifyActiveColor(stop);
+  }
+
+  function openQuickView() {
+    toggleQuickViewModel();
+    setQuickViewActiveTab("Formats");
+    const data = gradientStops
+      .sort((a, b) => a.position - b.position)
+      .map((stop) => stop.color);
+    setQuickViewPalette(data);
+    setQuickViewActiveColor(data[0]);
+  }
+
   return (
     <>
       <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
@@ -312,12 +331,13 @@ export default function GradientPageClient() {
               <div className="w-full h-full relative">
                 {isMaximizeGradient && (
                   <Button
+                    aria-label="Exit fullscreen gradient preview"
                     onClick={() => setIsMaximizeGradient()}
                     variant={"outline"}
                     size={"circle"}
                     className="absolute top-4 left-4"
                   >
-                    <LuArrowLeft size={16} />
+                    <LuArrowLeft size={16} aria-hidden="true" />
                   </Button>
                 )}
               </div>
@@ -331,9 +351,16 @@ export default function GradientPageClient() {
                     <div
                       key={index}
                       role="button"
+                      tabIndex={0}
                       aria-label={`Apply gradient preset ${index + 1}`}
                       className={`w-full h-14 hover:cursor-pointer rounded-lg active:scale-90 transition-all`}
                       onClick={() => addGradientStop(stop)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          addGradientStop(stop);
+                        }
+                      }}
                       style={{
                         background: getGradientCSS(
                           stop,
@@ -355,15 +382,14 @@ export default function GradientPageClient() {
                   <div className="flex items-center gap-4">
                     <LuEye
                       role="button"
+                      tabIndex={0}
                       aria-label="Quick view gradient color palette"
-                      onClick={() => {
-                        toggleQuickViewModel();
-                        setQuickViewActiveTab("Formats");
-                        const data = gradientStops
-                          .sort((a, b) => a.position - b.position)
-                          .map((stop) => stop.color);
-                        setQuickViewPalette(data);
-                        setQuickViewActiveColor(data[0]);
+                      onClick={openQuickView}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          openQuickView();
+                        }
                       }}
                       size={17}
                       className={`text-gray-900 hover:scale-110 cursor-pointer active:scale-90 transition-all max-lg:hidden`}
@@ -403,24 +429,36 @@ export default function GradientPageClient() {
                           <div
                             key={id}
                             role="button"
+                            tabIndex={0}
                             aria-label={`Gradient stop at ${position}% — color ${color}`}
                             className="w-7 h-7 bg-gray-50 rounded-full border border-gray-200 grid place-content-center absolute top-1/2 -translate-y-1/2 -translate-x-1/2 cursor-pointer"
                             style={{
                               left: `${position}%`,
                             }}
                             onClick={() =>
-                              setModifyActiveColor({
+                              selectGradientStop({
                                 id,
                                 color,
                                 isHide,
                                 position,
                               })
                             }
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                selectGradientStop({
+                                  id,
+                                  color,
+                                  isHide,
+                                  position,
+                                });
+                              }
+                            }}
                             onPointerDown={(e) => {
                               e.preventDefault();
                               e.currentTarget.setPointerCapture(e.pointerId);
                               handlePointerDown(id);
-                              setModifyActiveColor({
+                              selectGradientStop({
                                 id,
                                 color,
                                 isHide,

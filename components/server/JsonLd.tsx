@@ -8,7 +8,7 @@ export default function JsonLd() {
         url: "https://palettiq.net",
         name: "PalettIQ",
         description:
-          "Generate personalized color palettes from selected colors, moods, industries, and styles.",
+          "Personalized color palette generator and visualizer for designers — create palettes from your colors and harmonies with full HSL control.",
         inLanguage: "en-US",
         publisher: {
           "@id": "https://palettiq.net/#organization",
@@ -18,9 +18,9 @@ export default function JsonLd() {
         "@type": "WebPage",
         "@id": "https://palettiq.net/#webpage",
         url: "https://palettiq.net",
-        name: "Color Palette Generator From Your Selected Colors | PalettIQ",
+        name: "Color Palette Generator & Visualizer for Designers | PalettIQ",
         description:
-          "Generate personalized color palettes from selected colors, moods, industries, and styles for branding, UI design, websites, and digital products.",
+          "Generate personalized color palettes from your colors and harmonies, control hue, saturation, and lightness, then visualize on templates or your own SVG.",
         inLanguage: "en-US",
         isPartOf: {
           "@id": "https://palettiq.net/#website",
@@ -47,7 +47,7 @@ export default function JsonLd() {
           "@id": "https://palettiq.net/#brand",
         },
         description:
-          "Generate personalized color palettes from selected colors, moods, industries, and styles. Create accessible color schemes for branding, UI design, websites, and digital products.",
+          "Personalized color design tools for designers: generate palettes from your colors and harmonies with full HSL control, visualize on templates or custom SVG uploads, extract colors, check contrast, and generate gradients and shadows.",
         screenshot: "https://palettiq.net/banner.webp",
         offers: {
           "@type": "Offer",
@@ -55,14 +55,16 @@ export default function JsonLd() {
           priceCurrency: "USD",
         },
         featureList: [
-          "Generate color palettes from selected colors",
-          "Color harmony generation",
-          "Accessible color palette creation",
-          "Gradient generator",
+          "Generate color palettes from selected colors and harmonies",
+          "Full HSL (hue, saturation, lightness) control",
+          "Color palette visualizer with ready-made templates",
+          "Visualize palettes on custom uploaded SVG designs",
+          "CSS gradient generator",
           "Color contrast checker",
           "Image color extractor",
+          "Online color picker",
           "CSS shadow generator",
-          "Color visualization tools",
+          "Explore ready-made color palettes and shades",
         ],
       },
       {
@@ -70,13 +72,18 @@ export default function JsonLd() {
         "@id": "https://palettiq.net/#organization",
         name: "PalettIQ",
         url: "https://palettiq.net",
+        description:
+          "PalettIQ builds personalized color design tools for designers.",
         logo: {
           "@type": "ImageObject",
           url: "https://palettiq.net/logo.svg",
         },
         sameAs: [
           "https://x.com/palettiq",
-          "https://www.pinterest.com/palettiq8",
+          "https://www.pinterest.com/palettiq8/_created/",
+          "https://www.instagram.com/palett.iq/",
+          "https://www.linkedin.com/company/palettiq/",
+          "https://www.facebook.com/profile.php?id=61589009866760",
         ],
       },
     ],

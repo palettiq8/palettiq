@@ -2,12 +2,11 @@ import CommonHeaderFooterSection from "@/components/server/CommonHeaderFooterSec
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "About PalettIQ | Ahnaf Shahriar Muiz - Founder & Developer",
   description:
-    "Learn about Ahnaf Shahriar Muiz, founder and solo developer of PalettIQ. Discover the story behind the color design platform built for designers, developers, and creative professionals worldwide.",
+    "Learn about Ahnaf Shahriar Muiz, solo founder and developer of PalettIQ — a personalized color design platform for designers and developers.",
   keywords: [
     "about palettiq",
     "ahnaf shahriar muiz",
@@ -26,9 +25,12 @@ export const metadata: Metadata = {
     description:
       "Learn about Ahnaf Shahriar Muiz, founder and solo developer of PalettIQ.",
     url: "https://palettiq.net/about-us",
+    siteName: "PalettIQ",
+    locale: "en_US",
+    type: "website",
     images: [
       {
-        url: "/banner.png",
+        url: "/banner.webp",
         width: 1200,
         height: 630,
         alt: "About PalettIQ",
@@ -39,58 +41,60 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About PalettIQ | Ahnaf Shahriar Muiz",
     description: "Learn about the founder and story behind PalettIQ.",
-    images: ["/banner.png"],
+    images: ["/banner.webp"],
+    creator: "@palettiq",
   },
 };
 
 export default function page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://palettiq.net/about-us#person",
+        name: "Ahnaf Shahriar Muiz",
+        jobTitle: "Founder and Software Developer",
+        description:
+          "Founder and solo developer of PalettIQ, a personalized color design platform for designers and developers.",
+        image: "https://palettiq.net/me.png",
+        url: "https://palettiq.net/about-us",
+        nationality: "Bangladeshi",
+        sameAs: [
+          "https://github.com/ahanafshahariarmuiz",
+          "https://www.linkedin.com/in/ahnafshahriarmuiz/",
+        ],
+        worksFor: {
+          "@id": "https://palettiq.net/#organization",
+        },
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://palettiq.net/about-us#webpage",
+        url: "https://palettiq.net/about-us",
+        name: "About PalettIQ | Ahnaf Shahriar Muiz - Founder & Developer",
+        description:
+          "Learn about Ahnaf Shahriar Muiz, solo founder and developer of PalettIQ — a personalized color design platform for designers and developers.",
+        inLanguage: "en-US",
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+        about: {
+          "@id": "https://palettiq.net/about-us#person",
+        },
+      },
+    ],
+  };
+
   return (
     <CommonHeaderFooterSection>
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Person",
-            name: "Ahnaf Shahriar Muiz",
-            jobTitle: "Founder and Software Developer",
-            description:
-              "Founder and solo developer of PalettIQ, a color design platform for designers and developers.",
-            image: "https://palettiq.net/me.png",
-            url: "https://palettiq.net/about-us",
-
-            sameAs: [
-              "https://github.com/ahanafshahariarmuiz",
-              "https://www.linkedin.com/in/ahnafshahriarmuiz/",
-            ],
-
-            nationality: "Bangladeshi",
-            worksFor: {
-              "@type": "Organization",
-              name: "PalettIQ",
-            },
-          }),
+          __html: JSON.stringify(jsonLd),
         }}
       />
-      <Script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "PalettIQ",
-            url: "https://palettiq.net",
-            logo: "https://palettiq.net/logo.png",
-            founder: {
-              "@type": "Person",
-              name: "Ahnaf Shahriar Muiz",
-            },
-            description:
-              "PalettIQ is a color design platform that helps designers and developers generate palettes, create gradients, check accessibility, and work with colors more efficiently.",
-          }),
-        }}
-      />
-      <main className="w-full max-w-200 mx-auto py-20">
+      <main className="w-full max-w-200 mx-auto py-20 max-xl:px-4 max-sm:py-10">
         <div className="w-full bg-white rounded-xl border border-gray-200">
           <div className="p-4 pt-10">
             <p className="text-sm font-bold text-indigo-500 bg-indigo-50 border border-indigo-200 rounded-full px-3.5 py-1.5 w-max mx-auto text-center">
@@ -145,8 +149,9 @@ export default function page() {
                 PalettIQ was born out of a personal necessity — a unified,
                 professional-grade color tool that goes beyond simple palette
                 generation. From contrast checking and gradient creation to
-                image color extraction and AI-powered palettes, every feature in
-                PalettIQ is designed with real-world design challenges in mind.
+                image color extraction and full HSL-based palette control, every
+                feature in PalettIQ is designed with real-world design
+                challenges in mind.
               </p>
 
               <p className="text-base font-medium text-gray-700 mt-4 leading-relaxed">

@@ -16,6 +16,7 @@ export default function StudioLeftMenuHeader({ from }: { from: string }) {
     <div className="w-full px-4 h-16 border-b border-gray-200 flex items-center justify-between">
       <Link
         href={"/"}
+        aria-label="Back to PalettIQ Home"
         onClick={() => {
           if (from === "Responsive") {
             toggleStudioLeftMenuModel();
@@ -26,11 +27,12 @@ export default function StudioLeftMenuHeader({ from }: { from: string }) {
           src={"/studio_logo.svg"}
           width={101}
           height={30}
-          alt="studio logo"
+          alt="PalettIQ Studio Logo"
           priority
         />
       </Link>
       <Button
+        aria-label="Go back to previous page"
         onClick={() => {
           router.back();
           if (from === "Responsive") {
@@ -40,7 +42,7 @@ export default function StudioLeftMenuHeader({ from }: { from: string }) {
         variant={"text"}
         size={"p0"}
       >
-        <LuCornerUpLeft size={18} />
+        <LuCornerUpLeft size={18} aria-hidden="true" />
       </Button>
     </div>
   );

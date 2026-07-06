@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import ContrastPageClient from "../ContrastPageClient";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   robots: {
@@ -8,9 +7,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   category: "Design Tools",
-  title: "Color Contrast Checker | WCAG AA & AAA Accessibility Contrast Tool",
+  title: "Color Contrast Checker - WCAG AA & AAA Tool",
   description:
-    "Check color contrast ratios instantly for WCAG AA and AAA accessibility compliance. Test text and background color combinations, improve readability, and create accessible UI designs.",
+    "Check color contrast ratios instantly for WCAG AA and AAA compliance. Test text and background combinations for accessible UI designs.",
   keywords: [
     "color contrast checker",
     "WCAG contrast checker",
@@ -32,6 +31,9 @@ export const metadata: Metadata = {
     description:
       "Check color contrast ratios instantly for WCAG AA and AAA accessibility compliance. Test text and background colors for readable and accessible designs.",
     url: "https://palettiq.net/studio/color-contrast-checker",
+    siteName: "PalettIQ",
+    locale: "en_US",
+    type: "website",
     images: [
       {
         url: "/banner.webp",
@@ -47,39 +49,61 @@ export const metadata: Metadata = {
     description:
       "Check WCAG AA and AAA color contrast ratios instantly for accessible UI and web design.",
     images: ["/banner.webp"],
+    creator: "@palettiq",
   },
 };
 
 export default function page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://palettiq.net/studio/color-contrast-checker#software",
+        name: "Color Contrast Checker",
+        applicationCategory: "DesignApplication",
+        operatingSystem: "Web",
+        url: "https://palettiq.net/studio/color-contrast-checker",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        description:
+          "Check color contrast ratios for WCAG AA and AAA accessibility compliance. Test foreground and background color combinations, improve readability, and create accessible user interfaces.",
+        creator: {
+          "@id": "https://palettiq.net/#organization",
+        },
+        featureList: [
+          "WCAG AA Contrast Checker",
+          "WCAG AAA Contrast Checker",
+          "Contrast Ratio Calculator",
+          "Foreground and Background Color Testing",
+          "Accessibility Preview",
+          "Random Contrast Pair Generator",
+          "Complementary Contrast Mode",
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://palettiq.net/studio/color-contrast-checker#webpage",
+        url: "https://palettiq.net/studio/color-contrast-checker",
+        name: "Color Contrast Checker - WCAG AA & AAA Tool",
+        description:
+          "Check color contrast ratios instantly for WCAG AA and AAA compliance. Test text and background combinations for accessible UI designs.",
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+      },
+    ],
+  };
+
   return (
     <>
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "Color Contrast Checker",
-            applicationCategory: "DesignApplication",
-            operatingSystem: "Web",
-            url: "https://palettiq.net/studio/color-contrast-checker",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD",
-            },
-            description:
-              "Check color contrast ratios for WCAG AA and AAA accessibility compliance. Test foreground and background color combinations, improve readability, and create accessible user interfaces.",
-            featureList: [
-              "WCAG AA Contrast Checker",
-              "WCAG AAA Contrast Checker",
-              "Contrast Ratio Calculator",
-              "Foreground and Background Color Testing",
-              "Accessibility Preview",
-              "Random Contrast Pair Generator",
-              "Complementary Contrast Mode",
-            ],
-          }),
+          __html: JSON.stringify(jsonLd),
         }}
       />
       <ContrastPageClient />

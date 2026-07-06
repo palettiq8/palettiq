@@ -42,6 +42,11 @@ extend([
   mixPlugin,
 ]);
 
+async function copyColor(color: string) {
+  await navigator.clipboard.writeText(color.toUpperCase());
+  FlashMessage("success", "Copied to the clipboard!");
+}
+
 const ColorManipulator = ({ items }: { items: Colord[] }) => {
   return (
     <div className="w-full flex h-35 max-lg:h-20 mt-3">
@@ -51,12 +56,16 @@ const ColorManipulator = ({ items }: { items: Colord[] }) => {
           <div
             key={index}
             role="button"
+            tabIndex={0}
             aria-label={`Copy color ${color.toUpperCase()}`}
             className="w-full h-full first:rounded-l-lg last:rounded-r-lg relative cursor-pointer transition-transform group"
             style={{ backgroundColor: color }}
-            onClick={async () => {
-              await navigator.clipboard.writeText(color.toUpperCase());
-              FlashMessage("success", "Copied to the clipboard!");
+            onClick={() => copyColor(color)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                copyColor(color);
+              }
             }}
           >
             <div className="absolute top-5 left-1/2">
@@ -374,12 +383,13 @@ function PickerPage() {
               <div className="w-full h-full relative">
                 {isMaximizeColorPicker && (
                   <Button
+                    aria-label="Exit fullscreen color preview"
                     onClick={() => setIsMaximizeColorPicker()}
                     variant={"outline"}
                     size={"circle"}
                     className="absolute top-4 left-4"
                   >
-                    <LuArrowLeft size={16} />
+                    <LuArrowLeft size={16} aria-hidden="true" />
                   </Button>
                 )}
               </div>
@@ -434,17 +444,16 @@ function PickerPage() {
                               <div
                                 key={index}
                                 role="button"
+                                tabIndex={0}
                                 aria-label={`Copy ${title} harmony color ${hex.toUpperCase()}`}
                                 className="w-full h-30 max-lg:h-25 first:rounded-l-lg last:rounded-r-lg relative cursor-pointer group transition-transform"
                                 style={{ backgroundColor: hex }}
-                                onClick={async () => {
-                                  await navigator.clipboard.writeText(
-                                    hex.toUpperCase(),
-                                  );
-                                  FlashMessage(
-                                    "success",
-                                    "Copied to the clipboard!",
-                                  );
+                                onClick={() => copyColor(hex)}
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    copyColor(hex);
+                                  }
                                 }}
                               >
                                 <div className="absolute top-5 left-1/2">
@@ -477,23 +486,25 @@ function PickerPage() {
                 <div className="w-full flex items-center gap-2">
                   <div className="flex items-center justify-between gap-4 px-4 border border-gray-200 h-10 rounded-full">
                     <Button
+                      aria-label="Undo color change"
                       disabled={!(colorHistoryIndex > 0)}
                       className={REDOUNDOCOMMONSTYLE}
                       onClick={undoHandler}
                       variant={"text"}
                       size={"p0"}
                     >
-                      <LuUndo2 size={16} />
+                      <LuUndo2 size={16} aria-hidden="true" />
                     </Button>
                     <span className="w-px h-4 bg-gray-200"></span>
                     <Button
+                      aria-label="Redo color change"
                       disabled={!(colorHistoryIndex < colorHistory.length - 1)}
                       className={REDOUNDOCOMMONSTYLE}
                       onClick={redoHandler}
                       variant={"text"}
                       size={"p0"}
                     >
-                      <LuRedo2 size={16} />
+                      <LuRedo2 size={16} aria-hidden="true" />
                     </Button>
                   </div>
                   <Button
@@ -512,7 +523,7 @@ function PickerPage() {
         </div>
       </div>
       <section className="sr-only">
-        <h1>Online Color Picker and Color Format Converter</h1>
+        <h2>Online Color Picker and Color Format Converter</h2>
 
         <p>
           Pick any color and instantly convert it between HEX, RGB, RGBA, HSL,

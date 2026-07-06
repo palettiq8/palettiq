@@ -6,6 +6,33 @@ import { useState } from "react";
 import { LuArrowUpRight, LuChevronDown } from "react-icons/lu";
 import { Button } from "../Button";
 
+const titleToLink: Record<string, { href: string; label: string }> = {
+  "How do I create a color palette?": {
+    href: "/studio",
+    label: "Color Palette Generator",
+  },
+  "Can I import colors from an image or external source?": {
+    href: "/studio/color-extractor",
+    label: "Color Extractor",
+  },
+  "How do I search for palettes?": {
+    href: "/explore/palettes",
+    label: "Explore Palettes",
+  },
+  "How can I delete my published palettes?": {
+    href: "/explore/palettes",
+    label: "Explore Palettes",
+  },
+  "How do I reset my preferences?": {
+    href: "/settings",
+    label: "Settings",
+  },
+  "How do I subscribe to product updates?": {
+    href: "/settings/updates",
+    label: "Go to updates",
+  },
+};
+
 export default function Accordion({
   title,
   accordionData,
@@ -21,10 +48,13 @@ export default function Accordion({
 
   return (
     <div className="w-full mt-12 max-xl:px-4">
-      <h3 className="text-xs font-semibold text-gray-900">{title}</h3>
+      {title && (
+        <h2 className="text-xs font-semibold text-gray-900">{title}</h2>
+      )}
       <div className="border border-gray-200 mt-4 rounded-xl overflow-hidden">
         {accordionData.map((item, index) => {
           const isOpen = activeIndex === index;
+          const link = titleToLink[item.title];
 
           return (
             <div
@@ -63,53 +93,11 @@ export default function Accordion({
                 <div className="p-5 text-gray-500 text-sm font-semibold border-t border-gray-100 leading-relaxed">
                   {item.content}
                 </div>
-                {item.title === "How do I create a color palette?" && (
+                {link && (
                   <div className="w-full p-5 flex items-center justify-start">
-                    <Link href={"/studio"}>
+                    <Link href={link.href}>
                       <Button variant={"outline"} size={"md"}>
-                        <span>Color Palette Generator</span>
-                        <LuArrowUpRight size={16} />
-                      </Button>
-                    </Link>
-                  </div>
-                )}
-                {item.title ===
-                  "Can I import colors from an image or external source?" && (
-                  <div className="w-full p-5 flex items-center justify-start">
-                    <Link href={"/studio/color-extractor"}>
-                      <Button variant={"outline"} size={"md"}>
-                        <span>Color Extractor</span>
-                        <LuArrowUpRight size={16} />
-                      </Button>
-                    </Link>
-                  </div>
-                )}
-                {(item.title === "How do I search for palettes?" ||
-                  item.title === "How can I delete my published palettes?") && (
-                  <div className="w-full p-5 flex items-center justify-start">
-                    <Link href={"/explore/palettes"}>
-                      <Button variant={"outline"} size={"md"}>
-                        <span>Explore Palettes</span>
-                        <LuArrowUpRight size={16} />
-                      </Button>
-                    </Link>
-                  </div>
-                )}
-                {item.title === "How do I reset my preferences?" && (
-                  <div className="w-full p-5 flex items-center justify-start">
-                    <Link href={"/settings"}>
-                      <Button variant={"outline"} size={"md"}>
-                        <span>Settings</span>
-                        <LuArrowUpRight size={16} />
-                      </Button>
-                    </Link>
-                  </div>
-                )}
-                {item.title === "How do I subscribe to product updates?" && (
-                  <div className="w-full p-5 flex items-center justify-start">
-                    <Link href={"/settings/updates"}>
-                      <Button variant={"outline"} size={"md"}>
-                        <span>Go to updates</span>
+                        <span>{link.label}</span>
                         <LuArrowUpRight size={16} />
                       </Button>
                     </Link>

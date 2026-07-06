@@ -168,6 +168,13 @@ export default function ShadowPageClient() {
     return () => observer.disconnect();
   }, []);
 
+  function handleLayerKeyDown(e: React.KeyboardEvent, callback: () => void) {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      callback();
+    }
+  }
+
   return (
     <>
       <div className="w-full h-full shadow-[0px_0px_12px_0px_rgba(0,0,0,0.1)] bg-white rounded-xl">
@@ -233,7 +240,7 @@ export default function ShadowPageClient() {
               ) : (
                 <>
                   {activeTextShadowViewer === "Container View" && (
-                    <h1
+                    <p
                       className="text-gray-900"
                       style={{
                         fontSize: `${isMaxLg ? 30 : textShadowSize}px`,
@@ -242,7 +249,7 @@ export default function ShadowPageClient() {
                       }}
                     >
                       Compose a Review
-                    </h1>
+                    </p>
                   )}
                   {activeTextShadowViewer === "Output View" && (
                     <ShadowOutputComponent
@@ -255,12 +262,13 @@ export default function ShadowPageClient() {
               )}
               {isMaximizeShadow && (
                 <Button
+                  aria-label="Exit fullscreen shadow preview"
                   onClick={() => setIsMaximizeShadow()}
                   variant={"outline"}
                   size={"circle"}
                   className="absolute top-4 left-4"
                 >
-                  <LuArrowLeft size={16} />
+                  <LuArrowLeft size={16} aria-hidden="true" />
                 </Button>
               )}
             </div>
@@ -358,11 +366,17 @@ export default function ShadowPageClient() {
                           >
                             <div
                               role="button"
+                              tabIndex={0}
                               aria-label={`Toggle shadow layer ${index + 1}`}
                               aria-expanded={enabled}
                               onClick={() => {
                                 updateShadow(index, "enabled", !enabled);
                               }}
+                              onKeyDown={(e) =>
+                                handleLayerKeyDown(e, () =>
+                                  updateShadow(index, "enabled", !enabled),
+                                )
+                              }
                               className="w-full px-3 h-11 flex items-center justify-between hover:bg-gray-50 transition-all cursor-pointer rounded-lg group"
                             >
                               <p className="text-sm font-semibold text-gray-900 select-none">{`Layer ${index + 1}`}</p>
@@ -382,6 +396,7 @@ export default function ShadowPageClient() {
                                 <LuChevronDown
                                   className="text-gray-900"
                                   size={18}
+                                  aria-hidden="true"
                                 />
                               </div>
                             </div>
@@ -481,11 +496,17 @@ export default function ShadowPageClient() {
                           >
                             <div
                               role="button"
+                              tabIndex={0}
                               aria-label={`Toggle text shadow layer ${index + 1}`}
                               aria-expanded={enabled}
                               onClick={() => {
                                 updateTextShadow(index, "enabled", !enabled);
                               }}
+                              onKeyDown={(e) =>
+                                handleLayerKeyDown(e, () =>
+                                  updateTextShadow(index, "enabled", !enabled),
+                                )
+                              }
                               className="w-full px-3 h-11 flex items-center justify-between hover:bg-gray-50 transition-all cursor-pointer rounded-lg group"
                             >
                               <p className="text-sm font-semibold text-gray-900 select-none">{`Layer ${index + 1}`}</p>
@@ -505,6 +526,7 @@ export default function ShadowPageClient() {
                                 <LuChevronDown
                                   className="text-gray-900"
                                   size={18}
+                                  aria-hidden="true"
                                 />
                               </div>
                             </div>
@@ -550,9 +572,15 @@ export default function ShadowPageClient() {
                   <>
                     <div
                       role="button"
+                      tabIndex={0}
                       aria-label="Switch to box shadow container view"
                       aria-pressed={activeShadowViewer === "Container View"}
                       onClick={() => setActiveShadowViewer("Container View")}
+                      onKeyDown={(e) =>
+                        handleLayerKeyDown(e, () =>
+                          setActiveShadowViewer("Container View"),
+                        )
+                      }
                       className={`${VIEWERCOMMONSTYLE} ${activeShadowViewer === "Container View" && "outline-2 outline-indigo-600"}`}
                     >
                       <div
@@ -567,9 +595,15 @@ export default function ShadowPageClient() {
                     </div>
                     <div
                       role="button"
+                      tabIndex={0}
                       aria-label="Switch to box shadow output view"
                       aria-pressed={activeShadowViewer === "Output View"}
                       onClick={() => setActiveShadowViewer("Output View")}
+                      onKeyDown={(e) =>
+                        handleLayerKeyDown(e, () =>
+                          setActiveShadowViewer("Output View"),
+                        )
+                      }
                       className={`${VIEWERCOMMONSTYLE} ${activeShadowViewer === "Output View" && "outline-2 outline-indigo-600"}`}
                     >
                       <ShadowOutputComponent
@@ -584,10 +618,16 @@ export default function ShadowPageClient() {
                   <>
                     <div
                       role="button"
+                      tabIndex={0}
                       aria-label="Switch to text shadow container view"
                       aria-pressed={activeTextShadowViewer === "Container View"}
                       onClick={() =>
                         setActiveTextShadowViewer("Container View")
+                      }
+                      onKeyDown={(e) =>
+                        handleLayerKeyDown(e, () =>
+                          setActiveTextShadowViewer("Container View"),
+                        )
                       }
                       className={`${VIEWERCOMMONSTYLE} ${activeTextShadowViewer === "Container View" && "outline-2 outline-indigo-600"}`}
                     >
@@ -606,9 +646,15 @@ export default function ShadowPageClient() {
                     </div>
                     <div
                       role="button"
+                      tabIndex={0}
                       aria-label="Switch to text shadow output view"
                       aria-pressed={activeTextShadowViewer === "Output View"}
                       onClick={() => setActiveTextShadowViewer("Output View")}
+                      onKeyDown={(e) =>
+                        handleLayerKeyDown(e, () =>
+                          setActiveTextShadowViewer("Output View"),
+                        )
+                      }
                       className={`${VIEWERCOMMONSTYLE} ${activeTextShadowViewer === "Output View" && "outline-2 outline-indigo-600"}`}
                     >
                       <ShadowOutputComponent

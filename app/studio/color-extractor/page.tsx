@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import ExtractorPageClient from "../ExtractorPageClient";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   robots: {
@@ -8,9 +7,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   category: "Design Tools",
-  title: "Color Extractor From Images | Extract HEX, RGB & HSL Colors Free",
+  title: "Color Extractor - Extract HEX, RGB & HSL Colors",
   description:
-    "Upload any image and instantly extract dominant colors with HEX, RGB, and HSL values. Generate color palettes from photos, logos, screenshots, artwork, illustrations, and brand assets.",
+    "Upload any image and instantly extract dominant colors with HEX, RGB, and HSL values. Generate palettes from photos, logos, and artwork.",
   keywords: [
     "color extractor",
     "extract colors from image",
@@ -22,11 +21,8 @@ export const metadata: Metadata = {
     "extract hex colors",
     "image palette generator",
     "logo color extractor",
-    "extract colors from photo",
     "extract rgb colors",
     "extract hsl colors",
-    "image color palette tool",
-    "color palette extractor",
   ],
   alternates: {
     canonical: "https://palettiq.net/studio/color-extractor",
@@ -37,6 +33,8 @@ export const metadata: Metadata = {
     description:
       "Upload images and instantly extract dominant colors with HEX, RGB, and HSL values. Create color palettes from photos, logos, screenshots, artwork, and brand assets.",
     url: "https://palettiq.net/studio/color-extractor",
+    siteName: "PalettIQ",
+    locale: "en_US",
     type: "website",
     images: [
       {
@@ -53,39 +51,61 @@ export const metadata: Metadata = {
     description:
       "Extract dominant colors from images and generate color palettes instantly.",
     images: ["/banner.webp"],
+    creator: "@palettiq",
   },
 };
 
 export default function page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://palettiq.net/studio/color-extractor#software",
+        name: "Color Extractor",
+        applicationCategory: "DesignApplication",
+        operatingSystem: "Web",
+        url: "https://palettiq.net/studio/color-extractor",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        description:
+          "Extract colors from images and generate color palettes with HEX, RGB, and HSL values.",
+        creator: {
+          "@id": "https://palettiq.net/#organization",
+        },
+        featureList: [
+          "Image Color Extraction",
+          "Dominant Color Detection",
+          "HEX Color Extraction",
+          "RGB Color Extraction",
+          "HSL Color Extraction",
+          "Palette Generation From Images",
+          "Palette Export",
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://palettiq.net/studio/color-extractor#webpage",
+        url: "https://palettiq.net/studio/color-extractor",
+        name: "Color Extractor - Extract HEX, RGB & HSL Colors",
+        description:
+          "Upload any image and instantly extract dominant colors with HEX, RGB, and HSL values. Generate palettes from photos, logos, and artwork.",
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+      },
+    ],
+  };
+
   return (
     <>
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "Color Extractor",
-            applicationCategory: "DesignApplication",
-            operatingSystem: "Web",
-            url: "https://palettiq.net/studio/color-extractor",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD",
-            },
-            description:
-              "Extract colors from images and generate color palettes with HEX, RGB, and HSL values.",
-            featureList: [
-              "Image Color Extraction",
-              "Dominant Color Detection",
-              "HEX Color Extraction",
-              "RGB Color Extraction",
-              "HSL Color Extraction",
-              "Palette Generation From Images",
-              "Palette Export",
-            ],
-          }),
+          __html: JSON.stringify(jsonLd),
         }}
       />
       <ExtractorPageClient />

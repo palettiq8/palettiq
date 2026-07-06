@@ -1,8 +1,66 @@
 import CommonHeaderFooterSection from "@/components/server/CommonHeaderFooterSection";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description:
+    "Learn how PalettIQ collects, uses, and protects your data. No accounts required, minimal data collection, and full transparency on local storage usage.",
+  alternates: {
+    canonical: "https://palettiq.net/privacy-policy",
+  },
+  openGraph: {
+    title: "Privacy Policy | PalettIQ",
+    description:
+      "Learn how PalettIQ collects, uses, and protects your data. No accounts required, minimal data collection.",
+    url: "https://palettiq.net/privacy-policy",
+    siteName: "PalettIQ",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/banner.webp",
+        width: 1200,
+        height: 630,
+        alt: "PalettIQ Privacy Policy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | PalettIQ",
+    description: "Learn how PalettIQ collects, uses, and protects your data.",
+    images: ["/banner.webp"],
+    creator: "@palettiq",
+  },
+};
 
 export default function page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://palettiq.net/privacy-policy#webpage",
+        url: "https://palettiq.net/privacy-policy",
+        name: "Privacy Policy | PalettIQ",
+        description:
+          "Learn how PalettIQ collects, uses, and protects your data. No accounts required, minimal data collection.",
+        inLanguage: "en-US",
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+      },
+    ],
+  };
+
   return (
     <CommonHeaderFooterSection>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <div className="w-full h-max max-w-350 mx-auto py-20 max-xl:px-4 max-sm:py-10">
         <h1 className="text-4xl font-bold text-gray-900 text-center">
           Privacy Policy
@@ -18,9 +76,9 @@ export default function page() {
             </p>
             <ol className="space-y-6 list-decimal pl-5">
               <li className="space-y-2">
-                <strong className="text-gray-900">
+                <h3 className="text-gray-900 font-bold">
                   Email Address (Optional)
-                </strong>
+                </h3>
                 <p className="text-gray-800">
                   We only collect an email address when users choose to
                   subscribe to product updates or notifications. This is
@@ -28,9 +86,9 @@ export default function page() {
                 </p>
               </li>
               <li className="space-y-2">
-                <strong className="text-gray-900">
+                <h3 className="text-gray-900 font-bold">
                   User-Generated Content
-                </strong>
+                </h3>
                 <p className="text-gray-800">
                   We may process content that users voluntarily provide, such
                   as:

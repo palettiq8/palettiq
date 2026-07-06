@@ -26,6 +26,15 @@ import {
 } from "@/libs/stores/dataStore";
 import { StopType } from "@/utils/Types";
 
+const TOOL_LABELS: Record<string, string> = {
+  Picker: "Color Picker",
+  Gradient: "CSS Gradient Generator",
+  Contrast: "Color Contrast Checker",
+  Extractor: "Color Extractor",
+  Visualizer: "Palette Visualizer",
+  Shadow: "CSS Shadow Generator",
+};
+
 export default function OpenMoreMenu({ from }: { from: string }) {
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLDivElement>(null);
@@ -61,9 +70,16 @@ export default function OpenMoreMenu({ from }: { from: string }) {
     (state) => state.setViewModeGradient,
   );
 
+  const toolLabel = TOOL_LABELS[from] ?? "tool";
+
   const MENU_DATA: Record<
     string,
-    { id: number; title: string; icon: any; handler: () => void }[]
+    {
+      id: number;
+      title: string;
+      icon: React.ElementType;
+      handler: () => void;
+    }[]
   > = {
     Picker: [
       {
@@ -158,16 +174,14 @@ export default function OpenMoreMenu({ from }: { from: string }) {
         title: "Make gradient",
         icon: LuCircleDot,
         handler: () => {
+          const n = generatedVisualizerPalette.length;
           const stops: StopType[] = generatedVisualizerPalette.map(
-            (palette, i) => {
-              const n = generatedVisualizerPalette.length;
-              return {
-                id: `${i + 1}`,
-                color: palette.color,
-                isHide: false,
-                position: Math.round((i / (n - 1)) * 100),
-              };
-            },
+            (palette, i) => ({
+              id: `${i + 1}`,
+              color: palette.color,
+              isHide: false,
+              position: n > 1 ? Math.round((i / (n - 1)) * 100) : 0,
+            }),
           );
           addGradientStop(stops);
           window.open("/studio/css-gradient-generator", "_blank");
@@ -197,10 +211,20 @@ export default function OpenMoreMenu({ from }: { from: string }) {
       }
     }
 
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        toggleOpenMoreMenu();
+      }
+    }
+
     if (openMoreMenu) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [openMoreMenu]);
 
   return (
@@ -209,23 +233,9 @@ export default function OpenMoreMenu({ from }: { from: string }) {
         <Button
           variant={"outline"}
           size={"md"}
-          aria-label={`More options for ${
-            from === "Picker"
-              ? "Color Picker"
-              : from === "Gradient"
-                ? "CSS Gradient Generator"
-                : from === "Contrast"
-                  ? "Color Contrast Checker"
-                  : from === "Extractor"
-                    ? "Color Extractor"
-                    : from === "Visualizer"
-                      ? "Palette Visualizer"
-                      : from === "Shadow"
-                        ? "CSS Shadow Generator"
-                        : "tool"
-          }`}
+          aria-label={`More options for ${toolLabel}`}
           aria-expanded={openMoreMenu}
-          aria-haspopup="true"
+          aria-haspopup="menu"
         >
           <span>More Options</span>
           <LuChevronDown
@@ -240,21 +250,8 @@ export default function OpenMoreMenu({ from }: { from: string }) {
         {openMoreMenu && (
           <motion.menu
             ref={menuRef}
-            aria-label={`${
-              from === "Picker"
-                ? "Color Picker"
-                : from === "Gradient"
-                  ? "CSS Gradient Generator"
-                  : from === "Contrast"
-                    ? "Color Contrast Checker"
-                    : from === "Extractor"
-                      ? "Color Extractor"
-                      : from === "Visualizer"
-                        ? "Palette Visualizer"
-                        : from === "Shadow"
-                          ? "CSS Shadow Generator"
-                          : "tool"
-            } actions`}
+            role="menu"
+            aria-label={`${toolLabel} actions`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -265,21 +262,8 @@ export default function OpenMoreMenu({ from }: { from: string }) {
               return (
                 <button
                   key={id}
-                  aria-label={`${title} — ${
-                    from === "Picker"
-                      ? "Color Picker"
-                      : from === "Gradient"
-                        ? "CSS Gradient Generator"
-                        : from === "Contrast"
-                          ? "Color Contrast Checker"
-                          : from === "Extractor"
-                            ? "Color Extractor"
-                            : from === "Visualizer"
-                              ? "Palette Visualizer"
-                              : from === "Shadow"
-                                ? "CSS Shadow Generator"
-                                : "tool"
-                  }`}
+                  role="menuitem"
+                  aria-label={`${title} — ${toolLabel}`}
                   className="flex items-center gap-4 p-2 text-gray-900 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all"
                   onClick={() => {
                     handler();

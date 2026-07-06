@@ -61,10 +61,9 @@ export default function FooterSection() {
           </Link>
 
           <p className="max-w-55 leading-8 text-sm font-semibold text-gray-900 mt-4">
-            Generate personalized color palettes from your selected colors,
-            moods, industries, and styles. Explore gradients, color shades,
-            accessibility tools, and professional color resources for designers
-            and developers.
+            Generate personalized color palettes from your selected colors and
+            harmonies. Explore gradients, color shades, accessibility tools, and
+            professional color resources for designers and developers.
           </p>
         </div>
 
@@ -126,7 +125,7 @@ export default function FooterSection() {
           </Link>
 
           <Link
-            href="https://www.facebook.com/profile.php?id=61589009866760/"
+            href="https://www.facebook.com/profile.php?id=61589009866760"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow PalettIQ on Facebook"

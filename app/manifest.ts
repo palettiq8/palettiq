@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "PalettIQ",
     short_name: "PalettIQ",
     description:
-      "Generate personalized color palettes from your selected colors, moods, industries, and styles.",
+      "Generate personalized color palettes from your colors and harmonies, with full control over hue, saturation, and lightness.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",

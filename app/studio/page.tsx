@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import GeneratorPageClient from "./GeneratorPageClient";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   robots: {
@@ -8,15 +7,15 @@ export const metadata: Metadata = {
     follow: true,
   },
   category: "Design Tools",
-  title:
-    "Color Palette Generator From Your Colors | Create, Customize & Export Palettes",
+  title: "Color Palette Generator - Create & Export Palettes",
   description:
-    "Generate personalized color palettes from your selected colors, color families, harmonies and styles. Customize hue, saturation, and lightness, then export palettes as HEX, RGB, CSS, Tailwind CSS, SCSS, and more.",
+    "Generate personalized color palettes from your colors and harmonies. Adjust hue, saturation, and lightness, then export as HEX, RGB, CSS, Tailwind, and SCSS.",
   keywords: [
     "color palette generator",
     "palette generator from colors",
     "generate palette from selected colors",
     "custom color palette generator",
+    "hsl color palette generator",
     "brand color palette generator",
     "ui color palette generator",
     "website color palette",
@@ -26,7 +25,6 @@ export const metadata: Metadata = {
     "palette export tool",
     "color scheme generator",
     "brand color generator",
-    "ui color generator",
     "web color palette generator",
     "color palette creator",
   ],
@@ -37,8 +35,11 @@ export const metadata: Metadata = {
     title:
       "Generate Personalized Color Palettes From Your Selected Colors | PalettIQ",
     description:
-      "Choose colors, harmonies, and styles to generate personalized color palettes for branding, UI design, websites, and digital products.",
+      "Choose colors and harmonies, then fine-tune hue, saturation, and lightness to generate personalized color palettes for branding, UI design, and websites.",
     url: "https://palettiq.net/studio",
+    siteName: "PalettIQ",
+    locale: "en_US",
+    type: "website",
     images: [
       {
         url: "/banner.webp",
@@ -53,42 +54,63 @@ export const metadata: Metadata = {
     title:
       "Generate Personalized Color Palettes From Your Selected Colors | PalettIQ",
     description:
-      "Create personalized color palettes using your preferred colors, harmonies, and styles.",
+      "Create personalized color palettes using your preferred colors, harmonies, and full HSL control.",
     images: ["/banner.webp"],
+    creator: "@palettiq",
   },
 };
 
 export default function page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://palettiq.net/studio#software",
+        name: "Color Palette Generator",
+        applicationCategory: "DesignApplication",
+        operatingSystem: "Web",
+        url: "https://palettiq.net/studio",
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
+        description:
+          "Generate personalized color palettes from selected colors and harmonies, with full control over hue, saturation, and lightness.",
+        creator: {
+          "@id": "https://palettiq.net/#organization",
+        },
+        featureList: [
+          "Color Palette Generation from Selected Colors",
+          "Harmony-Based Palette Generation",
+          "HSL (Hue, Saturation, Lightness) Control",
+          "Drag-and-Drop Color Reordering",
+          "Color Locking",
+          "Undo/Redo History",
+          "Palette Export in Multiple Formats (HEX, RGB, CSS, Tailwind, SCSS)",
+        ],
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://palettiq.net/studio#webpage",
+        url: "https://palettiq.net/studio",
+        name: "Color Palette Generator - Create & Export Palettes",
+        description:
+          "Generate personalized color palettes from your colors and harmonies. Adjust hue, saturation, and lightness, then export as HEX, RGB, CSS, Tailwind, and SCSS.",
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+      },
+    ],
+  };
+
   return (
     <>
-      <Script
+      <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            name: "Color Palette Generator",
-            applicationCategory: "DesignApplication",
-            operatingSystem: "Web",
-            url: "https://palettiq.net/studio",
-            offers: {
-              "@type": "Offer",
-              price: "0",
-              priceCurrency: "USD",
-            },
-            description:
-              "Generate personalized color palettes from selected colors, harmonies, and styles.",
-            featureList: [
-              "Color Palette Generation",
-              "Palette Generation From Selected Colors",
-              "Harmony Based Palette Generation",
-              "Industry Based Palette Generation",
-              "Style Based Palette Generation",
-              "Palette Export",
-              "Color Format Conversion",
-              "Palette Visualization",
-            ],
-          }),
+          __html: JSON.stringify(jsonLd),
         }}
       />
       <GeneratorPageClient />

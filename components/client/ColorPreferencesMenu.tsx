@@ -99,33 +99,73 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
       }
     }
 
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        toggleColorPreferencesMenu();
+      }
+    }
+
     if (colorPreferencesMenu) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [colorPreferencesMenu]);
 
-  const isTrue =
-    from === "Studio"
-      ? defaultPreference
-      : from === "Gradient"
-        ? defaultGradientPreference
-        : from === "Contrast"
-          ? defaultContrastPreference
-          : from === "Picker"
-            ? defaultColorPreference
-            : defaultVisualizerPreference;
+  const preferenceConfig: Record<
+    string,
+    {
+      contextLabel: string;
+      isDefault: boolean;
+      setDefault: () => void;
+      isSelected: (name: string) => boolean;
+      selectColor: (name: string) => void;
+    }
+  > = {
+    Studio: {
+      contextLabel: "Color Palette Generator",
+      isDefault: defaultPreference,
+      setDefault: setDefaultPreference,
+      isSelected: (name) => preferredItems.includes(name),
+      selectColor: (name) => {
+        setPreferredItems(name);
+        setHslControlPanelFamilies(name, colorFamilies[name]);
+      },
+    },
+    Gradient: {
+      contextLabel: "CSS Gradient Generator",
+      isDefault: defaultGradientPreference,
+      setDefault: setDefaultGradientPreference,
+      isSelected: (name) => preferredGradientItems.includes(name),
+      selectColor: (name) => setPreferredGradientItems(name),
+    },
+    Contrast: {
+      contextLabel: "Color Contrast Checker",
+      isDefault: defaultContrastPreference,
+      setDefault: setDefaultContrastPreference,
+      isSelected: (name) => preferredContrastItems.includes(name),
+      selectColor: (name) => setPreferredContrastItems(name),
+    },
+    Picker: {
+      contextLabel: "Color Picker",
+      isDefault: defaultColorPreference,
+      setDefault: setDefaultColorPreference,
+      isSelected: (name) => preferredColorItems === name,
+      selectColor: (name) => setPreferredColorItems(name),
+    },
+    Visualizer: {
+      contextLabel: "Palette Visualizer",
+      isDefault: defaultVisualizerPreference,
+      setDefault: setDefaultVisualizerPreference,
+      isSelected: (name) => preferredVisualizerItems.includes(name),
+      selectColor: (name) => setPreferredVisualizerItems(name),
+    },
+  };
 
-  const setIsTrue =
-    from === "Studio"
-      ? setDefaultPreference
-      : from === "Gradient"
-        ? setDefaultGradientPreference
-        : from === "Contrast"
-          ? setDefaultContrastPreference
-          : from === "Picker"
-            ? setDefaultColorPreference
-            : setDefaultVisualizerPreference;
+  const config = preferenceConfig[from] ?? preferenceConfig.Visualizer;
 
   return (
     <div className="relative max-lg:w-full">
@@ -139,11 +179,12 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
           size={"md"}
           aria-label="Open color preferences for palette generation"
           aria-expanded={colorPreferencesMenu}
-          aria-haspopup="true"
+          aria-haspopup="menu"
           className="max-lg:w-full max-lg:justify-between"
         >
           <span>Color Preferences</span>
           <LuChevronDown
+            aria-hidden="true"
             className={`${colorPreferencesMenu ? "rotate-0" : "rotate-180"} transition-all`}
             size={16}
           />
@@ -154,17 +195,8 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
         {colorPreferencesMenu && (
           <motion.menu
             ref={menuRef}
-            aria-label={
-              from === "Studio"
-                ? "Color preferences for Color Palette Generator"
-                : from === "Gradient"
-                  ? "Color preferences for CSS Gradient Generator"
-                  : from === "Contrast"
-                    ? "Color preferences for Color Contrast Checker"
-                    : from === "Picker"
-                      ? "Color preferences for Color Picker"
-                      : "Color preferences for Palette Visualizer"
-            }
+            role="menu"
+            aria-label={`Color preferences for ${config.contextLabel}`}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -175,54 +207,27 @@ export default function ColorPreferencesMenu({ from }: { from: string }) {
               <h3 className="text-sm font-semibold text-gray-900">
                 All colors
               </h3>
-              <ToggleButton isTrue={isTrue} setIsTrue={setIsTrue} />
+              <ToggleButton
+                isTrue={config.isDefault}
+                setIsTrue={config.setDefault}
+              />
             </div>
             <div className="w-full h-max flex flex-col p-2.5 max-h-100 overflow-y-auto noscrollbar">
               {preferredColors.map(({ id, name, hex }) => {
-                const isExist =
-                  from === "Studio"
-                    ? preferredItems.includes(name)
-                    : from === "Gradient"
-                      ? preferredGradientItems.includes(name)
-                      : from === "Contrast"
-                        ? preferredContrastItems.includes(name)
-                        : from === "Picker"
-                          ? preferredColorItems === name
-                          : preferredVisualizerItems.includes(name);
+                const isExist = config.isSelected(name);
                 return (
                   <button
                     key={id}
-                    aria-label={`${isExist ? "Remove" : "Add"} ${name} color ${
-                      from === "Studio"
-                        ? "from palette generator"
-                        : from === "Gradient"
-                          ? "from gradient generator"
-                          : from === "Contrast"
-                            ? "from contrast checker"
-                            : from === "Picker"
-                              ? "from color picker"
-                              : "from palette visualizer"
-                    }`}
+                    role="menuitem"
+                    aria-label={`${isExist ? "Remove" : "Add"} ${name} color from ${config.contextLabel}`}
                     aria-pressed={isExist}
                     className={`flex items-center justify-between p-2 rounded-lg hover:bg-gray-100 border border-white hover:border-gray-200 cursor-pointer transition-all ${isExist ? "text-indigo-600" : "text-gray-900"}`}
-                    onClick={() => {
-                      if (from === "Studio") {
-                        setPreferredItems(name);
-                        setHslControlPanelFamilies(name, colorFamilies[name]);
-                      } else if (from === "Gradient") {
-                        setPreferredGradientItems(name);
-                      } else if (from === "Contrast") {
-                        setPreferredContrastItems(name);
-                      } else if (from === "Picker") {
-                        setPreferredColorItems(name);
-                      } else {
-                        setPreferredVisualizerItems(name);
-                      }
-                    }}
+                    onClick={() => config.selectColor(name)}
                   >
                     <div className="flex items-center gap-4">
                       <LuCheck
                         size={16}
+                        aria-hidden="true"
                         className={`invisible ${isExist && "visible"}`}
                       />
                       <p className="text-sm font-semibold">{name}</p>

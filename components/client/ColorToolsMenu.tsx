@@ -25,10 +25,20 @@ export default function ColorToolsMenu() {
       }
     }
 
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setShowMenu(false);
+      }
+    }
+
     if (showMenu) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
     }
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, [showMenu]);
 
   return (
@@ -38,9 +48,13 @@ export default function ColorToolsMenu() {
           onClick={() => setShowMenu((prev) => !prev)}
           variant={"outline"}
           size={"md"}
+          aria-label="Open color tools menu"
+          aria-expanded={showMenu}
+          aria-haspopup="menu"
         >
           <span>Color Tools</span>
           <LuChevronDown
+            aria-hidden="true"
             className={`${showMenu ? "rotate-180" : "rotate-0"} transition-all`}
             size={18}
           />
@@ -51,6 +65,8 @@ export default function ColorToolsMenu() {
         {showMenu && (
           <motion.div
             ref={menuRef}
+            role="menu"
+            aria-label="Color tools"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -62,17 +78,23 @@ export default function ColorToolsMenu() {
                 <Link
                   href={url}
                   key={id}
+                  role="menuitem"
+                  aria-label={`Open ${title}`}
                   className="px-2 h-14 flex items-center gap-2 border border-white rounded-lg hover:bg-gray-100 hover:border-gray-200"
                 >
                   <div
                     className={`w-9 h-9 rounded-lg grid place-content-center bg-linear-to-t shrink-0 ${bgColors[0]} ${bgColors[1]}`}
                   >
-                    <Icon size={17} className="text-gray-50" />
+                    <Icon
+                      size={17}
+                      aria-hidden="true"
+                      className="text-gray-50"
+                    />
                   </div>
                   <div className="flex flex-col items-start gap-0.5">
-                    <h2 className="text-md font-semibold text-gray-900">
+                    <p className="text-md font-semibold text-gray-900">
                       {title}
-                    </h2>
+                    </p>
                     <p className="text-xs font-semibold text-gray-500">
                       {makeTextShorter(desc, 25)}
                     </p>

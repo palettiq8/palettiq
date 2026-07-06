@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { headerLinkItems } from "@/utils/Items";
 import HeaderMenu from "../client/HeaderMenu";
-import { LuArrowDown, LuBolt, LuChevronDown } from "react-icons/lu";
+import { LuBolt } from "react-icons/lu";
 import ColorToolsMenu from "../client/ColorToolsMenu";
 
 export default function HeaderSection() {
@@ -31,20 +31,12 @@ export default function HeaderSection() {
           aria-label="Primary site navigation"
           className="flex items-center gap-6.5 ml-2"
         >
-          {headerLinkItems.map(({ id, title, url }) => (
+          {headerLinkItems.map(({ id, title, url, hideOnTablet }) => (
             <Link
               key={id}
               href={url}
               title={title}
-              className={`${
-                [
-                  "Browse Gradients",
-                  "Browse Color Palettes",
-                  "Explore Color Shades",
-                ].includes(title)
-                  ? "max-lg:hidden"
-                  : ""
-              }`}
+              className={hideOnTablet ? "max-lg:hidden" : ""}
             >
               <Button variant="text" size="p0">
                 {title}

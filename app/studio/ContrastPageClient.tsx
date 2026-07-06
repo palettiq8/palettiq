@@ -109,7 +109,7 @@ export default function ContrastPageClient() {
     },
   ];
 
-  const getLabel = getRatingLabel();
+  const ratingLabel = getRatingLabel();
 
   const generateRandomContrastHandler = useCallback(() => {
     generateContrastPair("normal");
@@ -192,11 +192,11 @@ export default function ContrastPageClient() {
     const currentTitle = useContrastStore.getState().contrastTitle;
     const currentDesc = useContrastStore.getState().contrastDescription;
     if (currentTitle === null) {
-      setContrastTitle("Nice Day, Alhamdulliah!");
+      setContrastTitle("Design Made Simple");
     }
     if (currentDesc === null) {
       setContrastDescription(
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit.Recusandae iure dolore suscipit. Consequuntur eum doloremque assumenda itaque voluptas voluptate numquam, cum possimus, quidem corporis tenetur at quos! Architecto ex non mollitia deleniti laborum ducimus saepe facilis neque rerum adipisci tempora quibusdam nemo, aut nisi maiores sint, dolores hic sequi odit eos. Molestias ipsam nam architecto necessitatibus numquam vel, sapiente deleniti nemo, id dolores cumque soluta? Esse, eius dolorum? Dolorum expedita quia, dicta excepturi quidem quibusdam deserunt, maxime corporis ad doloribus sequi totam fuga nobis dolore? Nostrum reprehenderit vero expedita aliquid quod quia sunt, eum libero blanditiis, nihil vel, obcaecati tempora!",
+        "This is a live preview of your text and background colors. Adjust the font size and weight below to test how readable your content is at different contrast levels.",
       );
     }
   }, []);
@@ -321,12 +321,13 @@ export default function ContrastPageClient() {
                 </p>
                 {isMaximizeContrast && (
                   <Button
+                    aria-label="Exit fullscreen contrast preview"
                     onClick={() => setIsMaximizeContrast()}
                     variant={"outline"}
                     size={"circle"}
                     className="absolute top-4 left-4"
                   >
-                    <LuArrowLeft size={16} />
+                    <LuArrowLeft size={16} aria-hidden="true" />
                   </Button>
                 )}
               </div>
@@ -355,9 +356,9 @@ export default function ContrastPageClient() {
                     Status
                   </h3>
                   <span
-                    className={`text-sm font-semibold px-2 py-0.5 rounded-full ${getLabel === "Excellent" && "text-gray-50 bg-green-500"} ${getLabel === "Good" && "text-gray-50 bg-indigo-500"} ${getLabel === "Fair" && "text-gray-50 bg-amber-500"} ${getLabel === "Poor" && "text-gray-50 bg-red-500"}`}
+                    className={`text-sm font-semibold px-2 py-0.5 rounded-full ${ratingLabel === "Excellent" && "text-gray-50 bg-green-500"} ${ratingLabel === "Good" && "text-gray-50 bg-indigo-500"} ${ratingLabel === "Fair" && "text-gray-50 bg-amber-500"} ${ratingLabel === "Poor" && "text-gray-50 bg-red-500"}`}
                   >
-                    {getRatingLabel()}
+                    {ratingLabel}
                   </span>
                 </div>
               </div>

@@ -116,7 +116,7 @@ export default function ExplorePalettesPageClient({
         <p className="text-sm font-semibold text-gray-600 mt-5">
           {titleLabel
             ? `Explore curated ${titleLabel.toLowerCase()} color palettes for branding, UI design, websites, mobile apps, dashboards, and digital products. Copy HEX, RGB, and HSL color codes instantly on PalettIQ.`
-            : `Browse thousands of curated color palettes for branding, UI design, and digital products. Filter by mood, industry, color family, and style — then copy HEX, RGB, and HSL codes instantly. All free on PalettIQ.`}
+            : `Browse thousands of curated color palettes for branding, UI design, and digital products. Filter by mood, industry, use case, and color — then copy HEX, RGB, and HSL codes instantly. All free on PalettIQ.`}
         </p>
         <div className="w-full pt-8 pb-5 flex items-center justify-between">
           <div className="w-max flex items-center gap-2 max-lg:hidden">
@@ -154,7 +154,7 @@ export default function ExplorePalettesPageClient({
               />
             </div>
             <Button
-              aria-label="Filter color palettes by mood, industry, and style"
+              aria-label="Filter color palettes by mood, industry, and use case"
               onClick={() => togglePalettesFilterModel()}
               variant={"outline"}
               size={"md"}
@@ -223,7 +223,7 @@ export default function ExplorePalettesPageClient({
         <h2>
           {titleLabel
             ? `${titleLabel} Color Palettes`
-            : "Explore Free Color Palettes"}
+            : "Explore Free Color Palettes for Designers & Developers"}
         </h2>
 
         <p>

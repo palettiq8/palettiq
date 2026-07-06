@@ -52,9 +52,14 @@ export default function StudioLeftFooterMenu({ from }: { from: string }) {
           toggleStudioLeftFooterMenu();
         }}
       >
-        <button className="w-full flex items-center justify-between text-sm font-semibold text-gray-900 h-10 px-4 border border-gray-200 rounded-full bg-gray-100 cursor-pointer transition-all active:scale-95">
+        <button
+          aria-expanded={studioLeftFooterMenu}
+          aria-haspopup="menu"
+          className="w-full flex items-center justify-between text-sm font-semibold text-gray-900 h-10 px-4 border border-gray-200 rounded-full bg-gray-100 cursor-pointer transition-all active:scale-95"
+        >
           <span>More Options</span>
           <LuChevronDown
+            aria-hidden="true"
             className={`${studioLeftFooterMenu ? "rotate-0" : "rotate-180"} transition-all`}
             size={16}
           />
@@ -65,6 +70,7 @@ export default function StudioLeftFooterMenu({ from }: { from: string }) {
         {studioLeftFooterMenu && (
           <motion.div
             ref={menuRef}
+            role="menu"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
@@ -75,6 +81,7 @@ export default function StudioLeftFooterMenu({ from }: { from: string }) {
               return (
                 <Link
                   key={id}
+                  role="menuitem"
                   onClick={() => {
                     toggleStudioLeftFooterMenu();
                     if (from === "Responsive") {
@@ -84,7 +91,7 @@ export default function StudioLeftFooterMenu({ from }: { from: string }) {
                   href={url}
                   className={COMMONSTYLE}
                 >
-                  <Icon size={16} />
+                  <Icon size={16} aria-hidden="true" />
                   <p className="text-sm font-semibold">{title}</p>
                 </Link>
               );

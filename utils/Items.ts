@@ -51,9 +51,24 @@ import Visualize7 from "@/components/visualizers/Visualize7";
 import VisualizeSVG from "@/components/visualizers/VisualizeSVG";
 
 export const headerLinkItems = [
-  { id: 1, title: "Browse Color Palettes", url: "/explore/palettes" },
-  { id: 2, title: "Explore Color Shades", url: "/explore/colors" },
-  { id: 3, title: "Browse Gradients", url: "/explore/gradients" },
+  {
+    id: 1,
+    title: "Palettes",
+    url: "/explore/palettes",
+    hideOnTablet: true,
+  },
+  {
+    id: 2,
+    title: "Colors",
+    url: "/explore/colors",
+    hideOnTablet: true,
+  },
+  {
+    id: 3,
+    title: "Gradients",
+    url: "/explore/gradients",
+    hideOnTablet: true,
+  },
 ];
 
 export const features = [
@@ -62,7 +77,7 @@ export const features = [
     title: "Color Palette Generator",
     urlTitle: "Generate Color Palettes",
     icon: LuGrid2X2,
-    desc: "Generate personalized color palettes from selected colors, moods, industries, harmonies, and styles. Export ready-to-use palettes instantly.",
+    desc: "Generate personalized color palettes from your selected colors and harmonies. Adjust hue, saturation, and lightness to create pastel, vibrant, or custom palettes instantly.",
     bgColors: ["from-red-600", "to-red-500"],
     oneBgColor: "bg-red-300",
     url: "/studio",
@@ -72,7 +87,7 @@ export const features = [
     title: "Color Palette Visualizer",
     urlTitle: "Visualize Color Palettes",
     icon: LuActivity,
-    desc: "Preview color palettes in real UI components, dashboards, websites, and design layouts before using them in production.",
+    desc: "Preview color palettes on ready-made UI templates, or upload your own SVG design to see exactly how your colors will look before using them in production.",
     bgColors: ["from-amber-600", "to-amber-500"],
     oneBgColor: "bg-amber-300",
     url: "/studio/color-palette-visualizer",
@@ -82,7 +97,7 @@ export const features = [
     title: "CSS Gradient Generator",
     urlTitle: "Generate CSS Gradients",
     icon: LuCircleDot,
-    desc: "Create linear, radial, and conic CSS gradients visually. Customize colors, directions, and stops, then copy production-ready CSS code.",
+    desc: "Create linear, radial, and conic CSS gradients visually. Customize colors, directions, and stops, then copy production-ready CSS gradient code instantly.",
     bgColors: ["from-lime-600", "to-lime-500"],
     oneBgColor: "bg-lime-300",
     url: "/studio/css-gradient-generator",
@@ -92,7 +107,7 @@ export const features = [
     title: "Color Extractor",
     urlTitle: "Extract Colors from Images",
     icon: LuPickaxe,
-    desc: "Extract dominant colors and generate palettes from images instantly. Get HEX, RGB, and HSL values for branding and design projects.",
+    desc: "Extract dominant colors from any image and generate a palette instantly. Get HEX, RGB, and HSL values ready for branding and design projects.",
     bgColors: ["from-green-600", "to-green-500"],
     oneBgColor: "bg-green-300",
     url: "/studio/color-extractor",
@@ -102,7 +117,7 @@ export const features = [
     title: "Color Contrast Checker",
     urlTitle: "Check Color Contrast Ratios",
     icon: LuContrast,
-    desc: "Check WCAG AA and AAA color contrast ratios instantly. Test foreground and background color combinations for accessibility compliance.",
+    desc: "Check WCAG AA and AAA color contrast ratios instantly. Test foreground and background combinations for accessible, compliant designs.",
     bgColors: ["from-indigo-600", "to-indigo-500"],
     oneBgColor: "bg-indigo-300",
     url: "/studio/color-contrast-checker",
@@ -112,7 +127,7 @@ export const features = [
     title: "Online Color Picker",
     urlTitle: "Pick Color Online",
     icon: LuPencil,
-    desc: "Pick colors online and instantly get HEX, RGB, HSL, CMYK, LAB, LCH, and XYZ values with harmonies, tints, shades, and tones.",
+    desc: "Pick any color online and instantly get HEX, RGB, HSL, CMYK, LAB, LCH, and XYZ values, plus harmonies, tints, shades, and tones.",
     bgColors: ["from-violet-600", "to-violet-500"],
     oneBgColor: "bg-violet-300",
     url: "/studio/online-color-picker",
@@ -122,7 +137,7 @@ export const features = [
     title: "CSS Shadow Generator",
     urlTitle: "Generate CSS Shadows",
     icon: LuDroplet,
-    desc: "Create box shadows and text shadows visually. Adjust blur, spread, offset, color, and inset settings, then copy CSS code instantly.",
+    desc: "Create box shadows and text shadows visually. Adjust blur, spread, offset, color, and inset settings, then copy CSS shadow code instantly.",
     bgColors: ["from-purple-600", "to-purple-500"],
     oneBgColor: "bg-purple-300",
     url: "/studio/css-shadow-generator",
@@ -754,7 +769,7 @@ export const generalQuestions = [
   {
     title: "What is PalettIQ?",
     content:
-      "PalettIQ is a smart color tool designed for designers, developers, and anyone who works with colors. It helps you generate color palettes based on your interests—such as preferred colors, moods, and use cases—so you get more relevant and usable results. Beyond palettes, PalettIQ also offers tools like gradient generation, color contrast checking, color extraction from images and much more, making it a complete toolkit for working with colors.",
+      "PalettIQ is a smart color tool designed for designers, developers, and anyone who works with colors. It helps you generate color palettes from your preferred colors and harmonies, with full control over hue, saturation, and lightness. You can also explore ready-made palettes filtered by mood, use case, and more. Beyond palettes, PalettIQ offers gradient generation, color contrast checking, color extraction from images, and much more, making it a complete toolkit for working with colors.",
   },
   {
     title: "Who is PalettIQ for?",
@@ -774,7 +789,7 @@ export const generalQuestions = [
   {
     title: "What makes PalettIQ different from other palette tools?",
     content:
-      "PalettIQ focuses on generating palettes based on your interests, such as preferred colors, moods, and use cases, so the results feel more relevant. It also provides additional tools like gradient generation, contrast checking, and color extraction, making it more than just a basic palette generator.",
+      "PalettIQ lets you generate palettes from your preferred colors and harmonies with full HSL control, so results match your exact vision — not random shuffles. You can also explore ready-made palettes filtered by mood, use case, and more. It also provides additional tools like gradient generation, contrast checking, and color extraction, making it more than just a basic palette generator.",
   },
   {
     title: "Can beginners use PalettIQ easily?",
@@ -864,7 +879,7 @@ export const paletteAndColorsQuestions = [
   {
     title: "Can I import colors from an image or external source?",
     content:
-      "Yes, you can import colors from images using the Image Extractor section. Simply upload an image, extract colors as palette and open it on generator.",
+      "Yes, you can import colors from images using the Color Extractor tool. Simply upload an image, extract colors as a palette, and open it in the Generator.",
   },
 ];
 export const paletteFiltersQuestions = [
@@ -875,7 +890,7 @@ export const paletteFiltersQuestions = [
   },
   {
     title: "Can I filter palettes by color or mood?",
-    content: "Yes, you can filter palettes by color, mood, and more.",
+    content: "Yes, you can filter palettes by color, mood, use case, and more.",
   },
   {
     title: "Can I combine multiple filters at once?",
@@ -975,7 +990,7 @@ export const settingsAndPreferencesQuestions = [
   {
     title: "Can I turn off product update emails?",
     content:
-      "Yes, you can request to unsubscribe by emailing our support (palettiq8@gmail.com). Our team will remove your email from the update list.",
+      "Yes, you can request to unsubscribe by emailing our support (hello@palettiq.net). Our team will remove your email from the update list.",
   },
 ];
 export const updateAndAccountsQuestions = [
@@ -1032,7 +1047,7 @@ export const homeFAQQuestions = [
   {
     title: "What makes PalettIQ different from other palette tools?",
     content:
-      "PalettIQ focuses on generating palettes based on your interests, such as preferred colors, moods, and use cases, so the results feel more relevant. It also provides additional tools like gradient generation, contrast checking, and color extraction, making it more than just a basic palette generator.",
+      "PalettIQ lets you generate palettes from your preferred colors and harmonies with full HSL control, so results match your exact vision — not random shuffles. You can also explore ready-made palettes filtered by mood, use case, and more. It also provides additional tools like gradient generation, contrast checking, and color extraction, making it more than just a basic palette generator.",
   },
   {
     title: "Can I use PalettIQ for professional projects?",
@@ -1062,7 +1077,7 @@ export const homeFAQQuestions = [
   {
     title: "Does PalettIQ support HEX, RGB, and HSL formats?",
     content:
-      "Yes, Palettiq supports HEX, RGB, and HSL formats. You can view and copy colors in different formats depending on your needs.",
+      "Yes, PalettIQ supports HEX, RGB, and HSL formats. You can view and copy colors in different formats depending on your needs.",
   },
   {
     title: "Can I duplicate a palette?",

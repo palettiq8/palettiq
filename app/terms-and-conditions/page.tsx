@@ -1,8 +1,66 @@
 import CommonHeaderFooterSection from "@/components/server/CommonHeaderFooterSection";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions",
+  description:
+    "Read PalettIQ's Terms & Conditions covering platform use, user-generated content, publishing, intellectual property, and account-free access.",
+  alternates: {
+    canonical: "https://palettiq.net/terms-and-conditions",
+  },
+  openGraph: {
+    title: "Terms & Conditions | PalettIQ",
+    description:
+      "Read PalettIQ's Terms & Conditions covering platform use, content, and intellectual property.",
+    url: "https://palettiq.net/terms-and-conditions",
+    siteName: "PalettIQ",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "/banner.webp",
+        width: 1200,
+        height: 630,
+        alt: "PalettIQ Terms & Conditions",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms & Conditions | PalettIQ",
+    description: "Read PalettIQ's Terms & Conditions.",
+    images: ["/banner.webp"],
+    creator: "@palettiq",
+  },
+};
 
 export default function page() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://palettiq.net/terms-and-conditions#webpage",
+        url: "https://palettiq.net/terms-and-conditions",
+        name: "Terms & Conditions | PalettIQ",
+        description:
+          "Read PalettIQ's Terms & Conditions covering platform use, user-generated content, publishing, intellectual property, and account-free access.",
+        inLanguage: "en-US",
+        isPartOf: {
+          "@id": "https://palettiq.net/#website",
+        },
+      },
+    ],
+  };
+
   return (
     <CommonHeaderFooterSection>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd),
+        }}
+      />
       <div className="w-full h-max max-w-350 mx-auto py-20 max-xl:px-4 max-sm:py-10">
         <h1 className="text-4xl font-bold text-gray-900 text-center">
           Terms & Conditions
@@ -838,7 +896,7 @@ export default function page() {
 
             <div className="space-y-3">
               <h3 className="text-lg font-semibold text-gray-900">
-                3. Response Policy
+                2. Response Policy
               </h3>
               <p className="text-gray-800 leading-relaxed">
                 We aim to respond to all inquiries as soon as possible,
