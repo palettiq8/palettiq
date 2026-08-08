@@ -5,7 +5,7 @@ import { Button } from "@/components/Button";
 export default function NotFound() {
   return (
     <CommonHeaderFooterSection>
-      <main className="w-full min-h-[600px] flex flex-col items-center justify-center px-4 text-center">
+      <main className="w-full min-h-150 flex flex-col items-center justify-center px-4 text-center">
         <h1 className="text-5xl font-black text-gray-900">
           404 - Page Not Found
         </h1>
