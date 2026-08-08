@@ -1252,24 +1252,6 @@ export const blogs = [
     date: "12 July, 2026",
   },
   {
-    id: 16,
-    title:
-      "Color palettes for eco and sustainability brands that don't feel generic",
-    category: "Case studies",
-    url: "/blog/brutal timing",
-    author: "PalettIQ Team",
-    date: "12 July, 2026",
-  },
-  {
-    id: 17,
-    title:
-      "Dark mode color palettes: how to design UI that doesn't hurt the eyes",
-    category: "Case studies",
-    url: "/blog/dark-mode-color-palettes-how-to-design-ui-that-doesnt-hurt-the-eyes",
-    author: "PalettIQ Team",
-    date: "10 July, 2026",
-  },
-  {
     id: 18,
     title: "Coolors vs PalettIQ: which color tool fits your workflow?",
     category: "Comparisons",
