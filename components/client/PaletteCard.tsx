@@ -123,7 +123,14 @@ export default function PaletteCard({
         <Button
           onClick={() =>
             copyToClipboard(
-              `[${colorsFromPalettes.map((color) => `"${color}"`)}]`,
+              JSON.stringify(
+                {
+                  name: palette?.name,
+                  colors: colorsFromPalettes,
+                },
+                null,
+                2,
+              ),
             )
           }
           aria-label={`Copy all colors from ${palette?.name} palette`}
